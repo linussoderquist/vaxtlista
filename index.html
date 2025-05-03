@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Växtdatabas</title>
-  <!-- Montserrat font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <style>
     * {
@@ -33,7 +32,7 @@
       margin-bottom: 1rem;
     }
 
-    input, select, button {
+    input, button {
       width: 100%;
       padding: 10px;
       margin-bottom: 1rem;
@@ -142,19 +141,6 @@
     <h1>Sök växtart</h1>
     <input type="text" id="searchInput" placeholder="Skriv växtens svenska namn...">
     <div id="suggestions"></div>
-
-    <label for="zoneFilter"><strong>Växtzon:</strong></label>
-    <select id="zoneFilter">
-      <option value="">Alla växtzoner</option>
-      <option value="1">Zon I</option>
-      <option value="2">Zon II</option>
-      <option value="3">Zon III</option>
-      <option value="4">Zon IV</option>
-      <option value="5">Zon V</option>
-      <option value="6">Zon VI</option>
-      <option value="7">Zon VII</option>
-      <option value="8">Zon VIII</option>
-    </select>
 
     <button onclick="searchPlant()">Sök</button>
     <div id="result"></div>
