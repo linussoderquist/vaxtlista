@@ -93,6 +93,7 @@ function searchPlant() {
   if (match) {
     const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
     const zon = heatRequirementToZone(match["Heat requirement"]);
+    const dyntaxa = match["Dyntaxa ID number"];
 
     resultDiv.innerHTML = `
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
@@ -109,7 +110,8 @@ function searchPlant() {
       <p><strong>Ljusbehov:</strong> ${drawScale(match["Light"])}</p>
       <p><strong>Fuktighetskrav:</strong> ${drawScale(match["Moisture"])}</p>
 
-      <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${match["Dyntaxa ID number"]}" target="_blank">Visa artfakta</a></p>
+      <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
+      ${match["Establishment"] !== "Resident" ? `<p><strong>Risklista:</strong> <a href="https://artfakta.se/risklistor/2024/taxa/${dyntaxa}" target="_blank">Visa riskklassificering</a></p>` : ""}
       ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
     `;
   } else {
