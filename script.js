@@ -80,7 +80,7 @@ function searchPlant() {
       <p><strong>Nektarproduktion:</strong> ${drawScale(match["Nectar production"])}</p>
       <p><strong>Ljusbehov:</strong> ${drawScale(match["Light"])}</p>
       <p><strong>Fuktighetskrav:</strong> ${drawScale(match["Moisture"])}</p>
-      <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/artfaktablad/${match["Dyntaxa ID number"]}" target="_blank">Visa artfakta</a></p>
+      <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${match["Dyntaxa ID number"]}" target="_blank">Visa artfakta</a></p>
       ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
     `;
   } else {
