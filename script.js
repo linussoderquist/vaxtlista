@@ -41,7 +41,6 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// 🔥🧂 Skala med valfri emoji och valfri färg
 function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
   value = parseInt(value);
   if (isNaN(value)) return "<em>okänt</em>";
@@ -54,22 +53,19 @@ function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
   return output;
 }
 
-// 💧 fukt
 function drawMoistureScale(value) {
   const scaled = scaleMoisture(value);
   return scaled ? drawScaleWithEmoji(scaled, "💧") : "<em>okänt</em>";
 }
 
-// ☀️ ljus
 function drawLightScale(value) {
   return drawScaleWithEmoji(value, "☀️");
 }
 
-// 🐸🌼🍄 slumpad biodiversitet
 function drawBiodiversityScale(value) {
   value = parseInt(value);
   if (isNaN(value)) return "<em>okänt</em>";
-  const pool = ["🐸", "🌼", "🍄", "🦔", "🦇", "🐛", "🐞", "🐜", "🦟","🐇", "🦗", "🐌", "🦉", "🦦"];
+  const pool = ["🐸", "🌼", "🍄", "🦔", "🪲", "🐌", "🦉", "🦦"];
   let output = "<div class='scale'>";
   for (let i = 0; i < 5; i++) {
     output += `<span>${i < value ? pool[Math.floor(Math.random() * pool.length)] : "⚪"}</span>`;
@@ -78,7 +74,6 @@ function drawBiodiversityScale(value) {
   return output;
 }
 
-// 🐝🦋 nektarproduktion (0–6)
 function drawNectarScale(value) {
   const raw = parseInt(value);
   if (isNaN(raw) || raw < 1) return "<em>okänt</em>";
@@ -93,7 +88,6 @@ function drawNectarScale(value) {
   return output;
 }
 
-// fukt-skalning: alla >8 blir 8 → 1–5
 function scaleMoisture(originalValue) {
   let v = parseInt(originalValue);
   if (isNaN(v)) return null;
@@ -101,7 +95,6 @@ function scaleMoisture(originalValue) {
   return Math.ceil((v / 8) * 5);
 }
 
-// riskklass
 function getRiskCategory(establishment, index) {
   if (establishment !== "Non-resident") return null;
   index = parseInt(index);
@@ -113,7 +106,6 @@ function getRiskCategory(establishment, index) {
   return { label: "minimal eller ingen risk", class: "risk-låg" };
 }
 
-// härdighetstext
 function heatRequirementToZone(heat) {
   const h = parseInt(heat);
   if (isNaN(h)) return "okänd";
@@ -134,6 +126,27 @@ function heatRequirementToZone(heat) {
   return "okänd";
 }
 
+function getRedlistBadge(status) {
+  if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
+    return `<span class="redlist-badge rl-LC">LC</span>Livskraftig`;
+  }
+
+  const s = status.trim().toUpperCase();
+  const code = s.match(/(EX|EW|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
+  const labels = {
+    EX: "Utrotad",
+    EW: "Utrotad i naturen",
+    CR: "Akut hotad",
+    EN: "Starkt hotad",
+    VU: "Sårbar",
+    NT: "Nära hotad",
+    LC: "Livskraftig",
+    DD: "Kunskapsbrist",
+    NE: "Ej bedömd"
+  };
+  return `<span class="redlist-badge rl-${code}">${code}</span>${labels[code] || status}`;
+}
+
 function searchPlant() {
   const inputVal = input.value.toLowerCase().trim();
   const resultDiv = document.getElementById("result");
@@ -151,7 +164,7 @@ function searchPlant() {
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
       <p><strong>Familj:</strong> ${match["Family"]}</p>
       <p><strong>Upprättad status:</strong> ${match["Establishment"]}</p>
-      <p><strong>Rödlistning:</strong> ${match["Red-listed"]}</p>
+      <p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>
       <p><strong>Härdighet:</strong> ${zon}</p>
 
       <p><strong>Värmekrav:</strong> ${drawScaleWithEmoji(match["Heat requirement"], "🔥", "#fa9f43")}</p>
