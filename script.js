@@ -51,6 +51,16 @@ function drawScale(value, max = 5) {
   return `<div class="scale">${dots}</div>`;
 }
 
+function scaleMoisture(originalValue) {
+  let v = parseInt(originalValue);
+  if (isNaN(v)) return null;
+  if (v > 8) v = 8;
+
+  // Skala 1–8 → 1–5
+  const scaled = Math.ceil((v / 8) * 5);
+  return scaled;
+}
+
 function getRiskCategory(establishment, index) {
   if (establishment !== "Non-resident") return null;
   index = parseInt(index);
@@ -94,6 +104,7 @@ function searchPlant() {
     const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
     const zon = heatRequirementToZone(match["Heat requirement"]);
     const dyntaxa = match["Dyntaxa ID number"];
+    const scaledMoisture = scaleMoisture(match["Moisture"]);
 
     resultDiv.innerHTML = `
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
@@ -108,7 +119,7 @@ function searchPlant() {
 
       <p><strong>Nektarproduktion:</strong> ${drawScale(match["Nectar production"])}</p>
       <p><strong>Ljusbehov:</strong> ${drawScale(match["Light"])}</p>
-      <p><strong>Fuktighetskrav:</strong> ${drawScale(match["Moisture"])}</p>
+      <p><strong>Fuktighetskrav:</strong> ${scaledMoisture ? drawScale(scaledMoisture) : "<em>okänt</em>"}</p>
 
       <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
       ${match["Establishment"] !== "Resident" ? `<p><strong>Risklista:</strong> <a href="https://artfakta.se/risklistor/2024/taxa/${dyntaxa}" target="_blank">Visa riskklassificering</a></p>` : ""}
