@@ -19,6 +19,22 @@
     #suggestions div:hover {
       background-color: #eee;
     }
+
+    .scale {
+      display: flex;
+      gap: 4px;
+      margin: 5px 0;
+    }
+    .dot {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 1px solid #555;
+      background-color: #eee;
+    }
+    .dot.filled {
+      background-color: #3c763d;
+    }
   </style>
 </head>
 <body>
@@ -28,6 +44,8 @@
   <button onclick="searchPlant()">Sök</button>
   <div id="result"></div>
 
+  <!-- Papa Parse för korrekt CSV-hantering -->
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
