@@ -61,13 +61,13 @@ function searchPlant() {
     resultDiv.innerHTML = `
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
       <p><strong>Familj:</strong> ${match["Family"]}</p>
-      <p><strong>Dyntaxa ID:</strong> ${match["Dyntaxa ID number"]}</p>
       <p><strong>Upprättad status:</strong> ${match["Establishment"]}</p>
       <p><strong>Rödlistning:</strong> ${match["Red-listed"]}</p>
       <p><strong>Biologisk mångfald:</strong> ${match["Biodiversity relevance"]}</p>
       <p><strong>Nektarproduktion:</strong> ${drawScale(match["Nectar production"])}</p>
       <p><strong>Ljusbehov:</strong> ${drawScale(match["Light"])}</p>
       <p><strong>Fuktighetskrav:</strong> ${drawScale(match["Moisture"])}</p>
+      <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/artfaktablad/${match["Dyntaxa ID number"]}" target="_blank">Visa artfakta</a></p>
     `;
   } else {
     resultDiv.innerHTML = "Växten hittades inte.";
