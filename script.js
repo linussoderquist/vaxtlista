@@ -62,6 +62,26 @@ function getRiskCategory(establishment, index) {
   return { label: "minimal eller ingen risk", class: "risk-låg" };
 }
 
+function heatRequirementToZone(heat) {
+  const h = parseInt(heat);
+  if (isNaN(h)) return "okänd";
+  if (h === 1) return "hög-alpin/arktisk zon";
+  if (h === 2) return "mellanalpin zon";
+  if (h === 3) return "låg-alpin zon";
+  if (h === 4) return "trädgräns (övre subalpin zon)";
+  if (h === 5) return "subalpin zon (zon 9, gynnsamma lägen)";
+  if (h === 6) return "odlingszon 8";
+  if (h === 7) return "odlingszon 7";
+  if (h === 8) return "odlingszon 6";
+  if (h === 9) return "odlingszon 5";
+  if (h === 10) return "odlingszon 4";
+  if (h === 11) return "odlingszon 3";
+  if (h === 12) return "odlingszon 2";
+  if (h === 13) return "odlingszon 1";
+  if (h === 14) return "klarar ej reproduktion i Sverige";
+  return "okänd";
+}
+
 function searchPlant() {
   const inputVal = input.value.toLowerCase().trim();
   const resultDiv = document.getElementById("result");
@@ -72,7 +92,7 @@ function searchPlant() {
 
   if (match) {
     const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
-    const zon = match["Cold requirement"] ? `Zon ${match["Cold requirement"]}` : "okänd";
+    const zon = heatRequirementToZone(match["Heat requirement"]);
 
     resultDiv.innerHTML = `
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
