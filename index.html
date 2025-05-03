@@ -2,17 +2,45 @@
 <html lang="sv">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Växtdatabas</title>
   <!-- Montserrat font -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: #b7db93;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    .container {
       max-width: 700px;
       margin: auto;
-      padding: 2rem;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+
+    h1 {
+      font-size: 1.5rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      font-family: 'Montserrat', sans-serif;
+    }
+
     #suggestions {
       border: 1px solid #ccc;
       max-height: 150px;
@@ -22,18 +50,22 @@
       background: white;
       z-index: 10;
     }
+
     #suggestions div {
       padding: 5px;
       cursor: pointer;
     }
+
     #suggestions div:hover {
       background-color: #eee;
     }
+
     .scale {
       display: flex;
       gap: 4px;
       margin: 5px 0;
     }
+
     .dot {
       width: 16px;
       height: 16px;
@@ -41,9 +73,11 @@
       border: 1px solid #555;
       background-color: #eee;
     }
+
     .dot.filled {
       background-color: #3c763d;
     }
+
     .risk-tag {
       display: inline-block;
       padding: 4px 8px;
@@ -53,60 +87,78 @@
       font-size: 0.9rem;
       margin-top: 5px;
     }
+
     .risk-hög {
       background-color: #c0392b;
     }
+
     .risk-måttlig {
       background-color: #f39c12;
     }
+
     .risk-låg {
       background-color: #27ae60;
     }
+
     .risk-okänd {
       background-color: #7f8c8d;
     }
+
     a {
       color: #1d5ea8;
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
     }
-    input, select, button {
-      width: 100%;
-      padding: 8px;
-      margin-bottom: 0.5rem;
-      font-size: 1rem;
-      font-family: 'Montserrat', sans-serif;
-    }
+
     #result {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       padding: 1rem;
       background-color: #f9f9f9;
       border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.3rem;
+      }
+
+      .dot {
+        width: 14px;
+        height: 14px;
+      }
+
+      .risk-tag {
+        font-size: 0.8rem;
+      }
     }
   </style>
 </head>
 <body>
-  <h1>Sök växtart</h1>
-  <input type="text" id="searchInput" placeholder="Skriv växtens svenska namn...">
-  <div id="suggestions"></div>
+  <div class="container">
+    <h1>Sök växtart</h1>
+    <input type="text" id="searchInput" placeholder="Skriv växtens svenska namn...">
+    <div id="suggestions"></div>
 
-  <label for="zoneFilter"><strong>Växtzon:</strong></label>
-  <select id="zoneFilter">
-    <option value="">Alla växtzoner</option>
-    <option value="1">Zon I</option>
-    <option value="2">Zon II</option>
-    <option value="3">Zon III</option>
-    <option value="4">Zon IV</option>
-    <option value="5">Zon V</option>
-    <option value="6">Zon VI</option>
-    <option value="7">Zon VII</option>
-    <option value="8">Zon VIII</option>
-  </select>
+    <label for="zoneFilter"><strong>Växtzon:</strong></label>
+    <select id="zoneFilter">
+      <option value="">Alla växtzoner</option>
+      <option value="1">Zon I</option>
+      <option value="2">Zon II</option>
+      <option value="3">Zon III</option>
+      <option value="4">Zon IV</option>
+      <option value="5">Zon V</option>
+      <option value="6">Zon VI</option>
+      <option value="7">Zon VII</option>
+      <option value="8">Zon VIII</option>
+    </select>
 
-  <button onclick="searchPlant()">Sök</button>
-  <div id="result"></div>
+    <button onclick="searchPlant()">Sök</button>
+    <div id="result"></div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="script.js"></script>
