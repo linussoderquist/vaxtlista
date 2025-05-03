@@ -5,6 +5,8 @@ fetch("vaxtdata.csv")
   .then(text => {
     const rows = text.trim().split("\n");
     const headers = rows[0].split(",");
+    const nameIndex = headers.indexOf("Svenskt namn");
+
     for (let i = 1; i < rows.length; i++) {
       const values = rows[i].split(",");
       let plant = {};
@@ -13,16 +15,25 @@ fetch("vaxtdata.csv")
       });
       plantData.push(plant);
     }
+
+    // Fyll datalist med svenska namn
+    const nameSuggestions = document.getElementById("nameSuggestions");
+    const uniqueNames = [...new Set(plantData.map(p => p["Svenskt namn"]))].sort();
+    uniqueNames.forEach(name => {
+      const option = document.createElement("option");
+      option.value = name;
+      nameSuggestions.appendChild(option);
+    });
   });
 
 function searchPlant() {
   const input = document.getElementById("searchInput").value.toLowerCase();
   const resultDiv = document.getElementById("result");
-  const match = plantData.find(p => p["Scientific name"].toLowerCase() === input);
+  const match = plantData.find(p => p["Svenskt namn"].toLowerCase() === input);
 
   if (match) {
     resultDiv.innerHTML = `
-      <h2>${match["Scientific name"]} (${match["Svenskt namn"]})</h2>
+      <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
       <p><strong>Familj:</strong> ${match["Family"]}</p>
       <p><strong>Dyntaxa ID:</strong> ${match["Dyntaxa ID number"]}</p>
       <p><strong>Upprättad status:</strong> ${match["Establishment"]}</p>
