@@ -65,7 +65,7 @@ function drawLightScale(value) {
 function drawBiodiversityScale(value) {
   value = parseInt(value);
   if (isNaN(value)) return "<em>okänt</em>";
-  const pool = ["🐸", "🌼", "🍄", "🦔", "🐌", "🦉", "🦦"];
+  const pool = ["🐸", "🌼", "🍄", "🦔", "🐛", "🐌", "🦉", "🦦"];
   let output = "<div class='scale'>";
   for (let i = 0; i < 5; i++) {
     output += `<span>${i < value ? pool[Math.floor(Math.random() * pool.length)] : "⚪"}</span>`;
@@ -178,6 +178,18 @@ function searchPlant() {
       <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
       ${match["Establishment"] !== "Resident" ? `<p><strong>Risklista:</strong> <a href="https://artfakta.se/risklistor/2024/taxa/${dyntaxa}" target="_blank">Visa riskklassificering</a></p>` : ""}
       ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
+
+      <hr>
+      <h3>Förklaringar till skalor</h3>
+      <ul>
+        <li><strong>🔥 Värmekrav:</strong> Högre värde = kräver varmare klimat</li>
+        <li><strong>🧂 Salttolerans:</strong> Högre värde = tål salta miljöer</li>
+        <li><strong>💧 Fuktighetskrav:</strong> Högre värde = föredrar fuktigare miljö</li>
+        <li><strong>☀️ Ljusbehov:</strong> Högre värde = kräver mer ljus</li>
+        <li><strong>🐝🦋 Nektarproduktion:</strong> Högre värde = producerar mer nektar (1 = ingen)</li>
+        <li><strong>🐸🌼🍄🦔🐛...</strong> Biodiversitetsrelevans: Högre värde = viktigare för biologisk mångfald</li>
+      </ul>
+      <p><strong>Källa:</strong> <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">Ecosystem services indicators for plant species (Ecol. Indicators, 2020)</a></p>
     `;
   } else {
     resultDiv.innerHTML = "Växten hittades inte.";
