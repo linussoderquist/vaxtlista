@@ -82,11 +82,16 @@ function searchPlant() {
       <p><strong>Familj:</strong> ${match["Family"]}</p>
       <p><strong>Upprättad status:</strong> ${match["Establishment"]}</p>
       <p><strong>Rödlistning:</strong> ${match["Red-listed"]}</p>
-      <p><strong>Biologisk mångfald:</strong> ${match["Biodiversity relevance"]}</p>
       <p><strong>Köldkrav (zon):</strong> ${match["Cold requirement"]}</p>
+
+      <p><strong>Värmekrav:</strong> ${drawScale(match["Heat requirement"])}</p>
+      <p><strong>Salttolerans:</strong> ${drawScale(match["Salinity"])}</p>
+      <p><strong>Biodiversitetsrelevans:</strong> ${drawScale(match["Biodiversity relevance"])}</p>
+
       <p><strong>Nektarproduktion:</strong> ${drawScale(match["Nectar production"])}</p>
       <p><strong>Ljusbehov:</strong> ${drawScale(match["Light"])}</p>
       <p><strong>Fuktighetskrav:</strong> ${drawScale(match["Moisture"])}</p>
+
       <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${match["Dyntaxa ID number"]}" target="_blank">Visa artfakta</a></p>
       ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
     `;
