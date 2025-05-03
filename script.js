@@ -64,9 +64,15 @@ function getRiskCategory(establishment, index) {
 
 function searchPlant() {
   const inputVal = input.value.toLowerCase().trim();
+  const selectedZone = document.getElementById("zoneFilter").value;
   const resultDiv = document.getElementById("result");
 
-  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+  const match = plantData.find(p => {
+    const nameMatch = p["Svenskt namn"]?.toLowerCase().trim() === inputVal;
+    const coldRequirement = parseInt(p["Cold requirement"]);
+    const zoneOk = !selectedZone || (coldRequirement && coldRequirement <= parseInt(selectedZone));
+    return nameMatch && zoneOk;
+  });
 
   if (match) {
     const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
@@ -77,6 +83,7 @@ function searchPlant() {
       <p><strong>Upprättad status:</strong> ${match["Establishment"]}</p>
       <p><strong>Rödlistning:</strong> ${match["Red-listed"]}</p>
       <p><strong>Biologisk mångfald:</strong> ${match["Biodiversity relevance"]}</p>
+      <p><strong>Köldkrav (zon):</strong> ${match["Cold requirement"]}</p>
       <p><strong>Nektarproduktion:</strong> ${drawScale(match["Nectar production"])}</p>
       <p><strong>Ljusbehov:</strong> ${drawScale(match["Light"])}</p>
       <p><strong>Fuktighetskrav:</strong> ${drawScale(match["Moisture"])}</p>
@@ -84,6 +91,6 @@ function searchPlant() {
       ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
     `;
   } else {
-    resultDiv.innerHTML = "Växten hittades inte.";
+    resultDiv.innerHTML = "Växten hittades inte eller klarar inte vald zon.";
   }
 }
