@@ -69,14 +69,10 @@
     a:hover {
       text-decoration: underline;
     }
-    input {
+    input, select, button {
       width: 100%;
       padding: 8px;
       margin-bottom: 0.5rem;
-      font-size: 1rem;
-    }
-    button {
-      padding: 8px 16px;
       font-size: 1rem;
     }
     #result {
@@ -91,10 +87,23 @@
   <h1>Sök växtart</h1>
   <input type="text" id="searchInput" placeholder="Skriv växtens svenska namn...">
   <div id="suggestions"></div>
+
+  <label for="zoneFilter"><strong>Växtzon:</strong></label>
+  <select id="zoneFilter">
+    <option value="">Alla växtzoner</option>
+    <option value="1">Zon I</option>
+    <option value="2">Zon II</option>
+    <option value="3">Zon III</option>
+    <option value="4">Zon IV</option>
+    <option value="5">Zon V</option>
+    <option value="6">Zon VI</option>
+    <option value="7">Zon VII</option>
+    <option value="8">Zon VIII</option>
+  </select>
+
   <button onclick="searchPlant()">Sök</button>
   <div id="result"></div>
 
-  <!-- Papa Parse för korrekt CSV-hantering -->
   <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
   <script src="script.js"></script>
 </body>
