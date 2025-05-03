@@ -1,19 +1,13 @@
 let plantData = [];
 
-fetch("vaxtdata.csv")
-  .then(res => res.text())
-  .then(text => {
-    const rows = text.trim().split("\n");
-    const headers = rows[0].split(",");
-    for (let i = 1; i < rows.length; i++) {
-      const values = rows[i].split(",");
-      let plant = {};
-      headers.forEach((h, j) => {
-        plant[h.trim()] = values[j] ? values[j].trim() : "";
-      });
-      plantData.push(plant);
-    }
-  });
+Papa.parse("vaxtdata.csv", {
+  download: true,
+  header: true,
+  skipEmptyLines: true,
+  complete: function(results) {
+    plantData = results.data;
+  }
+});
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
@@ -24,10 +18,10 @@ input.addEventListener("input", () => {
   if (val.length < 2) return;
 
   const matches = plantData
-    .filter(p => p["Svenskt namn"].toLowerCase().includes(val))
+    .filter(p => p["Svenskt namn"]?.toLowerCase().includes(val))
     .map(p => p["Svenskt namn"]);
 
-  const uniqueMatches = [...new Set(matches)].slice(0, 10); // max 10 förslag
+  const uniqueMatches = [...new Set(matches)].slice(0, 10);
 
   uniqueMatches.forEach(name => {
     const div = document.createElement("div");
@@ -47,10 +41,21 @@ document.addEventListener("click", (e) => {
   }
 });
 
+function drawScale(value, max = 5) {
+  value = parseInt(value);
+  if (isNaN(value)) return "<em>okänt</em>";
+  let dots = "";
+  for (let i = 1; i <= max; i++) {
+    dots += `<div class="dot ${i <= value ? "filled" : ""}"></div>`;
+  }
+  return `<div class="scale">${dots}</div>`;
+}
+
 function searchPlant() {
-  const inputVal = input.value.toLowerCase();
+  const inputVal = input.value.toLowerCase().trim();
   const resultDiv = document.getElementById("result");
-  const match = plantData.find(p => p["Svenskt namn"].toLowerCase() === inputVal);
+
+  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
 
   if (match) {
     resultDiv.innerHTML = `
@@ -60,9 +65,9 @@ function searchPlant() {
       <p><strong>Upprättad status:</strong> ${match["Establishment"]}</p>
       <p><strong>Rödlistning:</strong> ${match["Red-listed"]}</p>
       <p><strong>Biologisk mångfald:</strong> ${match["Biodiversity relevance"]}</p>
-      <p><strong>Nektarproduktion:</strong> ${match["Nectar production"]}</p>
-      <p><strong>Ljusbehov:</strong> ${match["Light"]}</p>
-      <p><strong>Fuktighetskrav:</strong> ${match["Moisture"]}</p>
+      <p><strong>Nektarproduktion:</strong> ${drawScale(match["Nectar production"])}</p>
+      <p><strong>Ljusbehov:</strong> ${drawScale(match["Light"])}</p>
+      <p><strong>Fuktighetskrav:</strong> ${drawScale(match["Moisture"])}</p>
     `;
   } else {
     resultDiv.innerHTML = "Växten hittades inte.";
