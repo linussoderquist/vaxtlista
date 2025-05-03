@@ -65,7 +65,7 @@ function drawLightScale(value) {
 function drawBiodiversityScale(value) {
   value = parseInt(value);
   if (isNaN(value)) return "<em>okänt</em>";
-  const pool = ["🐸", "🌼", "🍄", "🦔", "🐛", "🐌", "🦉", "🦦"];
+  const pool = ["🐸", "🌼", "🍄", "🦔", "🪲", "🐌", "🦉", "🐛"];
   let output = "<div class='scale'>";
   for (let i = 0; i < 5; i++) {
     output += `<span>${i < value ? pool[Math.floor(Math.random() * pool.length)] : "⚪"}</span>`;
@@ -147,6 +147,22 @@ function getRedlistBadge(status) {
   return `<span class="redlist-badge rl-${code}">${code}</span>${labels[code] || status}`;
 }
 
+function getImmigrationLabel(value) {
+  const scale = {
+    "0": "inhemsk art",
+    "1": "införd före 1700 (arkeofyt)",
+    "2": "införd 1700–1750",
+    "3": "införd 1750–1800",
+    "4": "införd 1800–1850",
+    "5": "införd 1850–1900",
+    "6": "införd 1900–1950",
+    "7": "införd 1950–2000",
+    "8": "införd efter 2000"
+  };
+  const key = value?.trim();
+  return scale[key] || "<em>okänd invandringstid</em>";
+}
+
 function searchPlant() {
   const inputVal = input.value.toLowerCase().trim();
   const resultDiv = document.getElementById("result");
@@ -163,9 +179,9 @@ function searchPlant() {
     resultDiv.innerHTML = `
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
       <p><strong>Familj:</strong> ${match["Family"]}</p>
-      <p><strong>Upprättad status:</strong> ${match["Establishment"]}</p>
       <p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>
       <p><strong>Härdighet:</strong> ${zon}</p>
+      <p><strong>Invandringstid eller vistelsetid:</strong> ${getImmigrationLabel(match["Time of immigration"])}</p>
 
       <p><strong>Värmekrav:</strong> ${drawScaleWithEmoji(match["Heat requirement"], "🔥", "#fa9f43")}</p>
       <p><strong>Salttolerans:</strong> ${drawScaleWithEmoji(match["Salinity"], "🧂", "#eb6cb4")}</p>
@@ -187,7 +203,7 @@ function searchPlant() {
         <li><strong>💧 Fuktighetskrav:</strong> Högre värde = föredrar fuktigare miljö</li>
         <li><strong>☀️ Ljusbehov:</strong> Högre värde = kräver mer ljus</li>
         <li><strong>🐝🦋 Nektarproduktion:</strong> Högre värde = producerar mer nektar (1 = ingen)</li>
-        <li><strong>🐸🌼🍄🦔🐛...</strong> Biodiversitetsrelevans: Högre värde = viktigare för biologisk mångfald</li>
+        <li><strong>🐸🌼🍄🦔🪲...</strong> Biodiversitetsrelevans: Högre värde = viktigare för biologisk mångfald</li>
       </ul>
       <p><strong>Källa:</strong> <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">Ecosystem services indicators for plant species (Ecol. Indicators, 2020)</a></p>
     `;
