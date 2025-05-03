@@ -41,19 +41,44 @@ document.addEventListener("click", (e) => {
   }
 });
 
-function drawScale(value, max = 5) {
+// 🔥🧂 Skala med valfri emoji och valfri färg
+function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
   value = parseInt(value);
   if (isNaN(value)) return "<em>okänt</em>";
-
-  const pollinators = ["🐝", "🦋"];
   let output = "<div class='scale'>";
   for (let i = 0; i < max; i++) {
-    output += `<span>${i < value ? pollinators[i % 2] : "⚪"}</span>`;
+    const style = color ? `style="color:${color}"` : "";
+    output += `<span ${style}>${i < value ? emoji : "⚪"}</span>`;
   }
   output += "</div>";
   return output;
 }
 
+// 💧 fukt
+function drawMoistureScale(value) {
+  const scaled = scaleMoisture(value);
+  return scaled ? drawScaleWithEmoji(scaled, "💧") : "<em>okänt</em>";
+}
+
+// ☀️ ljus
+function drawLightScale(value) {
+  return drawScaleWithEmoji(value, "☀️");
+}
+
+// 🐸🌼🍄 slumpad biodiversitet
+function drawBiodiversityScale(value) {
+  value = parseInt(value);
+  if (isNaN(value)) return "<em>okänt</em>";
+  const pool = ["🐸", "🌼", "🍄", "🦔", "🪲", "🐌", "🦉", "🦦"];
+  let output = "<div class='scale'>";
+  for (let i = 0; i < 5; i++) {
+    output += `<span>${i < value ? pool[Math.floor(Math.random() * pool.length)] : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
+
+// 🐝🦋 nektarproduktion (0–6)
 function drawNectarScale(value) {
   const raw = parseInt(value);
   if (isNaN(raw) || raw < 1) return "<em>okänt</em>";
@@ -68,6 +93,7 @@ function drawNectarScale(value) {
   return output;
 }
 
+// fukt-skalning: alla >8 blir 8 → 1–5
 function scaleMoisture(originalValue) {
   let v = parseInt(originalValue);
   if (isNaN(v)) return null;
@@ -75,6 +101,7 @@ function scaleMoisture(originalValue) {
   return Math.ceil((v / 8) * 5);
 }
 
+// riskklass
 function getRiskCategory(establishment, index) {
   if (establishment !== "Non-resident") return null;
   index = parseInt(index);
@@ -86,6 +113,7 @@ function getRiskCategory(establishment, index) {
   return { label: "minimal eller ingen risk", class: "risk-låg" };
 }
 
+// härdighetstext
 function heatRequirementToZone(heat) {
   const h = parseInt(heat);
   if (isNaN(h)) return "okänd";
@@ -118,7 +146,6 @@ function searchPlant() {
     const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
     const zon = heatRequirementToZone(match["Heat requirement"]);
     const dyntaxa = match["Dyntaxa ID number"];
-    const scaledMoisture = scaleMoisture(match["Moisture"]);
 
     resultDiv.innerHTML = `
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
@@ -127,13 +154,13 @@ function searchPlant() {
       <p><strong>Rödlistning:</strong> ${match["Red-listed"]}</p>
       <p><strong>Härdighet:</strong> ${zon}</p>
 
-      <p><strong>Värmekrav:</strong> ${drawScale(match["Heat requirement"])}</p>
-      <p><strong>Salttolerans:</strong> ${drawScale(match["Salinity"])}</p>
-      <p><strong>Biodiversitetsrelevans:</strong> ${drawScale(match["Biodiversity relevance"])}</p>
+      <p><strong>Värmekrav:</strong> ${drawScaleWithEmoji(match["Heat requirement"], "🔥", "#fa9f43")}</p>
+      <p><strong>Salttolerans:</strong> ${drawScaleWithEmoji(match["Salinity"], "🧂", "#eb6cb4")}</p>
+      <p><strong>Biodiversitetsrelevans:</strong> ${drawBiodiversityScale(match["Biodiversity relevance"])}</p>
 
       <p><strong>Nektarproduktion:</strong> ${drawNectarScale(match["Nectar production"])}</p>
-      <p><strong>Ljusbehov:</strong> ${drawScale(match["Light"])}</p>
-      <p><strong>Fuktighetskrav:</strong> ${scaledMoisture ? drawScale(scaledMoisture) : "<em>okänt</em>"}</p>
+      <p><strong>Ljusbehov:</strong> ${drawLightScale(match["Light"])}</p>
+      <p><strong>Fuktighetskrav:</strong> ${drawMoistureScale(match["Moisture"])}</p>
 
       <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
       ${match["Establishment"] !== "Resident" ? `<p><strong>Risklista:</strong> <a href="https://artfakta.se/risklistor/2024/taxa/${dyntaxa}" target="_blank">Visa riskklassificering</a></p>` : ""}
