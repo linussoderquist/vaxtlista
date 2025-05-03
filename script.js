@@ -64,25 +64,22 @@ function getRiskCategory(establishment, index) {
 
 function searchPlant() {
   const inputVal = input.value.toLowerCase().trim();
-  const selectedZone = document.getElementById("zoneFilter").value;
   const resultDiv = document.getElementById("result");
 
-  const match = plantData.find(p => {
-    const nameMatch = p["Svenskt namn"]?.toLowerCase().trim() === inputVal;
-    const coldRequirement = parseInt(p["Cold requirement"]);
-    const zoneOk = !selectedZone || (coldRequirement && coldRequirement <= parseInt(selectedZone));
-    return nameMatch && zoneOk;
-  });
+  const match = plantData.find(p =>
+    p["Svenskt namn"]?.toLowerCase().trim() === inputVal
+  );
 
   if (match) {
     const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
+    const zon = match["Cold requirement"] ? `Zon ${match["Cold requirement"]}` : "okänd";
 
     resultDiv.innerHTML = `
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
       <p><strong>Familj:</strong> ${match["Family"]}</p>
       <p><strong>Upprättad status:</strong> ${match["Establishment"]}</p>
       <p><strong>Rödlistning:</strong> ${match["Red-listed"]}</p>
-      <p><strong>Köldkrav (zon):</strong> ${match["Cold requirement"]}</p>
+      <p><strong>Härdighet:</strong> ${zon}</p>
 
       <p><strong>Värmekrav:</strong> ${drawScale(match["Heat requirement"])}</p>
       <p><strong>Salttolerans:</strong> ${drawScale(match["Salinity"])}</p>
@@ -96,6 +93,6 @@ function searchPlant() {
       ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
     `;
   } else {
-    resultDiv.innerHTML = "Växten hittades inte eller klarar inte vald zon.";
+    resultDiv.innerHTML = "Växten hittades inte.";
   }
 }
