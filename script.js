@@ -51,6 +51,17 @@ function drawScale(value, max = 5) {
   return `<div class="scale">${dots}</div>`;
 }
 
+function getRiskCategory(establishment, index) {
+  if (establishment !== "Non-resident") return null;
+  index = parseInt(index);
+  if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
+
+  if (index >= 11) return { label: "hög risk", class: "risk-hög" };
+  if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
+  if (index >= 1) return { label: "låg risk", class: "risk-låg" };
+  return { label: "minimal eller ingen risk", class: "risk-låg" };
+}
+
 function searchPlant() {
   const inputVal = input.value.toLowerCase().trim();
   const resultDiv = document.getElementById("result");
@@ -58,6 +69,8 @@ function searchPlant() {
   const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
 
   if (match) {
+    const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
+
     resultDiv.innerHTML = `
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
       <p><strong>Familj:</strong> ${match["Family"]}</p>
@@ -68,6 +81,7 @@ function searchPlant() {
       <p><strong>Ljusbehov:</strong> ${drawScale(match["Light"])}</p>
       <p><strong>Fuktighetskrav:</strong> ${drawScale(match["Moisture"])}</p>
       <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/artfaktablad/${match["Dyntaxa ID number"]}" target="_blank">Visa artfakta</a></p>
+      ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
     `;
   } else {
     resultDiv.innerHTML = "Växten hittades inte.";
