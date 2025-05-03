@@ -44,21 +44,35 @@ document.addEventListener("click", (e) => {
 function drawScale(value, max = 5) {
   value = parseInt(value);
   if (isNaN(value)) return "<em>okänt</em>";
-  let dots = "";
-  for (let i = 1; i <= max; i++) {
-    dots += `<div class="dot ${i <= value ? "filled" : ""}"></div>`;
+
+  const pollinators = ["🐝", "🦋"];
+  let output = "<div class='scale'>";
+  for (let i = 0; i < max; i++) {
+    output += `<span>${i < value ? pollinators[i % 2] : "⚪"}</span>`;
   }
-  return `<div class="scale">${dots}</div>`;
+  output += "</div>";
+  return output;
+}
+
+function drawNectarScale(value) {
+  const raw = parseInt(value);
+  if (isNaN(raw) || raw < 1) return "<em>okänt</em>";
+
+  const filled = raw === 1 ? 0 : raw - 1;
+  const pollinators = ["🐝", "🦋"];
+  let output = "<div class='scale'>";
+  for (let i = 0; i < 6; i++) {
+    output += `<span>${i < filled ? pollinators[i % 2] : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
 }
 
 function scaleMoisture(originalValue) {
   let v = parseInt(originalValue);
   if (isNaN(v)) return null;
   if (v > 8) v = 8;
-
-  // Skala 1–8 → 1–5
-  const scaled = Math.ceil((v / 8) * 5);
-  return scaled;
+  return Math.ceil((v / 8) * 5);
 }
 
 function getRiskCategory(establishment, index) {
@@ -117,7 +131,7 @@ function searchPlant() {
       <p><strong>Salttolerans:</strong> ${drawScale(match["Salinity"])}</p>
       <p><strong>Biodiversitetsrelevans:</strong> ${drawScale(match["Biodiversity relevance"])}</p>
 
-      <p><strong>Nektarproduktion:</strong> ${drawScale(match["Nectar production"])}</p>
+      <p><strong>Nektarproduktion:</strong> ${drawNectarScale(match["Nectar production"])}</p>
       <p><strong>Ljusbehov:</strong> ${drawScale(match["Light"])}</p>
       <p><strong>Fuktighetskrav:</strong> ${scaledMoisture ? drawScale(scaledMoisture) : "<em>okänt</em>"}</p>
 
