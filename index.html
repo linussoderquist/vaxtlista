@@ -3,11 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>Växtdatabas</title>
+  <style>
+    #suggestions {
+      border: 1px solid #ccc;
+      max-height: 150px;
+      overflow-y: auto;
+      width: 300px;
+      position: absolute;
+      background: white;
+    }
+    #suggestions div {
+      padding: 5px;
+      cursor: pointer;
+    }
+    #suggestions div:hover {
+      background-color: #eee;
+    }
+  </style>
 </head>
 <body>
   <h1>Sök växtart</h1>
-  <input list="nameSuggestions" id="searchInput" placeholder="Skriv växtens svenska namn...">
-  <datalist id="nameSuggestions"></datalist>
+  <input type="text" id="searchInput" placeholder="Skriv växtens svenska namn...">
+  <div id="suggestions"></div>
   <button onclick="searchPlant()">Sök</button>
   <div id="result"></div>
 
