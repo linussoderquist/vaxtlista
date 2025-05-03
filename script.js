@@ -65,7 +65,7 @@ function drawLightScale(value) {
 function drawBiodiversityScale(value) {
   value = parseInt(value);
   if (isNaN(value)) return "<em>okänt</em>";
-  const pool = ["🐸", "🌼", "🍄", "🦔", "🪲", "🐌", "🦉", "🦦"];
+  const pool = ["🐸", "🌼", "🍄", "🦔", "🐌", "🦉", "🦦"];
   let output = "<div class='scale'>";
   for (let i = 0; i < 5; i++) {
     output += `<span>${i < value ? pool[Math.floor(Math.random() * pool.length)] : "⚪"}</span>`;
