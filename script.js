@@ -5,8 +5,6 @@ fetch("vaxtdata.csv")
   .then(text => {
     const rows = text.trim().split("\n");
     const headers = rows[0].split(",");
-    const nameIndex = headers.indexOf("Svenskt namn");
-
     for (let i = 1; i < rows.length; i++) {
       const values = rows[i].split(",");
       let plant = {};
@@ -15,21 +13,44 @@ fetch("vaxtdata.csv")
       });
       plantData.push(plant);
     }
-
-    // Fyll datalist med svenska namn
-    const nameSuggestions = document.getElementById("nameSuggestions");
-    const uniqueNames = [...new Set(plantData.map(p => p["Svenskt namn"]))].sort();
-    uniqueNames.forEach(name => {
-      const option = document.createElement("option");
-      option.value = name;
-      nameSuggestions.appendChild(option);
-    });
   });
 
+const input = document.getElementById("searchInput");
+const suggestions = document.getElementById("suggestions");
+
+input.addEventListener("input", () => {
+  const val = input.value.toLowerCase();
+  suggestions.innerHTML = "";
+  if (val.length < 2) return;
+
+  const matches = plantData
+    .filter(p => p["Svenskt namn"].toLowerCase().includes(val))
+    .map(p => p["Svenskt namn"]);
+
+  const uniqueMatches = [...new Set(matches)].slice(0, 10); // max 10 förslag
+
+  uniqueMatches.forEach(name => {
+    const div = document.createElement("div");
+    div.textContent = name;
+    div.onclick = () => {
+      input.value = name;
+      suggestions.innerHTML = "";
+      searchPlant();
+    };
+    suggestions.appendChild(div);
+  });
+});
+
+document.addEventListener("click", (e) => {
+  if (!suggestions.contains(e.target) && e.target !== input) {
+    suggestions.innerHTML = "";
+  }
+});
+
 function searchPlant() {
-  const input = document.getElementById("searchInput").value.toLowerCase();
+  const inputVal = input.value.toLowerCase();
   const resultDiv = document.getElementById("result");
-  const match = plantData.find(p => p["Svenskt namn"].toLowerCase() === input);
+  const match = plantData.find(p => p["Svenskt namn"].toLowerCase() === inputVal);
 
   if (match) {
     resultDiv.innerHTML = `
