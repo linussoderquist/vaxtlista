@@ -1,15 +1,11 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Växtdatabas</title>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Växtsök</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
       font-family: 'Montserrat', sans-serif;
       background-color: #b7db93;
@@ -17,165 +13,111 @@
       padding: 1rem;
     }
 
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: #fff;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    h1, h2 {
+      font-weight: 700;
     }
 
-    h1 {
-      font-size: 1.5rem;
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    input, button {
+    input[type="text"] {
       width: 100%;
+      max-width: 600px;
+      font-size: 1.2rem;
       padding: 10px;
-      margin-bottom: 1rem;
-      font-size: 1rem;
-      font-family: 'Montserrat', sans-serif;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+      border: none;
     }
 
     #suggestions {
-      border: 1px solid #ccc;
-      max-height: 150px;
-      overflow-y: auto;
-      width: 100%;
-      position: absolute;
       background: white;
+      border-radius: 0 0 8px 8px;
+      max-width: 600px;
+      border: 1px solid #ccc;
+      border-top: none;
+      position: relative;
       z-index: 10;
     }
-.redlist-badge {
-  display: inline-block;
-  width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 50%;
-  font-weight: bold;
-  font-size: 0.9rem;
-  color: white;
-  text-align: center;
-  line-height: 2.2rem;
-  margin-right: 0.5rem;
-  font-family: sans-serif;
-}
 
-.rl-EX { background-color: #000; }
-.rl-EW, .rl-RE { background-color: #444; }
-.rl-CR { background-color: #d1001c; }
-.rl-EN { background-color: #e87722; }
-.rl-VU { background-color: #fecd1a; color: #000; }
-.rl-NT { background-color: #007c82; }
-.rl-LC { background-color: #2e8b57; }
-.rl-DD { background-color: #999; }
-.rl-NE { background-color: #ccc; color: #000; }
-
-.scale {
-  display: flex;
-  gap: 6px;
-  margin: 5px 0;
-  font-size: 1.4rem;
-}
     #suggestions div {
-      padding: 5px;
+      padding: 10px;
       cursor: pointer;
     }
 
     #suggestions div:hover {
-      background-color: #eee;
+      background-color: #f0f0f0;
     }
 
     .scale {
       display: flex;
-      gap: 4px;
-      margin: 5px 0;
+      gap: 5px;
+      font-size: 1.5rem;
     }
 
-    .dot {
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      border: 1px solid #555;
-      background-color: #eee;
-    }
-
-    .dot.filled {
-      background-color: #3c763d;
-    }
-
-    .risk-tag {
+    .redlist-badge {
       display: inline-block;
-      padding: 4px 8px;
-      border-radius: 4px;
-      color: white;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
       font-weight: bold;
       font-size: 0.9rem;
-      margin-top: 5px;
+      color: white;
+      text-align: center;
+      line-height: 2.2rem;
+      margin-right: 0.5rem;
+    }
+
+    .rl-EX { background-color: #000; }
+    .rl-EW, .rl-RE { background-color: #444; }
+    .rl-CR { background-color: #d1001c; }
+    .rl-EN { background-color: #e87722; }
+    .rl-VU { background-color: #fecd1a; color: #000; }
+    .rl-NT { background-color: #007c82; }
+    .rl-LC { background-color: #2e8b57; }
+    .rl-DD { background-color: #999; }
+    .rl-NE { background-color: #ccc; color: #000; }
+
+    .risk-tag {
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-weight: bold;
     }
 
     .risk-hög {
-      background-color: #c0392b;
+      background-color: #d1001c; color: white;
     }
 
     .risk-måttlig {
-      background-color: #f39c12;
+      background-color: #e87722; color: white;
     }
 
     .risk-låg {
-      background-color: #27ae60;
+      background-color: #fecd1a; color: black;
     }
 
     .risk-okänd {
-      background-color: #7f8c8d;
+      background-color: #ccc; color: black;
     }
 
-    a {
-      color: #1d5ea8;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    #result {
-      margin-top: 1.5rem;
-      padding: 1rem;
-      background-color: #f9f9f9;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    @media (max-width: 500px) {
-      h1 {
-        font-size: 1.3rem;
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 1rem;
       }
 
-      .dot {
-        width: 14px;
-        height: 14px;
-      }
-
-      .risk-tag {
-        font-size: 0.8rem;
+      input[type="text"] {
+        font-size: 1rem;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Sök växtart</h1>
-    <input type="text" id="searchInput" placeholder="Skriv växtens svenska namn...">
-    <div id="suggestions"></div>
+  <h1>🔎 Växtsök</h1>
+  <input type="text" id="searchInput" placeholder="Skriv ett växtnamn..." autocomplete="off" />
+  <div id="suggestions"></div>
+  <div id="result"></div>
 
-    <button onclick="searchPlant()">Sök</button>
-    <div id="result"></div>
-  </div>
+  <!-- PapaParse för CSV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+  <!-- Din egen scriptfil -->
   <script src="script.js"></script>
 </body>
 </html>
