@@ -1,7 +1,7 @@
 let plantData = [];
 let riskData = [];
 
-// Ladda CSV-data (vaxtdata.csv)
+// Ladda CSV-data
 Papa.parse("vaxtdata.csv", {
   download: true,
   header: true,
@@ -11,7 +11,7 @@ Papa.parse("vaxtdata.csv", {
   }
 });
 
-// Ladda riskklassning från Excel
+// Ladda Excel-riskfil
 fetch("Riskklassning2024_Uttag.xlsx")
   .then(res => res.arrayBuffer())
   .then(data => {
@@ -52,11 +52,23 @@ document.addEventListener("click", (e) => {
   }
 });
 
-// Funktion för att hämta riskklassning från Excel-filen
 function getRiskklassningFromXLSX(dyntaxaId) {
   const row = riskData.find(r => r["TaxonId"]?.toString() === dyntaxaId?.toString());
   if (!row) return null;
   return row["Riskkategori, utfall enligt GEIAA metodik"] || null;
+}
+
+function getColoredRiskTag(code) {
+  const tagColors = {
+    "HI": "background-color:#d1001c; color:white;",
+    "PH": "background-color:#e87722; color:white;",
+    "LO": "background-color:#fecd1a; color:black;",
+    "MI": "background-color:#007c82; color:white;",
+    "NR": "background-color:#999; color:white;",
+    "DD": "background-color:#ccc; color:black;"
+  };
+  const style = tagColors[code] || "background-color:#eee; color:#000;";
+  return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
 }
 
 function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
@@ -177,7 +189,11 @@ function searchPlant() {
     resultDiv.innerHTML = `
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
       <p><strong>Familj:</strong> ${match["Family"]}</p>
-      <p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>
+      ${
+        ["0", "1", "2", "3"].includes(match["Time of immigration"]?.trim())
+          ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>`
+          : ""
+      }
       <p><strong>Härdighet:</strong> ${zon}</p>
       <p><strong>Invandringstid eller vistelsetid:</strong> ${getImmigrationLabel(match["Time of immigration"])}</p>
 
@@ -191,7 +207,7 @@ function searchPlant() {
 
       <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
       ${match["Establishment"] !== "Resident" ? `<p><strong>Risklista:</strong> <a href="https://artfakta.se/risklistor/2024/taxa/${dyntaxa}" target="_blank">Visa riskklassificering</a></p>` : ""}
-      ${riskklassXLSX ? `<p><strong>Riskklass (2024):</strong> ${riskklassXLSX}</p>` : ""}
+      ${riskklassXLSX ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklassXLSX)}</p>` : ""}
       ${risk ? `<p><strong>Riskklassificering (indikator):</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
 
       <hr>
