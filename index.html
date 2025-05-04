@@ -46,6 +46,23 @@
       background-color: #f0f0f0;
     }
 
+    button {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      background-color: #4c814c;
+      color: white;
+      padding: 10px 16px;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #3a6b3a;
+    }
+
     .scale {
       display: flex;
       gap: 5px;
@@ -105,19 +122,34 @@
       input[type="text"] {
         font-size: 1rem;
       }
+
+      button {
+        font-size: 0.95rem;
+        padding: 8px 12px;
+      }
     }
   </style>
 </head>
 <body>
   <h1>🔎 Växtsök</h1>
+
+  <p>
+    Sök svenska kärlväxter och få ekologisk information om deras härdighet, ljus- och fuktbehov,
+    nektarvärde, biodiversitetsrelevans samt riskklassning. Arter på EU:s lista över invasiva växter och
+    svenska rödlistan markeras särskilt. Data från Artfakta och Tyler et al. (2021).
+  </p>
+
   <input type="text" id="searchInput" placeholder="Skriv ett växtnamn..." autocomplete="off" />
   <div id="suggestions"></div>
+
+  <button onclick="visaAllaEUArter()">Visa alla EU-listade invasiva arter</button>
+
   <div id="result"></div>
 
   <!-- PapaParse för CSV -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
-  <!-- Din egen scriptfil -->
+  <!-- Ditt script -->
   <script src="script.js"></script>
 </body>
 </html>
