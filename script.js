@@ -1,50 +1,90 @@
+// Fullständigt script.js med återinförda emojis, skalor, rödlistning och robust laddning
+
 let plantData = [];
 let riskData = [];
 let euInvasiveData = [];
+let allDataLoaded = false;
 
-// Ladda växtdata (CSV)
+const input = document.getElementById("searchInput");
+const suggestions = document.getElementById("suggestions");
+const resultDiv = document.getElementById("result");
+const euButton = document.querySelector("button");
+
+euButton.disabled = true;
+
+// Ladda CSV-filer
 Papa.parse("vaxtdata.csv", {
   download: true,
   header: true,
   skipEmptyLines: true,
   complete: function(results) {
     plantData = results.data;
+    checkAllDataLoaded();
   }
 });
 
-// Ladda riskklassning (CSV)
 Papa.parse("Riskklassning2024_Uttag.csv", {
   download: true,
   header: true,
   skipEmptyLines: true,
   complete: function(results) {
     riskData = results.data;
+    checkAllDataLoaded();
   }
 });
 
-// Ladda EU:s invasiva växter (CSV)
 Papa.parse("eu_invasiva_vaxtarter.csv", {
   download: true,
   header: true,
   skipEmptyLines: true,
   complete: function(results) {
     euInvasiveData = results.data;
+    checkAllDataLoaded();
   }
 });
 
-// Kolla om art finns på EU:s lista
+function checkAllDataLoaded() {
+  if (plantData.length && riskData.length && euInvasiveData.length) {
+    allDataLoaded = true;
+    setupAutocomplete();
+    euButton.disabled = false;
+  }
+}
+
+function setupAutocomplete() {
+  input.addEventListener("input", () => {
+    const val = input.value.toLowerCase();
+    suggestions.innerHTML = "";
+    if (val.length < 2) return;
+
+    const matches = plantData
+      .filter(p => p["Svenskt namn"]?.toLowerCase().includes(val))
+      .map(p => p["Svenskt namn"]);
+
+    const uniqueMatches = [...new Set(matches)].slice(0, 10);
+
+    uniqueMatches.forEach(name => {
+      const div = document.createElement("div");
+      div.textContent = name;
+      div.onclick = () => {
+        input.value = name;
+        suggestions.innerHTML = "";
+        searchPlant();
+      };
+      suggestions.appendChild(div);
+    });
+  });
+}
+
+function getRiskklassningFromXLSX(dyntaxaId) {
+  const row = riskData.find(r => r["TaxonId"]?.toString() === dyntaxaId?.toString());
+  return row ? row["Riskkategori, utfall enligt GEIAA metodik"] || null : null;
+}
+
 function isEUInvasive(dyntaxaId) {
   return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
 }
 
-// Hämta GEIAA-riskklass från riskfilen
-function getRiskklassningFromXLSX(dyntaxaId) {
-  const row = riskData.find(r => r["TaxonId"]?.toString() === dyntaxaId?.toString());
-  if (!row) return null;
-  return row["Riskkategori, utfall enligt GEIAA metodik"] || null;
-}
-
-// Färglägg GEIAA-riskklass
 function getColoredRiskTag(code) {
   const tagColors = {
     "HI": "background-color:#d1001c; color:white;",
@@ -58,13 +98,12 @@ function getColoredRiskTag(code) {
   return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
 }
 
-// Skalor
 function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
   value = parseInt(value);
   if (isNaN(value)) return "<em>okänt</em>";
   let output = "<div class='scale'>";
   for (let i = 0; i < max; i++) {
-    const style = color ? `style="color:${color}"` : "";
+    const style = color ? `style=\"color:${color}\"` : "";
     output += `<span ${style}>${i < value ? emoji : "⚪"}</span>`;
   }
   output += "</div>";
@@ -72,8 +111,10 @@ function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
 }
 
 function drawMoistureScale(value) {
-  const scaled = scaleMoisture(value);
-  return scaled ? drawScaleWithEmoji(scaled, "💧") : "<em>okänt</em>";
+  const v = parseInt(value);
+  if (isNaN(v)) return "<em>okänt</em>";
+  const scaled = v > 8 ? 5 : Math.ceil((v / 8) * 5);
+  return drawScaleWithEmoji(scaled, "💧");
 }
 
 function drawLightScale(value) {
@@ -81,9 +122,9 @@ function drawLightScale(value) {
 }
 
 function drawBiodiversityScale(value) {
+  const pool = ["🐸", "🌼", "🍄", "🦔", "🪲", "🐌", "🦉", "🐛"];
   value = parseInt(value);
   if (isNaN(value)) return "<em>okänt</em>";
-  const pool = ["🐸", "🌼", "🍄", "🦔", "🪲", "🐌", "🦉", "🐛"];
   let output = "<div class='scale'>";
   for (let i = 0; i < 5; i++) {
     output += `<span>${i < value ? pool[Math.floor(Math.random() * pool.length)] : "⚪"}</span>`;
@@ -105,35 +146,15 @@ function drawNectarScale(value) {
   return output;
 }
 
-function scaleMoisture(v) {
-  v = parseInt(v);
-  if (isNaN(v)) return null;
-  if (v > 8) v = 8;
-  return Math.ceil((v / 8) * 5);
-}
-
-// Andra hjälpmetoder
-function getRiskCategory(establishment, index) {
-  if (establishment !== "Non-resident") return null;
-  index = parseInt(index);
-  if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
-  if (index >= 11) return { label: "hög risk", class: "risk-hög" };
-  if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
-  if (index >= 1) return { label: "låg risk", class: "risk-låg" };
-  return { label: "minimal eller ingen risk", class: "risk-låg" };
-}
-
 function heatRequirementToZone(h) {
-  h = parseInt(h);
-  if (isNaN(h)) return "okänd";
   const zones = [
     "hög-alpin/arktisk zon", "mellanalpin zon", "låg-alpin zon",
-    "trädgräns (övre subalpin zon)", "subalpin zon (zon 9, gynnsamma lägen)",
-    "odlingszon 8", "odlingszon 7", "odlingszon 6", "odlingszon 5",
-    "odlingszon 4", "odlingszon 3", "odlingszon 2", "odlingszon 1",
-    "klarar ej reproduktion i Sverige"
+    "trädgräns", "subalpin zon (zon 9)", "odlingszon 8", "odlingszon 7",
+    "odlingszon 6", "odlingszon 5", "odlingszon 4", "odlingszon 3",
+    "odlingszon 2", "odlingszon 1", "kan ej överleva i Sverige"
   ];
-  return zones[h - 1] || "okänd";
+  const v = parseInt(h);
+  return zones[v - 1] || "okänd";
 }
 
 function getRedlistBadge(status) {
@@ -145,65 +166,71 @@ function getRedlistBadge(status) {
   return `<span class="redlist-badge rl-${code}">${code}</span>`;
 }
 
-function getImmigrationLabel(value) {
-  const scale = {
-    "0": "inhemsk art",
-    "1": "införd före 1700 (arkeofyt)",
-    "2": "införd 1700–1750",
-    "3": "införd 1750–1800",
-    "4": "införd 1800–1850",
-    "5": "införd 1850–1900",
-    "6": "införd 1900–1950",
-    "7": "införd 1950–2000",
-    "8": "införd efter 2000"
-  };
-  const key = value?.trim();
-  return scale[key] || "<em>okänd invandringstid</em>";
+function getRiskCategory(establishment, index) {
+  if (establishment !== "Non-resident") return null;
+  index = parseInt(index);
+  if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
+  if (index >= 11) return { label: "hög risk", class: "risk-hög" };
+  if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
+  if (index >= 1) return { label: "låg risk", class: "risk-låg" };
+  return { label: "minimal risk", class: "risk-låg" };
 }
 
-// Sök och visa
+function getImmigrationLabel(value) {
+  const scale = {
+    "0": "inhemsk art", "1": "införd före 1700", "2": "1700–1750",
+    "3": "1750–1800", "4": "1800–1850", "5": "1850–1900",
+    "6": "1900–1950", "7": "1950–2000", "8": "efter 2000"
+  };
+  return scale[value?.trim()] || "<em>okänd invandringstid</em>";
+}
+
+function formatPlantInfo(match, isEUListad = false) {
+  const dyntaxa = match["Dyntaxa ID number"];
+  const riskklass = getRiskklassningFromXLSX(dyntaxa);
+  const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
+  const zon = heatRequirementToZone(match["Heat requirement"]);
+  const immigration = getImmigrationLabel(match["Time of immigration"]);
+  const redlist = ["0", "1", "2", "3"].includes(match["Time of immigration"]?.toString());
+
+  return `
+    <h3>${match["Svenskt namn"]} (${match["Scientific name"]})</h3>
+    <p><strong>Familj:</strong> ${match["Family"]}</p>
+    ${redlist ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>` : ""}
+    <p><strong>Härdighet:</strong> ${zon}</p>
+    <p><strong>Invandringstid:</strong> ${immigration}</p>
+    ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
+    <p><strong>Biodiversitetsrelevans:</strong> ${drawBiodiversityScale(match["Biodiversity relevance"])}</p>
+    <p><strong>Nektarproduktion:</strong> ${drawNectarScale(match["Nectar production"])}</p>
+    <p><strong>Ljusbehov:</strong> ${drawLightScale(match["Light"])}</p>
+    <p><strong>Fuktighetskrav:</strong> ${drawMoistureScale(match["Moisture"])}</p>
+    <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
+    ${riskklass ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
+    ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
+    <hr/>
+  `;
+}
+
 function searchPlant() {
-  const inputVal = document.getElementById("searchInput").value.toLowerCase().trim();
-  const resultDiv = document.getElementById("result");
-
-  const match = plantData.find(p =>
-    p["Svenskt namn"]?.toLowerCase().trim() === inputVal
-  );
-
-  if (match) {
-    const dyntaxa = match["Dyntaxa ID number"];
-    const riskklassXLSX = getRiskklassningFromXLSX(dyntaxa);
-    const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
-    const zon = heatRequirementToZone(match["Heat requirement"]);
-    const isEUListed = isEUInvasive(dyntaxa);
-
-    resultDiv.innerHTML = `
-      <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
-      <p><strong>Familj:</strong> ${match["Family"]}</p>
-      ${
-        ["0", "1", "2", "3"].includes(match["Time of immigration"]?.trim())
-          ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>`
-          : ""
-      }
-      <p><strong>Härdighet:</strong> ${zon}</p>
-      <p><strong>Invandringstid eller vistelsetid:</strong> ${getImmigrationLabel(match["Time of immigration"])}</p>
-
-      ${isEUListed ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art:</strong> Upptagen på EU:s förteckning över invasiva främmande arter.</p>` : ""}
-
-      <p><strong>Värmekrav:</strong> ${drawScaleWithEmoji(match["Heat requirement"], "🔥", "#fa9f43")}</p>
-      <p><strong>Salttolerans:</strong> ${drawScaleWithEmoji(match["Salinity"], "🧂", "#eb6cb4")}</p>
-      <p><strong>Biodiversitetsrelevans:</strong> ${drawBiodiversityScale(match["Biodiversity relevance"])}</p>
-
-      <p><strong>Nektarproduktion:</strong> ${drawNectarScale(match["Nectar production"])}</p>
-      <p><strong>Ljusbehov:</strong> ${drawLightScale(match["Light"])}</p>
-      <p><strong>Fuktighetskrav:</strong> ${drawMoistureScale(match["Moisture"])}</p>
-
-      <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
-      ${match["Establishment"] !== "Resident" ? `<p><strong>Risklista:</strong> <a href="https://artfakta.se/risklistor/2024/taxa/${dyntaxa}" target="_blank">Visa riskklassificering</a></p>` : ""}
-      ${riskklassXLSX ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklassXLSX)}</p>` : ""}
-      ${risk ? `<p><strong>Riskklassificering (indikator):</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
-    `;
-  } else {
-    resultDiv.innerHTML = "Växten hittades inte.";
+  if (!allDataLoaded) {
+    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
+    return;
   }
+  const inputVal = input.value.toLowerCase().trim();
+  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+  resultDiv.innerHTML = match ? formatPlantInfo(match, isEUInvasive(match["Dyntaxa ID number"])) : "🚫 Växten hittades inte.";
+}
+
+function visaAllaEUArter() {
+  if (!allDataLoaded) {
+    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
+    return;
+  }
+  let html = `<h2>EU-listade invasiva växter (${euInvasiveData.length})</h2>`;
+  euInvasiveData.forEach(entry => {
+    const dyntaxa = entry["Dyntaxa ID"]?.toString();
+    const match = plantData.find(p => p["Dyntaxa ID number"] === dyntaxa);
+    if (match) html += formatPlantInfo(match, true);
+  });
+  resultDiv.innerHTML = html;
 }
