@@ -12,14 +12,15 @@ Papa.parse("vaxtdata.csv", {
   }
 });
 
-// Ladda riskklassning (Excel)
-fetch("Riskklassning2024_Uttag.xlsx")
-  .then(res => res.arrayBuffer())
-  .then(data => {
-    const workbook = XLSX.read(data, { type: "array" });
-    const sheet = workbook.Sheets[workbook.SheetNames[0]];
-    riskData = XLSX.utils.sheet_to_json(sheet);
-  });
+// Ladda riskklassning (CSV)
+Papa.parse("Riskklassning2024_Uttag.csv", {
+  download: true,
+  header: true,
+  skipEmptyLines: true,
+  complete: function(results) {
+    riskData = results.data;
+  }
+});
 
 // Ladda EU:s invasiva växter (CSV)
 Papa.parse("eu_invasiva_vaxtarter.csv", {
@@ -31,18 +32,19 @@ Papa.parse("eu_invasiva_vaxtarter.csv", {
   }
 });
 
-// Hjälpfunktion: kolla om arten är EU-listad
+// Kolla om art finns på EU:s lista
 function isEUInvasive(dyntaxaId) {
   return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
 }
 
-// Hjälpfunktion: hämta riskklass från Excel
+// Hämta GEIAA-riskklass från riskfilen
 function getRiskklassningFromXLSX(dyntaxaId) {
   const row = riskData.find(r => r["TaxonId"]?.toString() === dyntaxaId?.toString());
   if (!row) return null;
   return row["Riskkategori, utfall enligt GEIAA metodik"] || null;
 }
 
+// Färglägg GEIAA-riskklass
 function getColoredRiskTag(code) {
   const tagColors = {
     "HI": "background-color:#d1001c; color:white;",
@@ -56,6 +58,7 @@ function getColoredRiskTag(code) {
   return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
 }
 
+// Skalor
 function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
   value = parseInt(value);
   if (isNaN(value)) return "<em>okänt</em>";
@@ -102,13 +105,14 @@ function drawNectarScale(value) {
   return output;
 }
 
-function scaleMoisture(originalValue) {
-  let v = parseInt(originalValue);
+function scaleMoisture(v) {
+  v = parseInt(v);
   if (isNaN(v)) return null;
   if (v > 8) v = 8;
   return Math.ceil((v / 8) * 5);
 }
 
+// Andra hjälpmetoder
 function getRiskCategory(establishment, index) {
   if (establishment !== "Non-resident") return null;
   index = parseInt(index);
@@ -119,8 +123,8 @@ function getRiskCategory(establishment, index) {
   return { label: "minimal eller ingen risk", class: "risk-låg" };
 }
 
-function heatRequirementToZone(heat) {
-  const h = parseInt(heat);
+function heatRequirementToZone(h) {
+  h = parseInt(h);
   if (isNaN(h)) return "okänd";
   const zones = [
     "hög-alpin/arktisk zon", "mellanalpin zon", "låg-alpin zon",
@@ -157,8 +161,9 @@ function getImmigrationLabel(value) {
   return scale[key] || "<em>okänd invandringstid</em>";
 }
 
+// Sök och visa
 function searchPlant() {
-  const inputVal = input.value.toLowerCase().trim();
+  const inputVal = document.getElementById("searchInput").value.toLowerCase().trim();
   const resultDiv = document.getElementById("result");
 
   const match = plantData.find(p =>
@@ -166,10 +171,10 @@ function searchPlant() {
   );
 
   if (match) {
-    const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
-    const zon = heatRequirementToZone(match["Heat requirement"]);
     const dyntaxa = match["Dyntaxa ID number"];
     const riskklassXLSX = getRiskklassningFromXLSX(dyntaxa);
+    const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
+    const zon = heatRequirementToZone(match["Heat requirement"]);
     const isEUListed = isEUInvasive(dyntaxa);
 
     resultDiv.innerHTML = `
@@ -197,18 +202,6 @@ function searchPlant() {
       ${match["Establishment"] !== "Resident" ? `<p><strong>Risklista:</strong> <a href="https://artfakta.se/risklistor/2024/taxa/${dyntaxa}" target="_blank">Visa riskklassificering</a></p>` : ""}
       ${riskklassXLSX ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklassXLSX)}</p>` : ""}
       ${risk ? `<p><strong>Riskklassificering (indikator):</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
-
-      <hr>
-      <h3>Förklaringar till skalor</h3>
-      <ul>
-        <li><strong>🔥 Värmekrav:</strong> Högre värde = kräver varmare klimat</li>
-        <li><strong>🧂 Salttolerans:</strong> Högre värde = tål salta miljöer</li>
-        <li><strong>💧 Fuktighetskrav:</strong> Högre värde = föredrar fuktigare miljö</li>
-        <li><strong>☀️ Ljusbehov:</strong> Högre värde = kräver mer ljus</li>
-        <li><strong>🐝🦋 Nektarproduktion:</strong> Högre värde = producerar mer nektar (1 = ingen)</li>
-        <li><strong>🐸🌼🍄🦔🪲...</strong> Biodiversitetsrelevans: Högre värde = viktigare för biologisk mångfald</li>
-      </ul>
-      <p><strong>Källa:</strong> Tyler, T., Herbertsson, L., Olofsson, J., & Olsson, P. A. (2021). <em>Ecological indicator and traits values for Swedish vascular plants.</em> <strong>Ecological Indicators, 120</strong>, 106923. <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">https://doi.org/10.1016/j.ecolind.2020.106923</a></p>
     `;
   } else {
     resultDiv.innerHTML = "Växten hittades inte.";
