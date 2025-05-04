@@ -128,23 +128,12 @@ function heatRequirementToZone(heat) {
 
 function getRedlistBadge(status) {
   if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
-    return `<span class="redlist-badge rl-LC">LC</span>Livskraftig`;
+    return `<span class="redlist-badge rl-LC">LC</span>`;
   }
 
   const s = status.trim().toUpperCase();
-  const code = s.match(/(EX|EW|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
-  const labels = {
-    EX: "Utrotad",
-    EW: "Utrotad i naturen",
-    CR: "Akut hotad",
-    EN: "Starkt hotad",
-    VU: "Sårbar",
-    NT: "Nära hotad",
-    LC: "Livskraftig",
-    DD: "Kunskapsbrist",
-    NE: "Ej bedömd"
-  };
-  return `<span class="redlist-badge rl-${code}">${code}</span>${labels[code] || status}`;
+  const code = s.match(/(EX|EW|CR|EN|VU|NT|LC|DD|NE|RE)/)?.[1] || "NE";
+  return `<span class="redlist-badge rl-${code}">${code}</span>`;
 }
 
 function getImmigrationLabel(value) {
@@ -205,7 +194,7 @@ function searchPlant() {
         <li><strong>🐝🦋 Nektarproduktion:</strong> Högre värde = producerar mer nektar (1 = ingen)</li>
         <li><strong>🐸🌼🍄🦔🪲...</strong> Biodiversitetsrelevans: Högre värde = viktigare för biologisk mångfald</li>
       </ul>
-      <p><strong>Källa:</strong> <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">Ecosystem services indicators for plant species (Ecol. Indicators, 2020)</a></p>
+      <p><strong>Källa:</strong> Tyler, T., Herbertsson, L., Olofsson, J., & Olsson, P. A. (2021). <em>Ecological indicator and traits values for Swedish vascular plants.</em> <strong>Ecological Indicators, 120</strong>, 106923. <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">https://doi.org/10.1016/j.ecolind.2020.106923</a></p>
     `;
   } else {
     resultDiv.innerHTML = "Växten hittades inte.";
