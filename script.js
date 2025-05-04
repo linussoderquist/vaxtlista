@@ -1,7 +1,8 @@
 let plantData = [];
 let riskData = [];
+let euInvasiveData = [];
 
-// Ladda CSV-data
+// Ladda växtdata (CSV)
 Papa.parse("vaxtdata.csv", {
   download: true,
   header: true,
@@ -11,7 +12,7 @@ Papa.parse("vaxtdata.csv", {
   }
 });
 
-// Ladda Excel-riskfil
+// Ladda riskklassning (Excel)
 fetch("Riskklassning2024_Uttag.xlsx")
   .then(res => res.arrayBuffer())
   .then(data => {
@@ -20,38 +21,22 @@ fetch("Riskklassning2024_Uttag.xlsx")
     riskData = XLSX.utils.sheet_to_json(sheet);
   });
 
-const input = document.getElementById("searchInput");
-const suggestions = document.getElementById("suggestions");
-
-input.addEventListener("input", () => {
-  const val = input.value.toLowerCase();
-  suggestions.innerHTML = "";
-  if (val.length < 2) return;
-
-  const matches = plantData
-    .filter(p => p["Svenskt namn"]?.toLowerCase().includes(val))
-    .map(p => p["Svenskt namn"]);
-
-  const uniqueMatches = [...new Set(matches)].slice(0, 10);
-
-  uniqueMatches.forEach(name => {
-    const div = document.createElement("div");
-    div.textContent = name;
-    div.onclick = () => {
-      input.value = name;
-      suggestions.innerHTML = "";
-      searchPlant();
-    };
-    suggestions.appendChild(div);
-  });
-});
-
-document.addEventListener("click", (e) => {
-  if (!suggestions.contains(e.target) && e.target !== input) {
-    suggestions.innerHTML = "";
+// Ladda EU:s invasiva växter (CSV)
+Papa.parse("eu_invasiva_vaxtarter.csv", {
+  download: true,
+  header: true,
+  skipEmptyLines: true,
+  complete: function(results) {
+    euInvasiveData = results.data;
   }
 });
 
+// Hjälpfunktion: kolla om arten är EU-listad
+function isEUInvasive(dyntaxaId) {
+  return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
+}
+
+// Hjälpfunktion: hämta riskklass från Excel
 function getRiskklassningFromXLSX(dyntaxaId) {
   const row = riskData.find(r => r["TaxonId"]?.toString() === dyntaxaId?.toString());
   if (!row) return null;
@@ -185,6 +170,7 @@ function searchPlant() {
     const zon = heatRequirementToZone(match["Heat requirement"]);
     const dyntaxa = match["Dyntaxa ID number"];
     const riskklassXLSX = getRiskklassningFromXLSX(dyntaxa);
+    const isEUListed = isEUInvasive(dyntaxa);
 
     resultDiv.innerHTML = `
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
@@ -196,6 +182,8 @@ function searchPlant() {
       }
       <p><strong>Härdighet:</strong> ${zon}</p>
       <p><strong>Invandringstid eller vistelsetid:</strong> ${getImmigrationLabel(match["Time of immigration"])}</p>
+
+      ${isEUListed ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art:</strong> Upptagen på EU:s förteckning över invasiva främmande arter.</p>` : ""}
 
       <p><strong>Värmekrav:</strong> ${drawScaleWithEmoji(match["Heat requirement"], "🔥", "#fa9f43")}</p>
       <p><strong>Salttolerans:</strong> ${drawScaleWithEmoji(match["Salinity"], "🧂", "#eb6cb4")}</p>
