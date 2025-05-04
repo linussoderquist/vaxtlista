@@ -1,5 +1,7 @@
 let plantData = [];
+let riskData = [];
 
+// Ladda CSV-data (vaxtdata.csv)
 Papa.parse("vaxtdata.csv", {
   download: true,
   header: true,
@@ -8,6 +10,15 @@ Papa.parse("vaxtdata.csv", {
     plantData = results.data;
   }
 });
+
+// Ladda riskklassning från Excel
+fetch("Riskklassning2024_Uttag.xlsx")
+  .then(res => res.arrayBuffer())
+  .then(data => {
+    const workbook = XLSX.read(data, { type: "array" });
+    const sheet = workbook.Sheets[workbook.SheetNames[0]];
+    riskData = XLSX.utils.sheet_to_json(sheet);
+  });
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
@@ -40,6 +51,13 @@ document.addEventListener("click", (e) => {
     suggestions.innerHTML = "";
   }
 });
+
+// Funktion för att hämta riskklassning från Excel-filen
+function getRiskklassningFromXLSX(dyntaxaId) {
+  const row = riskData.find(r => r["TaxonId"]?.toString() === dyntaxaId?.toString());
+  if (!row) return null;
+  return row["Riskkategori, utfall enligt GEIAA metodik"] || null;
+}
 
 function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
   value = parseInt(value);
@@ -77,7 +95,6 @@ function drawBiodiversityScale(value) {
 function drawNectarScale(value) {
   const raw = parseInt(value);
   if (isNaN(raw) || raw < 1) return "<em>okänt</em>";
-
   const filled = raw === 1 ? 0 : raw - 1;
   const pollinators = ["🐝", "🦋"];
   let output = "<div class='scale'>";
@@ -99,7 +116,6 @@ function getRiskCategory(establishment, index) {
   if (establishment !== "Non-resident") return null;
   index = parseInt(index);
   if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
-
   if (index >= 11) return { label: "hög risk", class: "risk-hög" };
   if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
   if (index >= 1) return { label: "låg risk", class: "risk-låg" };
@@ -109,30 +125,22 @@ function getRiskCategory(establishment, index) {
 function heatRequirementToZone(heat) {
   const h = parseInt(heat);
   if (isNaN(h)) return "okänd";
-  if (h === 1) return "hög-alpin/arktisk zon";
-  if (h === 2) return "mellanalpin zon";
-  if (h === 3) return "låg-alpin zon";
-  if (h === 4) return "trädgräns (övre subalpin zon)";
-  if (h === 5) return "subalpin zon (zon 9, gynnsamma lägen)";
-  if (h === 6) return "odlingszon 8";
-  if (h === 7) return "odlingszon 7";
-  if (h === 8) return "odlingszon 6";
-  if (h === 9) return "odlingszon 5";
-  if (h === 10) return "odlingszon 4";
-  if (h === 11) return "odlingszon 3";
-  if (h === 12) return "odlingszon 2";
-  if (h === 13) return "odlingszon 1";
-  if (h === 14) return "klarar ej reproduktion i Sverige";
-  return "okänd";
+  const zones = [
+    "hög-alpin/arktisk zon", "mellanalpin zon", "låg-alpin zon",
+    "trädgräns (övre subalpin zon)", "subalpin zon (zon 9, gynnsamma lägen)",
+    "odlingszon 8", "odlingszon 7", "odlingszon 6", "odlingszon 5",
+    "odlingszon 4", "odlingszon 3", "odlingszon 2", "odlingszon 1",
+    "klarar ej reproduktion i Sverige"
+  ];
+  return zones[h - 1] || "okänd";
 }
 
 function getRedlistBadge(status) {
   if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
     return `<span class="redlist-badge rl-LC">LC</span>`;
   }
-
   const s = status.trim().toUpperCase();
-  const code = s.match(/(EX|EW|CR|EN|VU|NT|LC|DD|NE|RE)/)?.[1] || "NE";
+  const code = s.match(/(EX|EW|RE|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
   return `<span class="redlist-badge rl-${code}">${code}</span>`;
 }
 
@@ -164,6 +172,7 @@ function searchPlant() {
     const risk = getRiskCategory(match["Establishment"], match["Index of invasive concern"]);
     const zon = heatRequirementToZone(match["Heat requirement"]);
     const dyntaxa = match["Dyntaxa ID number"];
+    const riskklassXLSX = getRiskklassningFromXLSX(dyntaxa);
 
     resultDiv.innerHTML = `
       <h2>${match["Svenskt namn"]} (${match["Scientific name"]})</h2>
@@ -182,7 +191,8 @@ function searchPlant() {
 
       <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
       ${match["Establishment"] !== "Resident" ? `<p><strong>Risklista:</strong> <a href="https://artfakta.se/risklistor/2024/taxa/${dyntaxa}" target="_blank">Visa riskklassificering</a></p>` : ""}
-      ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
+      ${riskklassXLSX ? `<p><strong>Riskklass (2024):</strong> ${riskklassXLSX}</p>` : ""}
+      ${risk ? `<p><strong>Riskklassificering (indikator):</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
 
       <hr>
       <h3>Förklaringar till skalor</h3>
