@@ -84,13 +84,15 @@ function isEUInvasive(dyntaxaId) {
 
 function getColoredRiskTag(code) {
   const tagColors = {
-    "HI": "background-color:#d1001c; color:white;",
-    "PH": "background-color:#e87722; color:white;",
-    "LO": "background-color:#fecd1a; color:black;",
-    "MI": "background-color:#007c82; color:white;",
-    "NR": "background-color:#999; color:white;",
-    "DD": "background-color:#ccc; color:black;"
+    "SE": "background-color:#c2491d; color:white;",
+    "HI": "background-color:#d9782d; color:white;",
+    "PH": "background-color:#e2b539; color:black;",
+    "LO": "background-color:#f3e28c; color:black;",
+    "NK": "background-color:#fdf7d4; color:black;"
   };
+  const style = tagColors[code] || "background-color:#eee; color:#000;";
+  return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
+};
   const style = tagColors[code] || "background-color:#eee; color:#000;";
   return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
 }
