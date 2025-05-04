@@ -8,9 +8,6 @@ let allDataLoaded = false;
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
 const resultDiv = document.getElementById("result");
-const euButton = document.querySelector("button");
-
-euButton.disabled = true;
 
 // Ladda CSV-filer
 Papa.parse("vaxtdata.csv", {
@@ -47,8 +44,8 @@ function checkAllDataLoaded() {
   if (plantData.length && riskData.length && euInvasiveData.length) {
     allDataLoaded = true;
     setupAutocomplete();
-    euButton.disabled = false;
   }
+}
 }
 
 function setupAutocomplete() {
@@ -221,16 +218,4 @@ function searchPlant() {
   resultDiv.innerHTML = match ? formatPlantInfo(match, isEUInvasive(match["Dyntaxa ID number"])) : "🚫 Växten hittades inte.";
 }
 
-function visaAllaEUArter() {
-  if (!allDataLoaded) {
-    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
-    return;
-  }
-  let html = `<h2>EU-listade invasiva växter (${euInvasiveData.length})</h2>`;
-  euInvasiveData.forEach(entry => {
-    const dyntaxa = entry["Dyntaxa ID"]?.toString();
-    const match = plantData.find(p => p["Dyntaxa ID number"] === dyntaxa);
-    if (match) html += formatPlantInfo(match, true);
-  });
-  resultDiv.innerHTML = html;
-}
+
