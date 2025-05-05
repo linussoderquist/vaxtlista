@@ -57,6 +57,23 @@ function checkAllDataLoaded() {
     setupAutocomplete();
   }
 }
+function searchPlant() {
+  if (!allDataLoaded) {
+    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
+    return;
+  }
+
+  const inputVal = input.value.toLowerCase().trim();
+  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+
+  if (!match) {
+    resultDiv.innerHTML = "🚫 Växten hittades inte.";
+    return;
+  }
+
+  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
+  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
+}
 
 function setupAutocomplete() {
   input.addEventListener("input", () => {
@@ -151,20 +168,4 @@ function formatPlantInfo(match, isEUListad = false) {
     <hr/>
   `;
 }
-function searchPlant() {
-  if (!allDataLoaded) {
-    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
-    return;
-  }
 
-  const inputVal = input.value.toLowerCase().trim();
-  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
-
-  if (!match) {
-    resultDiv.innerHTML = "🚫 Växten hittades inte.";
-    return;
-  }
-
-  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
-  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
-}
