@@ -50,7 +50,6 @@ Papa.parse("karaktarer.csv", {
     checkAllDataLoaded();
   }
 });
-  }
 });
 
 function checkAllDataLoaded() {
@@ -123,8 +122,8 @@ function drawHeight(cm) {
   const value = parseInt(cm);
   if (isNaN(value)) return "<em>okänt</em>";
   return `${value} cm`;
-} ${value} cm</div>`;
 }
+
 
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
