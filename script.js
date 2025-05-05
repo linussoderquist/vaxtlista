@@ -122,9 +122,8 @@ function getGrowthFormIcon(type) {
 function drawHeight(cm) {
   const value = parseInt(cm);
   if (isNaN(value)) return "<em>okänt</em>";
-  const level = Math.min(Math.ceil(value / 100), 5);
-  const bars = ["▁", "▂", "▃", "▅", "▇"];
-  return `<div class='scale'>${bars[level - 1]} ${value} cm</div>`;
+  return `${value} cm`;
+} ${value} cm</div>`;
 }
 
 function formatPlantInfo(match, isEUListad = false) {
