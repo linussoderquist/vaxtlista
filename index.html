@@ -1,235 +1,254 @@
 <!DOCTYPE html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8">
-  <title>Heatmap: Nektarproduktion från GBIF</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Växtsök</title>
+  <link rel="icon" href="guckusko-favicon.png" type="image/png">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
-    body { margin: 0; font-family: 'Montserrat', sans-serif; }
-    #map { height: 90vh; }
-    .controls { padding: 1em; background: #f4f4f4; }
-    #loading {
-      position: absolute;
-      top: 1em;
-      right: 1em;
-      background: rgba(255, 255, 255, 0.9);
-      padding: 0.5em 1em;
-      border-radius: 4px;
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #b7db93;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    h1, h2 {
+      font-weight: 700;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      max-width: 600px;
+      font-size: 1.2rem;
+      padding: 10px;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+      border: none;
+    }
+
+    #suggestions {
+      background: white;
+      border-radius: 0 0 8px 8px;
+      max-width: 600px;
+      border: 1px solid #ccc;
+      border-top: none;
+      position: relative;
+      z-index: 10;
+    }
+
+    #suggestions div {
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    #suggestions div:hover {
+      background-color: #f0f0f0;
+    }
+
+    button {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      background-color: #4c814c;
+      color: white;
+      padding: 10px 16px;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #3a6b3a;
+    }
+
+    .scale {
+      display: flex;
+      gap: 5px;
+      font-size: 1.5rem;
+    }
+
+    .redlist-badge {
+      display: inline-block;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
       font-weight: bold;
-      display: none;
-      z-index: 1000;
+      font-size: 0.9rem;
+      color: white;
+      text-align: center;
+      line-height: 2.2rem;
+      margin-right: 0.5rem;
+    }
+
+    .rl-EX { background-color: #000; }
+    .rl-EW, .rl-RE { background-color: #444; }
+    .rl-CR { background-color: #d1001c; }
+    .rl-EN { background-color: #e87722; }
+    .rl-VU { background-color: #fecd1a; color: #000; }
+    .rl-NT { background-color: #007c82; }
+    .rl-LC { background-color: #2e8b57; }
+    .rl-DD { background-color: #999; }
+    .rl-NE { background-color: #ccc; color: #000; }
+
+    .risk-tag {
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
+
+    .risk-hög {
+      background-color: #d1001c; color: white;
+    }
+
+    .risk-måttlig {
+      background-color: #e87722; color: white;
+    }
+
+    .risk-låg {
+      background-color: #fecd1a; color: black;
+    }
+
+    .risk-okänd {
+      background-color: #ccc; color: black;
+    }
+
+    ul.legend {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 2rem;
+    }
+
+    ul.legend li {
+      margin-bottom: 5px;
+    }
+
+    ul.legend span {
+      display: inline-block;
+      min-width: 35px;
+      text-align: center;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
+    #result-map-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start;
+      margin-top: 2rem;
+    }
+
+    #result {
+      flex: 1 1 45%;
+    }
+
+    #map {
+      flex: 1 1 45%;
+      height: 500px;
+      min-width: 300px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+    }
+
+    @media screen and (max-width: 768px) {
+      #result-map-container {
+        flex-direction: column;
+      }
+
+      #map {
+        width: 100%;
+        height: 400px;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="controls">
-    <button onclick="generateHeatmap()">Visa heatmap för nektarproduktion (GBIF)</button>
-    <button onclick="generateRelevanceHeatmap()">Visa heatmap för biodiversitetsvärde (GBIF)</button>
-    <input type="file" id="csvInput" accept=".csv">
-    <button onclick="addTaxonKeysToCSV()">Lägg till taxonKey och ladda ner</button>
-    <a id="downloadLink" style="display:none; margin-left: 1em;">Ladda ner uppdaterad CSV</a>
+  <h1>🔎 Växtsök</h1>
+
+  <p>
+    Sök svenska kärlväxter och få ekologisk information om deras härdighet, ljus- och fuktbehov,
+    nektarvärde, biodiversitetsrelevans samt riskklassning. Arter på EU:s lista över invasiva växter och
+    svenska rödlistan markeras särskilt. Data från <a href="https://www.artfakta.se/" target="_blank">Artfakta</a>
+    och <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">Tyler et al. (2021)</a>.
+  </p>
+
+  <input type="text" id="searchInput" placeholder="Skriv ett växtnamn..." autocomplete="off" />
+  <div id="suggestions"></div>
+  <button onclick="searchPlant()">Sök</button>
+
+  <!-- Resultat + Karta -->
+  <div id="result-map-container">
+    <div id="result"></div>
+    <div id="map"></div>
   </div>
-  <div id="loading">Laddar observationer...</div>
-  <div id="map"></div>
 
+  <!-- Legender -->
+  <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; margin-top: 2rem;">
+    <div>
+      <h3>Rödlistans kategorier</h3>
+      <ul class="legend">
+        <li><span class="redlist-badge rl-EX">EX</span> Utdöd</li>
+        <li><span class="redlist-badge rl-EW">EW</span> Utdöd i vilt tillstånd</li>
+        <li><span class="redlist-badge rl-CR">CR</span> Akut hotad</li>
+        <li><span class="redlist-badge rl-EN">EN</span> Starkt hotad</li>
+        <li><span class="redlist-badge rl-VU">VU</span> Sårbar</li>
+        <li><span class="redlist-badge rl-NT">NT</span> Nära hotad</li>
+        <li><span class="redlist-badge rl-LC">LC</span> Livskraftig</li>
+        <li><span class="redlist-badge rl-DD">DD</span> Kunskapsbrist</li>
+        <li><span class="redlist-badge rl-NE">NE</span> Ej bedömd</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Riskklass (GEIAA)</h3>
+      <ul class="legend">
+        <li><span style="background-color:#c2491d; color:white;">SE</span> Mycket hög risk</li>
+        <li><span style="background-color:#d9782d; color:white;">HI</span> Hög risk</li>
+        <li><span style="background-color:#e2b539; color:black;">PH</span> Potentiellt hög risk</li>
+        <li><span style="background-color:#f3e28c; color:black;">LO</span> Låg risk</li>
+        <li><span style="background-color:#fdf7d4; color:black;">NK</span> Ingen känd risk</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Ljusbehov</h3>
+      <ul class="legend">
+        <li><span>🌑</span> Djup skugga</li>
+        <li><span>🌘</span> Måttlig–djup skugga</li>
+        <li><span>🌗</span> Halvskugga–måttlig skugga</li>
+        <li><span>🌖</span> Halvskugga</li>
+        <li><span>🌕</span> Sol–halvskugga</li>
+        <li><span>🔆</span> Sol, viss skuggning</li>
+        <li><span>☀️</span> Full sol</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Växtsätt</h3>
+      <ul class="legend">
+        <li>🌳 Träd</li>
+        <li>🌿 Buske</li>
+        <li>🌱 Ört</li>
+        <li>🌾 Gräs</li>
+        <li>🌵 Suckulent</li>
+        <li>💧 Vattenväxt</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Leaflet och PapaParse -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <script src="https://unpkg.com/leaflet.heat/dist/leaflet-heat.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.2/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
-  <script>
-    const map = L.map('map').setView([63.0, 15.0], 5);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    const csvURL = "vaxtdata.csv";
-
-    function delay(ms) {
-      return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    async function loadCSVColumn(columnName) {
-      return new Promise((resolve, reject) => {
-        Papa.parse(csvURL, {
-          download: true,
-          header: true,
-          complete: results => {
-            const lookup = {};
-            results.data.forEach(row => {
-              const name = row["Scientific name"]?.trim();
-              const value = parseFloat(row[columnName]);
-              if (name && !isNaN(value) && value > 0) {
-                lookup[name] = value;
-              }
-            });
-            resolve(lookup);
-          },
-          error: err => reject(err)
-        });
-      });
-    }
-
-    async function getTaxonKeys(names) {
-      const mapping = {};
-      for (const name of names) {
-        const url = `https://api.gbif.org/v1/species/match?name=${encodeURIComponent(name)}`;
-        try {
-          const response = await fetch(url);
-          const data = await response.json();
-          if (data.usageKey) {
-            mapping[data.scientificName || name] = { taxonKey: data.usageKey, originalName: name };
-          }
-        } catch (err) {
-          console.warn(`TaxonKey-hämtning misslyckades för ${name}`, err);
-        }
-        await delay(100);
-      }
-      return mapping;
-    }
-
-    async function fetchGBIFObservationsBatch(taxonKeys) {
-      const bounds = map.getBounds();
-      const south = bounds.getSouth();
-      const west = bounds.getWest();
-      const north = bounds.getNorth();
-      const east = bounds.getEast();
-      const wkt = `POLYGON((${west} ${south}, ${east} ${south}, ${east} ${north}, ${west} ${north}, ${west} ${south}))`;
-      const today = new Date();
-      const fromYear = today.getFullYear() - 5;
-
-      const url = new URL("https://api.gbif.org/v1/occurrence/search");
-      taxonKeys.forEach(k => url.searchParams.append("taxonKey", k));
-      url.searchParams.append("hasCoordinate", "true");
-      url.searchParams.append("geometry", wkt);
-      url.searchParams.append("limit", "300");
-      url.searchParams.append("year", `${fromYear},${today.getFullYear()}`);
-
-      const response = await fetch(url);
-      if (!response.ok) {
-        console.warn("Felaktigt svar från GBIF:", response.status);
-        return [];
-      }
-      const data = await response.json();
-      return data.results || [];
-    }
-
-    async function generateGenericHeatmap(columnName, label) {
-      const loadingElement = document.getElementById('loading');
-      loadingElement.style.display = 'block';
-
-      const lookup = await loadCSVColumn(columnName);
-      const names = Object.keys(lookup);
-      loadingElement.textContent = `Hämtar taxon-nycklar...`;
-
-      const nameToTaxonMap = await getTaxonKeys(names);
-      const taxonKeyToValue = {};
-      const keyToName = {};
-      for (const [_, entry] of Object.entries(nameToTaxonMap)) {
-        taxonKeyToValue[entry.taxonKey] = lookup[entry.originalName];
-        keyToName[entry.taxonKey] = entry.originalName;
-      }
-
-      const points = [];
-      const foundSpecies = [];
-      const taxonKeys = Object.keys(taxonKeyToValue).map(k => parseInt(k));
-
-      loadingElement.textContent = `Laddar observationer... 0/${taxonKeys.length}`;
-
-      const batchSize = 20;
-      for (let i = 0; i < taxonKeys.length; i += batchSize) {
-        const batch = taxonKeys.slice(i, i + batchSize);
-        try {
-          const observations = await fetchGBIFObservationsBatch(batch);
-
-          observations.forEach(obs => {
-            if (obs.decimalLatitude && obs.decimalLongitude && obs.taxonKey && taxonKeyToValue[obs.taxonKey]) {
-              const value = taxonKeyToValue[obs.taxonKey];
-              points.push([obs.decimalLatitude, obs.decimalLongitude, value]);
-              foundSpecies.push(keyToName[obs.taxonKey]);
-            }
-          });
-
-          loadingElement.textContent = `Laddar observationer... ${Math.min(i + batchSize, taxonKeys.length)}/${taxonKeys.length}`;
-          await delay(250);
-        } catch (err) {
-          console.warn("Fel vid batch-hämtning", batch, err);
-        }
-      }
-
-      loadingElement.style.display = 'none';
-
-      if (points.length === 0) {
-        alert(`Inga observationer med ${label} hittades i kartvyn.`);
-        return;
-      }
-
-      L.heatLayer(points, {
-        radius: 20,
-        blur: 15,
-        maxZoom: 10
-      }).addTo(map);
-
-      alert(`Följande arter hade observationer (${label}):\n` + [...new Set(foundSpecies)].join("\n"));
-    }
-
-    function generateHeatmap() {
-      generateGenericHeatmap("Nectar production", "nektarproduktion");
-    }
-
-    function generateRelevanceHeatmap() {
-      generateGenericHeatmap("Biodiversity relevance", "biodiversitetsvärde");
-    }
-
-    async function fetchTaxonKey(name) {
-      const url = `https://api.gbif.org/v1/species/match?name=${encodeURIComponent(name)}`;
-      try {
-        const res = await fetch(url);
-        const data = await res.json();
-        return data.usageKey || "";
-      } catch {
-        return "";
-      }
-    }
-
-    async function addTaxonKeysToCSV() {
-      const fileInput = document.getElementById('csvInput');
-      if (!fileInput.files.length) {
-        alert("Vänligen välj en CSV-fil först.");
-        return;
-      }
-
-      const file = fileInput.files[0];
-      Papa.parse(file, {
-        header: true,
-        complete: async function(results) {
-          const updatedData = [];
-          const header = [...results.meta.fields, "taxonKey"];
-          for (const row of results.data) {
-            const name = row["Scientific name"];
-            const key = name ? await fetchTaxonKey(name.trim()) : "";
-            updatedData.push({...row, taxonKey: key});
-            await delay(100);
-          }
-
-          const csv = Papa.unparse({fields: header, data: updatedData});
-          const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-          const url = URL.createObjectURL(blob);
-          const link = document.getElementById('downloadLink');
-          link.setAttribute('href', url);
-          link.setAttribute('download', 'uppdaterad_vaxtdata.csv');
-          link.style.display = 'inline';
-          link.textContent = "Ladda ner uppdaterad CSV";
-        }
-      });
-    }
-  </script>
-
-  <footer style="padding: 1em; background: #f4f4f4; font-size: 0.9em; text-align: center;">
-    <strong>Källor:</strong>
-    <a href="https://www.gbif.org" target="_blank">gbif.org</a> |
-    <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">https://doi.org/10.1016/j.ecolind.2020.106923</a>
-  </footer>
+  <!-- Din JS-kod -->
+  <script src="script.js"></script>
 </body>
 </html>
