@@ -50,7 +50,6 @@ Papa.parse("karaktarer.csv", {
     checkAllDataLoaded();
   }
 });
-});
 
 function checkAllDataLoaded() {
   if (plantData.length && riskData.length && euInvasiveData.length && plantTraits.length) {
