@@ -6,6 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Växtsök</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-sA+e2nF+eH8n+obc6kznkRb2zGbU41X5ZcSJi7N0jcA="
+    crossorigin=""
+  />
+
   <style>
     body {
       font-family: 'Montserrat', sans-serif;
@@ -99,21 +108,10 @@
       font-weight: bold;
     }
 
-    .risk-hög {
-      background-color: #d1001c; color: white;
-    }
-
-    .risk-måttlig {
-      background-color: #e87722; color: white;
-    }
-
-    .risk-låg {
-      background-color: #fecd1a; color: black;
-    }
-
-    .risk-okänd {
-      background-color: #ccc; color: black;
-    }
+    .risk-hög { background-color: #d1001c; color: white; }
+    .risk-måttlig { background-color: #e87722; color: white; }
+    .risk-låg { background-color: #fecd1a; color: black; }
+    .risk-okänd { background-color: #ccc; color: black; }
 
     ul.legend {
       list-style: none;
@@ -135,18 +133,32 @@
       margin-right: 10px;
     }
 
-    @media screen and (max-width: 600px) {
-      body {
-        padding: 1rem;
-      }
+    #main-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-top: 2rem;
+      align-items: flex-start;
+    }
 
-      input[type="text"] {
-        font-size: 1rem;
-      }
+    #result {
+      flex: 1 1 400px;
+      max-width: 600px;
+    }
 
-      button {
-        font-size: 0.95rem;
-        padding: 8px 12px;
+    #map {
+      flex: 1 1 400px;
+      height: 500px;
+      min-width: 300px;
+      border-radius: 12px;
+    }
+
+    @media screen and (max-width: 900px) {
+      #main-container {
+        flex-direction: column;
+      }
+      #map {
+        height: 300px;
       }
     }
   </style>
@@ -154,79 +166,86 @@
 <body>
   <h1>🔎 Växtsök</h1>
 
-<p>
-  Sök svenska kärlväxter och få ekologisk information om deras härdighet, ljus- och fuktbehov,
-  nektarvärde, biodiversitetsrelevans samt riskklassning. Arter på EU:s lista över invasiva växter och
-  svenska rödlistan markeras särskilt. Data från <a href="https://www.artfakta.se/" target="_blank">Artfakta</a>
-  och <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">Tyler et al. (2021)</a>.
-</p>
-
+  <p>
+    Sök svenska kärlväxter och få ekologisk information om deras härdighet, ljus- och fuktbehov,
+    nektarvärde, biodiversitetsrelevans samt riskklassning. Arter på EU:s lista över invasiva växter och
+    svenska rödlistan markeras särskilt. Data från <a href="https://www.artfakta.se/" target="_blank">Artfakta</a>
+    och <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">Tyler et al. (2021)</a>.
+  </p>
 
   <input type="text" id="searchInput" placeholder="Skriv ett växtnamn..." autocomplete="off" />
   <div id="suggestions"></div>
   <button onclick="searchPlant()">Sök</button>
 
-  <div id="result"></div>
+  <div id="main-container">
+    <div id="result"></div>
+    <div id="map"></div>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; margin-top: 2rem;">
+    <div>
+      <h3>Rödlistans kategorier</h3>
+      <ul class="legend">
+        <li><span class="redlist-badge rl-EX">EX</span> Utdöd</li>
+        <li><span class="redlist-badge rl-EW">EW</span> Utdöd i vilt tillstånd</li>
+        <li><span class="redlist-badge rl-CR">CR</span> Akut hotad</li>
+        <li><span class="redlist-badge rl-EN">EN</span> Starkt hotad</li>
+        <li><span class="redlist-badge rl-VU">VU</span> Sårbar</li>
+        <li><span class="redlist-badge rl-NT">NT</span> Nära hotad</li>
+        <li><span class="redlist-badge rl-LC">LC</span> Livskraftig</li>
+        <li><span class="redlist-badge rl-DD">DD</span> Kunskapsbrist</li>
+        <li><span class="redlist-badge rl-NE">NE</span> Ej bedömd</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Riskklass (GEIAA)</h3>
+      <ul class="legend">
+        <li><span style="background-color:#c2491d; color:white;">SE</span> Mycket hög risk</li>
+        <li><span style="background-color:#d9782d; color:white;">HI</span> Hög risk</li>
+        <li><span style="background-color:#e2b539; color:black;">PH</span> Potentiellt hög risk</li>
+        <li><span style="background-color:#f3e28c; color:black;">LO</span> Låg risk</li>
+        <li><span style="background-color:#fdf7d4; color:black;">NK</span> Ingen känd risk</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Ljusbehov</h3>
+      <ul class="legend">
+        <li><span>🌑</span> Djup skugga</li>
+        <li><span>🌘</span> Måttlig–djup skugga</li>
+        <li><span>🌗</span> Halvskugga–måttlig skugga</li>
+        <li><span>🌖</span> Halvskugga</li>
+        <li><span>🌕</span> Sol–halvskugga</li>
+        <li><span>🔆</span> Sol, viss skuggning</li>
+        <li><span>☀️</span> Full sol</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Växtsätt</h3>
+      <ul class="legend">
+        <li>🌳 Träd</li>
+        <li>🌿 Buske</li>
+        <li>🌱 Ört</li>
+        <li>🌾 Gräs</li>
+        <li>🌵 Suckulent</li>
+        <li>💧 Vattenväxt</li>
+      </ul>
+    </div>
+  </div>
 
   <!-- PapaParse för CSV -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-o9N1j/c3Ugt1U7So+ZwoO+fkDFExOnkNnJD5IlvYmZQ="
+    crossorigin=""
+  ></script>
+
   <!-- Ditt script -->
   <script src="script.js"></script>
-  <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: flex-start; margin-top: 2rem;">
-  <div>
-    <h3>Rödlistans kategorier</h3>
-    <ul class="legend">
-      <li><span class="redlist-badge rl-EX">EX</span> Utdöd</li>
-      <li><span class="redlist-badge rl-EW">EW</span> Utdöd i vilt tillstånd</li>
-      <li><span class="redlist-badge rl-CR">CR</span> Akut hotad</li>
-      <li><span class="redlist-badge rl-EN">EN</span> Starkt hotad</li>
-      <li><span class="redlist-badge rl-VU">VU</span> Sårbar</li>
-      <li><span class="redlist-badge rl-NT">NT</span> Nära hotad</li>
-      <li><span class="redlist-badge rl-LC">LC</span> Livskraftig</li>
-      <li><span class="redlist-badge rl-DD">DD</span> Kunskapsbrist</li>
-      <li><span class="redlist-badge rl-NE">NE</span> Ej bedömd</li>
-    </ul>
-  </div>
-
-  <div>
-    <h3>Riskklass (GEIAA)</h3>
-    <ul class="legend">
-      <li><span style="background-color:#c2491d; color:white;">SE</span> Mycket hög risk</li>
-      <li><span style="background-color:#d9782d; color:white;">HI</span> Hög risk</li>
-      <li><span style="background-color:#e2b539; color:black;">PH</span> Potentiellt hög risk</li>
-      <li><span style="background-color:#f3e28c; color:black;">LO</span> Låg risk</li>
-      <li><span style="background-color:#fdf7d4; color:black;">NK</span> Ingen känd risk</li>
-    </ul>
-  </div>
-    <div>
-  <h3>Ljusbehov</h3>
-  <ul class="legend">
-    <li><span>🌑</span> Djup skugga</li>
-    <li><span>🌘</span> Måttlig–djup skugga</li>
-    <li><span>🌗</span> Halvskugga–måttlig skugga</li>
-    <li><span>🌖</span> Halvskugga</li>
-    <li><span>🌕</span> Sol–halvskugga</li>
-    <li><span>🔆</span> Sol, viss skuggning</li>
-    <li><span>☀️</span> Full sol</li>
-  </ul>
-</div>
-
-
-  <div>
-    <h3>Växtsätt</h3>
-    <ul class="legend">
-      <li>🌳 Träd</li>
-      <li>🌿 Buske</li>
-      <li>🌱 Ört</li>
-      <li>🌾 Gräs</li>
-      <li>🌵 Suckulent</li>
-      <li>💧 Vattenväxt</li>
-    </ul>
-  </div>
-</div>
-
-
-  
 </body>
 </html>
