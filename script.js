@@ -129,10 +129,6 @@ function drawLightScale(value) {
   return `<span style="font-size: 1.5rem;">${phases[v - 1]}</span>`;
 }
 
-  output += "</div>";
-  return output;
-}
-
 function getRiskCategory(establishment, index) {
   if (establishment !== "Non-resident") return null;
   index = parseInt(index);
