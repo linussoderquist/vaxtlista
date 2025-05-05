@@ -108,7 +108,15 @@ function getRiskklassningFromXLSX(dyntaxaId) {
 function isEUInvasive(dyntaxaId) {
   return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
 }
-
+function getRiskCategory(establishment, index) {
+  if (establishment !== "Non-resident") return null;
+  index = parseInt(index);
+  if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
+  if (index >= 11) return { label: "hög risk", class: "risk-hög" };
+  if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
+  if (index >= 1) return { label: "låg risk", class: "risk-låg" };
+  return { label: "minimal risk", class: "risk-låg" };
+}
 function getColoredRiskTag(code) {
   const tagColors = {
     "SE": "background-color:#c2491d; color:white;",  // Mycket hög risk
