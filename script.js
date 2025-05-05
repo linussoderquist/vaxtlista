@@ -1,4 +1,4 @@
-// Fullständigt script.js med GBIF-karta och alla funktioner inkluderade
+// Fullständigt script.js med GBIF-integrerad karta, ekologiska indikatorer och fix för Leaflet-bounds
 
 let plantData = [];
 let riskData = [];
@@ -11,7 +11,7 @@ const suggestions = document.getElementById("suggestions");
 const resultDiv = document.getElementById("result");
 
 // Leaflet-karta
-let map = L.map("map").setView([62.0, 15.0], 5);
+let map = L.map("map").setView([62.0, 15.0], 5); // centrera Sverige
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
 }).addTo(map);
@@ -99,45 +99,93 @@ function isEUInvasive(dyntaxaId) {
   return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
 }
 
-function heatRequirementToZone(h) {
-  const zones = [
-    "hög-alpin/arktisk zon", "mellanalpin zon", "låg-alpin zon",
-    "trädgräns", "subalpin zon (zon 9)", "odlingszon 8", "odlingszon 7",
-    "odlingszon 6", "odlingszon 5", "odlingszon 4", "odlingszon 3",
-    "odlingszon 2", "odlingszon 1", "kan ej överleva i Sverige"
-  ];
-  const v = parseInt(h);
-  return zones[v - 1] || "okänd";
-}
+function drawMapFromGBIF(scientificName) {
+  if (!scientificName) return;
 
-function getImmigrationLabel(value) {
-  const scale = {
-    "0": "inhemsk art", "1": "införd före 1700", "2": "1700–1750",
-    "3": "1750–1800", "4": "1800–1850", "5": "1850–1900",
-    "6": "1900–1950", "7": "1950–2000", "8": "efter 2000"
-  };
-  return scale[value?.trim()] || "<em>okänd invandringstid</em>";
-}
-
-function getRedlistBadge(status) {
-  if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
-    return `<span class="redlist-badge rl-LC">LC</span>`;
+  if (gbifLayer) {
+    gbifLayer.clearLayers();
+    map.removeLayer(gbifLayer);
   }
-  const s = status.trim().toUpperCase();
-  const code = s.match(/(EX|EW|RE|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
-  return `<span class="redlist-badge rl-${code}">${code}</span>`;
+
+  const gbifUrl = `https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(scientificName)}&country=SE&limit=300&hasCoordinate=true`;
+
+  fetch(gbifUrl)
+    .then(res => res.json())
+    .then(data => {
+      const coords = data.results
+        .filter(r => r.decimalLatitude && r.decimalLongitude)
+        .map(r => [r.decimalLatitude, r.decimalLongitude]);
+
+      if (!coords.length) return;
+
+      gbifLayer = L.featureGroup(coords.map(c => L.circleMarker(c, {
+        radius: 5,
+        color: "#005500",
+        fillColor: "#66cc66",
+        fillOpacity: 0.7
+      })));
+
+      gbifLayer.addTo(map);
+      map.fitBounds(gbifLayer.getBounds().pad(0.4));
+    });
 }
 
-function getColoredRiskTag(code) {
-  const tagColors = {
-    "SE": "background-color:#c2491d; color:white;",
-    "HI": "background-color:#d9782d; color:white;",
-    "PH": "background-color:#e2b539; color:black;",
-    "LO": "background-color:#f3e28c; color:black;",
-    "NK": "background-color:#fdf7d4; color:black;"
-  };
-  const style = tagColors[code] || "background-color:#eee; color:#000;";
-  return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
+function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
+  value = parseInt(value);
+  if (isNaN(value)) return "<em>okänt</em>";
+  let output = "<div class='scale'>";
+  for (let i = 0; i < max; i++) {
+    const style = color ? `style=\"color:${color}\"` : "";
+    output += `<span ${style}>${i < value ? emoji : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
+
+function drawMoistureScale(val) {
+  return drawScaleWithEmoji(val, "💧");
+}
+
+function drawSaltTolerance(value) {
+  return drawScaleWithEmoji(value, "🧂");
+}
+
+function drawLightScale(value) {
+  const phases = ["🌑", "🌘", "🌗", "🌖", "🌕", "🔆", "☀️"];
+  const v = parseInt(value);
+  if (isNaN(v) || v < 1 || v > 7) return "<em>okänt</em>";
+  return `<span style="font-size: 1.5rem;">${phases[v - 1]}</span>`;
+}
+
+function drawNectarScale(value) {
+  const raw = parseInt(value);
+  if (isNaN(raw) || raw < 1) return "<em>okänt</em>";
+  const filled = raw === 1 ? 0 : raw - 1;
+  const pollinators = ["🐝", "🦋"];
+  let output = "<div class='scale'>";
+  for (let i = 0; i < 6; i++) {
+    output += `<span>${i < filled ? pollinators[i % 2] : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
+
+function drawBiodiversityScale(value) {
+  const pool = ["🐸", "🌼", "🍄", "🦔", "🪲", "🐌", "🦉", "🐛"];
+  value = parseInt(value);
+  if (isNaN(value)) return "<em>okänt</em>";
+  let output = "<div class='scale'>";
+  for (let i = 0; i < 5; i++) {
+    output += `<span>${i < value ? pool[Math.floor(Math.random() * pool.length)] : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
+
+function drawHeight(cm) {
+  const value = parseInt(cm);
+  if (isNaN(value)) return "<em>okänt</em>";
+  return `${value} cm`;
 }
 
 function getGrowthFormIcon(type) {
@@ -152,37 +200,45 @@ function getGrowthFormIcon(type) {
   return icons[type] || "🌿";
 }
 
-function drawHeight(cm) {
-  const value = parseInt(cm);
-  if (isNaN(value)) return "<em>okänt</em>";
-  return `${value} cm`;
+function getColoredRiskTag(code) {
+  const tagColors = {
+    "SE": "background-color:#c2491d; color:white;",
+    "HI": "background-color:#d9782d; color:white;",
+    "PH": "background-color:#e2b539; color:black;",
+    "LO": "background-color:#f3e28c; color:black;",
+    "NK": "background-color:#fdf7d4; color:black;"
+  };
+  const style = tagColors[code] || "background-color:#eee; color:#000;";
+  return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
 }
 
-function drawMapFromGBIF(scientificName) {
-  if (!scientificName) return;
-  if (gbifLayer) {
-    map.removeLayer(gbifLayer);
+function heatRequirementToZone(h) {
+  const zones = [
+    "hög-alpin/arktisk zon", "mellanalpin zon", "låg-alpin zon",
+    "trädgräns", "subalpin zon (zon 9)", "odlingszon 8", "odlingszon 7",
+    "odlingszon 6", "odlingszon 5", "odlingszon 4", "odlingszon 3",
+    "odlingszon 2", "odlingszon 1", "kan ej överleva i Sverige"
+  ];
+  const v = parseInt(h);
+  return zones[v - 1] || "okänd";
+}
+
+function getRedlistBadge(status) {
+  if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
+    return `<span class="redlist-badge rl-LC">LC</span>`;
   }
-  const gbifUrl = `https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(scientificName)}&country=SE&limit=300&hasCoordinate=true`;
-  fetch(gbifUrl)
-    .then(res => res.json())
-    .then(data => {
-      const coords = data.results
-        .filter(r => r.decimalLatitude && r.decimalLongitude)
-        .map(r => [r.decimalLatitude, r.decimalLongitude]);
+  const s = status.trim().toUpperCase();
+  const code = s.match(/(EX|EW|RE|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
+  return `<span class="redlist-badge rl-${code}">${code}</span>`;
+}
 
-      if (!coords.length) return;
-
-      gbifLayer = L.layerGroup(coords.map(c => L.circleMarker(c, {
-        radius: 5,
-        color: "#005500",
-        fillColor: "#66cc66",
-        fillOpacity: 0.7
-      })));
-
-      gbifLayer.addTo(map);
-      map.fitBounds(gbifLayer.getBounds().pad(0.4));
-    });
+function getImmigrationLabel(value) {
+  const scale = {
+    "0": "inhemsk art", "1": "införd före 1700", "2": "1700–1750",
+    "3": "1750–1800", "4": "1800–1850", "5": "1850–1900",
+    "6": "1900–1950", "7": "1950–2000", "8": "efter 2000"
+  };
+  return scale[value?.trim()] || "<em>okänd invandringstid</em>";
 }
 
 function formatPlantInfo(match, isEUListad = false) {
@@ -202,6 +258,11 @@ function formatPlantInfo(match, isEUListad = false) {
     ${isEUListad ? `<p><strong style=\"color:#b30000;\">⚠️ EU-listad invasiv art</strong></p>` : ""}
     ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
     ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
+    <p><strong>Biodiversitetsrelevans:</strong> ${drawBiodiversityScale(match["Biodiversity relevance"])}</p>
+    <p><strong>Nektarproduktion:</strong> ${drawNectarScale(match["Nectar production"])}</p>
+    <p><strong>Ljusbehov:</strong> ${drawLightScale(match["Light"])}</p>
+    <p><strong>Fuktighetskrav:</strong> ${drawMoistureScale(match["Moisture"])}</p>
+    ${traits?.["Salttålighet"] ? `<p><strong>Salttålighet:</strong> ${drawSaltTolerance(traits["Salttålighet"])}</p>` : ""}
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
     ${riskklass ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
     <hr/>
