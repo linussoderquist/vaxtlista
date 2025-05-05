@@ -114,6 +114,26 @@
       background-color: #ccc; color: black;
     }
 
+    ul.legend {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 2rem;
+    }
+
+    ul.legend li {
+      margin-bottom: 5px;
+    }
+
+    ul.legend span {
+      display: inline-block;
+      min-width: 35px;
+      text-align: center;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+
     @media screen and (max-width: 600px) {
       body {
         padding: 1rem;
@@ -141,10 +161,18 @@
 
   <input type="text" id="searchInput" placeholder="Skriv ett växtnamn..." autocomplete="off" />
   <div id="suggestions"></div>
-
-  <button onclick="visaAllaEUArter()">Visa alla EU-listade invasiva arter</button>
+  <button onclick="searchPlant()">Sök</button>
 
   <div id="result"></div>
+
+  <h3>Färglegend för riskklass (GEIAA)</h3>
+  <ul class="legend">
+    <li><span style="background-color:#c2491d; color:white;">SE</span> Stor ekologisk påverkan</li>
+    <li><span style="background-color:#d9782d; color:white;">HI</span> Hög påverkan</li>
+    <li><span style="background-color:#e2b539; color:black;">PH</span> Potentiell påverkan</li>
+    <li><span style="background-color:#f3e28c; color:black;">LO</span> Låg påverkan</li>
+    <li><span style="background-color:#fdf7d4; color:black;">NK</span> Okänd påverkan</li>
+  </ul>
 
   <!-- PapaParse för CSV -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
