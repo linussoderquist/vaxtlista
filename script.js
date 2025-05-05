@@ -1,178 +1,192 @@
-// Fullständigt script.js med GBIF-integrerad karta, avlång Sverige-fokuserad layout, uppdaterad riskklassförklaring och ljusbehovsskala
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <link rel="icon" href="guckusko-favicon.png" type="image/png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Växtsök</title>
 
-let plantData = [];
-let riskData = [];
-let euInvasiveData = [];
-let plantTraits = [];
-let allDataLoaded = false;
+  <!-- Montserrat-font -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
-const input = document.getElementById("searchInput");
-const suggestions = document.getElementById("suggestions");
-const resultDiv = document.getElementById("result");
+  <!-- Leaflet CSS utan integrity -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
-// Leaflet-karta – fokuserad på Sverige
-let map = L.map("map", {
-  minZoom: 4,
-  maxZoom: 10,
-  zoomSnap: 0.25
-}).setView([62.0, 15.0], 5); // centrera Sverige
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #b7db93;
+      margin: 0;
+      padding: 1rem;
+    }
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
-}).addTo(map);
+    h1, h2 {
+      font-weight: 700;
+    }
 
-let gbifLayer;
+    input[type="text"] {
+      width: 100%;
+      max-width: 600px;
+      font-size: 1.2rem;
+      padding: 10px;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+      border: none;
+    }
 
-// Ladda CSV-filer
-Papa.parse("vaxtdata.csv", {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function(results) {
-    plantData = results.data;
-    checkAllDataLoaded();
-  }
-});
+    #suggestions {
+      background: white;
+      border-radius: 0 0 8px 8px;
+      max-width: 600px;
+      border: 1px solid #ccc;
+      border-top: none;
+      position: relative;
+      z-index: 10;
+    }
 
-Papa.parse("Riskklassning2024_Uttag.csv", {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function(results) {
-    riskData = results.data;
-    checkAllDataLoaded();
-  }
-});
+    #suggestions div {
+      padding: 10px;
+      cursor: pointer;
+    }
 
-Papa.parse("eu_invasiva_vaxtarter.csv", {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function(results) {
-    euInvasiveData = results.data;
-    checkAllDataLoaded();
-  }
-});
+    #suggestions div:hover {
+      background-color: #f0f0f0;
+    }
 
-Papa.parse("karaktarer.csv", {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function(results) {
-    plantTraits = results.data;
-    checkAllDataLoaded();
-  }
-});
+    button {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      background-color: #4c814c;
+      color: white;
+      padding: 10px 16px;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
-function checkAllDataLoaded() {
-  if (plantData.length && riskData.length && euInvasiveData.length && plantTraits.length) {
-    allDataLoaded = true;
-    setupAutocomplete();
-  }
-}
+    button:hover {
+      background-color: #3a6b3a;
+    }
 
-function setupAutocomplete() {
-  input.addEventListener("input", () => {
-    const val = input.value.toLowerCase();
-    suggestions.innerHTML = "";
-    if (val.length < 2) return;
+    .scale {
+      display: flex;
+      gap: 5px;
+      font-size: 1.5rem;
+    }
 
-    const matches = plantData
-      .filter(p => p["Svenskt namn"]?.toLowerCase().includes(val))
-      .map(p => p["Svenskt namn"]);
+    .redlist-badge {
+      display: inline-block;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 50%;
+      font-weight: bold;
+      font-size: 0.9rem;
+      color: white;
+      text-align: center;
+      line-height: 2.2rem;
+      margin-right: 0.5rem;
+    }
 
-    const uniqueMatches = [...new Set(matches)].slice(0, 10);
+    .rl-EX { background-color: #000; }
+    .rl-EW, .rl-RE { background-color: #444; }
+    .rl-CR { background-color: #d1001c; }
+    .rl-EN { background-color: #e87722; }
+    .rl-VU { background-color: #fecd1a; color: #000; }
+    .rl-NT { background-color: #007c82; }
+    .rl-LC { background-color: #2e8b57; }
+    .rl-DD { background-color: #999; }
+    .rl-NE { background-color: #ccc; color: #000; }
 
-    uniqueMatches.forEach(name => {
-      const div = document.createElement("div");
-      div.textContent = name;
-      div.onclick = () => {
-        input.value = name;
-        suggestions.innerHTML = "";
-        searchPlant();
-      };
-      suggestions.appendChild(div);
-    });
-  });
-}
+    .risk-tag {
+      padding: 5px 10px;
+      border-radius: 12px;
+      font-weight: bold;
+    }
 
-function getRiskklassningFromXLSX(dyntaxaId) {
-  const row = riskData.find(r => r["TaxonId"]?.toString() === dyntaxaId?.toString());
-  return row ? row["Riskkategori, utfall enligt GEIAA metodik"] || null : null;
-}
+    .risk-hög {
+      background-color: #d1001c; color: white;
+    }
 
-function isEUInvasive(dyntaxaId) {
-  return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
-}
+    .risk-måttlig {
+      background-color: #e87722; color: white;
+    }
 
-function drawMapFromGBIF(scientificName) {
-  if (!scientificName) return;
+    .risk-låg {
+      background-color: #fecd1a; color: black;
+    }
 
-  if (gbifLayer) {
-    map.removeLayer(gbifLayer);
-  }
+    .risk-okänd {
+      background-color: #ccc; color: black;
+    }
 
-  const gbifUrl = `https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(scientificName)}&country=SE&limit=300&hasCoordinate=true`;
+    ul.legend {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 2rem;
+    }
 
-  fetch(gbifUrl)
-    .then(res => res.json())
-    .then(data => {
-      const coords = data.results
-        .filter(r => r.decimalLatitude && r.decimalLongitude)
-        .map(r => [r.decimalLatitude, r.decimalLongitude]);
+    ul.legend li {
+      margin-bottom: 5px;
+    }
 
-      if (!coords.length) return;
+    ul.legend span {
+      display: inline-block;
+      min-width: 35px;
+      text-align: center;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      margin-right: 10px;
+    }
 
-      gbifLayer = L.layerGroup(coords.map(c => L.circleMarker(c, {
-        radius: 5,
-        color: "#005500",
-        fillColor: "#66cc66",
-        fillOpacity: 0.7
-      })));
+    #map {
+      width: 100%;
+      height: 400px;
+      margin-top: 2rem;
+    }
 
-      gbifLayer.addTo(map);
-      map.fitBounds(gbifLayer.getBounds().pad(0.2));
-    });
-}
+    @media screen and (max-width: 600px) {
+      body {
+        padding: 1rem;
+      }
 
-function formatPlantInfo(match, isEUListad = false) {
-  const dyntaxa = match["Dyntaxa ID number"];
-  const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
-  const riskklass = getRiskklassningFromXLSX(dyntaxa);
-  const zon = heatRequirementToZone(match["Heat requirement"]);
-  const immigration = getImmigrationLabel(match["Time of immigration"]);
-  const redlist = ["0", "1", "2", "3"].includes(match["Time of immigration"]?.toString());
+      input[type="text"] {
+        font-size: 1rem;
+      }
 
-  return `
-    <h3>${match["Svenskt namn"]} (${match["Scientific name"]})</h3>
-    <p><strong>Familj:</strong> ${match["Family"]}</p>
-    ${redlist ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>` : ""}
-    <p><strong>Härdighet:</strong> ${zon}</p>
-    <p><strong>Invandringstid:</strong> ${immigration}</p>
-    ${isEUListad ? `<p><strong style=\"color:#b30000;\">⚠️ EU-listad invasiv art</strong></p>` : ""}
-    ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"]) } ${traits["Växtsätt"]}</p>` : ""}
-    ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
-    <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
-    ${riskklass ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
-    <hr/>
-  `;
-}
+      button {
+        font-size: 0.95rem;
+        padding: 8px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>🔎 Växtsök</h1>
 
-function searchPlant() {
-  if (!allDataLoaded) {
-    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
-    return;
-  }
+  <p>
+    Sök svenska kärlväxter och få ekologisk information om deras härdighet, ljus- och fuktbehov,
+    nektarvärde, biodiversitetsrelevans samt riskklassning. Arter på EU:s lista över invasiva växter och
+    svenska rödlistan markeras särskilt. Data från <a href="https://www.artfakta.se/" target="_blank">Artfakta</a>
+    och <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">Tyler et al. (2021)</a>.
+  </p>
 
-  const inputVal = input.value.toLowerCase().trim();
-  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+  <input type="text" id="searchInput" placeholder="Skriv ett växtnamn..." autocomplete="off" />
+  <div id="suggestions"></div>
+  <button onclick="searchPlant()">Sök</button>
 
-  if (!match) {
-    resultDiv.innerHTML = "🚫 Växten hittades inte.";
-    return;
-  }
+  <div id="result"></div>
+  <div id="map"></div>
 
-  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
-  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
-  drawMapFromGBIF(match["Scientific name"]);
-}
+  <!-- Leaflet JS utan integrity -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- PapaParse för CSV -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <!-- Ditt script -->
+  <script src="script.js"></script>
+</body>
+</html>
