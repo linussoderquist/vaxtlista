@@ -236,7 +236,6 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Fuktighetskrav:</strong> ${drawMoistureScale(match["Moisture"])}</p>
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
     ${riskklass ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
-    ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
     <hr/>
   `;
 }
