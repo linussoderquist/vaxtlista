@@ -57,23 +57,6 @@ function checkAllDataLoaded() {
     setupAutocomplete();
   }
 }
-function searchPlant() {
-  if (!allDataLoaded) {
-    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
-    return;
-  }
-
-  const inputVal = input.value.toLowerCase().trim();
-  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
-
-  if (!match) {
-    resultDiv.innerHTML = "🚫 Växten hittades inte.";
-    return;
-  }
-
-  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
-  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
-}
 
 function setupAutocomplete() {
   input.addEventListener("input", () => {
@@ -108,15 +91,7 @@ function getRiskklassningFromXLSX(dyntaxaId) {
 function isEUInvasive(dyntaxaId) {
   return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
 }
-function getRiskCategory(establishment, index) {
-  if (establishment !== "Non-resident") return null;
-  index = parseInt(index);
-  if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
-  if (index >= 11) return { label: "hög risk", class: "risk-hög" };
-  if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
-  if (index >= 1) return { label: "låg risk", class: "risk-låg" };
-  return { label: "minimal risk", class: "risk-låg" };
-}
+
 function getColoredRiskTag(code) {
   const tagColors = {
     "SE": "background-color:#c2491d; color:white;",  // Mycket hög risk
@@ -127,6 +102,16 @@ function getColoredRiskTag(code) {
   };
   const style = tagColors[code] || "background-color:#eee; color:#000;";
   return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
+}
+
+function getRiskCategory(establishment, index) {
+  if (establishment !== "Non-resident") return null;
+  index = parseInt(index);
+  if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
+  if (index >= 11) return { label: "hög risk", class: "risk-hög" };
+  if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
+  if (index >= 1) return { label: "låg risk", class: "risk-låg" };
+  return { label: "minimal risk", class: "risk-låg" };
 }
 
 function getGrowthFormIcon(type) {
@@ -146,7 +131,6 @@ function drawHeight(cm) {
   if (isNaN(value)) return "<em>okänt</em>";
   return `${value} cm`;
 }
-
 
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
@@ -177,3 +161,20 @@ function formatPlantInfo(match, isEUListad = false) {
   `;
 }
 
+function searchPlant() {
+  if (!allDataLoaded) {
+    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
+    return;
+  }
+
+  const inputVal = input.value.toLowerCase().trim();
+  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+
+  if (!match) {
+    resultDiv.innerHTML = "🚫 Växten hittades inte.";
+    return;
+  }
+
+  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
+  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
+}
