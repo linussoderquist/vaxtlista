@@ -57,7 +57,7 @@ function checkAllDataLoaded() {
     setupAutocomplete();
   }
 }
-}
+
 
 function setupAutocomplete() {
   input.addEventListener("input", () => {
