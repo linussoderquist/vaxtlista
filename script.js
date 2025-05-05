@@ -58,7 +58,6 @@ function checkAllDataLoaded() {
   }
 }
 
-
 function setupAutocomplete() {
   input.addEventListener("input", () => {
     const val = input.value.toLowerCase();
