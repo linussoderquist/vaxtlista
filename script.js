@@ -1,4 +1,4 @@
-// Fullständigt script.js med GBIF-integrerad karta och uppdaterad riskklassförklaring och ljusbehovsskala
+// Fullständigt script.js med GBIF-karta och alla funktioner inkluderade
 
 let plantData = [];
 let riskData = [];
@@ -11,7 +11,7 @@ const suggestions = document.getElementById("suggestions");
 const resultDiv = document.getElementById("result");
 
 // Leaflet-karta
-let map = L.map("map").setView([62.0, 15.0], 5); // centrera Sverige
+let map = L.map("map").setView([62.0, 15.0], 5);
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
 }).addTo(map);
@@ -99,15 +99,71 @@ function isEUInvasive(dyntaxaId) {
   return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
 }
 
+function heatRequirementToZone(h) {
+  const zones = [
+    "hög-alpin/arktisk zon", "mellanalpin zon", "låg-alpin zon",
+    "trädgräns", "subalpin zon (zon 9)", "odlingszon 8", "odlingszon 7",
+    "odlingszon 6", "odlingszon 5", "odlingszon 4", "odlingszon 3",
+    "odlingszon 2", "odlingszon 1", "kan ej överleva i Sverige"
+  ];
+  const v = parseInt(h);
+  return zones[v - 1] || "okänd";
+}
+
+function getImmigrationLabel(value) {
+  const scale = {
+    "0": "inhemsk art", "1": "införd före 1700", "2": "1700–1750",
+    "3": "1750–1800", "4": "1800–1850", "5": "1850–1900",
+    "6": "1900–1950", "7": "1950–2000", "8": "efter 2000"
+  };
+  return scale[value?.trim()] || "<em>okänd invandringstid</em>";
+}
+
+function getRedlistBadge(status) {
+  if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
+    return `<span class="redlist-badge rl-LC">LC</span>`;
+  }
+  const s = status.trim().toUpperCase();
+  const code = s.match(/(EX|EW|RE|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
+  return `<span class="redlist-badge rl-${code}">${code}</span>`;
+}
+
+function getColoredRiskTag(code) {
+  const tagColors = {
+    "SE": "background-color:#c2491d; color:white;",
+    "HI": "background-color:#d9782d; color:white;",
+    "PH": "background-color:#e2b539; color:black;",
+    "LO": "background-color:#f3e28c; color:black;",
+    "NK": "background-color:#fdf7d4; color:black;"
+  };
+  const style = tagColors[code] || "background-color:#eee; color:#000;";
+  return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
+}
+
+function getGrowthFormIcon(type) {
+  const icons = {
+    "Träd": "🌳",
+    "Buske": "🌿",
+    "Ört": "🌱",
+    "Gräs": "🌾",
+    "Suckulent": "🌵",
+    "Vattenväxt": "💧"
+  };
+  return icons[type] || "🌿";
+}
+
+function drawHeight(cm) {
+  const value = parseInt(cm);
+  if (isNaN(value)) return "<em>okänt</em>";
+  return `${value} cm`;
+}
+
 function drawMapFromGBIF(scientificName) {
   if (!scientificName) return;
-
   if (gbifLayer) {
     map.removeLayer(gbifLayer);
   }
-
   const gbifUrl = `https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(scientificName)}&country=SE&limit=300&hasCoordinate=true`;
-
   fetch(gbifUrl)
     .then(res => res.json())
     .then(data => {
@@ -144,7 +200,7 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Härdighet:</strong> ${zon}</p>
     <p><strong>Invandringstid:</strong> ${immigration}</p>
     ${isEUListad ? `<p><strong style=\"color:#b30000;\">⚠️ EU-listad invasiv art</strong></p>` : ""}
-    ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])}</p>` : ""}
+    ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
     ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
     ${riskklass ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
