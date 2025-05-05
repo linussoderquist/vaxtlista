@@ -1,4 +1,4 @@
-// Fullständigt script.js med uppdaterad riskklassförklaring och ljusbehovsskala med månfaser
+// Fullständigt script.js med GBIF-karta fokuserad på Sverige
 
 let plantData = [];
 let riskData = [];
@@ -129,45 +129,6 @@ function drawLightScale(value) {
   return `<span style="font-size: 1.5rem;">${phases[v - 1]}</span>`;
 }
 
-function getRiskCategory(establishment, index) {
-  if (establishment !== "Non-resident") return null;
-  index = parseInt(index);
-  if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
-  if (index >= 11) return { label: "hög risk", class: "risk-hög" };
-  if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
-  if (index >= 1) return { label: "låg risk", class: "risk-låg" };
-  return { label: "minimal risk", class: "risk-låg" };
-}
-
-function getImmigrationLabel(value) {
-  const scale = {
-    "0": "inhemsk art", "1": "införd före 1700", "2": "1700–1750",
-    "3": "1750–1800", "4": "1800–1850", "5": "1850–1900",
-    "6": "1900–1950", "7": "1950–2000", "8": "efter 2000"
-  };
-  return scale[value?.trim()] || "<em>okänd invandringstid</em>";
-}
-
-function heatRequirementToZone(h) {
-  const zones = [
-    "hög-alpin/arktisk zon", "mellanalpin zon", "låg-alpin zon",
-    "trädgräns", "subalpin zon (zon 9)", "odlingszon 8", "odlingszon 7",
-    "odlingszon 6", "odlingszon 5", "odlingszon 4", "odlingszon 3",
-    "odlingszon 2", "odlingszon 1", "kan ej överleva i Sverige"
-  ];
-  const v = parseInt(h);
-  return zones[v - 1] || "okänd";
-}
-
-function getRedlistBadge(status) {
-  if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
-    return `<span class="redlist-badge rl-LC">LC</span>`;
-  }
-  const s = status.trim().toUpperCase();
-  const code = s.match(/(EX|EW|RE|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
-  return `<span class="redlist-badge rl-${code}">${code}</span>`;
-}
-
 function drawMoistureScale(value) {
   const v = parseInt(value);
   if (isNaN(v)) return "<em>okänt</em>";
@@ -228,7 +189,8 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Härdighet:</strong> ${zon}</p>
     <p><strong>Invandringstid:</strong> ${immigration}</p>
     ${isEUListad ? `<p><strong style=\"color:#b30000;\">⚠️ EU-listad invasiv art</strong></p>` : ""}
-    ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
+    ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])}` +
+    ` ${traits["Växtsätt"]}</p>` : ""}
     ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
     <p><strong>Biodiversitetsrelevans:</strong> ${drawBiodiversityScale(match["Biodiversity relevance"])}</p>
     <p><strong>Nektarproduktion:</strong> ${drawNectarScale(match["Nectar production"])}</p>
@@ -236,6 +198,7 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Fuktighetskrav:</strong> ${drawMoistureScale(match["Moisture"])}</p>
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
     ${riskklass ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
+    ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
     <hr/>
   `;
 }
@@ -256,4 +219,41 @@ function searchPlant() {
 
   const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
   resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
+  showDistributionMap(match["Scientific name"]);
+}
+
+// ===== KARTFUNKTION =====
+let map = null;
+let markerLayer = null;
+
+function showDistributionMap(scientificName) {
+  if (!map) {
+    map = L.map('map').setView([62.5, 17], 4.5); // Sverige-fokus
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap'
+    }).addTo(map);
+    markerLayer = L.layerGroup().addTo(map);
+  } else {
+    markerLayer.clearLayers();
+  }
+
+  fetch(`https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(scientificName)}&country=SE&limit=200`)
+    .then(res => res.json())
+    .then(data => {
+      data.results.forEach(record => {
+        if (record.decimalLatitude && record.decimalLongitude) {
+          const marker = L.circleMarker([record.decimalLatitude, record.decimalLongitude], {
+            radius: 5,
+            color: "#2e7d32",
+            fillColor: "#66bb6a",
+            fillOpacity: 0.7,
+            weight: 1
+          });
+          marker.addTo(markerLayer);
+        }
+      });
+    })
+    .catch(err => {
+      console.error("Fel vid hämtning från GBIF:", err);
+    });
 }
