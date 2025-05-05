@@ -134,36 +134,23 @@ function drawLightScale(value) {
   return output;
 }
 
-function drawMoistureScale(value) {
-  const v = parseInt(value);
-  if (isNaN(v)) return "<em>okänt</em>";
-  const scaled = v > 8 ? 5 : Math.ceil((v / 8) * 5);
-  return drawScaleWithEmoji(scaled, "💧");
+function getRiskCategory(establishment, index) {
+  if (establishment !== "Non-resident") return null;
+  index = parseInt(index);
+  if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
+  if (index >= 11) return { label: "hög risk", class: "risk-hög" };
+  if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
+  if (index >= 1) return { label: "låg risk", class: "risk-låg" };
+  return { label: "minimal risk", class: "risk-låg" };
 }
 
-function drawNectarScale(value) {
-  const raw = parseInt(value);
-  if (isNaN(raw) || raw < 1) return "<em>okänt</em>";
-  const filled = raw === 1 ? 0 : raw - 1;
-  const pollinators = ["🐝", "🦋"];
-  let output = "<div class='scale'>";
-  for (let i = 0; i < 6; i++) {
-    output += `<span>${i < filled ? pollinators[i % 2] : "⚪"}</span>`;
-  }
-  output += "</div>";
-  return output;
-}
-
-function drawBiodiversityScale(value) {
-  const pool = ["🐸", "🌼", "🍄", "🦔", "🪲", "🐌", "🦉", "🐛"];
-  value = parseInt(value);
-  if (isNaN(value)) return "<em>okänt</em>";
-  let output = "<div class='scale'>";
-  for (let i = 0; i < 5; i++) {
-    output += `<span>${i < value ? pool[Math.floor(Math.random() * pool.length)] : "⚪"}</span>`;
-  }
-  output += "</div>";
-  return output;
+function getImmigrationLabel(value) {
+  const scale = {
+    "0": "inhemsk art", "1": "införd före 1700", "2": "1700–1750",
+    "3": "1750–1800", "4": "1800–1850", "5": "1850–1900",
+    "6": "1900–1950", "7": "1950–2000", "8": "efter 2000"
+  };
+  return scale[value?.trim()] || "<em>okänd invandringstid</em>";
 }
 
 function heatRequirementToZone(h) {
@@ -186,23 +173,48 @@ function getRedlistBadge(status) {
   return `<span class="redlist-badge rl-${code}">${code}</span>`;
 }
 
-function getRiskCategory(establishment, index) {
-  if (establishment !== "Non-resident") return null;
-  index = parseInt(index);
-  if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
-  if (index >= 11) return { label: "hög risk", class: "risk-hög" };
-  if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
-  if (index >= 1) return { label: "låg risk", class: "risk-låg" };
-  return { label: "minimal risk", class: "risk-låg" };
+function drawMoistureScale(value) {
+  const v = parseInt(value);
+  if (isNaN(v)) return "<em>okänt</em>";
+  const scaled = v > 8 ? 5 : Math.ceil((v / 8) * 5);
+  return drawScaleWithEmoji(scaled, "💧");
 }
 
-function getImmigrationLabel(value) {
-  const scale = {
-    "0": "inhemsk art", "1": "införd före 1700", "2": "1700–1750",
-    "3": "1750–1800", "4": "1800–1850", "5": "1850–1900",
-    "6": "1900–1950", "7": "1950–2000", "8": "efter 2000"
-  };
-  return scale[value?.trim()] || "<em>okänd invandringstid</em>";
+function drawBiodiversityScale(value) {
+  const pool = ["🐸", "🌼", "🍄", "🦔", "🪲", "🐌", "🦉", "🐛"];
+  value = parseInt(value);
+  if (isNaN(value)) return "<em>okänt</em>";
+  let output = "<div class='scale'>";
+  for (let i = 0; i < 5; i++) {
+    output += `<span>${i < value ? pool[Math.floor(Math.random() * pool.length)] : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
+
+function drawNectarScale(value) {
+  const raw = parseInt(value);
+  if (isNaN(raw) || raw < 1) return "<em>okänt</em>";
+  const filled = raw === 1 ? 0 : raw - 1;
+  const pollinators = ["🐝", "🦋"];
+  let output = "<div class='scale'>";
+  for (let i = 0; i < 6; i++) {
+    output += `<span>${i < filled ? pollinators[i % 2] : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
+
+function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
+  value = parseInt(value);
+  if (isNaN(value)) return "<em>okänt</em>";
+  let output = "<div class='scale'>";
+  for (let i = 0; i < max; i++) {
+    const style = color ? `style=\"color:${color}\"` : "";
+    output += `<span ${style}>${i < value ? emoji : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
 }
 
 function formatPlantInfo(match, isEUListad = false) {
