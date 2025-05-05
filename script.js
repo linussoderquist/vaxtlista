@@ -1,4 +1,4 @@
-// Fullständigt script.js med uppdaterad riskklassförklaring
+// Fullständigt script.js med uppdaterad riskklassförklaring och alla tillagda funktioner
 
 let plantData = [];
 let riskData = [];
@@ -94,24 +94,14 @@ function isEUInvasive(dyntaxaId) {
 
 function getColoredRiskTag(code) {
   const tagColors = {
-    "SE": "background-color:#c2491d; color:white;",  // Mycket hög risk
-    "HI": "background-color:#d9782d; color:white;",  // Hög risk
-    "PH": "background-color:#e2b539; color:black;",  // Potentiellt hög risk
-    "LO": "background-color:#f3e28c; color:black;",  // Låg risk
-    "NK": "background-color:#fdf7d4; color:black;"   // Ingen känd risk
+    "SE": "background-color:#c2491d; color:white;",
+    "HI": "background-color:#d9782d; color:white;",
+    "PH": "background-color:#e2b539; color:black;",
+    "LO": "background-color:#f3e28c; color:black;",
+    "NK": "background-color:#fdf7d4; color:black;"
   };
   const style = tagColors[code] || "background-color:#eee; color:#000;";
   return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
-}
-
-function getRiskCategory(establishment, index) {
-  if (establishment !== "Non-resident") return null;
-  index = parseInt(index);
-  if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
-  if (index >= 11) return { label: "hög risk", class: "risk-hög" };
-  if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
-  if (index >= 1) return { label: "låg risk", class: "risk-låg" };
-  return { label: "minimal risk", class: "risk-låg" };
 }
 
 function getGrowthFormIcon(type) {
@@ -130,6 +120,111 @@ function drawHeight(cm) {
   const value = parseInt(cm);
   if (isNaN(value)) return "<em>okänt</em>";
   return `${value} cm`;
+}
+
+function getRiskCategory(establishment, index) {
+  if (establishment !== "Non-resident") return null;
+  index = parseInt(index);
+  if (isNaN(index)) return { label: "okänd risk", class: "risk-okänd" };
+  if (index >= 11) return { label: "hög risk", class: "risk-hög" };
+  if (index >= 7) return { label: "måttlig risk", class: "risk-måttlig" };
+  if (index >= 1) return { label: "låg risk", class: "risk-låg" };
+  return { label: "minimal risk", class: "risk-låg" };
+}
+
+function heatRequirementToZone(h) {
+  const zones = [
+    "hög-alpin/arktisk zon", "mellanalpin zon", "låg-alpin zon",
+    "trädgräns", "subalpin zon (zon 9)", "odlingszon 8", "odlingszon 7",
+    "odlingszon 6", "odlingszon 5", "odlingszon 4", "odlingszon 3",
+    "odlingszon 2", "odlingszon 1", "kan ej överleva i Sverige"
+  ];
+  const v = parseInt(h);
+  return zones[v - 1] || "okänd";
+}
+
+function getImmigrationLabel(value) {
+  const scale = {
+    "0": "inhemsk art", "1": "införd före 1700", "2": "1700–1750",
+    "3": "1750–1800", "4": "1800–1850", "5": "1850–1900",
+    "6": "1900–1950", "7": "1950–2000", "8": "efter 2000"
+  };
+  return scale[value?.trim()] || "<em>okänd invandringstid</em>";
+}
+
+function getRedlistBadge(status) {
+  if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
+    return `<span class="redlist-badge rl-LC">LC</span>`;
+  }
+  const s = status.trim().toUpperCase();
+  const code = s.match(/(EX|EW|RE|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
+  return `<span class="redlist-badge rl-${code}">${code}</span>`;
+}
+
+function drawBiodiversityScale(value) {
+  const pool = ["🐸", "🌼", "🍄", "🦔", "🪲", "🐌", "🦉", "🐛"];
+  value = parseInt(value);
+  if (isNaN(value)) return "<em>okänt</em>";
+  let output = "<div class='scale'>";
+  for (let i = 0; i < 5; i++) {
+    output += `<span>${i < value ? pool[Math.floor(Math.random() * pool.length)] : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
+
+function drawNectarScale(value) {
+  const raw = parseInt(value);
+  if (isNaN(raw) || raw < 1) return "<em>okänt</em>";
+  const filled = raw === 1 ? 0 : raw - 1;
+  const pollinators = ["🐝", "🦋"];
+  let output = "<div class='scale'>";
+  for (let i = 0; i < 6; i++) {
+    output += `<span>${i < filled ? pollinators[i % 2] : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
+
+function drawLightScale(value) {
+  return drawScaleWithEmoji(value, "☀️");
+}
+
+function drawMoistureScale(value) {
+  const v = parseInt(value);
+  if (isNaN(v)) return "<em>okänt</em>";
+  const scaled = v > 8 ? 5 : Math.ceil((v / 8) * 5);
+  return drawScaleWithEmoji(scaled, "💧");
+}
+
+function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
+  value = parseInt(value);
+  if (isNaN(value)) return "<em>okänt</em>";
+  let output = "<div class='scale'>";
+  for (let i = 0; i < max; i++) {
+    const style = color ? `style=\"color:${color}\"` : "";
+    output += `<span ${style}>${i < value ? emoji : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
+
+function searchPlant() {
+  if (!allDataLoaded) {
+    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
+    return;
+  }
+
+  const inputVal = input.value.toLowerCase().trim();
+  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+
+  if (!match) {
+    resultDiv.innerHTML = "🚫 Växten hittades inte.";
+    return;
+  }
+
+  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
+  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
 }
 
 function formatPlantInfo(match, isEUListad = false) {
@@ -159,22 +254,4 @@ function formatPlantInfo(match, isEUListad = false) {
     ${risk ? `<p><strong>Riskklassificering:</strong> <span class="risk-tag ${risk.class}">${risk.label}</span></p>` : ""}
     <hr/>
   `;
-}
-
-function searchPlant() {
-  if (!allDataLoaded) {
-    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
-    return;
-  }
-
-  const inputVal = input.value.toLowerCase().trim();
-  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
-
-  if (!match) {
-    resultDiv.innerHTML = "🚫 Växten hittades inte.";
-    return;
-  }
-
-  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
-  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
 }
