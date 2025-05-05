@@ -46,7 +46,6 @@ function checkAllDataLoaded() {
     setupAutocomplete();
   }
 }
-}
 
 function setupAutocomplete() {
   input.addEventListener("input", () => {
@@ -90,9 +89,6 @@ function getColoredRiskTag(code) {
     "LO": "background-color:#f3e28c; color:black;",
     "NK": "background-color:#fdf7d4; color:black;"
   };
-  const style = tagColors[code] || "background-color:#eee; color:#000;";
-  return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
-};
   const style = tagColors[code] || "background-color:#eee; color:#000;";
   return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
 }
