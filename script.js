@@ -126,10 +126,9 @@ function drawLightScale(value) {
   const phases = ["🌑", "🌘", "🌗", "🌖", "🌕", "🔆", "☀️"];
   const v = parseInt(value);
   if (isNaN(v) || v < 1 || v > 7) return "<em>okänt</em>";
-  let output = "<div class='scale'>";
-  for (let i = 0; i < 7; i++) {
-    output += `<span>${i < v ? phases[i] : "⚪"}</span>`;
-  }
+  return `<span style="font-size: 1.5rem;">${phases[v - 1]}</span>`;
+}
+
   output += "</div>";
   return output;
 }
