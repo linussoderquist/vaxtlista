@@ -116,7 +116,7 @@ async function drawMapFromGBIF(scientificName) {
     let hasMore = true;
 
     while (hasMore) {
-      const url = `https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(scientificName)}&country=${country}&hasCoordinate=true&year=2015&limit=300&offset=${offset}`;
+      const url = `https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(scientificName)}&geometry=POLYGON((5 54, 5 71, 32 71, 32 54, 5 54))&hasCoordinate=true&year=2015&limit=300&offset=${offset}`;
       const res = await fetch(url);
       const data = await res.json();
 
