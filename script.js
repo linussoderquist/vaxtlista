@@ -107,28 +107,49 @@ function drawMapFromGBIF(scientificName) {
     map.removeLayer(gbifLayer);
   }
 
-  const gbifUrl = `https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(scientificName)}&country=SE&limit=300&hasCoordinate=true`;
+  const countries = ['SE', 'NO', 'DK', 'FI'];
+  const coords = [];
+  let gbifLayer;
 
-  fetch(gbifUrl)
-    .then(res => res.json())
-    .then(data => {
-      const coords = data.results
+  // Hämtar data per land, med paginering (300 per sida) och från 2015 till idag
+  const fetchCountryData = async (country) => {
+    let offset = 0;
+    let hasMore = true;
+
+    while (hasMore) {
+      const url = `https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(scientificName)}&country=${country}&hasCoordinate=true&year=2015,${new Date().getFullYear()}&limit=300&offset=${offset}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      const newCoords = data.results
         .filter(r => r.decimalLatitude && r.decimalLongitude)
         .map(r => [r.decimalLatitude, r.decimalLongitude]);
 
-      if (!coords.length) return;
+      coords.push(...newCoords);
+      offset += 300;
+      hasMore = data.results.length === 300;
+    }
+  };
 
-      gbifLayer = L.featureGroup(coords.map(c => L.circleMarker(c, {
-        radius: 5,
-        color: "#005500",
-        fillColor: "#66cc66",
-        fillOpacity: 0.7
-      })));
+  // Kör alla länder parallellt och bygger kartlagret
+  Promise.all(countries.map(fetchCountryData)).then(() => {
+    if (!coords.length) return;
 
-      gbifLayer.addTo(map);
-      map.fitBounds(gbifLayer.getBounds().pad(0.4));
-    });
+    gbifLayer = L.featureGroup(coords.map(c => L.circleMarker(c, {
+      radius: 5,
+      color: "#005500",
+      fillColor: "#66cc66",
+      fillOpacity: 0.7
+    })));
+
+    gbifLayer.addTo(map);
+
+    // Begränsa zoom till Sverige även om fynden finns i fler länder
+    const swedenBounds = L.latLngBounds([[55, 10], [69.5, 24]]);
+    map.fitBounds(swedenBounds.pad(0.1));
+  });
 }
+
 
 function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
   value = parseInt(value);
