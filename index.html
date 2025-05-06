@@ -6,12 +6,7 @@
   <title>Växtsök</title>
   <link rel="icon" href="guckusko-favicon.png" type="image/png">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-    integrity=""
-    crossorigin=""
-  />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     body {
       font-family: 'Montserrat', sans-serif;
@@ -161,6 +156,16 @@
       border: 1px solid #888;
     }
 
+    #legendToggle {
+      margin-top: 2rem;
+      background-color: #333;
+    }
+
+    #legendSection {
+      display: none;
+      margin-top: 1rem;
+    }
+
     @media screen and (max-width: 768px) {
       #container {
         flex-direction: column;
@@ -191,68 +196,95 @@
     <div id="map"></div>
   </div>
 
-  <div id="legends" style="display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 2rem;">
-    <div>
-      <h3>Rödlistans kategorier</h3>
-      <ul class="legend">
-        <li><span class="redlist-badge rl-EX">EX</span> Utdöd</li>
-        <li><span class="redlist-badge rl-EW">EW</span> Utdöd i vilt tillstånd</li>
-        <li><span class="redlist-badge rl-CR">CR</span> Akut hotad</li>
-        <li><span class="redlist-badge rl-EN">EN</span> Starkt hotad</li>
-        <li><span class="redlist-badge rl-VU">VU</span> Sårbar</li>
-        <li><span class="redlist-badge rl-NT">NT</span> Nära hotad</li>
-        <li><span class="redlist-badge rl-LC">LC</span> Livskraftig</li>
-        <li><span class="redlist-badge rl-DD">DD</span> Kunskapsbrist</li>
-        <li><span class="redlist-badge rl-NE">NE</span> Ej bedömd</li>
-      </ul>
-    </div>
+  <button id="legendToggle" onclick="toggleLegend()">▼ Visa förklaringar</button>
 
-    <div>
-      <h3>Riskklass (GEIAA)</h3>
-      <ul class="legend">
-        <li><span style="background-color:#c2491d; color:white;">SE</span> Mycket hög risk</li>
-        <li><span style="background-color:#d9782d; color:white;">HI</span> Hög risk</li>
-        <li><span style="background-color:#e2b539; color:black;">PH</span> Potentiellt hög risk</li>
-        <li><span style="background-color:#f3e28c; color:black;">LO</span> Låg risk</li>
-        <li><span style="background-color:#fdf7d4; color:black;">NK</span> Ingen känd risk</li>
-      </ul>
-    </div>
+  <div id="legendSection">
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
+      <div>
+        <h3>Rödlistans kategorier</h3>
+        <ul class="legend">
+          <li><span class="redlist-badge rl-EX">EX</span> Utdöd</li>
+          <li><span class="redlist-badge rl-EW">EW</span> Utdöd i vilt tillstånd</li>
+          <li><span class="redlist-badge rl-CR">CR</span> Akut hotad</li>
+          <li><span class="redlist-badge rl-EN">EN</span> Starkt hotad</li>
+          <li><span class="redlist-badge rl-VU">VU</span> Sårbar</li>
+          <li><span class="redlist-badge rl-NT">NT</span> Nära hotad</li>
+          <li><span class="redlist-badge rl-LC">LC</span> Livskraftig</li>
+          <li><span class="redlist-badge rl-DD">DD</span> Kunskapsbrist</li>
+          <li><span class="redlist-badge rl-NE">NE</span> Ej bedömd</li>
+        </ul>
+      </div>
 
-    <div>
-      <h3>Ljusbehov</h3>
-      <ul class="legend">
-        <li><span>🌑</span> Djup skugga</li>
-        <li><span>🌘</span> Måttlig–djup skugga</li>
-        <li><span>🌗</span> Halvskugga–måttlig skugga</li>
-        <li><span>🌖</span> Halvskugga</li>
-        <li><span>🌕</span> Sol–halvskugga</li>
-        <li><span>🔆</span> Sol, viss skuggning</li>
-        <li><span>☀️</span> Full sol</li>
-      </ul>
-    </div>
+      <div>
+        <h3>Riskklass (GEIAA)</h3>
+        <ul class="legend">
+          <li><span style="background-color:#c2491d; color:white;">SE</span> Mycket hög risk</li>
+          <li><span style="background-color:#d9782d; color:white;">HI</span> Hög risk</li>
+          <li><span style="background-color:#e2b539; color:black;">PH</span> Potentiellt hög risk</li>
+          <li><span style="background-color:#f3e28c; color:black;">LO</span> Låg risk</li>
+          <li><span style="background-color:#fdf7d4; color:black;">NK</span> Ingen känd risk</li>
+        </ul>
+      </div>
 
-    <div>
-      <h3>Växtsätt</h3>
-      <ul class="legend">
-        <li>🌳 Träd</li>
-        <li>🌿 Buske</li>
-        <li>🌱 Ört</li>
-        <li>🌾 Gräs</li>
-        <li>🌵 Suckulent</li>
-        <li>💧 Vattenväxt</li>
-      </ul>
+      <div>
+        <h3>Ljusbehov</h3>
+        <ul class="legend">
+          <li><span>🌑</span> Djup skugga</li>
+          <li><span>🌘</span> Måttlig–djup skugga</li>
+          <li><span>🌗</span> Halvskugga–måttlig skugga</li>
+          <li><span>🌖</span> Halvskugga</li>
+          <li><span>🌕</span> Sol–halvskugga</li>
+          <li><span>🔆</span> Sol, viss skuggning</li>
+          <li><span>☀️</span> Full sol</li>
+        </ul>
+      </div>
+
+      <div>
+        <h3>Växtsätt</h3>
+        <ul class="legend">
+          <li>🌳 Träd</li>
+          <li>🌿 Buske</li>
+          <li>🌱 Ört</li>
+          <li>🌾 Gräs</li>
+          <li>🌵 Suckulent</li>
+          <li>💧 Vattenväxt</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Fuktighetskrav</h3>
+        <ul class="legend">
+          <li><span>💧</span> Mycket torrt</li>
+          <li><span>💧💧</span> Torrt</li>
+          <li><span>💧💧💧</span> Måttligt</li>
+          <li><span>💧💧💧💧</span> Fuktigt</li>
+          <li><span>💧💧💧💧💧</span> Mycket fuktigt</li>
+        </ul>
+        <h3>Salttålighet</h3>
+        <ul class="legend">
+          <li><span>⚪</span> Ingen</li>
+          <li><span>🧂</span> Låg</li>
+          <li><span>🧂🧂</span> Medel</li>
+          <li><span>🧂🧂🧂</span> Hög</li>
+        </ul>
+      </div>
     </div>
   </div>
 
   <!-- PapaParse för CSV -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <!-- Leaflet -->
-  <script
-    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-    integrity=""
-    crossorigin=""
-  ></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- Din JS -->
   <script src="script.js"></script>
+
+  <script>
+    function toggleLegend() {
+      const section = document.getElementById("legendSection");
+      const button = document.getElementById("legendToggle");
+      const isVisible = section.style.display === "block";
+      section.style.display = isVisible ? "none" : "block";
+      button.textContent = isVisible ? "▼ Visa förklaringar" : "▲ Dölj förklaringar";
+    }
+  </script>
 </body>
 </html>
