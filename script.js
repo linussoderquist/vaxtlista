@@ -4,6 +4,7 @@ let plantData = [];
 let riskData = [];
 let euInvasiveData = [];
 let plantTraits = [];
+let gbifLayer; 
 let allDataLoaded = false;
 
 const input = document.getElementById("searchInput");
