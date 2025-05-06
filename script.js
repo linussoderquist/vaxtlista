@@ -108,7 +108,7 @@ async function drawMapFromGBIF(scientificName) {
     gbifLayer = null;
   }
 
-  const countries = ['SE', 'NO', 'DK', 'FI'];
+  const countries = ['SE', 'NO', 'DK', 'FI', 'EE', 'LV', 'LT', 'PL', 'DE'];
   const coords = [];
 
   const fetchCountryData = async (country) => {
