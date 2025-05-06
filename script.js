@@ -102,9 +102,10 @@ function isEUInvasive(dyntaxaId) {
 async function drawMapFromGBIF(scientificName) {
   if (!scientificName) return;
 
-  if (gbifLayer) {
-    gbifLayer.clearLayers();
+  // Rensa tidigare lager från kartan
+  if (gbifLayer && map.hasLayer(gbifLayer)) {
     map.removeLayer(gbifLayer);
+    gbifLayer = null;
   }
 
   const countries = ['SE', 'NO', 'DK', 'FI'];
@@ -142,11 +143,10 @@ async function drawMapFromGBIF(scientificName) {
 
   gbifLayer.addTo(map);
 
-  // Zooma in på Sverige trots att data finns för hela Skandinavien
+  // Zooma till Sverige
   const swedenBounds = L.latLngBounds([[55, 10], [69.5, 24]]);
   map.fitBounds(swedenBounds.pad(0.1));
 }
-
 
 
 function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
