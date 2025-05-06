@@ -110,7 +110,6 @@ function drawMapFromGBIF(scientificName) {
 
   const countries = ['SE', 'NO', 'DK', 'FI'];
   const coords = [];
-  let gbifLayer;
 
   // Hämtar data per land, med paginering (300 per sida) och från 2015 till idag
   const fetchCountryData = async (country) => {
