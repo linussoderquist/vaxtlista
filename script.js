@@ -288,6 +288,8 @@ function formatPlantInfo(match, isEUListad = false) {
 
   const genus = match["Scientific name"].split(" ")[0];
   const species = match["Scientific name"].split(" ")[1] || "";
+  const scientific = match["Scientific name"];
+  const swedish = match["Svenskt namn"];
 
   const associatedInsects = getAssociatedInsects(genus, species);
 
