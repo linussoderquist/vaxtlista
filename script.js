@@ -318,8 +318,6 @@ function formatPlantInfo(match, isEUListad = false) {
     ${traits?.["Salttålighet"] ? `<p><strong>Salttålighet:</strong> ${drawSaltTolerance(traits["Salttålighet"])}</p>` : ""}
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
     ${riskklass ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
-    const scientific = match["Scientific name"];
-    const swedish = match["Svenskt namn"];
 
     <hr/>
     <button onclick="addToPlantList('${swedish}', '${scientific}')">➕ Lägg till i min växtlista</button>
