@@ -365,13 +365,17 @@ function updatePlantListUI() {
   plantList.forEach(p => {
     const li = document.createElement("li");
     li.innerHTML = `
-  <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
-    <span>
-      ${p.riskklass ? getColoredRiskTag(p.riskklass) + " " : ""}<strong>${p.swedish}</strong>
-    </span>
+  <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+    <div style="width: 60px;">
+      ${p.riskklass ? getColoredRiskTag(p.riskklass) : ""}
+    </div>
+    <div style="flex: 1;">
+      <strong>${p.swedish}</strong>
+    </div>
     <button onclick="removeFromPlantList('${p.scientific}')">–</button>
   </div>
 `;
+
 
     list.appendChild(li);
   });
