@@ -348,10 +348,11 @@ function updatePlantListUI() {
   plantList.forEach(p => {
     const li = document.createElement("li");
     li.innerHTML = `
-  <span><strong>${p.swedish}</strong></span>
-  <button onclick="removeFromPlantList('${p.scientific}')">–</button>
+  <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
+    <span><strong>${p.swedish}</strong></span>
+    <button onclick="removeFromPlantList('${p.scientific}')">–</button>
+  </div>
 `;
-
     list.appendChild(li);
   });
 }
