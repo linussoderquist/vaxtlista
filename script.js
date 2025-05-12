@@ -7,6 +7,7 @@ let plantTraits = [];
 let gbifLayer; 
 let allDataLoaded = false;
 let insectData = [];
+let plantList = [];
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
@@ -81,7 +82,6 @@ function checkAllDataLoaded() {
     setupAutocomplete();
   }
 }
-
 
 function setupAutocomplete() {
   input.addEventListener("input", () => {
@@ -316,12 +316,46 @@ function formatPlantInfo(match, isEUListad = false) {
     ${traits?.["Salttålighet"] ? `<p><strong>Salttålighet:</strong> ${drawSaltTolerance(traits["Salttålighet"])}</p>` : ""}
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
     ${riskklass ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
+    const scientific = match["Scientific name"];
+    const swedish = match["Svenskt namn"];
+
     <hr/>
     ${insectHtml}
+    <button onclick="addToPlantList('${swedish}', '${scientific}')">➕ Lägg till i min växtlista</button>
   `;
 }
 
+function addToPlantList(swedishName, scientificName) {
+  if (plantList.some(p => p.scientific === scientificName)) return;
+  plantList.push({ swedish: swedishName, scientific: scientificName });
+  updatePlantListUI();
+}
 
+function removeFromPlantList(scientificName) {
+  plantList = plantList.filter(p => p.scientific !== scientificName);
+  updatePlantListUI();
+}
+
+function updatePlantListUI() {
+  const list = document.getElementById("plantList");
+  list.innerHTML = "";
+
+  if (plantList.length === 0) {
+    list.innerHTML = "<li><em>Inga växter tillagda än.</em></li>";
+    return;
+  }
+
+  plantList.forEach(p => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <span><strong>${p.swedish}</strong> (<em>${p.scientific}</em>)</span>
+      <button onclick="removeFromPlantList('${p.scientific}')">Ta bort</button>
+    `;
+    list.appendChild(li);
+  });
+}
+
+  
 function searchPlant() {
   if (!allDataLoaded) {
     resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
