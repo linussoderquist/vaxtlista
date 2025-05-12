@@ -116,11 +116,9 @@ function getRiskklassningFromXLSX(dyntaxaId) {
 function getAssociatedInsects(genus, species) {
   return insectData.filter(row => {
     const genusMatch = row["Hostplant Genus"]?.toLowerCase().trim() === genus.toLowerCase().trim();
-    const speciesField = row["Hostplant Species"]?.toLowerCase().trim();
-    const speciesMatch = !speciesField || speciesField === species.toLowerCase().trim();
+    const speciesMatch = row["Hostplant Species"]?.toLowerCase().trim() === species.toLowerCase().trim();
     return genusMatch && speciesMatch;
   });
-}
 
 function isEUInvasive(dyntaxaId) {
   return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
