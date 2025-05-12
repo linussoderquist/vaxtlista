@@ -348,7 +348,7 @@ function updatePlantListUI() {
   plantList.forEach(p => {
     const li = document.createElement("li");
     li.innerHTML = `
-  <span><strong>${p.swedish}</strong> (<em>${p.scientific}</em>)</span>
+  <span><strong>${p.swedish}</strong></span>
   <button onclick="removeFromPlantList('${p.scientific}')">Ta bort</button>
 `;
 
