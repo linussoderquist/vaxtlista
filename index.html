@@ -175,6 +175,32 @@
         width: 100%;
       }
     }
+    #plantListContainer {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  max-width: 600px;
+  margin-top: 2rem;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+#plantList li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+#plantList button {
+  background-color: #8b0000;
+  color: white;
+  font-size: 0.8rem;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
   </style>
 </head>
 <body>
@@ -196,6 +222,13 @@
   <div id="container">
     <div id="result"></div>
     <div id="map"></div>
+    <div id="plantListContainer">
+  <h2>📝 Min växtlista</h2>
+  <ul id="plantList">
+    <li><em>Inga växter tillagda än.</em></li>
+  </ul>
+</div>
+
 
   <button id="legendToggle" onclick="toggleLegend()">▼ Visa förklaringar</button>
 
