@@ -326,10 +326,27 @@ function formatPlantInfo(match, isEUListad = false) {
 }
 
 function addToPlantList(swedishName, scientificName) {
+  // Undvik dubbletter
   if (plantList.some(p => p.scientific === scientificName)) return;
-  plantList.push({ swedish: swedishName, scientific: scientificName });
+
+  // Hämta växten från plantData
+  const plant = plantData.find(p => p["Scientific name"] === scientificName);
+  if (!plant) return;
+
+  // Hämta Dyntaxa ID och riskklass
+  const dyntaxa = plant["Dyntaxa ID number"];
+  const riskklass = getRiskklassningFromXLSX(dyntaxa);
+
+  // Lägg till i listan
+  plantList.push({
+    swedish: swedishName,
+    scientific: scientificName,
+    riskklass: riskklass
+  });
+
   updatePlantListUI();
 }
+
 
 function removeFromPlantList(scientificName) {
   plantList = plantList.filter(p => p.scientific !== scientificName);
@@ -349,10 +366,13 @@ function updatePlantListUI() {
     const li = document.createElement("li");
     li.innerHTML = `
   <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
-    <span><strong>${p.swedish}</strong></span>
+    <span>
+      ${getColoredRiskTag(p.riskklass)} <strong>${p.swedish}</strong>
+    </span>
     <button onclick="removeFromPlantList('${p.scientific}')">–</button>
   </div>
 `;
+
     list.appendChild(li);
   });
 }
