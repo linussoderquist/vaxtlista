@@ -6,6 +6,7 @@ let euInvasiveData = [];
 let plantTraits = [];
 let gbifLayer; 
 let allDataLoaded = false;
+let insectData = [];
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
@@ -57,13 +58,30 @@ Papa.parse("karaktarer.csv", {
     checkAllDataLoaded();
   }
 });
+Papa.parse("resource_relevant.csv", {
+  download: true,
+  header: true,
+  skipEmptyLines: true,
+  complete: function(results) {
+    insectData = results.data;
+    checkAllDataLoaded();
+  }
+});
 
 function checkAllDataLoaded() {
-  if (plantData.length && riskData.length && euInvasiveData.length && plantTraits.length) {
+  if (
+    plantData.length &&
+    riskData.length &&
+    euInvasiveData.length &&
+    plantTraits.length &&
+    insectData.length
+  ) {
     allDataLoaded = true;
+    plantNames = [...new Set(plantData.map(p => p["Svenskt namn"]))];
     setupAutocomplete();
   }
 }
+
 
 function setupAutocomplete() {
   input.addEventListener("input", () => {
@@ -93,6 +111,15 @@ function setupAutocomplete() {
 function getRiskklassningFromXLSX(dyntaxaId) {
   const row = riskData.find(r => r["TaxonId"]?.toString() === dyntaxaId?.toString());
   return row ? row["Riskkategori, utfall enligt GEIAA metodik"] || null : null;
+}
+
+function getAssociatedInsects(genus, species) {
+  return insectData.filter(row => {
+    const genusMatch = row["Hostplant Genus"]?.toLowerCase().trim() === genus.toLowerCase().trim();
+    const speciesField = row["Hostplant Species"]?.toLowerCase().trim();
+    const speciesMatch = !speciesField || speciesField === species.toLowerCase().trim();
+    return genusMatch && speciesMatch;
+  });
 }
 
 function isEUInvasive(dyntaxaId) {
@@ -268,6 +295,20 @@ function formatPlantInfo(match, isEUListad = false) {
   const immigration = getImmigrationLabel(match["Time of immigration"]);
   const redlist = ["0", "1", "2", "3"].includes(match["Time of immigration"]?.toString());
 
+  const genus = match["Scientific name"].split(" ")[0];
+  const species = match["Scientific name"].split(" ")[1] || "";
+
+  const associatedInsects = getAssociatedInsects(genus, species);
+
+  let insectHtml = associatedInsects.length > 0 ? `
+    <h4>Associerade insektsarter:</h4>
+    <ul>
+      ${associatedInsects.map(insect => `
+        <li><em>${insect["Insect Genus"]} ${insect["Insect Species"]}</em> (${insect["Insect Family"]}) - ${insect["Damage"] || "ingen specifik skada angiven"}</li>
+      `).join('')}
+    </ul>
+  ` : "<p><em>Inga associerade insektsarter hittades i databasen.</em></p>";
+
   return `
     <h3>${match["Svenskt namn"]} (${match["Scientific name"]})</h3>
     <p><strong>Familj:</strong> ${match["Family"]}</p>
@@ -285,8 +326,10 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
     ${riskklass ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
     <hr/>
+    ${insectHtml}
   `;
 }
+
 
 function searchPlant() {
   if (!allDataLoaded) {
