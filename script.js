@@ -322,8 +322,8 @@ function formatPlantInfo(match, isEUListad = false) {
     const swedish = match["Svenskt namn"];
 
     <hr/>
-    ${insectHtml}
     <button onclick="addToPlantList('${swedish}', '${scientific}')">➕ Lägg till i min växtlista</button>
+    <!-- ${insectHtml} -->
   `;
 }
 
