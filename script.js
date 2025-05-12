@@ -123,39 +123,34 @@ function getAssociatedInsects(genus, species) {
 function isEUInvasive(dyntaxaId) {
   return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
 }
+  
 //GBIF karta
+
 async function drawMapFromGBIF(scientificName) {
   if (!scientificName) return;
 
-  // Rensa tidigare lager från kartan
+    // Rensa tidigare lager från kartan
   if (gbifLayer && map.hasLayer(gbifLayer)) {
     map.removeLayer(gbifLayer);
     gbifLayer = null;
   }
 
-  const countries = ['SE', 'NO', 'DK', 'FI', 'EE', 'LV', 'LT', 'PL', 'DE'];
   const coords = [];
+  let offset = 0;
+  let hasMore = true;
 
-  const fetchCountryData = async (country) => {
-    let offset = 0;
-    let hasMore = true;
+  while (hasMore) {
+    const url = https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(scientificName)}&geometry=POLYGON((5 54, 5 71, 32 71, 32 54, 5 54))&hasCoordinate=true&year=2015&limit=300&offset=${offset};
+    const res = await fetch(url);
+    const data = await res.json();
 
-    while (hasMore) {
-      const url = `https://api.gbif.org/v1/occurrence/search?scientificName=${encodeURIComponent(scientificName)}&geometry=POLYGON((5 54, 5 71, 32 71, 32 54, 5 54))&hasCoordinate=true&year=2015&limit=300&offset=${offset}`;
-      const res = await fetch(url);
-      const data = await res.json();
+    coords.push(...data.results
+      .filter(r => r.decimalLatitude && r.decimalLongitude)
+      .map(r => [r.decimalLatitude, r.decimalLongitude]));
 
-      const newCoords = data.results
-        .filter(r => r.decimalLatitude && r.decimalLongitude)
-        .map(r => [r.decimalLatitude, r.decimalLongitude]);
-
-      coords.push(...newCoords);
-      offset += 300;
-      hasMore = !data.endOfRecords;
-    }
-  };
-
-  await Promise.all(countries.map(fetchCountryData));
+    offset += 300;
+    hasMore = !data.endOfRecords;
+  }
 
   if (!coords.length) return;
 
@@ -168,11 +163,9 @@ async function drawMapFromGBIF(scientificName) {
 
   gbifLayer.addTo(map);
 
-  // Zooma till Sverige
   const swedenBounds = L.latLngBounds([[55, 10], [69.5, 24]]);
   map.fitBounds(swedenBounds.pad(0.1));
 }
-
 
 function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
   value = parseInt(value);
