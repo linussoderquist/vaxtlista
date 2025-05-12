@@ -119,7 +119,7 @@ function getAssociatedInsects(genus, species) {
     const speciesMatch = row["Hostplant Species"]?.toLowerCase().trim() === species.toLowerCase().trim();
     return genusMatch && speciesMatch;
   });
-
+}
 function isEUInvasive(dyntaxaId) {
   return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
 }
