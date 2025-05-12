@@ -349,7 +349,7 @@ function updatePlantListUI() {
     const li = document.createElement("li");
     li.innerHTML = `
   <span><strong>${p.swedish}</strong></span>
-  <button onclick="removeFromPlantList('${p.scientific}')">Ta bort</button>
+  <button onclick="removeFromPlantList('${p.scientific}')">–</button>
 `;
 
     list.appendChild(li);
