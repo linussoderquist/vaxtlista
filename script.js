@@ -367,7 +367,7 @@ function updatePlantListUI() {
     li.innerHTML = `
   <div style="display: flex; justify-content: space-between; align-items: center; gap: 1rem;">
     <span>
-      ${getColoredRiskTag(p.riskklass)} <strong>${p.swedish}</strong>
+      ${p.riskklass ? getColoredRiskTag(p.riskklass) + " " : ""}<strong>${p.swedish}</strong>
     </span>
     <button onclick="removeFromPlantList('${p.scientific}')">–</button>
   </div>
