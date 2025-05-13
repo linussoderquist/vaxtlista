@@ -8,6 +8,7 @@ let gbifLayer;
 let allDataLoaded = false;
 let insectData = [];
 let plantList = [];
+let advancedMode = false;
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
@@ -292,23 +293,38 @@ function formatPlantInfo(match, isEUListad = false) {
   const swedish = match["Svenskt namn"];
 
   const associatedInsects = getAssociatedInsects(genus, species);
-
-  let insectHtml = associatedInsects.length > 0 ? `
+  const insectHtml = associatedInsects.length > 0 ? `
     <h4>Associerade insektsarter:</h4>
     <ul>
       ${associatedInsects.map(insect => `
         <li><em>${insect["Insect Genus"]} ${insect["Insect Species"]}</em> (${insect["Insect Family"]}) - ${insect["Damage"] || "ingen specifik skada angiven"}</li>
       `).join('')}
     </ul>
-  ` : "<p><em>Inga associerade insektsarter hittades i databasen.</em></p>";
+  ` : "";
 
+  const addButton = `<button onclick="addToPlantList('${swedish}', '${scientific}')">➕ Lägg till i min växtlista</button>`;
+
+  // === Förenklat läge ===
+  if (!advancedMode) {
+    return `
+      <h3>${swedish} (${scientific})</h3>
+      <p><strong>Familj:</strong> ${match["Family"]}</p>
+      ${redlist ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>` : ""}
+      <p><strong>Invandringstid:</strong> ${immigration}</p>
+      ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
+      ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
+      ${addButton}
+    `;
+  }
+
+  // === Avancerat läge ===
   return `
-    <h3>${match["Svenskt namn"]} (${match["Scientific name"]})</h3>
+    <h3>${swedish} (${scientific})</h3>
     <p><strong>Familj:</strong> ${match["Family"]}</p>
     ${redlist ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>` : ""}
-    <p><strong>Härdighet:</strong> ${zon}</p>
+    <p><strong>Härdighet (zon):</strong> ${zon}</p>
     <p><strong>Invandringstid:</strong> ${immigration}</p>
-    ${isEUListad ? `<p><strong style=\"color:#b30000;\">⚠️ EU-listad invasiv art</strong></p>` : ""}
+    ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
     ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
     ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
     <p><strong>Biodiversitetsrelevans:</strong> ${drawBiodiversityScale(match["Biodiversity relevance"])}</p>
@@ -318,10 +334,9 @@ function formatPlantInfo(match, isEUListad = false) {
     ${traits?.["Salttålighet"] ? `<p><strong>Salttålighet:</strong> ${drawSaltTolerance(traits["Salttålighet"])}</p>` : ""}
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
     ${riskklass ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
-
     <hr/>
-    <button onclick="addToPlantList('${swedish}', '${scientific}')">➕ Lägg till i min växtlista</button>
-    <!-- ${insectHtml} -->
+    ${insectHtml}
+    ${addButton}
   `;
 }
 
@@ -347,6 +362,17 @@ function addToPlantList(swedishName, scientificName) {
   updatePlantListUI();
 }
 
+function toggleMode() {
+  advancedMode = document.getElementById("modeToggle").checked;
+
+  const inputVal = input.value.toLowerCase().trim();
+  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+  if (match) {
+    const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
+    resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
+    drawMapFromGBIF(match["Scientific name"]);
+  }
+}
 
 function removeFromPlantList(scientificName) {
   plantList = plantList.filter(p => p.scientific !== scientificName);
