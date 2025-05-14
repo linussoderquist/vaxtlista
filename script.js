@@ -279,6 +279,28 @@ function getImmigrationLabel(value) {
   return scale[value?.trim()] || "<em>okänd invandringstid</em>";
 }
 
+function drawArrowScale(value, min, max, labels = null, unit = "") {
+  value = parseFloat(value);
+  if (isNaN(value)) return "<em>okänt</em>";
+  const percent = ((value - min) / (max - min)) * 100;
+  const cappedPercent = Math.max(0, Math.min(100, percent));
+  const labelLine = labels ? `<div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-top: 0.2rem;">
+    <span>${labels[0]}</span><span>${labels[1]}</span>
+  </div>` : "";
+
+  return `
+    <div style="margin: 0.4rem 0;">
+      <div style="position: relative; height: 6px; background: #ccc; border-radius: 3px;">
+        <div style="position: absolute; left: ${cappedPercent}%; transform: translateX(-50%);">
+          <div style="width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 10px solid #007700;"></div>
+        </div>
+      </div>
+      ${labelLine}
+      ${unit ? `<div style="font-size:0.8rem; color:gray;">Värde: ${value} ${unit}</div>` : ""}
+    </div>
+  `;
+}
+
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
   const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
@@ -291,8 +313,8 @@ function formatPlantInfo(match, isEUListad = false) {
   const species = match["Scientific name"].split(" ")[1] || "";
   const scientific = match["Scientific name"];
   const swedish = match["Svenskt namn"];
-
   const associatedInsects = getAssociatedInsects(genus, species);
+
   const insectHtml = associatedInsects.length > 0 ? `
     <h4>Associerade insektsarter:</h4>
     <ul>
@@ -304,7 +326,6 @@ function formatPlantInfo(match, isEUListad = false) {
 
   const addButton = `<button onclick="addToPlantList('${swedish}', '${scientific}')">➕ Lägg till i min växtlista</button>`;
 
-  // === Förenklat läge ===
   if (!advancedMode) {
     return `
       <h3>${swedish} (${scientific})</h3>
@@ -317,7 +338,8 @@ function formatPlantInfo(match, isEUListad = false) {
     `;
   }
 
-  // === Avancerat läge ===
+  const scale = (label1, label2) => [label1, label2];
+
   return `
     <h3>${swedish} (${scientific})</h3>
     <p><strong>Familj:</strong> ${match["Family"]}</p>
@@ -325,21 +347,36 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Härdighet (zon):</strong> ${zon}</p>
     <p><strong>Invandringstid:</strong> ${immigration}</p>
     ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
+    ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
+
     ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
     ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
-    <p><strong>Biodiversitetsrelevans:</strong> ${drawBiodiversityScale(match["Biodiversity relevance"])}</p>
-    <p><strong>Nektarproduktion:</strong> ${drawNectarScale(match["Nectar production"])}</p>
-    <p><strong>Ljusbehov:</strong> ${drawLightScale(match["Light"])}</p>
-    <p><strong>Fuktighetskrav:</strong> ${drawMoistureScale(match["Moisture"])}</p>
-    ${traits?.["Salttålighet"] ? `<p><strong>Salttålighet:</strong> ${drawSaltTolerance(traits["Salttålighet"])}</p>` : ""}
+
+    <h4>Indikatorer</h4>
+    ${drawArrowScale(match["Biodiversity relevance"], 1, 8, scale("låg", "hög"))}
+    ${drawArrowScale(match["Nectar production"], 1, 7, scale("ingen", "mycket hög"))}
+    ${drawArrowScale(match["Heat requirement"], 1, 14, scale("arktisk", "varm"))}
+    ${drawArrowScale(match["Cold requirement"], 1, 20, scale("tropisk", "arktisk"))}
+    ${drawArrowScale(match["Light"], 1, 7, scale("skugga", "full sol"))}
+    ${drawArrowScale(match["Moisture"], 1, 12, scale("torr", "vatten"))}
+    ${drawArrowScale(match["Soil reaction (pH)"], 1, 8, scale("surt", "alkaliskt"))}
+    ${drawArrowScale(match["Nitrogen (N)"], 1, 9, scale("näringsfattigt", "näringsrikt"))}
+    ${drawArrowScale(match["Phosphorus (P)"], 1, 5, scale("lågt P", "högt P"))}
+    ${drawArrowScale(match["Salinity"], 1, 5, scale("ej salt", "mycket salt"))}
+    ${drawArrowScale(match["Grazing/mowing"], 1, 8, scale("ogynnsamt", "gynnat"))}
+    ${drawArrowScale(match["Soil disturbance"], 1, 9, scale("konkurrenskraftig", "kräver störning"))}
+    ${drawArrowScale(match["Longevity"], 1, 4, scale("ettårig", "långlivad"))}
+    ${drawArrowScale(match["Pollinator dependence"], 0, 2, scale("oberoende", "beroende"))}
+    ${drawArrowScale(match["Seed dormancy"], 1, 4, scale("ingen dormans", "djup dormans"))}
+    ${drawArrowScale(match["Seed bank"], 1, 4, scale("kortlivad", "permanent"))}
+    ${drawArrowScale(match["Nitrogen fixation"], 0, 1, scale("ingen", "fixerar N"))}
+
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
-    ${riskklass ? `<p><strong>Riskklass (2024):</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
     <hr/>
     ${insectHtml}
     ${addButton}
   `;
 }
-
 function addToPlantList(swedishName, scientificName) {
   // Undvik dubbletter
   if (plantList.some(p => p.scientific === scientificName)) return;
