@@ -80,7 +80,7 @@ function checkAllDataLoaded() {
     insectData.length
   ) {
     allDataLoaded = true;
-    plantNames = [...new Set(plantData.map(p => p["Svenskt namn"]))];
+    let plantNames = [...new Set(plantData.map(p => p["Svenskt namn"]))];
     setupAutocomplete();
   }
 }
@@ -176,24 +176,6 @@ function heatRequirementToZone(h) {
   ];
   const v = parseInt(h);
   return zones[v - 1] || "okänd";
-}
-
-function getRedlistBadge(status) {
-  if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
-    return `<span class="redlist-badge rl-LC">LC</span>`;
-  }
-  const s = status.trim().toUpperCase();
-  const code = s.match(/(EX|EW|RE|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
-  return `<span class="redlist-badge rl-${code}">${code}</span>`;
-}
-
-function getImmigrationLabel(value) {
-  const scale = {
-    "0": "inhemsk art", "1": "införd före 1700", "2": "1700–1750",
-    "3": "1750–1800", "4": "1800–1850", "5": "1850–1900",
-    "6": "1900–1950", "7": "1950–2000", "8": "efter 2000"
-  };
-  return scale[value?.trim()] || "<em>okänd invandringstid</em>";
 }
 
 function drawArrowScale(value, min, max, labels = null, unit = "") {
