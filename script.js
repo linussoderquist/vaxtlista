@@ -212,6 +212,7 @@ function formatPlantInfo(match, isEUListad = false) {
   ` : "";
 
   const addButton = `<button onclick="addToPlantList('${swedish}', '${scientific}')">➕ Lägg till i min växtlista</button>`;
+  const scale = (label1, label2) => [label1, label2];
 
   if (!advancedMode) {
     return `
@@ -225,8 +226,6 @@ function formatPlantInfo(match, isEUListad = false) {
     `;
   }
 
-  const scale = (label1, label2) => [label1, label2];
-
   return `
     <h3>${swedish} (${scientific})</h3>
     <p><strong>Familj:</strong> ${match["Family"]}</p>
@@ -237,7 +236,7 @@ function formatPlantInfo(match, isEUListad = false) {
     ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
     ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
     ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
-    
+
     <h4>Indikatorer</h4>
     <p><strong>Biodiversitetsrelevans:</strong></p>
     ${drawArrowScale(match["Biodiversity relevance"], 1, 8, scale("Låg", "Hög"))}
@@ -265,8 +264,7 @@ function formatPlantInfo(match, isEUListad = false) {
 
     <p><strong>Fosforbehov (P):</strong></p>
     ${drawArrowScale(match["Phosphorus (P)"], 1, 5, scale("Lågt", "Högt"))}
-  `;
-}
+
     <p><strong>Salttålighet:</strong></p>
     ${drawArrowScale(match["Salinity"], 1, 5, scale("Ej salt", "Mycket salt"))}
 
@@ -297,3 +295,4 @@ function formatPlantInfo(match, isEUListad = false) {
     ${addButton}
   `;
 }
+
