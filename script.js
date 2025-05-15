@@ -485,8 +485,7 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Fuktighetskrav:</strong></p>
     ${drawArrowScale(match["Moisture"], 1, 12, scale("Torrt", "Permanent vatten"))}
 
-    <p><strong>pH-behov (jordreaktion):</strong></p>
-    ${drawArrowScale(match["Soil reaction (pH)"], 1, 8, scale("Mycket surt", "Alkaliskt"))}
+    <p><strong>pH (jordreaktion):</strong> ${match["Soil reaction (pH)"] || "<em>okänt</em>"}</p>
 
     <p><strong>Kvävebehov (N):</strong></p>
     ${drawArrowScale(match["Nitrogen (N)"], 1, 9, scale("Näringsfattigt", "Näringsrikt"))}
