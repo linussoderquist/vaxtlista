@@ -418,10 +418,10 @@ function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
 
 function getSeedBankLabel(value) {
   const map = {
-    "1": "Kortlivad (få år)",
-    "2": "Medellång (årtionde)",
-    "3": "Långlivad (flera decennier)",
-    "4": "Permanent"
+    "1": "Väldigt kortlivad (upp till 1-2 år)",
+    "2": "Korlivad (1–5 år)",
+    "3": "Långlivad (5–25 år)",
+    "4": "Semi-permanent (>25 år)"
   };
   return map[value?.toString()] || "<em>okänt</em>";
 }
