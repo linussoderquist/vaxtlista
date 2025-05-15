@@ -655,7 +655,7 @@ function formatPlantInfo(match, isEUListad = false) {
     ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
     ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
 
-    <h4>Indikatorer</h4>
+    //Indikatorer
 
     <p><strong>Biodiversitetsrelevans:</strong> ${getBiodiversityRelevanceLabel(match["Biodiversity relevance"])}</p>
 
