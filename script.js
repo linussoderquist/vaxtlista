@@ -4,7 +4,7 @@ let plantData = [];
 let riskData = [];
 let euInvasiveData = [];
 let plantTraits = [];
-let gbifLayer; 
+let gbifLayer;
 let allDataLoaded = false;
 let insectData = [];
 let plantList = [];
@@ -25,7 +25,7 @@ Papa.parse("vaxtdata.csv", {
   download: true,
   header: true,
   skipEmptyLines: true,
-  complete: function(results) {
+  complete: function (results) {
     plantData = results.data;
     checkAllDataLoaded();
   }
@@ -35,7 +35,7 @@ Papa.parse("Riskklassning2024_Uttag.csv", {
   download: true,
   header: true,
   skipEmptyLines: true,
-  complete: function(results) {
+  complete: function (results) {
     riskData = results.data;
     checkAllDataLoaded();
   }
@@ -45,7 +45,7 @@ Papa.parse("eu_invasiva_vaxtarter.csv", {
   download: true,
   header: true,
   skipEmptyLines: true,
-  complete: function(results) {
+  complete: function (results) {
     euInvasiveData = results.data;
     checkAllDataLoaded();
   }
@@ -55,20 +55,22 @@ Papa.parse("karaktarer.csv", {
   download: true,
   header: true,
   skipEmptyLines: true,
-  complete: function(results) {
+  complete: function (results) {
     plantTraits = results.data;
     checkAllDataLoaded();
   }
 });
+
 Papa.parse("resource_relevant.csv", {
   download: true,
   header: true,
   skipEmptyLines: true,
-  complete: function(results) {
+  complete: function (results) {
     insectData = results.data;
     checkAllDataLoaded();
   }
 });
+
 function checkAllDataLoaded() {
   if (
     plantData.length &&
@@ -107,7 +109,6 @@ function setupAutocomplete() {
     });
   });
 }
-
 function getRiskklassningFromXLSX(dyntaxaId) {
   const row = riskData.find(r => r["TaxonId"]?.toString() === dyntaxaId?.toString());
   return row ? row["Riskkategori, utfall enligt GEIAA metodik"] || null : null;
@@ -124,9 +125,8 @@ function getAssociatedInsects(genus, species) {
 function isEUInvasive(dyntaxaId) {
   return euInvasiveData.some(row => row["Dyntaxa ID"]?.toString() === dyntaxaId?.toString());
 }
-  
-// GBIF karta
 
+// GBIF karta
 async function drawMapFromGBIF(scientificName) {
   if (!scientificName) return;
 
@@ -167,6 +167,35 @@ async function drawMapFromGBIF(scientificName) {
   map.fitBounds(swedenBounds.pad(0.1));
 }
 
+function heatRequirementToZone(h) {
+  const zones = [
+    "hög-alpin/arktisk zon", "mellanalpin zon", "låg-alpin zon",
+    "trädgräns", "subalpin zon (zon 9)", "odlingszon 8", "odlingszon 7",
+    "odlingszon 6", "odlingszon 5", "odlingszon 4", "odlingszon 3",
+    "odlingszon 2", "odlingszon 1", "kan ej överleva i Sverige"
+  ];
+  const v = parseInt(h);
+  return zones[v - 1] || "okänd";
+}
+
+function getRedlistBadge(status) {
+  if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
+    return `<span class="redlist-badge rl-LC">LC</span>`;
+  }
+  const s = status.trim().toUpperCase();
+  const code = s.match(/(EX|EW|RE|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
+  return `<span class="redlist-badge rl-${code}">${code}</span>`;
+}
+
+function getImmigrationLabel(value) {
+  const scale = {
+    "0": "inhemsk art", "1": "införd före 1700", "2": "1700–1750",
+    "3": "1750–1800", "4": "1800–1850", "5": "1850–1900",
+    "6": "1900–1950", "7": "1950–2000", "8": "efter 2000"
+  };
+  return scale[value?.trim()] || "<em>okänd invandringstid</em>";
+}
+
 function drawArrowScale(value, min, max, labels = null, unit = "") {
   value = parseFloat(value);
   if (isNaN(value)) return "<em>okänt</em>";
@@ -188,144 +217,6 @@ function drawArrowScale(value, min, max, labels = null, unit = "") {
     </div>
   `;
 }
-function formatPlantInfo(match, isEUListad = false) {
-  const dyntaxa = match["Dyntaxa ID number"];
-  const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
-  const riskklass = getRiskklassningFromXLSX(dyntaxa);
-  const zon = heatRequirementToZone(match["Heat requirement"]);
-  const immigration = getImmigrationLabel(match["Time of immigration"]);
-  const redlist = ["0", "1", "2", "3"].includes(match["Time of immigration"]?.toString());
-
-  const genus = match["Scientific name"].split(" ")[0];
-  const species = match["Scientific name"].split(" ")[1] || "";
-  const scientific = match["Scientific name"];
-  const swedish = match["Svenskt namn"];
-  const associatedInsects = getAssociatedInsects(genus, species);
-
-  const insectHtml = associatedInsects.length > 0 ? `
-    <h4>Associerade insektsarter:</h4>
-    <ul>
-      ${associatedInsects.map(insect => `
-        <li><em>${insect["Insect Genus"]} ${insect["Insect Species"]}</em> (${insect["Insect Family"]}) - ${insect["Damage"] || "ingen specifik skada angiven"}</li>
-      `).join('')}
-    </ul>
-  ` : "";
-
-  const addButton = `<button onclick="addToPlantList('${swedish}', '${scientific}')">➕ Lägg till i min växtlista</button>`;
-  const scale = (label1, label2) => [label1, label2];
-
-  if (!advancedMode) {
-    return `
-      <h3>${swedish} (${scientific})</h3>
-      <p><strong>Familj:</strong> ${match["Family"]}</p>
-      ${redlist ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>` : ""}
-      <p><strong>Invandringstid:</strong> ${immigration}</p>
-      ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
-      ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
-      ${addButton}
-    `;
-  }
-
-  return `
-    <h3>${swedish} (${scientific})</h3>
-    <p><strong>Familj:</strong> ${match["Family"]}</p>
-    ${redlist ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>` : ""}
-    <p><strong>Härdighet (zon):</strong> ${zon}</p>
-    <p><strong>Invandringstid:</strong> ${immigration}</p>
-    ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
-    ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
-    ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
-    ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
-
-    <h4>Indikatorer</h4>
-    <p><strong>Biodiversitetsrelevans:</strong></p>
-    ${drawArrowScale(match["Biodiversity relevance"], 1, 8, scale("Låg", "Hög"))}
-
-    <p><strong>Nektarproduktion:</strong></p>
-    ${drawArrowScale(match["Nectar production"], 1, 7, scale("Ingen", "Väldigt hög"))}
-
-    <p><strong>Värmekrav (härdighet):</strong></p>
-    ${drawArrowScale(match["Heat requirement"], 1, 14, scale("Arktisk", "Varm zon"))}
-
-    <p><strong>Köldtålighet:</strong></p>
-    ${drawArrowScale(match["Cold requirement"], 1, 20, scale("Tropisk", "Arktisk"))}
-
-    <p><strong>Ljusbehov:</strong></p>
-    ${drawArrowScale(match["Light"], 1, 7, scale("Djup skugga", "Full sol"))}
-
-    <p><strong>Fuktighetskrav:</strong></p>
-    ${drawArrowScale(match["Moisture"], 1, 12, scale("Torrt", "Permanent vatten"))}
-
-    <p><strong>pH-behov (jordreaktion):</strong></p>
-    ${drawArrowScale(match["Soil reaction (pH)"], 1, 8, scale("Mycket surt", "Alkaliskt"))}
-
-    <p><strong>Kvävebehov (N):</strong></p>
-    ${drawArrowScale(match["Nitrogen (N)"], 1, 9, scale("Näringsfattigt", "Näringsrikt"))}
-
-    <p><strong>Fosforbehov (P):</strong></p>
-    ${drawArrowScale(match["Phosphorus (P)"], 1, 5, scale("Lågt", "Högt"))}
-
-    <p><strong>Salttålighet:</strong></p>
-    ${drawArrowScale(match["Salinity"], 1, 5, scale("Ej salt", "Mycket salt"))}
-
-    <p><strong>Gynnas av bete/slåtter:</strong></p>
-    ${drawArrowScale(match["Grazing/mowing"], 1, 8, scale("Känslig", "Kräver"))}
-
-    <p><strong>Behov av markstörning:</strong></p>
-    ${drawArrowScale(match["Soil disturbance"], 1, 9, scale("Konkurrensstark", "Kräver störning"))}
-
-    <p><strong>Livslängd:</strong></p>
-    ${drawArrowScale(match["Longevity"], 1, 4, scale("Ettårig", "Långlivad"))}
-
-    <p><strong>Beroende av pollinatörer:</strong></p>
-    ${drawArrowScale(match["Pollinator dependence"], 0, 2, scale("Oberoende", "Beroende"))}
-
-    <p><strong>Frövila:</strong></p>
-    ${drawArrowScale(match["Seed dormancy"], 1, 4, scale("Ingen", "Djup vila"))}
-
-    <p><strong>Fröbankens livslängd:</strong></p>
-    ${drawArrowScale(match["Seed bank"], 1, 4, scale("Kortlivad", "Permanent"))}
-
-    <p><strong>Kvävefixering:</strong></p>
-    ${drawArrowScale(match["Nitrogen fixation"], 0, 1, scale("Nej", "Ja"))}
-
-    <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
-    <hr/>
-    ${insectHtml}
-    ${addButton}
-  `;
-}
-function searchPlant() {
-  if (!allDataLoaded) {
-    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
-    return;
-  }
-
-  const inputVal = input.value.toLowerCase().trim();
-  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
-
-  if (!match) {
-    resultDiv.innerHTML = "🚫 Växten hittades inte.";
-    return;
-  }
-
-  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
-  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
-  drawMapFromGBIF(match["Scientific name"]);
-}
-
-function toggleMode() {
-  advancedMode = document.getElementById("modeToggle").checked;
-
-  const inputVal = input.value.toLowerCase().trim();
-  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
-  if (match) {
-    const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
-    resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
-    drawMapFromGBIF(match["Scientific name"]);
-  }
-}
-
 function addToPlantList(swedishName, scientificName) {
   // Undvik dubbletter
   if (plantList.some(p => p.scientific === scientificName)) return;
@@ -379,3 +270,145 @@ function updatePlantListUI() {
   });
 }
 
+function toggleMode() {
+  advancedMode = document.getElementById("modeToggle").checked;
+
+  const inputVal = input.value.toLowerCase().trim();
+  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+  if (match) {
+    const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
+    resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
+    drawMapFromGBIF(match["Scientific name"]);
+  }
+}
+
+function searchPlant() {
+  if (!allDataLoaded) {
+    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
+    return;
+  }
+
+  const inputVal = input.value.toLowerCase().trim();
+  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+
+  if (!match) {
+    resultDiv.innerHTML = "🚫 Växten hittades inte.";
+    return;
+  }
+
+  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
+  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
+  drawMapFromGBIF(match["Scientific name"]);
+}
+
+function getGrowthFormIcon(type) {
+  const icons = {
+    "Träd": "🌳",
+    "Buske": "🌿",
+    "Ört": "🌱",
+    "Gräs": "🌾",
+    "Suckulent": "🌵",
+    "Vattenväxt": "💧"
+  };
+  return icons[type] || "🌿";
+}
+
+function getColoredRiskTag(code) {
+  const tagColors = {
+    "SE": "background-color:#c2491d; color:white;",
+    "HI": "background-color:#d9782d; color:white;",
+    "PH": "background-color:#e2b539; color:black;",
+    "LO": "background-color:#f3e28c; color:black;",
+    "NK": "background-color:#fdf7d4; color:black;"
+  };
+  const style = tagColors[code] || "background-color:#eee; color:#000;";
+  return `<span style="padding:3px 8px; border-radius:12px; font-weight:bold; ${style}">${code}</span>`;
+}
+
+function drawHeight(cm) {
+  const value = parseInt(cm);
+  if (isNaN(value)) return "<em>okänt</em>";
+  return `${value} cm`;
+}
+function getRedlistBadge(status) {
+  if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
+    return `<span class="redlist-badge rl-LC">LC</span>`;
+  }
+  const s = status.trim().toUpperCase();
+  const code = s.match(/(EX|EW|RE|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
+  return `<span class="redlist-badge rl-${code}">${code}</span>`;
+}
+
+function getImmigrationLabel(value) {
+  const scale = {
+    "0": "inhemsk art", "1": "införd före 1700", "2": "1700–1750",
+    "3": "1750–1800", "4": "1800–1850", "5": "1850–1900",
+    "6": "1900–1950", "7": "1950–2000", "8": "efter 2000"
+  };
+  return scale[value?.trim()] || "<em>okänd invandringstid</em>";
+}
+
+function heatRequirementToZone(h) {
+  const zones = [
+    "hög-alpin/arktisk zon", "mellanalpin zon", "låg-alpin zon",
+    "trädgräns", "subalpin zon (zon 9)", "odlingszon 8", "odlingszon 7",
+    "odlingszon 6", "odlingszon 5", "odlingszon 4", "odlingszon 3",
+    "odlingszon 2", "odlingszon 1", "kan ej överleva i Sverige"
+  ];
+  const v = parseInt(h);
+  return zones[v - 1] || "okänd";
+}
+
+// ---- Skala-funktioner (används vid behov i andra delar) ----
+
+function drawMoistureScale(val) {
+  return drawScaleWithEmoji(val, "💧");
+}
+
+function drawSaltTolerance(value) {
+  return drawScaleWithEmoji(value, "🧂");
+}
+
+function drawLightScale(value) {
+  const phases = ["🌑", "🌘", "🌗", "🌖", "🌕", "🔆", "☀️"];
+  const v = parseInt(value);
+  if (isNaN(v) || v < 1 || v > 7) return "<em>okänt</em>";
+  return `<span style="font-size: 1.5rem;">${phases[v - 1]}</span>`;
+}
+
+function drawNectarScale(value) {
+  const raw = parseInt(value);
+  if (isNaN(raw) || raw < 1) return "<em>okänt</em>";
+  const filled = raw === 1 ? 0 : raw - 1;
+  const pollinators = ["🐝", "🦋"];
+  let output = "<div class='scale'>";
+  for (let i = 0; i < 6; i++) {
+    output += `<span>${i < filled ? pollinators[i % 2] : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
+
+function drawBiodiversityScale(value) {
+  const pool = ["🐸", "🌼", "🍄", "🦔", "🪲", "🐌", "🦉", "🐛"];
+  value = parseInt(value);
+  if (isNaN(value)) return "<em>okänt</em>";
+  let output = "<div class='scale'>";
+  for (let i = 0; i < 5; i++) {
+    output += `<span>${i < value ? pool[Math.floor(Math.random() * pool.length)] : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
+
+function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
+  value = parseInt(value);
+  if (isNaN(value)) return "<em>okänt</em>";
+  let output = "<div class='scale'>";
+  for (let i = 0; i < max; i++) {
+    const style = color ? `style=\"color:${color}\"` : "";
+    output += `<span ${style}>${i < value ? emoji : "⚪"}</span>`;
+  }
+  output += "</div>";
+  return output;
+}
