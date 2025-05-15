@@ -412,6 +412,7 @@ function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
   output += "</div>";
   return output;
 }
+
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
   const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
