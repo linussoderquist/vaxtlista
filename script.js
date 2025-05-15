@@ -461,6 +461,59 @@ function getSeedDormancyLabel(value) {
   return map[value?.toString()] || "<em>okänt</em>";
 }
 
+function getNectarProductionLabel(value) {
+  const map = {
+    "1": "Ingen nektarproduktion (0 g socker/m²/år) och inget samlingsbart pollen",
+    "2": "Obetydlig nektarproduktion (<0.2 g), eller ingen men med låga mängder samlingsbart pollen",
+    "3": "Liten nektarproduktion (0.2–5 g), eller lägre men med rikligt pollen",
+    "4": "Måttlig nektarproduktion (5–20 g)",
+    "5": "Ganska mycket nektar (20–50 g)",
+    "6": "Mycket nektar (50–200 g)",
+    "7": "Väldigt mycket nektar (>200 g)"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+function getBiodiversityRelevanceLabel(value) {
+  const map = {
+    "1": "<6 associerade arter",
+    "2": "6–12 associerade arter",
+    "3": "13–24 associerade arter",
+    "4": "25–50 associerade arter",
+    "5": "51–100 associerade arter",
+    "6": "101–200 associerade arter",
+    "7": "201–400 associerade arter",
+    "8": ">400 associerade arter"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+
+function getLongevityLabel(value) {
+  const map = {
+    "1": "strikt ettårig",
+    "2": "tvåårig eller dör efter blommning",
+    "3": "kortlivad perenn (dör ofta efter blomming)",
+    "4": "långlivad perenn"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+function getPollinatorDependenceLabel(value) {
+  const map = {
+    "0a": "oberoende av pollinatörer – sprids främst vegetativt (klonal tillväxt eller fragmentering)",
+    "0b": "oberoende av pollinatörer – pollinering sker främst via vind eller vatten (även ormbunkar och lummerväxter)",
+    "0c": "oberoende av pollinatörer – självpollinerande",
+    "0d": "oberoende av pollinatörer – bildar frön via apomixis (utan befruktning)",
+    "0": "oberoende av pollinatörer",
+    "1": "delvis beroende av insekter – kan också självpollinera eller pollineras abiotiskt",
+    "2": "helt beroende av insekter för pollinering (självinkompatibel)",
+    "1/2": "pollineras främst av andra insekter (t.ex. flugor eller skalbaggar)",
+    "1/2a": "exklusivt pollinerad av bin eller humlor (Hymenoptera)",
+    "1/2ab": "exklusivt pollinerad av bin/humlor och fjärilar (Hymenoptera och Lepidoptera)",
+    "1/2b": "exklusivt pollinerad av fjärilar (Lepidoptera)"
+  };
+
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
   const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
@@ -512,11 +565,9 @@ function formatPlantInfo(match, isEUListad = false) {
 
     <h4>Indikatorer</h4>
 
-    <p><strong>Biodiversitetsrelevans:</strong></p>
-    ${drawArrowScale(match["Biodiversity relevance"], 1, 8, scale("Låg", "Hög"))}
+    <p><strong>Biodiversitetsrelevans:</strong> ${getBiodiversityRelevanceLabel(match["Biodiversity relevance"])}</p>
 
-    <p><strong>Nektarproduktion:</strong></p>
-    ${drawArrowScale(match["Nectar production"], 1, 7, scale("Ingen", "Väldigt hög"))}
+    <p><strong>Nektarproduktion:</strong> ${getNectarProductionLabel(match["Nectar production"])}</p>
 
     <p><strong>Värmekrav (härdighet):</strong></p>
     ${drawArrowScale(match["Heat requirement"], 1, 14, scale("Arktisk", "Varm zon"))}
@@ -545,11 +596,9 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Behov av markstörning:</strong></p>
     ${drawArrowScale(match["Soil disturbance"], 1, 9, scale("Konkurrensstark", "Kräver störning"))}
 
-    <p><strong>Livslängd:</strong></p>
-    ${drawArrowScale(match["Longevity"], 1, 4, scale("Ettårig", "Långlivad"))}
+    <p><strong>Livslängd:</strong> ${getLongevityLabel(match["Longevity"])}</p>
 
-    <p><strong>Beroende av pollinatörer:</strong></p>
-    ${drawArrowScale(match["Pollinator dependence"], 0, 2, scale("Oberoende", "Beroende"))}
+    <p><strong>Beroende av pollinatörer:</strong> ${getPollinatorDependenceLabel(match["Pollinator dependence"])}</p>
 
     <p><strong>Frövila:</strong> ${getSeedDormancyLabel(match["Seed dormancy"])}</p>
 
