@@ -80,7 +80,7 @@ function checkAllDataLoaded() {
     insectData.length
   ) {
     allDataLoaded = true;
-    let plantNames = [...new Set(plantData.map(p => p["Svenskt namn"]))];
+    plantNames = [...new Set(plantData.map(p => p["Svenskt namn"]))];
     setupAutocomplete();
   }
 }
