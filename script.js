@@ -208,15 +208,16 @@ function drawArrowScale(value, min, max, labels = null, unit = "") {
   return `
     <div style="margin: 0.4rem 0;">
       <div style="position: relative; height: 6px; background: #ccc; border-radius: 3px;">
-        <div style="position: absolute; left: ${cappedPercent}%; transform: translateX(-50%);">
+        <div style="position: absolute; left: ${cappedPercent}%; transform: translateX(-50%); text-align: center;">
+          <div style="font-size: 0.75rem; margin-bottom: 2px; color: #333;">${value}${unit ? ` ${unit}` : ""}</div>
           <div style="width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 10px solid #007700;"></div>
         </div>
       </div>
       ${labelLine}
-      ${unit ? `<div style="font-size:0.8rem; color:gray;">Värde: ${value} ${unit}</div>` : ""}
     </div>
   `;
 }
+
 function addToPlantList(swedishName, scientificName) {
   // Undvik dubbletter
   if (plantList.some(p => p.scientific === scientificName)) return;
