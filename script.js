@@ -295,4 +295,87 @@ function formatPlantInfo(match, isEUListad = false) {
     ${addButton}
   `;
 }
+function searchPlant() {
+  if (!allDataLoaded) {
+    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
+    return;
+  }
+
+  const inputVal = input.value.toLowerCase().trim();
+  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+
+  if (!match) {
+    resultDiv.innerHTML = "🚫 Växten hittades inte.";
+    return;
+  }
+
+  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
+  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
+  drawMapFromGBIF(match["Scientific name"]);
+}
+
+function toggleMode() {
+  advancedMode = document.getElementById("modeToggle").checked;
+
+  const inputVal = input.value.toLowerCase().trim();
+  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+  if (match) {
+    const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
+    resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
+    drawMapFromGBIF(match["Scientific name"]);
+  }
+}
+
+function addToPlantList(swedishName, scientificName) {
+  // Undvik dubbletter
+  if (plantList.some(p => p.scientific === scientificName)) return;
+
+  // Hämta växten från plantData
+  const plant = plantData.find(p => p["Scientific name"] === scientificName);
+  if (!plant) return;
+
+  // Hämta Dyntaxa ID och riskklass
+  const dyntaxa = plant["Dyntaxa ID number"];
+  const riskklass = getRiskklassningFromXLSX(dyntaxa);
+
+  // Lägg till i listan
+  plantList.push({
+    swedish: swedishName,
+    scientific: scientificName,
+    riskklass: riskklass
+  });
+
+  updatePlantListUI();
+}
+
+function removeFromPlantList(scientificName) {
+  plantList = plantList.filter(p => p.scientific !== scientificName);
+  updatePlantListUI();
+}
+
+function updatePlantListUI() {
+  const list = document.getElementById("plantList");
+  list.innerHTML = "";
+
+  if (plantList.length === 0) {
+    list.innerHTML = "<li><em>Inga växter tillagda än.</em></li>";
+    return;
+  }
+
+  plantList.forEach(p => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+        <div style="width: 60px;">
+          ${p.riskklass ? getColoredRiskTag(p.riskklass) : ""}
+        </div>
+        <div style="flex: 1;">
+          <strong>${p.swedish}</strong>
+        </div>
+        <button onclick="removeFromPlantList('${p.scientific}')">–</button>
+      </div>
+    `;
+    list.appendChild(li);
+  });
+}
 
