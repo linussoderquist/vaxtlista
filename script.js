@@ -495,6 +495,116 @@ function getPollinatorDependenceLabel(value) {
 
   return map[value?.toString()] || "<em>okänt</em>";
 }
+function getSoilDisturbanceLabel(value) {
+  const map = {
+    "1": "Koloniserar etablerad vegetation och orsakar varaktiga strukturella förändringar utan behov av markstörning",
+    "2": "Koloniserar etablerad vegetation, konkurrerar framgångsrikt kortsiktigt men trängs ut på sikt utan markstörning",
+    "3": "Kan reproducera i etablerad vegetation men har låg konkurrensförmåga och trängs ut över tid",
+    "4": "Viss reproduktion i etablerad vegetation men inte tillräcklig för stabil population",
+    "5": "Behöver markstörning för reproduktion, men etablerade individer kan överleva länge utan",
+    "6": "Reproducerar endast i störd/jordblottad mark, kan finnas kvar i årtionden men försvinner gradvis",
+    "7": "Reproducerar endast i störd/jordblottad mark, kan finnas kvar några år men försvinner gradvis",
+    "8": "Inte konkurrenskraftig i sluten vegetation, kräver markstörning minst vartannat år",
+    "9": "Inte konkurrenskraftig i sluten vegetation, kräver årlig markstörning"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+function getGrazingLabel(value) {
+  const map = {
+    "1": "Tål inte bete eller slåtter alls",
+    "2": "Tål enstaka men inte återkommande bete eller slåtter",
+    "3": "Tål regelbunden störning men föredrar obetade/slagna miljöer",
+    "4": "Trivs både i betade/slagna och obetade/slagna miljöer",
+    "5": "Gynnas av viss störning men överlever även utan",
+    "6": "Starkt gynnad av regelbundet bete/slåtter men klarar några år utan",
+    "7": "Starkt beroende av störning och försvinner om den uteblir",
+    "8": "Kräver återkommande eller kontinuerlig störning"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+function getSalinityLabel(value) {
+  const map = {
+    "1": "Inte salt­tålig, undviker även svagt salta miljöer",
+    "2": "Måttligt salt­tålig, men föredrar osaltade miljöer",
+    "3": "Gynnas av måttlig salthalt, men inte beroende av det",
+    "4": "Konkurrerar främst vid måttlig–hög salthalt",
+    "5": "Konkurrerar endast vid hög salthalt"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+function getMoistureLabel(value) {
+  const map = {
+    "1": "Mycket torrt",
+    "2": "Torrt",
+    "3": "Torrt–friskt",
+    "4": "Friskt (mesiskt)",
+    "5": "Friskt–fuktigt",
+    "6": "Fuktigt",
+    "7": "Fuktigt–blött",
+    "8": "Blött",
+    "9": "Blött – tillfälligt översvämmat",
+    "10": "Tillfälligt översvämmat",
+    "11": "Permanent vatten <0.5 m",
+    "12": "Permanent djupt vatten"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+function getLightLabel(value) {
+  const map = {
+    "1": "Djup skugga",
+    "2": "Måttlig till djup skugga",
+    "3": "Halvskugga till måttlig skugga",
+    "4": "Halvskugga",
+    "5": "Sol – halvskugga",
+    "6": "Sol, men tål viss skuggning",
+    "7": "Alltid full sol"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+function getColdRequirementLabel(value) {
+  const map = {
+    "1": "Årlig minimitemp sällan under 10 °C (subtropiskt/tropiskt klimat)",
+    "2": "Årlig minimitemp sällan under 5 °C",
+    "3": "Årlig minimitemp sällan under 0 °C",
+    "4": "Temperaturer under 0 °C förekommer men inte under –5 °C",
+    "5": "Temperaturer under 0 °C regelbundna men sällan under –10 °C",
+    "6": "Vintertemperaturer normalt under 0 °C i <3 månader, inte under –15 °C",
+    "7": "Odlingszon 1",
+    "8": "Odlingszon 2",
+    "9": "Odlingszon 3",
+    "10": "Odlingszon 4",
+    "11": "Odlingszon 5",
+    "12": "Odlingszon 6",
+    "13": "Odlingszon 7",
+    "14": "Odlingszon 8",
+    "15": "Odlingszon 9",
+    "16": "Överlever i zoner ovanför zon 9",
+    "17": "Når trädgränsen (övre subalpina zonen)",
+    "18": "Når låg-alpin zon",
+    "19": "Når mellan-alpin zon",
+    "20": "Begränsad till hög-alpin/arktisk zon"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+function getHeatRequirementLabel(value) {
+  const map = {
+    "1": "Når hög-alpin/arktisk zon",
+    "2": "Når mellan-alpin zon",
+    "3": "Når låg-alpin zon",
+    "4": "Når trädgränsen (övre subalpina zonen)",
+    "5": "Når subalpina zonen (odlingszon 9), men endast i gynnsamt mikroklimat",
+    "6": "Når odlingszon 8",
+    "7": "Når odlingszon 7",
+    "8": "Når odlingszon 6",
+    "9": "Når odlingszon 5",
+    "10": "Når odlingszon 4",
+    "11": "Når odlingszon 3",
+    "12": "Når odlingszon 2",
+    "13": "Når odlingszon 1",
+    "14": "Kan i nuläget inte reproducera eller vara bofast i Sverige p.g.a. klimatbegränsningar"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
 
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
@@ -551,17 +661,13 @@ function formatPlantInfo(match, isEUListad = false) {
 
     <p><strong>Nektarproduktion:</strong> ${getNectarProductionLabel(match["Nectar production"])}</p>
 
-    <p><strong>Värmekrav (härdighet):</strong></p>
-    ${drawArrowScale(match["Heat requirement"], 1, 14, scale("Arktisk", "Varm zon"))}
+    <p><strong>Värmekrav (härdighet):</strong> ${getHeatRequirementLabel(match["Heat requirement"])}</p>
+    
+    <p><strong>Köldkrav:</strong> ${getColdRequirementLabel(match["Cold requirement"])}</p>
+    
+    <p><strong>Ljusbehov:</strong> ${getLightLabel(match["Light"])}</p>
 
-    <p><strong>Köldtålighet:</strong></p>
-    ${drawArrowScale(match["Cold requirement"], 1, 20, scale("Tropisk", "Arktisk"))}
-
-    <p><strong>Ljusbehov:</strong></p>
-    ${drawArrowScale(match["Light"], 1, 7, scale("Djup skugga", "Full sol"))}
-
-    <p><strong>Fuktighetskrav:</strong></p>
-    ${drawArrowScale(match["Moisture"], 1, 12, scale("Torrt", "Permanent vatten"))}
+    <p><strong>Fuktighetskrav:</strong> ${getMoistureLabel(match["Moisture"])}</p>
 
     <p><strong>pH:</strong> ${match["Soil reaction (pH)"] || "<em>okänt</em>"}</p>
 
@@ -569,14 +675,11 @@ function formatPlantInfo(match, isEUListad = false) {
 
     <p><strong>Fosforpreferens:</strong> ${getPhosphorusLabel(match["Phosphorus (P)"])}</p>
 
-    <p><strong>Salttålighet:</strong></p>
-    ${drawArrowScale(match["Salinity"], 1, 5, scale("Ej salt", "Mycket salt"))}
+    <p><strong>Salttålighet:</strong> ${getSalinityLabel(match["Salinity"])}</p>
 
-    <p><strong>Gynnas av bete/slåtter:</strong></p>
-    ${drawArrowScale(match["Grazing/mowing"], 1, 8, scale("Känslig", "Kräver"))}
+    <p><strong>Bete/slåtter:</strong> ${getGrazingLabel(match["Grazing/mowing"])}</p>
 
-    <p><strong>Behov av markstörning:</strong></p>
-    ${drawArrowScale(match["Soil disturbance"], 1, 9, scale("Konkurrensstark", "Kräver störning"))}
+    <p><strong>Markstörningsbehov:</strong> ${getSoilDisturbanceLabel(match["Soil disturbance"])}</p>
 
     <p><strong>Livslängd:</strong> ${getLongevityLabel(match["Longevity"])}</p>
 
