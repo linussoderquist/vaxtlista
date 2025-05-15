@@ -416,6 +416,16 @@ function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
   return output;
 }
 
+function getSeedBankLabel(value) {
+  const map = {
+    "1": "Kortlivad (få år)",
+    "2": "Medellång (årtionde)",
+    "3": "Långlivad (flera decennier)",
+    "4": "Permanent"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
   const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
