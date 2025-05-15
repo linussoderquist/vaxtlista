@@ -426,6 +426,41 @@ function getSeedBankLabel(value) {
   return map[value?.toString()] || "<em>okänt</em>";
 }
 
+function getPhosphorusLabel(value) {
+  const map = {
+    "1": "Undviker jordar med högt fosforinnehåll",
+    "2": "Missgynnas av högt fosforinnehåll",
+    "3": "Trivs vid genomsnittligt fosforinnehåll",
+    "4": "Gynnas av högt fosforinnehåll",
+    "5": "Begränsad till jordar med högt fosforinnehåll"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+function getNitrogenLabel(value) {
+  const map = {
+    "1": "Mycket kvävefattigt",
+    "2": "Måttligt till mycket kvävefattigt",
+    "3": "Måttligt kvävefattigt",
+    "4": "Från måttligt kvävefattigt till måttligt kväverikt",
+    "5": "Måttligt kväverikt",
+    "6": "Måttligt till mycket kväverikt",
+    "7": "Mycket kväverikt",
+    "8": "Begränsad till naturligt kväverika jordar",
+    "9": "Främst på konstgjort kväveberikade jordar"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+
+function getSeedDormancyLabel(value) {
+  const map = {
+    "1": "Ingen frövila – gror inom 10 dagar",
+    "2": "Ingen frövila eller med lätt fysiologisk/fysisk vila–gror efter 10–30 dagar",
+    "3": "Med morfologisk, fysisk eller intermediär fysiologisk vila; mycket långsam groning oberoende av temperatur/säsong (<35 dagar stratifiering)",
+    "4": "Med intermediär eller djup fysiologisk/morfologisk vila; kräver >35 dagars kallstratifiering"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
   const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
@@ -497,11 +532,9 @@ function formatPlantInfo(match, isEUListad = false) {
 
     <p><strong>pH:</strong> ${match["Soil reaction (pH)"] || "<em>okänt</em>"}</p>
 
-    <p><strong>Kvävebehov (N):</strong></p>
-    ${drawArrowScale(match["Nitrogen (N)"], 1, 9, scale("Näringsfattigt", "Näringsrikt"))}
+    <p><strong>Kvävepreferens:</strong> ${getNitrogenLabel(match["Nitrogen (N)"])}</p>
 
-    <p><strong>Fosforbehov (P):</strong></p>
-    ${drawArrowScale(match["Phosphorus (P)"], 1, 5, scale("Lågt", "Högt"))}
+    <p><strong>Fosforpreferens:</strong> ${getPhosphorusLabel(match["Phosphorus (P)"])}</p>
 
     <p><strong>Salttålighet:</strong></p>
     ${drawArrowScale(match["Salinity"], 1, 5, scale("Ej salt", "Mycket salt"))}
@@ -518,8 +551,7 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Beroende av pollinatörer:</strong></p>
     ${drawArrowScale(match["Pollinator dependence"], 0, 2, scale("Oberoende", "Beroende"))}
 
-    <p><strong>Frövila:</strong></p>
-    ${drawArrowScale(match["Seed dormancy"], 1, 4, scale("Ingen", "Djup vila"))}
+    <p><strong>Frövila:</strong> ${getSeedDormancyLabel(match["Seed dormancy"])}</p>
 
     <p><strong>Fröbankens livslängd:</strong> ${getSeedBankLabel(match["Seed bank"])}</p>
 
