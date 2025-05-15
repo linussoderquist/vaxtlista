@@ -412,3 +412,111 @@ function drawScaleWithEmoji(value, emoji, color = null, max = 5) {
   output += "</div>";
   return output;
 }
+function formatPlantInfo(match, isEUListad = false) {
+  const dyntaxa = match["Dyntaxa ID number"];
+  const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
+  const riskklass = getRiskklassningFromXLSX(dyntaxa);
+  const zon = heatRequirementToZone(match["Heat requirement"]);
+  const immigration = getImmigrationLabel(match["Time of immigration"]);
+  const redlist = ["0", "1", "2", "3"].includes(match["Time of immigration"]?.toString());
+
+  const genus = match["Scientific name"].split(" ")[0];
+  const species = match["Scientific name"].split(" ")[1] || "";
+  const scientific = match["Scientific name"];
+  const swedish = match["Svenskt namn"];
+  const associatedInsects = getAssociatedInsects(genus, species);
+
+  const insectHtml = associatedInsects.length > 0 ? `
+    <h4>Associerade insektsarter:</h4>
+    <ul>
+      ${associatedInsects.map(insect => `
+        <li><em>${insect["Insect Genus"]} ${insect["Insect Species"]}</em> (${insect["Insect Family"]}) - ${insect["Damage"] || "ingen specifik skada angiven"}</li>
+      `).join('')}
+    </ul>
+  ` : "";
+
+  const addButton = `<button onclick="addToPlantList('${swedish}', '${scientific}')">➕ Lägg till i min växtlista</button>`;
+  const scale = (label1, label2) => [label1, label2];
+
+  if (!advancedMode) {
+    return `
+      <h3>${swedish} (${scientific})</h3>
+      <p><strong>Familj:</strong> ${match["Family"]}</p>
+      ${redlist ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>` : ""}
+      <p><strong>Invandringstid:</strong> ${immigration}</p>
+      ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
+      ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
+      ${addButton}
+    `;
+  }
+
+  return `
+    <h3>${swedish} (${scientific})</h3>
+    <p><strong>Familj:</strong> ${match["Family"]}</p>
+    ${redlist ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>` : ""}
+    <p><strong>Härdighet (zon):</strong> ${zon}</p>
+    <p><strong>Invandringstid:</strong> ${immigration}</p>
+    ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
+    ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
+    ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
+    ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
+
+    <h4>Indikatorer</h4>
+
+    <p><strong>Biodiversitetsrelevans:</strong></p>
+    ${drawArrowScale(match["Biodiversity relevance"], 1, 8, scale("Låg", "Hög"))}
+
+    <p><strong>Nektarproduktion:</strong></p>
+    ${drawArrowScale(match["Nectar production"], 1, 7, scale("Ingen", "Väldigt hög"))}
+
+    <p><strong>Värmekrav (härdighet):</strong></p>
+    ${drawArrowScale(match["Heat requirement"], 1, 14, scale("Arktisk", "Varm zon"))}
+
+    <p><strong>Köldtålighet:</strong></p>
+    ${drawArrowScale(match["Cold requirement"], 1, 20, scale("Tropisk", "Arktisk"))}
+
+    <p><strong>Ljusbehov:</strong></p>
+    ${drawArrowScale(match["Light"], 1, 7, scale("Djup skugga", "Full sol"))}
+
+    <p><strong>Fuktighetskrav:</strong></p>
+    ${drawArrowScale(match["Moisture"], 1, 12, scale("Torrt", "Permanent vatten"))}
+
+    <p><strong>pH-behov (jordreaktion):</strong></p>
+    ${drawArrowScale(match["Soil reaction (pH)"], 1, 8, scale("Mycket surt", "Alkaliskt"))}
+
+    <p><strong>Kvävebehov (N):</strong></p>
+    ${drawArrowScale(match["Nitrogen (N)"], 1, 9, scale("Näringsfattigt", "Näringsrikt"))}
+
+    <p><strong>Fosforbehov (P):</strong></p>
+    ${drawArrowScale(match["Phosphorus (P)"], 1, 5, scale("Lågt", "Högt"))}
+
+    <p><strong>Salttålighet:</strong></p>
+    ${drawArrowScale(match["Salinity"], 1, 5, scale("Ej salt", "Mycket salt"))}
+
+    <p><strong>Gynnas av bete/slåtter:</strong></p>
+    ${drawArrowScale(match["Grazing/mowing"], 1, 8, scale("Känslig", "Kräver"))}
+
+    <p><strong>Behov av markstörning:</strong></p>
+    ${drawArrowScale(match["Soil disturbance"], 1, 9, scale("Konkurrensstark", "Kräver störning"))}
+
+    <p><strong>Livslängd:</strong></p>
+    ${drawArrowScale(match["Longevity"], 1, 4, scale("Ettårig", "Långlivad"))}
+
+    <p><strong>Beroende av pollinatörer:</strong></p>
+    ${drawArrowScale(match["Pollinator dependence"], 0, 2, scale("Oberoende", "Beroende"))}
+
+    <p><strong>Frövila:</strong></p>
+    ${drawArrowScale(match["Seed dormancy"], 1, 4, scale("Ingen", "Djup vila"))}
+
+    <p><strong>Fröbankens livslängd:</strong></p>
+    ${drawArrowScale(match["Seed bank"], 1, 4, scale("Kortlivad", "Permanent"))}
+
+    <p><strong>Kvävefixering:</strong></p>
+    ${drawArrowScale(match["Nitrogen fixation"], 0, 1, scale("Nej", "Ja"))}
+
+    <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
+    <hr/>
+    ${insectHtml}
+    ${addButton}
+  `;
+}
