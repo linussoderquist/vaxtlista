@@ -199,18 +199,20 @@ function getImmigrationLabel(value) {
 function drawArrowScale(value, min, max, labels = null, unit = "") {
   value = parseFloat(value);
   if (isNaN(value)) return "<em>okänt</em>";
+
   const percent = ((value - min) / (max - min)) * 100;
   const cappedPercent = Math.max(0, Math.min(100, percent));
-  const labelLine = labels ? `<div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-top: 0.2rem;">
-    <span>${labels[0]}</span><span>${labels[1]}</span>
-  </div>` : "";
+
+  const labelLine = labels ? `
+    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-top: 0.2rem;">
+      <span>${labels[0]}</span><span>${labels[1]}</span>
+    </div>` : "";
 
   return `
-    <div style="margin: 0.4rem 0;">
-      <div style="position: relative; height: 6px; background: #ccc; border-radius: 3px;">
-        <div style="position: absolute; left: ${cappedPercent}%; transform: translateX(-50%); text-align: center;">
-          <div style="font-size: 0.75rem; margin-bottom: 2px; color: #333;">${value}${unit ? ` ${unit}` : ""}</div>
-          <div style="width: 0; height: 0; border-left: 6px solid transparent; border-right: 6px solid transparent; border-bottom: 10px solid #007700;"></div>
+    <div style="margin: 0.8rem 0;">
+      <div style="position: relative; height: 24px; background: #ddd; border-radius: 12px; overflow: hidden;">
+        <div style="width: ${cappedPercent}%; background: #66c2ff; height: 100%; display: flex; align-items: center; justify-content: center; color: #000; font-size: 0.9rem; font-weight: bold;">
+          ${value}${unit ? ` ${unit}` : ""}
         </div>
       </div>
       ${labelLine}
