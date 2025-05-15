@@ -606,6 +606,22 @@ function getHeatRequirementLabel(value) {
   return map[value?.toString()] || "<em>okänt</em>";
 }
 
+function blomfargTillCSS(farg) {
+  const färgmap = {
+    "Vit": "#ffffff",
+    "Gul": "#ffff00",
+    "Grön": "#008000",
+    "Rosa": "#ffc0cb",
+    "Röd": "#ff0000",
+    "Lila": "#800080",
+    "Blå": "#0000ff",
+    "Brun": "#8b4513",
+    "Orange": "#ffa500",
+    "Svart": "#000000"
+  };
+  return färgmap[farg] || "#000000";
+}
+
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
   const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
@@ -619,6 +635,11 @@ function formatPlantInfo(match, isEUListad = false) {
   const scientific = match["Scientific name"];
   const swedish = match["Svenskt namn"];
   const associatedInsects = getAssociatedInsects(genus, species);
+
+  const blomningsstart = traits?.["Blomningsstart"] || "okänt";
+  const blomningsslut = traits?.["Blomningsslut"] || "okänt";
+  const blommar = traits?.["Blommande?"] === "Ja";
+  const blomfarg = traits?.["Blomfärg"] || "okänd";
 
   const insectHtml = associatedInsects.length > 0 ? `
     <h4>Associerade insektsarter:</h4>
@@ -655,40 +676,27 @@ function formatPlantInfo(match, isEUListad = false) {
     ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
     ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
 
-    //Indikatorer
+    <p><strong>Blomning:</strong> ${blommar ? `Ja (${blomningsstart}–${blomningsslut})` : "Nej eller okänt"}</p>
+    <p><strong>Blomfärg:</strong> <span style="color:${blomfargTillCSS(blomfarg)};">${blomfarg}</span></p>
+
+    <h4>Indikatorer</h4>
 
     <p><strong>Biodiversitetsrelevans:</strong> ${getBiodiversityRelevanceLabel(match["Biodiversity relevance"])}</p>
-
     <p><strong>Nektarproduktion:</strong> ${getNectarProductionLabel(match["Nectar production"])}</p>
-
     <p><strong>Värmekrav (härdighet):</strong> ${getHeatRequirementLabel(match["Heat requirement"])}</p>
-    
     <p><strong>Köldkrav:</strong> ${getColdRequirementLabel(match["Cold requirement"])}</p>
-    
     <p><strong>Ljusbehov:</strong> ${getLightLabel(match["Light"])}</p>
-
     <p><strong>Fuktighetskrav:</strong> ${getMoistureLabel(match["Moisture"])}</p>
-
     <p><strong>pH:</strong> ${match["Soil reaction (pH)"] || "<em>okänt</em>"}</p>
-
     <p><strong>Kvävepreferens:</strong> ${getNitrogenLabel(match["Nitrogen (N)"])}</p>
-
     <p><strong>Fosforpreferens:</strong> ${getPhosphorusLabel(match["Phosphorus (P)"])}</p>
-
     <p><strong>Salttålighet:</strong> ${getSalinityLabel(match["Salinity"])}</p>
-
     <p><strong>Bete/slåtter:</strong> ${getGrazingLabel(match["Grazing/mowing"])}</p>
-
     <p><strong>Markstörningsbehov:</strong> ${getSoilDisturbanceLabel(match["Soil disturbance"])}</p>
-
     <p><strong>Livslängd:</strong> ${getLongevityLabel(match["Longevity"])}</p>
-
     <p><strong>Beroende av pollinatörer:</strong> ${getPollinatorDependenceLabel(match["Pollinator dependence"])}</p>
-
     <p><strong>Frövila:</strong> ${getSeedDormancyLabel(match["Seed dormancy"])}</p>
-
     <p><strong>Fröbankens livslängd:</strong> ${getSeedBankLabel(match["Seed bank"])}</p>
-
     <p><strong>Kvävefixering:</strong> ${match["Nitrogen fixation"] === "1" ? "Ja" : "Nej"}</p>
 
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
