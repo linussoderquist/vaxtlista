@@ -515,8 +515,7 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Fröbankens livslängd:</strong></p>
     ${drawArrowScale(match["Seed bank"], 1, 4, scale("Kortlivad", "Permanent"))}
 
-    <p><strong>Kvävefixering:</strong></p>
-    ${drawArrowScale(match["Nitrogen fixation"], 0, 1, scale("Nej", "Ja"))}
+    <p><strong>Kvävefixering:</strong> ${match["Nitrogen fixation"] === "1" ? "Ja" : "Nej"}</p>
 
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
     <hr/>
