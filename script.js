@@ -679,7 +679,7 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Blomning:</strong> ${blommar ? `Ja (${blomningsstart}–${blomningsslut})` : "Nej eller okänt"}</p>
     <p><strong>Blomfärg:</strong> <span style="color:${blomfargTillCSS(blomfarg)};">${blomfarg}</span></p>
 
-    //Indikatorer
+    <!-- Indikatorer-->
 
     <p><strong>Biodiversitetsrelevans:</strong> ${getBiodiversityRelevanceLabel(match["Biodiversity relevance"])}</p>
     <p><strong>Nektarproduktion:</strong> ${getNectarProductionLabel(match["Nectar production"])}</p>
