@@ -677,7 +677,10 @@ function formatPlantInfo(match, isEUListad = false) {
     ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
 
     <p><strong>Blomning:</strong> ${blommar ? `Ja (${blomningsstart}–${blomningsslut})` : "Nej eller okänt"}</p>
-    <p><strong>Blomfärg:</strong> <span style="color:${blomfargTillCSS(blomfarg)};">${blomfarg}</span></p>
+    <p><strong>Blomfärg:</strong> 
+  <span style="display: inline-block; width: 16px; height: 16px; border-radius: 50%; background-color: ${blomfargTillCSS(blomfarg)}; vertical-align: middle; margin-right: 0.5rem;"></span>
+  ${blomfarg}
+</p>
 
     <!-- Indikatorer-->
 
