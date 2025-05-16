@@ -514,13 +514,13 @@ function getSoilDisturbanceLabel(value) {
 function getGrazingLabel(value) {
   const map = {
     "1": "Tål inte bete eller slåtter alls",
-    "2": "Tål enstaka men inte återkommande bete eller slåtter",
-    "3": "Tål regelbunden störning men föredrar obetade/slagna miljöer",
-    "4": "Trivs både i betade/slagna och obetade/slagna miljöer",
-    "5": "Gynnas av viss störning men överlever även utan",
+    "2": "Tål sporadiskt men inte återkommande bete eller slåtter",
+    "3": "Tål regelbunden bete/slåtter men föredrar oskötta miljöer",
+    "4": "Trivs både i betade/slagna och oskötta miljöer",
+    "5": "Gynnas av visst bete/slåtter men överlever även utan",
     "6": "Starkt gynnad av regelbundet bete/slåtter men klarar några år utan",
     "7": "Starkt beroende av störning och försvinner om den uteblir",
-    "8": "Kräver återkommande eller kontinuerlig störning"
+    "8": "Kräver återkommande eller kontinuerligt bete/slåtter"
   };
   return map[value?.toString()] || "<em>okänt</em>";
 }
@@ -642,9 +642,9 @@ function getSeedDispersalLabel(code) {
 function getMycorrhizaLabel(value) {
   const map = {
     "None": "Ingen mykorrhiza",
-    "AM": "Arbuskulär mykorrhiza (AM)",
-    "EM": "Ektomykorrhiza (EM)",
-    "AM/EM": "Arbuskulär och ektomykorrhiza (AM/EM)",
+    "AM": "Arbuskulär mykorrhiza",
+    "EM": "Ektomykorrhiza",
+    "AM/EM": "Arbuskulär och ektomykorrhiza",
     "ArbM": "Arbutoid mykorrhiza",
     "ErM": "Erikoid mykorrhiza",
     "MonM": "Monotropoid mykorrhiza",
