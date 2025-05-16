@@ -255,7 +255,11 @@ input:checked + .slider:before {
   <a href="https://www.gbif.org/" target="_blank" style="color: #004d00; text-decoration: underline;">
     gbif.org</a>
   </p>
-  <div style="margin-bottom: 1rem;">
+  <input type="text" id="searchInput" placeholder="Skriv ett växtnamn..." autocomplete="off" />
+  
+  <div id="suggestions"></div>
+  <button onclick="searchPlant()">Sök</button>
+<div style="margin-bottom: 1rem;">
   <label style="display: inline-flex; align-items: center; gap: 0.5rem; font-weight: bold;">
     <span>Förenklat</span>
     <label class="switch">
@@ -265,13 +269,7 @@ input:checked + .slider:before {
     <span>Avancerat</span>
   </label>
 </div>
-
-
-
-  <input type="text" id="searchInput" placeholder="Skriv ett växtnamn..." autocomplete="off" />
-  <div id="suggestions"></div>
-  <button onclick="searchPlant()">Sök</button>
-
+  
   <div id="container">
     <div id="result"></div>
     <div id="map"></div>
