@@ -621,6 +621,21 @@ function blomfargTillCSS(farg) {
   };
   return färgmap[farg] || "#000000";
 }
+function getSeedDispersalLabel(code) {
+  const map = {
+    "Adh": "Vidhäftning – krokar eller klibbig yta, sprids via djurpäls/fjädrar",
+    "AirD": "Luftburen (lätt) – mycket små och lätta frukter",
+    "AirP": "Luftburen (plumös) – hårprydda frukter",
+    "AirW": "Luftburen (vingad) – frukter med vingar",
+    "Bird": "Fågelburen – fruktkött attraktivt för fåglar",
+    "Expl": "Explosiv – aktivt uppsprickande frukter",
+    "Myr": "Myrmekofil – frön med elaiosom, sprids av myror",
+    "Passive": "Passiv – inga särskilda anpassningar",
+    "Veg": "Vegetativ – utlöpare, jordstammar etc.",
+    "Water": "Vattenburen – flytförmåga via svampigt fruktskal"
+  };
+  return map[code] || "<em>okänt</em>";
+}
 
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
@@ -654,6 +669,7 @@ function formatPlantInfo(match, isEUListad = false) {
   const scale = (label1, label2) => [label1, label2];
 
   if (!advancedMode) {
+    //Förenklad
     return `
       <h3>${swedish} (${scientific})</h3>
       <p><strong>Familj:</strong> ${match["Family"]}</p>
@@ -661,15 +677,24 @@ function formatPlantInfo(match, isEUListad = false) {
       <p><strong>Invandringstid:</strong> ${immigration}</p>
       ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
       ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
+      <p><strong>Blomning:</strong> ${blommar ? `Ja (${blomningsstart}–${blomningsslut})` : "Nej eller okänt"}</p>
+    <p><strong>Blomfärg:</strong> 
+  <span style="display: inline-block; width: 16px; height: 16px; border-radius: 50%; background-color: ${blomfargTillCSS(blomfarg)}; vertical-align: middle; margin-right: 0.5rem;"></span>
+  ${blomfarg}
+</p>
+<p><strong>Härdig till odlingszon:</strong> ${zon}</p>
+<p><strong>Biodiversitetsrelevans:</strong> ${getBiodiversityRelevanceLabel(match["Biodiversity relevance"])}</p>
+    <p><strong>Nektarproduktion:</strong> ${getNectarProductionLabel(match["Nectar production"])}</p>
       ${addButton}
     `;
   }
 
+  //Avancerad
   return `
     <h3>${swedish} (${scientific})</h3>
     <p><strong>Familj:</strong> ${match["Family"]}</p>
     ${redlist ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>` : ""}
-    <p><strong>Härdighet (zon):</strong> ${zon}</p>
+    <p><strong>Härdig till odlingszon:</strong> ${zon}</p>
     <p><strong>Invandringstid:</strong> ${immigration}</p>
     ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
     ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
@@ -698,6 +723,7 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Markstörningsbehov:</strong> ${getSoilDisturbanceLabel(match["Soil disturbance"])}</p>
     <p><strong>Livslängd:</strong> ${getLongevityLabel(match["Longevity"])}</p>
     <p><strong>Beroende av pollinatörer:</strong> ${getPollinatorDependenceLabel(match["Pollinator dependence"])}</p>
+    <p><strong>Fröspridning:</strong> ${getSeedDispersalLabel(traits?.["Dispersal"])}</p>
     <p><strong>Frövila:</strong> ${getSeedDormancyLabel(match["Seed dormancy"])}</p>
     <p><strong>Fröbankens livslängd:</strong> ${getSeedBankLabel(match["Seed bank"])}</p>
     <p><strong>Kvävefixering:</strong> ${match["Nitrogen fixation"] === "1" ? "Ja" : "Nej"}</p>
