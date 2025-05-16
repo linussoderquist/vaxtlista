@@ -751,7 +751,7 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Frövila:</strong> ${getSeedDormancyLabel(match["Seed dormancy"])}</p>
     <p><strong>Fröbankens livslängd:</strong> ${getSeedBankLabel(match["Seed bank"])}</p>
     <p><strong>Kvävefixering:</strong> ${match["Nitrogen fixation"] === "1" ? "Ja" : "Nej"}</p>
-    <p><strong>Mykorrhiza:</strong> ${getMycorrhizaLabel(match["Mykorrhiza"])}</p>
+    <p><strong>Mykorrhiza:</strong> ${getMycorrhizaLabel(match["Mycorrhiza"])}</p>
     <p><strong>Parasitism:</strong> ${getParasitismLabel(match["Parasitism"])}</p>
 
 
