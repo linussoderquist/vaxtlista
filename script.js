@@ -747,12 +747,12 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Markstörningsbehov:</strong> ${getSoilDisturbanceLabel(match["Soil disturbance"])}</p>
     <p><strong>Livslängd:</strong> ${getLongevityLabel(match["Longevity"])}</p>
     <p><strong>Beroende av pollinatörer:</strong> ${getPollinatorDependenceLabel(match["Pollinator dependence"])}</p>
-    <p><strong>Fröspridning:</strong> ${getSeedDispersalLabel(traits?.["Dispersal"])}</p>
+    <p><strong>Fröspridning:</strong> ${getSeedDispersalLabel(match["Seed disperser"])}</p>
     <p><strong>Frövila:</strong> ${getSeedDormancyLabel(match["Seed dormancy"])}</p>
     <p><strong>Fröbankens livslängd:</strong> ${getSeedBankLabel(match["Seed bank"])}</p>
     <p><strong>Kvävefixering:</strong> ${match["Nitrogen fixation"] === "1" ? "Ja" : "Nej"}</p>
-    <p><strong>Mykorrhiza:</strong> ${getMycorrhizaLabel(traits["Mykorrhiza"])}</p>
-    <p><strong>Parasitism:</strong> ${getParasitismLabel(traits["Parasitism"])}</p>
+    <p><strong>Mykorrhiza:</strong> ${getMycorrhizaLabel(match["Mykorrhiza"])}</p>
+    <p><strong>Parasitism:</strong> ${getParasitismLabel(match["Parasitism"])}</p>
 
 
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
