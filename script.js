@@ -611,10 +611,10 @@ function blomfargTillCSS(farg) {
     "Vit": "#ffffff",
     "Gul": "#ffff00",
     "Grön": "#008000",
-    "Rosa": "#ffc0cb",
+    "Rosa": "#e04a8b",
     "Röd": "#ff0000",
-    "Lila": "#800080",
-    "Blå": "#0000ff",
+    "Lila": "#c36eeb",
+    "Blå": "#6e8beb",
     "Brun": "#8b4513",
     "Orange": "#ffa500",
     "Svart": "#000000"
