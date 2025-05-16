@@ -637,6 +637,20 @@ function getSeedDispersalLabel(code) {
   return map[code] || "<em>okänt</em>";
 }
 
+function getMycorrhizaLabel(value) {
+  const map = {
+    "None": "Ingen mykorrhiza",
+    "AM": "Arbuskulär mykorrhiza (AM)",
+    "EM": "Ektomykorrhiza (EM)",
+    "AM/EM": "Arbuskulär och ektomykorrhiza (AM/EM)",
+    "ArbM": "Arbutoid mykorrhiza",
+    "ErM": "Erikoid mykorrhiza",
+    "MonM": "Monotropoid mykorrhiza",
+    "OrkM": "Orkidémykorrhiza",
+    "PyrM": "Pyrola-mykorrhiza"
+  };
+  return map[value?.trim()] || "<em>okänd</em>";
+}
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
   const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
@@ -727,6 +741,7 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Frövila:</strong> ${getSeedDormancyLabel(match["Seed dormancy"])}</p>
     <p><strong>Fröbankens livslängd:</strong> ${getSeedBankLabel(match["Seed bank"])}</p>
     <p><strong>Kvävefixering:</strong> ${match["Nitrogen fixation"] === "1" ? "Ja" : "Nej"}</p>
+    <p><strong>Mykorrhiza:</strong> ${getMycorrhizaLabel(traits["Mykorrhiza"])}</p>
 
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
     <hr/>
