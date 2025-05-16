@@ -485,18 +485,14 @@ function getPollinatorDependenceLabel(value) {
     "0c": "oberoende av pollinatörer – självpollinerande",
     "0d": "oberoende av pollinatörer – bildar frön via apomixis (utan befruktning)",
     "0": "oberoende av pollinatörer",
-    "1": "delvis beroende av insekter – kan också självpollinera eller pollineras abiotiskt",
-    "1": "helt beroende av insekter – (självinkompatibel)",
-    "1a": "delvis beroende av bin eller humlor (Hymenoptera) – kan också självpollinera eller pollineras abiotiskt",
-    "1ab": "delvis beroende av bin/humlor och fjärilar (Hymenoptera och Lepidoptera) – kan också självpollinera eller pollineras abiotiskt",
-    "1b": "delvis beroende av fjärilar (Lepidoptera) – kan också självpollinera eller pollineras abiotiskt",
-    "2a": "helt beroende av bin eller humlor (Hymenoptera) för pollinering (självinkompatibel)",
-    "2ab": "delvis beroende av bin/humlor och fjärilar (Hymenoptera och Lepidoptera) för pollinering (självinkompatibel)",
-    "2b": "helt beroende av fjärilar (Lepidoptera) för pollinering (självinkompatibel)",
-    "1/2": "pollineras främst av andra insekter (t.ex. flugor eller skalbaggar)",
-    "1/2a": "exklusivt pollinerad av bin eller humlor (Hymenoptera)",
-    "1/2ab": "exklusivt pollinerad av bin/humlor och fjärilar (Hymenoptera och Lepidoptera)",
-    "1/2b": "exklusivt pollinerad av fjärilar (Lepidoptera)"
+    "1": "delvis beroende av främst andra insekter än fjärilar/bin och humlor (t.ex. flugor eller skalbaggar) – kan också självpollinera eller pollineras abiotiskt",
+    "2": "helt beroende av främst andra insekter än fjärilar/bin och humlor (t.ex. flugor eller skalbaggar) – (självinkompatibel)",
+    "1a": "delvis beroende av exklusivt bin eller humlor (Hymenoptera) – kan också självpollinera eller pollineras abiotiskt",
+    "1ab": "delvis beroende av exklusivt bin/humlor och fjärilar (Hymenoptera och Lepidoptera) – kan också självpollinera eller pollineras abiotiskt",
+    "1b": "delvis beroende av exklusivt fjärilar (Lepidoptera) – kan också självpollinera eller pollineras abiotiskt",
+    "2a": "helt beroende av exklusivt bin eller humlor (Hymenoptera) för pollinering (självinkompatibel)",
+    "2ab": "delvis beroende av exklusivt bin/humlor och fjärilar (Hymenoptera och Lepidoptera) för pollinering (självinkompatibel)",
+    "2b": "helt beroende av exklusivt fjärilar (Lepidoptera) för pollinering (självinkompatibel)",
   };
 
   return map[value?.toString()] || "<em>okänt</em>";
