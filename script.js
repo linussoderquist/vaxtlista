@@ -681,7 +681,7 @@ function formatPlantInfo(match, isEUListad = false) {
   const blomfarg = traits?.["Blomfärg"] || "okänd";
 
   const insectHtml = associatedInsects.length > 0 ? `
-    <h4>Associerade insektsarter:</h4>
+    <h4>Associerade fjärilar (Lepidoptera), enligt  <a href="https://doi.org/10.5519/havt50xw" target="_blank">Robinson et al. (2023)</a>:</h4>
     <ul>
       ${associatedInsects.map(insect => `
         <li><em>${insect["Insect Genus"]} ${insect["Insect Species"]}</em> (${insect["Insect Family"]}) - ${insect["Damage"] || "ingen specifik skada angiven"}</li>
