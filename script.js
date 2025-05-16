@@ -651,6 +651,16 @@ function getMycorrhizaLabel(value) {
   };
   return map[value?.trim()] || "<em>okänd</em>";
 }
+
+function getParasitismLabel(value) {
+  const map = {
+    "0": "Ej parasitisk",
+    "1": "Halvparasit – har egen fotosyntes men tar vatten/näring från värd",
+    "2": "Helparasit – helt beroende av värd även för kolhydrater"
+  };
+  return map[value?.toString()] || "<em>okänt</em>";
+}
+
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
   const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
@@ -742,6 +752,8 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Fröbankens livslängd:</strong> ${getSeedBankLabel(match["Seed bank"])}</p>
     <p><strong>Kvävefixering:</strong> ${match["Nitrogen fixation"] === "1" ? "Ja" : "Nej"}</p>
     <p><strong>Mykorrhiza:</strong> ${getMycorrhizaLabel(traits["Mykorrhiza"])}</p>
+    <p><strong>Parasitism:</strong> ${getParasitismLabel(traits["Parasitism"])}</p>
+
 
     <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
     <hr/>
