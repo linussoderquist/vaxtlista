@@ -71,6 +71,51 @@ Papa.parse("resource_relevant.csv", {
   }
 });
 
+const inputScientific = document.getElementById("searchScientific");
+
+function setupAutocompleteScientific() {
+  inputScientific.addEventListener("input", () => {
+    const val = inputScientific.value.toLowerCase();
+    suggestions.innerHTML = "";
+    if (val.length < 2) return;
+
+    const matches = plantData
+      .filter(p => p["Scientific name"]?.toLowerCase().includes(val))
+      .map(p => p["Scientific name"]);
+
+    const uniqueMatches = [...new Set(matches)].slice(0, 10);
+
+    uniqueMatches.forEach(name => {
+      const div = document.createElement("div");
+      div.textContent = name;
+      div.onclick = () => {
+        inputScientific.value = name;
+        suggestions.innerHTML = "";
+        searchPlantByScientific(name);
+      };
+      suggestions.appendChild(div);
+    });
+  });
+}
+
+function searchPlantByScientific(name) {
+  if (!allDataLoaded) {
+    resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
+    return;
+  }
+
+  const match = plantData.find(p => p["Scientific name"]?.toLowerCase().trim() === name.toLowerCase().trim());
+
+  if (!match) {
+    resultDiv.innerHTML = "🚫 Växten hittades inte.";
+    return;
+  }
+
+  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
+  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
+  drawMapFromGBIF(match["Scientific name"]);
+}
+
 function checkAllDataLoaded() {
   if (
     plantData.length &&
@@ -82,6 +127,7 @@ function checkAllDataLoaded() {
     allDataLoaded = true;
     plantNames = [...new Set(plantData.map(p => p["Svenskt namn"]))];
     setupAutocomplete();
+    setupAutocompleteScientific();
   }
 }
 
