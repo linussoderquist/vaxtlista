@@ -111,6 +111,56 @@ function searchPlantByScientific(name) {
     return;
   }
 
+function displayPlantNetResults(data) {
+  const resultDiv = document.getElementById("plantnetResult");
+  resultDiv.innerHTML = "<h4>Artförslag:</h4>";
+
+  if (!data || !data.results || data.results.length === 0) {
+    resultDiv.innerHTML += "<p>Inga förslag hittades.</p>";
+    return;
+  }
+
+  data.results.slice(0, 5).forEach(result => {
+    const species = result.species.scientificNameWithoutAuthor || "Okänd";
+    const commonNames = result.species.commonNames?.join(", ") || "Inga svenska namn";
+    const score = (result.score * 100).toFixed(1);
+
+    resultDiv.innerHTML += `
+      <div style="margin-bottom:1em;">
+        <strong>${species}</strong> (${commonNames})<br>
+        Träffsäkerhet: ${score}%
+        <br><img src="${result.images[0].url.s}" alt="${species}" style="max-height:100px; margin-top: 5px;">
+      </div>
+    `;
+  });
+}
+
+async function identifyPlant() {
+  const fileInput = document.getElementById("imageInput");
+  const file = fileInput.files[0];
+  if (!file) {
+    alert("Ladda upp en bild först.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("images", file);
+  formData.append("organs", "auto"); // Du kan sätta till 'leaf', 'flower', etc. om du vet
+
+  // Byt ut 'YOUR_API_KEY' mot din riktiga nyckel från PlantNet (https://my.plantnet.org/)
+  const apiKey = "2b107lvznqdUtphj8PuCbQFkOe";
+  const url = `https://my-api.plantnet.org/v2/identify/all?api-key=${apiKey}`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await response.json();
+  displayPlantNetResults(data);
+}
+
+
   const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
   resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
   drawMapFromGBIF(match["Scientific name"]);
