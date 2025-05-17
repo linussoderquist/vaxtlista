@@ -71,6 +71,32 @@ Papa.parse("resource_relevant.csv", {
   }
 });
 
+async function identifyPlant() {
+  const fileInput = document.getElementById("imageInput");
+  const file = fileInput.files[0];
+  if (!file) {
+    alert("Ladda upp en bild först.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("images", file);
+  formData.append("organs", "auto"); // Du kan sätta till 'leaf', 'flower', etc. om du vet
+
+  // Byt ut 'YOUR_API_KEY' mot din riktiga nyckel från PlantNet (https://my.plantnet.org/)
+  const apiKey = "2b107lvznqdUtphj8PuCbQFkOe";
+  const url = `https://my-api.plantnet.org/v2/identify/all?api-key=${apiKey}`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    body: formData
+  });
+
+  const data = await response.json();
+  displayPlantNetResults(data);
+}
+
+
 const inputScientific = document.getElementById("searchScientific");
 
 function setupAutocompleteScientific() {
@@ -134,32 +160,6 @@ function displayPlantNetResults(data) {
     `;
   });
 }
-
-async function identifyPlant() {
-  const fileInput = document.getElementById("imageInput");
-  const file = fileInput.files[0];
-  if (!file) {
-    alert("Ladda upp en bild först.");
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append("images", file);
-  formData.append("organs", "auto"); // Du kan sätta till 'leaf', 'flower', etc. om du vet
-
-  // Byt ut 'YOUR_API_KEY' mot din riktiga nyckel från PlantNet (https://my.plantnet.org/)
-  const apiKey = "2b107lvznqdUtphj8PuCbQFkOe";
-  const url = `https://my-api.plantnet.org/v2/identify/all?api-key=${apiKey}`;
-
-  const response = await fetch(url, {
-    method: "POST",
-    body: formData
-  });
-
-  const data = await response.json();
-  displayPlantNetResults(data);
-}
-
 
   const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
   resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
