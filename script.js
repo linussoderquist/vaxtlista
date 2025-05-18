@@ -168,25 +168,41 @@ function setupAutocompleteScientific() {
 }
 
 function searchPlantByScientific(name) {
-  name = decodeURIComponent(name);
+  name = decodeURIComponent(name).trim().toLowerCase();
   if (!allDataLoaded) {
     resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
     return;
   }
 
-  const match = plantData.find(p => p["Scientific name"]?.toLowerCase().trim() === name.toLowerCase().trim());
+  // Försök matcha exakt släkte + art
+  const simplified = name.split(" ").slice(0, 2).join(" ");
+
+  let match = plantData.find(p => {
+    const plantName = p["Scientific name"]?.toLowerCase().trim();
+    const shortName = plantName?.split(" ").slice(0, 2).join(" ");
+    return shortName === simplified;
+  });
+
+  // Om inget exakt match, försök fuzzy match
+  if (!match) {
+    match = plantData.find(p => {
+      const plantName = p["Scientific name"]?.toLowerCase().trim();
+      return plantName && plantName.includes(simplified);
+    });
+  }
 
   if (!match) {
     resultDiv.innerHTML = "🚫 Växten hittades inte.";
     return;
   }
 
-  currentSelectedPlant = match;  // <- Lägg till detta
+  currentSelectedPlant = match;
 
   const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
   resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
   drawMapFromGBIF(match["Scientific name"]);
 }
+
 
 function setupAutocomplete() {
   input.addEventListener("input", () => {
