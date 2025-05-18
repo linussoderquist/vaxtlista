@@ -389,11 +389,6 @@ function searchPlant() {
   drawMapFromGBIF(match["Scientific name"]);
 }
 
-  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
-  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
-  drawMapFromGBIF(match["Scientific name"]);
-}
-
 function getGrowthFormIcon(type) {
   const icons = {
     "Träd": "🌳",
