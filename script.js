@@ -166,6 +166,8 @@ function setupAutocompleteScientific() {
 
 function searchPlantByScientific(name) {
   name = decodeURIComponent(name);
+  inputScientific.value = name; // Fyll i sökfältet med valt namn
+
   if (!allDataLoaded) {
     resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
     return;
@@ -177,20 +179,6 @@ function searchPlantByScientific(name) {
     resultDiv.innerHTML = "🚫 Växten hittades inte.";
     return;
   }
-
-  data.results.slice(0, 5).forEach(result => {
-    const species = result.species.scientificNameWithoutAuthor || "Okänd";
-    const commonNames = result.species.commonNames?.join(", ") || "Inga svenska namn";
-    const score = (result.score * 100).toFixed(1);
-
-    resultDiv.innerHTML += `
-      <div style="margin-bottom:1em;">
-        <strong>${species}</strong> (${commonNames})<br>
-        Träffsäkerhet: ${score}%
-        <br><img src="${result.images[0].url.s}" alt="${species}" style="max-height:100px; margin-top: 5px;">
-      </div>
-    `;
-  });
 
   const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
   resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
