@@ -173,7 +173,10 @@ function searchPlantByScientific(name) {
     return;
   }
 
-  const match = plantData.find(p => p["Scientific name"]?.toLowerCase().trim() === name.toLowerCase().trim());
+  const match = plantData.find(p =>
+  p["Scientific name"]?.toLowerCase().startsWith(name.toLowerCase().trim())
+);
+
 
   if (!match) {
     resultDiv.innerHTML = "🚫 Växten hittades inte.";
