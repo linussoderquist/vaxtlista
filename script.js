@@ -91,21 +91,28 @@ async function identifyPlant() {
 
   const formData = new FormData();
   formData.append("images", file);
-  formData.append("organs", "auto"); // Du kan sätta till 'leaf', 'flower', etc. om du vet
+  formData.append("organs", "auto");
 
-  // Byt ut 'YOUR_API_KEY' mot din riktiga nyckel från PlantNet (https://my.plantnet.org/)
   const apiKey = "2b107lvznqdUtphj8PuCbQFkOe";
   const url = `https://my-api.plantnet.org/v2/identify/all?api-key=${apiKey}`;
 
-  const response = await fetch(url, {
-    method: "POST",
-    body: formData
-  });
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      body: formData
+    });
 
-  const data = await response.json();
-  displayPlantNetResults(data);
+    if (!response.ok) {
+      throw new Error(`Servern svarade med status ${response.status}`);
+    }
+
+    const data = await response.json();
+    displayPlantNetResults(data);
+  } catch (error) {
+    console.error("Fel vid API-anrop:", error);
+    alert("Något gick fel med identifieringen. Kontrollera din API-nyckel och domäninställningar.");
+  }
 }
-
 
 const inputScientific = document.getElementById("searchScientific");
 
