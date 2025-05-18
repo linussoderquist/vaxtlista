@@ -82,7 +82,9 @@ function displayPlantNetResults(data) {
 
   data.results.slice(0, 5).forEach(result => {
     const species = result.species?.scientificNameWithoutAuthor || "Okänd art";
-    const commonNames = result.species?.commonNames?.join(", ") || "Inga svenska namn";
+    const commonNames = result.species.vernacularNames 
+    ?.map(n => `${n.vernacularName} (${n.language})`)
+    .join(", ") || "Inga namn tillgängliga";
     const score = (result.score * 100).toFixed(1);
     const imageUrl = result.images?.[0]?.url?.s || "";
 
