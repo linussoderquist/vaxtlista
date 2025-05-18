@@ -71,6 +71,15 @@ Papa.parse("resource_relevant.csv", {
   }
 });
 
+function displayPlantNetResults(data) {
+  const resultDiv = document.getElementById("plantnetResult");
+  resultDiv.innerHTML = "<h4>Artförslag:</h4>";
+
+  if (!data || !data.results || data.results.length === 0) {
+    resultDiv.innerHTML += "<p>Inga förslag hittades.</p>";
+    return;
+  }
+
 async function identifyPlant() {
   const fileInput = document.getElementById("imageInput");
   const file = fileInput.files[0];
@@ -85,7 +94,7 @@ async function identifyPlant() {
 
   // Byt ut 'YOUR_API_KEY' mot din riktiga nyckel från PlantNet (https://my.plantnet.org/)
   const apiKey = "2b107lvznqdUtphj8PuCbQFkOe";
-  const url = `https://my-api.plantnet.org/v2/identify/all?api-key=${apiKey}`;
+  const url = `https://my.plantnet.org/v2/identify/all?api-key=${apiKey}`;
 
   const response = await fetch(url, {
     method: "POST",
@@ -134,15 +143,6 @@ function searchPlantByScientific(name) {
 
   if (!match) {
     resultDiv.innerHTML = "🚫 Växten hittades inte.";
-    return;
-  }
-
-function displayPlantNetResults(data) {
-  const resultDiv = document.getElementById("plantnetResult");
-  resultDiv.innerHTML = "<h4>Artförslag:</h4>";
-
-  if (!data || !data.results || data.results.length === 0) {
-    resultDiv.innerHTML += "<p>Inga förslag hittades.</p>";
     return;
   }
 
