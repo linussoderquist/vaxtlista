@@ -79,6 +79,7 @@ function displayPlantNetResults(data) {
     resultDiv.innerHTML += "<p>Inga förslag hittades.</p>";
     return;
   }
+}
 
 async function identifyPlant() {
   const fileInput = document.getElementById("imageInput");
