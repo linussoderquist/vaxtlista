@@ -166,21 +166,6 @@ function searchPlantByScientific(name) {
   drawMapFromGBIF(match["Scientific name"]);
 }
 
-function checkAllDataLoaded() {
-  if (
-    plantData.length &&
-    riskData.length &&
-    euInvasiveData.length &&
-    plantTraits.length &&
-    insectData.length
-  ) {
-    allDataLoaded = true;
-    plantNames = [...new Set(plantData.map(p => p["Svenskt namn"]))];
-    setupAutocomplete();
-    setupAutocompleteScientific();
-  }
-}
-
 function setupAutocomplete() {
   input.addEventListener("input", () => {
     const val = input.value.toLowerCase();
@@ -858,4 +843,19 @@ function formatPlantInfo(match, isEUListad = false) {
     ${insectHtml}
     ${addButton}
   `;
+}
+
+function checkAllDataLoaded() {
+  if (
+    plantData.length &&
+    riskData.length &&
+    euInvasiveData.length &&
+    plantTraits.length &&
+    insectData.length
+  ) {
+    allDataLoaded = true;
+    plantNames = [...new Set(plantData.map(p => p["Svenskt namn"]))];
+    setupAutocomplete();
+    setupAutocompleteScientific();
+  }
 }
