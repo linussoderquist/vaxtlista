@@ -9,6 +9,7 @@ let allDataLoaded = false;
 let insectData = [];
 let plantList = [];
 let advancedMode = false;
+let currentSelectedPlant = null; // håller senaste match
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
@@ -168,22 +169,19 @@ function setupAutocompleteScientific() {
 
 function searchPlantByScientific(name) {
   name = decodeURIComponent(name);
-  inputScientific.value = name; // Fyll i sökfältet med valt namn
-
   if (!allDataLoaded) {
     resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
     return;
   }
 
-  const match = plantData.find(p =>
-  p["Scientific name"]?.toLowerCase().startsWith(name.toLowerCase().trim())
-);
-
+  const match = plantData.find(p => p["Scientific name"]?.toLowerCase().trim() === name.toLowerCase().trim());
 
   if (!match) {
     resultDiv.innerHTML = "🚫 Växten hittades inte.";
     return;
   }
+
+  currentSelectedPlant = match;  // <- Lägg till detta
 
   const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
   resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
@@ -363,12 +361,10 @@ function updatePlantListUI() {
 function toggleMode() {
   advancedMode = document.getElementById("modeToggle").checked;
 
-  const inputVal = input.value.toLowerCase().trim();
-  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
-  if (match) {
-    const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
-    resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
-    drawMapFromGBIF(match["Scientific name"]);
+  if (currentSelectedPlant) {
+    const isEUListad = isEUInvasive(currentSelectedPlant["Dyntaxa ID number"]);
+    resultDiv.innerHTML = formatPlantInfo(currentSelectedPlant, isEUListad);
+    drawMapFromGBIF(currentSelectedPlant["Scientific name"]);
   }
 }
 
@@ -385,6 +381,13 @@ function searchPlant() {
     resultDiv.innerHTML = "🚫 Växten hittades inte.";
     return;
   }
+
+  currentSelectedPlant = match;  // <- Lägg till detta
+
+  const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
+  resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
+  drawMapFromGBIF(match["Scientific name"]);
+}
 
   const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
   resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
