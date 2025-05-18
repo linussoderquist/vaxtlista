@@ -86,16 +86,21 @@ function displayPlantNetResults(data) {
     const score = (result.score * 100).toFixed(1);
     const imageUrl = result.images?.[0]?.url?.s || "";
 
+    const encodedName = encodeURIComponent(species);
+
     resultDiv.innerHTML += `
-      <div style="margin-bottom: 1em;">
+      <div style="margin-bottom: 1em; border-bottom: 1px solid #ccc; padding-bottom: 0.5em;">
         <strong>${species}</strong><br>
         ${commonNames}<br>
         Träffsäkerhet: ${score}%<br>
         ${imageUrl ? `<img src="${imageUrl}" alt="${species}" style="max-height: 100px;">` : ""}
+        <br>
+        <button onclick="searchPlantByScientific('${encodedName}')">Välj denna art</button>
       </div>
     `;
   });
 }
+
 
 async function identifyPlant() {
   const fileInput = document.getElementById("imageInput");
@@ -160,6 +165,7 @@ function setupAutocompleteScientific() {
 }
 
 function searchPlantByScientific(name) {
+  name = decodeURIComponent(name);
   if (!allDataLoaded) {
     resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
     return;
