@@ -160,7 +160,6 @@ function searchPlantByScientific(name) {
       </div>
     `;
   });
-}
 
   const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
   resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
