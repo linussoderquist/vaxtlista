@@ -84,17 +84,18 @@ function displayPlantNetResults(data) {
 async function identifyPlant() {
   const fileInput = document.getElementById("imageInput");
   const file = fileInput.files[0];
+
   if (!file) {
     alert("Ladda upp en bild först.");
     return;
   }
 
   const formData = new FormData();
-  formData.append("images", file);
-  formData.append("organs", "auto");
+  formData.append("images", file);     // En eller flera bilder
+  formData.append("organs", "auto");   // Eller 'leaf', 'flower', etc.
 
-  const apiKey = "2b107lvznqdUtphj8PuCbQFkOe";
-  const url = `https://my-api.plantnet.org/v2/identify/all?api-key=${apiKey}`;
+  const apiKey = "2b107lvznqdUtphj8PuCbQFkOe"; // Byt till din egen
+  const url = `https://my.plantnet.org/v2/identify/all?api-key=${apiKey}&lang=sv&include-related-images=true`;
 
   try {
     const response = await fetch(url, {
@@ -103,16 +104,17 @@ async function identifyPlant() {
     });
 
     if (!response.ok) {
-      throw new Error(`Servern svarade med status ${response.status}`);
+      throw new Error(`Serverfel: ${response.status}`);
     }
 
     const data = await response.json();
     displayPlantNetResults(data);
   } catch (error) {
     console.error("Fel vid API-anrop:", error);
-    alert("Något gick fel med identifieringen. Kontrollera din API-nyckel och domäninställningar.");
+    alert("Det gick inte att identifiera växten. Kontrollera internetanslutning och att domännamnet är godkänt i ditt PlantNet-konto.");
   }
 }
+
 
 const inputScientific = document.getElementById("searchScientific");
 
