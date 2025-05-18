@@ -95,7 +95,7 @@ async function identifyPlant() {
 
   // Byt ut 'YOUR_API_KEY' mot din riktiga nyckel från PlantNet (https://my.plantnet.org/)
   const apiKey = "2b107lvznqdUtphj8PuCbQFkOe";
-  const url = `https://my.plantnet.org/v2/identify/all?api-key=${apiKey}`;
+  const url = `https://my-api.plantnet.org/v2/identify/all?api-key=${apiKey}`;
 
   const response = await fetch(url, {
     method: "POST",
