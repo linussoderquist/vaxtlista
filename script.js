@@ -95,7 +95,7 @@ async function identifyPlant() {
   formData.append("organs", "auto");   // Eller 'leaf', 'flower', etc.
 
   const apiKey = "2b107lvznqdUtphj8PuCbQFkOe"; // Byt till din egen
-  const url = `https://my.plantnet.org/v2/identify/all?api-key=${apiKey}&lang=sv&include-related-images=true`;
+  const url = `https://my-api.plantnet.org//v2/identify/all?api-key=${apiKey}&lang=sv&include-related-images=true`;
 
   try {
     const response = await fetch(url, {
