@@ -79,6 +79,22 @@ function displayPlantNetResults(data) {
     resultDiv.innerHTML += "<p>Inga förslag hittades.</p>";
     return;
   }
+
+  data.results.slice(0, 5).forEach(result => {
+    const species = result.species?.scientificNameWithoutAuthor || "Okänd art";
+    const commonNames = result.species?.commonNames?.join(", ") || "Inga svenska namn";
+    const score = (result.score * 100).toFixed(1);
+    const imageUrl = result.images?.[0]?.url?.s || "";
+
+    resultDiv.innerHTML += `
+      <div style="margin-bottom: 1em;">
+        <strong>${species}</strong><br>
+        ${commonNames}<br>
+        Träffsäkerhet: ${score}%<br>
+        ${imageUrl ? `<img src="${imageUrl}" alt="${species}" style="max-height: 100px;">` : ""}
+      </div>
+    `;
+  });
 }
 
 async function identifyPlant() {
