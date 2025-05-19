@@ -332,15 +332,7 @@ function addToPlantList(swedishName, scientificName) {
   // Hämta Dyntaxa ID och riskklass
   const dyntaxa = plant["Dyntaxa ID number"];
   const riskklass = getRiskklassningFromXLSX(dyntaxa);
-  let invasionPotential = null;
-let ecologicalEffect = null;
-
-const riskDataRow = riskData.find(r => r["TaxonId"]?.toString() === dyntaxa?.toString());
-if (riskDataRow) {
-  invasionPotential = riskDataRow["Invasionspotential"] || null;
-  ecologicalEffect = riskDataRow["Ekologisk effekt"] || null;
-}
-
+  
   // Lägg till i listan
   plantList.push({
     swedish: swedishName,
@@ -796,11 +788,13 @@ function formatPlantInfo(match, isEUListad = false) {
   const riskklass = getRiskklassningFromXLSX(dyntaxa);
   let invasionPotential = null;
   let ecologicalEffect = null;
+  let nativeRange = null;
 
-  const riskDataRow = riskData.find(r => r["TaxonId"]?.toString() === dyntaxa?.toString());
-  if (riskDataRow) {
+const riskDataRow = riskData.find(r => r["TaxonId"]?.toString() === dyntaxa?.toString());
+if (riskDataRow) {
   invasionPotential = riskDataRow["Invasionspotential"] || null;
   ecologicalEffect = riskDataRow["Ekologisk effekt"] || null;
+  nativeRange = riskDataRow["Ursprunglig utbredning"] || null;
 }
 
   const zon = heatRequirementToZone(match["Heat requirement"]);
@@ -860,9 +854,10 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Invandringstid:</strong> ${immigration}</p>
     ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
     ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
-    ${(invasionPotential && ecologicalEffect) ? `
-    <p><strong>Invasionspotential:</strong> ${invasionPotential}</p>
-    <p><strong>Ekologisk effekt:</strong> ${ecologicalEffect}</p>
+    ${nativeRange ? `<p><strong>Ursprunglig utbredning:</strong> ${nativeRange}</p>` : ""}
+${(invasionPotential && ecologicalEffect) ? `
+  <p><strong>Invasionspotential:</strong> ${invasionPotential}</p>
+  <p><strong>Ekologisk effekt:</strong> ${ecologicalEffect}</p>
 ` : ""}
 
     ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
