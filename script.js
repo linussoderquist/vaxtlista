@@ -794,6 +794,15 @@ function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
   const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
   const riskklass = getRiskklassningFromXLSX(dyntaxa);
+  let invasionPotential = null;
+  let ecologicalEffect = null;
+
+  const riskDataRow = riskData.find(r => r["TaxonId"]?.toString() === dyntaxa?.toString());
+  if (riskDataRow) {
+  invasionPotential = riskDataRow["Invasionspotential"] || null;
+  ecologicalEffect = riskDataRow["Ekologisk effekt"] || null;
+}
+
   const zon = heatRequirementToZone(match["Heat requirement"]);
   const immigration = getImmigrationLabel(match["Time of immigration"]);
   const redlist = ["0", "1", "2", "3"].includes(match["Time of immigration"]?.toString());
