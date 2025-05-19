@@ -332,6 +332,10 @@ function addToPlantList(swedishName, scientificName) {
   // Hämta Dyntaxa ID och riskklass
   const dyntaxa = plant["Dyntaxa ID number"];
   const riskklass = getRiskklassningFromXLSX(dyntaxa);
+  const riskDataRow = riskData.find(r => r["TaxonId"]?.toString() === dyntaxa);
+  const invasionPotential = riskDataRow?.["Invasionspotential"] || null;
+  const ecologicalEffect = riskDataRow?.["Ekologisk effekt"] || null;
+
 
   // Lägg till i listan
   plantList.push({
@@ -843,6 +847,11 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Invandringstid:</strong> ${immigration}</p>
     ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
     ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
+    ${(invasionPotential && ecologicalEffect) ? `
+    <p><strong>Invasionspotential:</strong> ${invasionPotential}</p>
+    <p><strong>Ekologisk effekt:</strong> ${ecologicalEffect}</p>
+` : ""}
+
     ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
     ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
 
