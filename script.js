@@ -10,6 +10,8 @@ let insectData = [];
 let plantList = [];
 let advancedMode = false;
 let currentSelectedPlant = null; // håller senaste match
+let invasionPotential = null;
+let ecologicalEffect = null;
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
