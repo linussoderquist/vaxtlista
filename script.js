@@ -10,8 +10,6 @@ let insectData = [];
 let plantList = [];
 let advancedMode = false;
 let currentSelectedPlant = null; // håller senaste match
-let invasionPotential = null;
-let ecologicalEffect = null;
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
@@ -334,10 +332,14 @@ function addToPlantList(swedishName, scientificName) {
   // Hämta Dyntaxa ID och riskklass
   const dyntaxa = plant["Dyntaxa ID number"];
   const riskklass = getRiskklassningFromXLSX(dyntaxa);
-  const riskDataRow = riskData.find(r => r["TaxonId"]?.toString() === dyntaxa);
-  const invasionPotential = riskDataRow?.["Invasionspotential"] || null;
-  const ecologicalEffect = riskDataRow?.["Ekologisk effekt"] || null;
+  let invasionPotential = null;
+let ecologicalEffect = null;
 
+const riskDataRow = riskData.find(r => r["TaxonId"]?.toString() === dyntaxa?.toString());
+if (riskDataRow) {
+  invasionPotential = riskDataRow["Invasionspotential"] || null;
+  ecologicalEffect = riskDataRow["Ekologisk effekt"] || null;
+}
 
   // Lägg till i listan
   plantList.push({
