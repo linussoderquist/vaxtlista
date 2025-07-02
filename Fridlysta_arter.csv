@@ -1,0 +1,372 @@
+﻿Taxon id;Global sorteringsordning;Vetenskapligt namn;Svenskt namn;Kategori;Observationer;Landskapstyp;RedListCategory;Rödlistningskriterium
+224360;97218;Huperzia arctica;gul groddlummer;Art;1780;Fjäll (F) - Stor betydelse, Skog (S) - Stor betydelse, Våtmark (V) - Har betydelse;NE;
+224361;97219;Huperzia europaea;äkta lopplummer;Art;3397;Skog (S) - Stor betydelse, Fjäll (F) - Har betydelse, Våtmark (V) - Har betydelse;NE;
+221944;97221;Huperzia selago agg.;lopplummer (aggregat);Kollektivtaxon;18488;Fjäll (F) - Stor betydelse, Skog (S) - Stor betydelse, Våtmark (V) - Har betydelse;LC;
+1895;97224;Lycopodiella inundata;strandlummer;Art;5082;Våtmark (V) - Stor betydelse, Sötvatten (L) - Har betydelse, Urban miljö (U) - Har betydelse;NT;A2b
+222424;97226;Lycopodium alpinum;fjällummer;Art;3009;Fjäll (F) - Stor betydelse;LC;
+221945;97227;Lycopodium annotinum;revlummer;Art;57949;Fjäll (F) - Stor betydelse, Skog (S) - Stor betydelse;LC;
+224362;97228;Lycopodium annotinum subsp. alpestre;nordlummer;Underart;1703;Fjäll (F) - Stor betydelse, Skog (S) - Stor betydelse;NE;
+224363;97229;Lycopodium annotinum subsp. annotinum;vanlig revlummer;Underart;8553;Skog (S) - Stor betydelse;LC;
+221946;97230;Lycopodium clavatum;mattlummer;Art;20546;Fjäll (F) - Stor betydelse, Skog (S) - Stor betydelse, Urban miljö (U) - Har betydelse;LC;
+224364;97231;Lycopodium clavatum subsp. clavatum;vanlig mattlummer;Underart;3691;Skog (S) - Stor betydelse, Urban miljö (U) - Har betydelse;LC;
+224365;97232;Lycopodium clavatum subsp. monostachyon;riplummer;Underart;1751;Fjäll (F) - Stor betydelse, Skog (S) - Stor betydelse, Urban miljö (U) - Har betydelse;LC;
+221941;97233;Lycopodium complanatum;plattlummer;Art;14484;Skog (S) - Stor betydelse;LC;
+224358;97234;Lycopodium complanatum subsp. complanatum;vanlig plattlummer;Underart;3822;Skog (S) - Stor betydelse;NE;
+224359;97235;Lycopodium complanatum subsp. montellii;finnlummer;Underart;460;Skog (S) - Stor betydelse, Fjäll (F) - Har betydelse, Jordbrukslandskap (J) - Har betydelse, Urban miljö (U) - Har betydelse;LC;
+552;97236;Lycopodium tristachyum;cypresslummer;Art;1199;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;VU;"A2abc; B2ab(i,ii,iii,v)"
+221940;97237;Lycopodium zeilleri;mellanlummer;Art;1210;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;VU;A2bc
+6010515;97238;Lycopodium alpinum × complanatum;fjällummer × plattlummer;Hybrid;11;Fjäll (F) - Stor betydelse, Skog (S) - Stor betydelse;NA;
+621;97276;Equisetum telmateia;jättefräken;Art;359;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Har betydelse;CR;D
+165;97296;Botrychium lanceolatum;topplåsbräken;Art;2585;Jordbrukslandskap (J) - Stor betydelse, Fjäll (F) - Har betydelse, Skog (S) - Har betydelse, Urban miljö (U) - Har betydelse;VU;C2a(i)
+166;97297;Botrychium matricariifolium;rutlåsbräken;Art;1727;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse, Urban miljö (U) - Har betydelse;VU;"A2b; B2b(ii,iii,iv,v)c(iv); C2a(i)"
+167;97299;Botrychium multifidum;höstlåsbräken;Art;4530;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse, Urban miljö (U) - Har betydelse;NT;A2bc+4abc
+168;97301;Botrychium simplex;dvärglåsbräken;Art;0;Jordbrukslandskap (J) - Stor betydelse, Havsstrand (H) - Har betydelse, Urban miljö (U) - Har betydelse;EN;"B2ab(i,ii,iii,iv,v)c(iii,iv); C1"
+264286;97302;Botrychium simplex var. simplex;;Varietet;0;Jordbrukslandskap (J) - Stor betydelse, Havsstrand (H) - Har betydelse, Urban miljö (U) - Har betydelse;;
+264287;97303;Botrychium tenebrosum;pysslinglåsbräken;Art;0;Havsstrand (H) - Stor betydelse, Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse;EN;D
+169;97305;Botrychium virginianum;stor låsbräken;Art;1596;Skog (S) - Stor betydelse;VU;C2a(i)
+110;97388;Asplenium adiantum-nigrum;glansbräken;Art;712;Havsstrand (H) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse, Skog (S) - Har betydelse;NT;D1
+111;97389;Asplenium adulterinum;brunbräken;Art;1;Skog (S) - Stor betydelse;VU;D1
+304;97390;Asplenium ceterach;mjältbräken;Art;1;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse, Urban miljö (U) - Har betydelse;CR;D
+1228;97393;Asplenium scolopendrium;hjorttunga;Art;10;Havsstrand (H) - Har betydelse, Jordbrukslandskap (J) - Har betydelse, Urban miljö (U) - Har betydelse;EN;D
+118;97441;Diplazium sibiricum;ryssbräken;Art;145;Skog (S) - Stor betydelse;VU;D2
+1268;97471;Polystichum aculeatum;uddbräken;Art;640;Skog (S) - Stor betydelse;VU;D1
+1269;97472;Polystichum braunii;skuggbräken;Art;0;Skog (S) - Stor betydelse;CR;D
+30;97884;Alisma wahlenbergii;småsvalting;Art;1560;Sötvatten (L) - Stor betydelse, Brackvatten (B) - Har betydelse;NT;B2a
+140;97904;Baldellia repens;revsvalting;Art;644;Sötvatten (L) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse, Våtmark (V) - Har betydelse;VU;D2
+1001;97917;Luronium natans;flytsvalting;Art;398;Sötvatten (L) - Stor betydelse;EN;B1ab(iii,iv)+2ab(iii,iv)
+1077;97964;Najas flexilis;sjönajas;Art;531;Sötvatten (L) - Stor betydelse;VU;B2ab(iii,iv,v)
+1281;98022;Potamogeton acutifolius;spetsnate;Art;1008;Sötvatten (L) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;VU;"A2ab; B2ab(ii,iii,v)"
+1283;98091;Potamogeton rutilus;styvnate;Art;759;Sötvatten (L) - Stor betydelse;VU;B2ab(ii,iii,v)
+1284;98107;Potamogeton trichoides;knölnate;Art;363;Sötvatten (L) - Stor betydelse, Urban miljö (U) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;VU;"B1ab(ii,iii,v)+2ab(ii,iii,v); D2"
+668;98201;Gagea villosa;luddvårlök;Art;1820;Urban miljö (U) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;NT;B2a
+221501;98234;Anacamptis morio;göknycklar;Art;2529;Jordbrukslandskap (J) - Stor betydelse;LC;
+1718;98235;Anacamptis palustris;kärrnycklar;Art;9;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;VU;C1
+49;98236;Anacamptis pyramidalis;salepsrot;Art;3109;Jordbrukslandskap (J) - Stor betydelse;LC;
+233;98238;Calypso bulbosa;norna;Art;5505;Skog (S) - Stor betydelse;VU;A2b
+289;98240;Cephalanthera damasonium;stor skogslilja;Art;6;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;VU;"B1ab(iii,iv,v)+2ab(iii,iv,v); C2a(i)"
+219769;98241;Cephalanthera longifolia;vit skogslilja;Art;3837;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;LC;
+290;98242;Cephalanthera rubra;röd skogslilja;Art;4606;Skog (S) - Stor betydelse;NT;B2ab(ii,iii)
+264305;98243;Cephalanthera damasonium × longifolia;stor skogslilja × vit skogslilja;Hybrid;0;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;NA;
+223571;98244;Cephalanthera longifolia × rubra;hybridskogslilja;Hybrid;0;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;NA;
+220073;98246;Chamorchis alpina;dvärgyxne;Art;1002;Fjäll (F) - Stor betydelse;LC;
+219795;98248;Coeloglossum viride;grönkulla;Art;7921;Fjäll (F) - Stor betydelse, Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;LC;
+6007432;98249;Coeloglossum viride subsp. islandicum;islandsgrönkulla;Underart;0;;NA;
+6007431;98250;Coeloglossum viride subsp. viride;vanlig grönkulla;Underart;0;Fjäll (F) - Stor betydelse, Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse;NE;
+220093;98253;Corallorhiza trifida;korallrot;Art;15655;Skog (S) - Stor betydelse, Våtmark (V) - Stor betydelse, Fjäll (F) - Har betydelse;LC;
+504;98255;Cypripedium calceolus;guckusko;Art;15477;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse, Våtmark (V) - Har betydelse;LC;
+219788;98257;Dactylorhiza incarnata;ängsnycklar;Art;29763;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse, Havsstrand (H) - Har betydelse;LC;
+264307;98258;Dactylorhiza incarnata subsp. incarnata;;Underart;14529;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse, Havsstrand (H) - Har betydelse;NE;
+223572;98259;Dactylorhiza incarnata var. cruenta;blodnycklar;Varietet;3878;Våtmark (V) - Stor betydelse, Havsstrand (H) - Har betydelse;NE;
+223578;98260;Dactylorhiza incarnata var. incarnata;äkta ängsnycklar;Varietet;7719;Våtmark (V) - Stor betydelse, Havsstrand (H) - Har betydelse, Jordbrukslandskap (J) - Har betydelse;NE;
+223585;98261;Dactylorhiza incarnata var. ochroleuca;vaxnycklar;Varietet;2167;Våtmark (V) - Stor betydelse;NE;
+264306;98262;Dactylorhiza incarnata subsp. lobelii;knubbnycklar;Underart;0;;NA;
+233633;98265;Dactylorhiza incarnata agg.;ängsnycklar (aggregat);Artkomplex;37411;;NA;
+219790;98266;Dactylorhiza maculata;fläcknycklar;Art;68076;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse, Skog (S) - Har betydelse;LC;
+223591;98267;Dactylorhiza maculata subsp. fuchsii;skogsnycklar;Underart;11068;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse, Våtmark (V) - Stor betydelse;LC;
+223597;98269;Dactylorhiza maculata subsp. maculata;Jungfru Marie nycklar;Underart;28251;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse, Våtmark (V) - Stor betydelse;LC;
+264308;98273;Dactylorhiza majalis;dubbelnycklar;Art;7700;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse, Havsstrand (H) - Har betydelse, Urban miljö (U) - Har betydelse;LC;
+222411;98274;Dactylorhiza majalis subsp. baltica;baltnycklar;Underart;284;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse, Havsstrand (H) - Har betydelse, Våtmark (V) - Har betydelse;EN;D
+264958;98275;Dactylorhiza majalis subsp. calcifugiens;thynycklar;Underart;0;;NA;
+6002893;98276;Dactylorhiza majalis subsp. elatior;gotlandsnycklar;Underart;0;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;EN;"C2a(i); D"
+264959;98277;Dactylorhiza majalis subsp. integrata;englandsnycklar;Underart;89;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse, Våtmark (V) - Har betydelse;VU;D2
+264961;98278;Dactylorhiza majalis var. integrata;äkta englandsnycklar;Varietet;0;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse, Våtmark (V) - Stor betydelse;NE;
+264962;98279;Dactylorhiza majalis var. junialis;leopardnycklar;Varietet;0;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse, Våtmark (V) - Stor betydelse;NE;
+219794;98280;Dactylorhiza majalis subsp. lapponica;sumpnycklar;Underart;4420;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;LC;
+219789;98282;Dactylorhiza majalis subsp. lapponica;lappnycklar;Underart;0;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Har betydelse;;
+514;98283;Dactylorhiza majalis subsp. majalis;majnycklar;Underart;1612;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Har betydelse;NT;A2b
+264960;98284;Dactylorhiza majalis subsp. purpurella;strandnycklar;Underart;2;;NA;
+264963;98285;Dactylorhiza majalis var. cambrensis;fläckiga strandnycklar;Varietet;0;;NA;
+264964;98286;Dactylorhiza majalis var. pulchella;äkta strandnycklar;Varietet;0;;NA;
+219793;98287;Dactylorhiza majalis subsp. sphagnicola;mossnycklar;Underart;1228;Våtmark (V) - Stor betydelse;LC;
+6008881;98288;Dactylorhiza majalis subsp. majalis × subsp. integrata var. integrata;majnycklar × äkta englandsnycklar;Hybrid;0;;NA;
+6008882;98289;Dactylorhiza majalis subsp. majalis × subsp. purpurella var. pulchella;majnycklar × äkta strandnycklar;Hybrid;0;;NA;
+219792;98290;Dactylorhiza sambucina;Adam och Eva;Art;7439;Jordbrukslandskap (J) - Stor betydelse;LC;
+6034774;98291;Dactylorhiza incarnata × maculata;ängsnycklar × fläcknycklar;Hybrid;30;;NA;
+6010640;98292;Dactylorhiza incarnata × maculata subsp. fuchsii;ängsnycklar × skogsnycklar;Hybrid;55;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;NA;
+6034775;98293;Dactylorhiza incarnata × maculata subsp. maculata;ängsnycklar × Jungfru Marie nycklar;Hybrid;14;;NA;
+6010641;98294;Dactylorhiza incarnata × majalis subsp. lapponica;ängsnycklar × sumpnycklar;Hybrid;5;Våtmark (V) - Stor betydelse;NA;
+6010519;98295;Dactylorhiza incarnata × sambucina;ängsnycklar × Adam och Eva;Hybrid;5;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;NA;
+6010639;98296;Dactylorhiza incarnata var. cruenta × maculata;blodnycklar × fläcknycklar;Hybrid;4;Våtmark (V) - Stor betydelse;NA;
+223575;98297;Dactylorhiza incarnata var. cruenta × maculata subsp. fuchsii;blodnycklar × skogsnycklar;Hybrid;24;Våtmark (V) - Stor betydelse;NA;
+223576;98298;Dactylorhiza incarnata var. cruenta × maculata subsp. maculata;blodnycklar × Jungfru Marie nycklar;Hybrid;5;Våtmark (V) - Stor betydelse;NA;
+223574;98299;Dactylorhiza incarnata var. cruenta × majalis subsp. lapponica;blodnycklar × sumpnycklar;Hybrid;5;Våtmark (V) - Stor betydelse;NA;
+259705;98300;Dactylorhiza incarnata var. incarnata × maculata;äkta ängsnycklar × fläcknycklar;Hybrid;76;;NA;
+223581;98301;Dactylorhiza incarnata var. incarnata × maculata subsp. fuchsii;hybridnycklar;Hybrid;141;Våtmark (V) - Stor betydelse;NA;
+223582;98302;Dactylorhiza incarnata var. incarnata × maculata subsp. maculata;äkta ängsnycklar × Jungfru Marie nycklar;Hybrid;39;Våtmark (V) - Stor betydelse;NA;
+264965;98303;Dactylorhiza incarnata var. incarnata × majalis subsp. integrata;äkta ängsnycklar × englandsnycklar;Hybrid;0;;NA;
+223580;98304;Dactylorhiza incarnata var. incarnata × majalis subsp. lapponica;äkta ängsnycklar × sumpnycklar;Hybrid;94;Våtmark (V) - Stor betydelse;NA;
+223583;98305;Dactylorhiza incarnata var. incarnata × majalis subsp. majalis;äkta ängsnycklar × majnycklar;Hybrid;55;Våtmark (V) - Stor betydelse;NA;
+6010518;98306;Dactylorhiza incarnata var. incarnata × majalis subsp. sphagnicola;äkta ängsnycklar × mossnycklar;Hybrid;1;Våtmark (V) - Stor betydelse;NA;
+264966;98307;Dactylorhiza incarnata var. incarnata × majalis var. cambrensis;äkta ängsnycklar × fläckiga strandnycklar;Hybrid;0;;NA;
+264967;98308;Dactylorhiza incarnata var. incarnata × majalis var. pulchella;äkta ängsnycklar × äkta strandnycklar;Hybrid;0;;NA;
+223586;98309;Dactylorhiza incarnata var. ochroleuca × majalis subsp. majalis;vaxnycklar × majnycklar;Hybrid;0;Våtmark (V) - Stor betydelse;NA;
+6010643;98310;Dactylorhiza maculata × majalis subsp. lapponica;fläcknycklar × sumpnycklar;Hybrid;7;Våtmark (V) - Stor betydelse;NA;
+6010520;98312;Dactylorhiza maculata subsp. fuchsii × majalis subsp. elatior;skogsnycklar × gotlandsnycklar;Hybrid;0;Våtmark (V) - Stor betydelse;NA;
+223588;98313;Dactylorhiza maculata subsp. fuchsii × majalis subsp. lapponica;skogsnycklar × sumpnycklar;Hybrid;34;Våtmark (V) - Stor betydelse;NA;
+223594;98314;Dactylorhiza maculata subsp. fuchsii × majalis subsp. majalis;skogsnycklar × majnycklar;Hybrid;9;Våtmark (V) - Stor betydelse;NA;
+264968;98315;Dactylorhiza maculata subsp. fuchsii × majalis subsp. sphagnicola;skogsnycklar × mossnycklar;Hybrid;0;;NA;
+223604;98316;Dactylorhiza maculata subsp. fuchsii × sambucina;skogsnycklar × Adam och Eva;Hybrid;4;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;NA;
+264969;98317;Dactylorhiza maculata subsp. maculata × majalis subsp. calcifugiens;Jungfru Marie nycklar × thynycklar;Hybrid;0;;NA;
+223589;98318;Dactylorhiza maculata subsp. maculata × majalis subsp. lapponica;Jungfru Marie nycklar × sumpnycklar;Hybrid;22;Våtmark (V) - Stor betydelse;NA;
+223599;98319;Dactylorhiza maculata subsp. maculata × majalis subsp. majalis;Jungfru Marie nycklar × majnycklar;Hybrid;16;Våtmark (V) - Stor betydelse;NA;
+223600;98320;Dactylorhiza maculata subsp. maculata × majalis subsp. sphagnicola;Jungfru Marie nycklar × mossnycklar;Hybrid;40;Våtmark (V) - Stor betydelse;NA;
+264970;98321;Dactylorhiza maculata subsp. maculata × majalis var. cambrensis;Jungfru Marie nycklar × fläckiga strandnycklar;Hybrid;0;;NA;
+264971;98322;Dactylorhiza maculata subsp. maculata × majalis var. pulchella;Jungfru Marie nycklar × äkta strandnycklar;Hybrid;0;;NA;
+219797;98324;Epipactis atrorubens;purpurknipprot;Art;7001;Skog (S) - Stor betydelse, Havsstrand (H) - Har betydelse;LC;
+6040118;98325;Epipactis atrorubens subsp. atrorubens;äkta purpurknipprot;Underart;116;Skog (S) - Stor betydelse, Havsstrand (H) - Har betydelse;NE;
+6040119;98326;Epipactis atrorubens subsp. triploidea;östersjöknipprot;Underart;28;Skog (S) - Stor betydelse, Havsstrand (H) - Har betydelse;NE;
+219798;98327;Epipactis helleborine;skogsknipprot;Art;14966;Skog (S) - Stor betydelse, Havsstrand (H) - Har betydelse;LC;
+223609;98328;Epipactis helleborine subsp. helleborine;vanlig skogsknipprot;Underart;643;Skog (S) - Stor betydelse;NE;
+264974;98329;Epipactis helleborine subsp. neerlandica;;Underart;0;;NA;
+264975;98330;Epipactis helleborine var. neerlandica;dynknipprot;Varietet;0;;NA;
+264976;98331;Epipactis helleborine var. renzii;skagenknipprot;Varietet;0;;NA;
+6031492;98332;Epipactis helleborine subsp. orbicularis;tallknipprot;Underart;286;Havsstrand (H) - Stor betydelse, Skog (S) - Stor betydelse;NE;
+264972;98333;Epipactis leptochila;grön knipprot;Art;0;;NA;
+219799;98334;Epipactis palustris;kärrknipprot;Art;17597;Våtmark (V) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;LC;
+619;98335;Epipactis phyllanthes;kal knipprot;Art;3;Skog (S) - Stor betydelse, Havsstrand (H) - Har betydelse;EN;C1+2a(i)
+6031493;98336;Epipactis phyllanthes subsp. arenaria;sandknipprot;Underart;0;Havsstrand (H) - Stor betydelse, Skog (S) - Stor betydelse;NE;
+6031495;98337;Epipactis phyllanthes subsp. confusa;dansk knipprot;Underart;0;Skog (S) - Stor betydelse;NE;
+6031494;98338;Epipactis phyllanthes subsp. pendula;engelsk knipprot;Underart;0;Skog (S) - Stor betydelse;NE;
+264973;98339;Epipactis purpurata;mångblommig knipprot;Art;0;;NA;
+264309;98340;Epipactis atrorubens × helleborine;purpurknipprot × skogsknipprot;Hybrid;12;Skog (S) - Stor betydelse;NA;
+223607;98341;Epipactis atrorubens × palustris;purpurknipprot × kärrknipprot;Hybrid;1;Våtmark (V) - Stor betydelse;NA;
+223608;98342;Epipactis atrorubens × phyllanthes;purpurknipprot × kal knipprot;Hybrid;0;Skog (S) - Stor betydelse;NA;
+264310;98343;Epipactis helleborine × phyllanthes;skogsknipprot × kal knipprot;Hybrid;0;Skog (S) - Stor betydelse;NA;
+264977;98344;Epipactis helleborine × purpurata;skogsknipprot × mångblommig knipprot;Hybrid;0;;NA;
+264978;98345;Epipactis leptochila × phyllanthes;grön knipprot × kal knipprot;Hybrid;0;;NA;
+620;98347;Epipogium aphyllum;skogsfru;Art;1940;Skog (S) - Stor betydelse;NT;"A2b; C2a(i)"
+220787;98349;Goodyera repens;knärot;Art;95563;Skog (S) - Stor betydelse;VU;A2bc+4abc
+219811;98351;Gymnadenia conopsea;brudsporre;Art;21145;Fjäll (F) - Stor betydelse, Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;LC;
+223614;98352;Gymnadenia conopsea subsp. conopsea;vanlig brudsporre;Underart;3310;Fjäll (F) - Stor betydelse, Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;NE;
+741;98353;Gymnadenia conopsea subsp. densiflora;praktsporre;Underart;1268;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse, Skog (S) - Har betydelse;NE;
+1085;98354;Gymnadenia nigra;brunkulla;Art;0;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Har betydelse;EN;A2ab
+742;98355;Gymnadenia odoratissima;luktsporre;Art;2023;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;NT;"B2ab(iii,v); C2a(i)"
+743;98356;Gymnadenia runei;brudkulla;Art;0;Fjäll (F) - Stor betydelse;NT;D2
+223610;98357;Gymnadenia conopsea × odoratissima;brudsporre × luktsporre;Hybrid;5;Våtmark (V) - Stor betydelse;NA;
+222495;98359;Hammarbya paludosa;myggblomster;Art;4720;Våtmark (V) - Stor betydelse;LC;
+770;98361;Herminium monorchis;honungsblomster;Art;6788;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;VU;A2b
+980;98363;Liparis loeselii;gulyxne;Art;9175;Våtmark (V) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;VU;A3c
+1056;98366;Malaxis monophyllos;knottblomster;Art;1881;Våtmark (V) - Stor betydelse, Skog (S) - Har betydelse;VU;"B2ab(i,ii,iii,v); C2a(i)"
+221119;98368;Neotinea ustulata;krutbrännare;Art;4124;Jordbrukslandskap (J) - Stor betydelse;LC;
+221952;98370;Neottia cordata;spindelblomster;Art;21224;Skog (S) - Stor betydelse;LC;
+219862;98371;Neottia nidus-avis;nästrot;Art;9706;Skog (S) - Stor betydelse;LC;
+219847;98372;Neottia ovata;tvåblad;Art;22985;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;LC;
+264979;98374;Ophrys apifera;biblomster;Art;1;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;NA;
+222118;98375;Ophrys insectifera;flugblomster;Art;6421;Våtmark (V) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;LC;
+219864;98377;Orchis mascula;Sankt Pers nycklar;Art;11825;Jordbrukslandskap (J) - Stor betydelse;LC;
+219865;98378;Orchis militaris;johannesnycklar;Art;4400;Jordbrukslandskap (J) - Stor betydelse;LC;
+264980;98379;Orchis purpurea;stornycklar;Art;0;;NA;
+1122;98380;Orchis spitzelii;alpnycklar;Art;7;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;VU;C1
+223618;98381;Orchis mascula × spitzelii;Sankt Pers nycklar × alpnycklar;Hybrid;0;Jordbrukslandskap (J) - Stor betydelse;NA;
+219874;98383;Platanthera bifolia;nattviol;Art;32531;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;LC;
+223619;98384;Platanthera bifolia subsp. bifolia;ängsnattviol;Underart;3775;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Har betydelse;NT;A2bc
+223621;98385;Platanthera bifolia subsp. latiflora;skogsnattviol;Underart;2548;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse, Våtmark (V) - Har betydelse;LC;
+219875;98386;Platanthera chlorantha;grönvit nattviol;Art;21191;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;LC;
+6002735;98387;Platanthera clavellata;;Art;1;Urban miljö (U) - Stor betydelse;NA;
+264982;98388;Platanthera hyperborea;grönlandsyxne;Art;0;;NA;
+1248;98389;Platanthera obtusata;lappfela;Art;0;Fjäll (F) - Stor betydelse;EN;D
+223622;98390;Platanthera obtusata subsp. oligantha;lappfela;Underart;0;Fjäll (F) - Stor betydelse;NE;
+6010645;98391;Platanthera bifolia × chlorantha;nattviol × grönvit nattviol;Hybrid;85;Jordbrukslandskap (J) - Stor betydelse;NA;
+223620;98392;Platanthera bifolia subsp. bifolia × chlorantha;ängsnattviol × grönvit nattviol;Hybrid;47;Jordbrukslandskap (J) - Stor betydelse;NA;
+264981;98393;Platanthera bifolia subsp. latiflora × chlorantha;skogsnattviol × grönvit nattviol;Hybrid;6;;NA;
+975;98395;Pseudorchis albida;vityxne;Art;5;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse;EN;C2a(i)
+219882;98396;Pseudorchis straminea;fjällyxne;Art;1406;Fjäll (F) - Stor betydelse;LC;
+264983;98398;Spiranthes sinensis;;Art;0;;NA;
+219894;98399;Spiranthes spiralis;skruvax;Art;119;Jordbrukslandskap (J) - Stor betydelse;NA;
+223617;98400;Anacamptis morio × Orchis mascula;göknycklar × Sankt Pers nycklar;Hybrid;1;Jordbrukslandskap (J) - Stor betydelse;NA;
+6010637;98401;Coeloglossum viride × Dactylorhiza maculata;grönkulla × fläcknycklar;Hybrid;3;Jordbrukslandskap (J) - Stor betydelse;NA;
+223596;98402;Coeloglossum viride × Dactylorhiza maculata subsp. fuchsii;grönkulla × skogsnycklar;Hybrid;1;Jordbrukslandskap (J) - Stor betydelse;NA;
+223602;98403;Coeloglossum viride × Dactylorhiza maculata subsp. maculata;grönkulla × Jungfru Marie nycklar;Hybrid;1;Jordbrukslandskap (J) - Stor betydelse;NA;
+264957;98404;Coeloglossum viride × Dactylorhiza majalis subsp. lapponica;grönkulla × sumpnycklar;Hybrid;0;;NA;
+223606;98405;Coeloglossum viride × Platanthera chlorantha;grönkulla × grönvit nattviol;Hybrid;1;Jordbrukslandskap (J) - Stor betydelse;NA;
+223573;98406;Dactylorhiza incarnata var. cruenta × Gymnadenia conopsea;blodnycklar × brudsporre;Hybrid;2;Våtmark (V) - Stor betydelse;NA;
+223579;98407;Dactylorhiza incarnata var. incarnata × Gymnadenia conopsea;äkta ängsnycklar × brudsporre;Hybrid;3;Våtmark (V) - Stor betydelse;NA;
+6010638;98408;Dactylorhiza incarnata × Gymnadenia conopsea;ängsnycklar × brudsporre;Hybrid;4;Våtmark (V) - Stor betydelse;NA;
+6010642;98409;Dactylorhiza maculata × Gymnadenia conopsea;fläcknycklar × brudsporre;Hybrid;10;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;NA;
+223592;98410;Dactylorhiza maculata subsp. fuchsii × Gymnadenia conopsea;skogsnycklar × brudsporre;Hybrid;3;Våtmark (V) - Stor betydelse;NA;
+223593;98411;Dactylorhiza maculata subsp. fuchsii × Gymnadenia odoratissima;skogsnycklar × luktsporre;Hybrid;0;Våtmark (V) - Stor betydelse;NA;
+223598;98412;Dactylorhiza maculata subsp. maculata × Gymnadenia conopsea;Jungfru Marie nycklar × brudsporre;Hybrid;7;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;NA;
+223587;98413;Dactylorhiza majalis subsp. lapponica × Gymnadenia conopsea;sumpnycklar × brudsporre;Hybrid;3;Våtmark (V) - Stor betydelse;NA;
+223611;98414;Gymnadenia conopsea × Platanthera bifolia;brudsporre × nattviol;Hybrid;0;Jordbrukslandskap (J) - Stor betydelse;NA;
+223612;98415;Gymnadenia conopsea × Pseudorchis albida;brudsporre × vityxne;Hybrid;5;Jordbrukslandskap (J) - Stor betydelse;NA;
+223613;98416;Gymnadenia conopsea × Pseudorchis straminea;brudsporre × fjällyxne;Hybrid;2;Våtmark (V) - Stor betydelse;NA;
+888;98468;Iris spuria;dansk iris;Art;402;Havsstrand (H) - Stor betydelse;VU;B1ab(ii,iii,v)+2ab(ii,iii,v)
+31;98508;Allium carinatum;rosenlök;Art;727;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse, Havsstrand (H) - Har betydelse;NT;B2a
+32;98521;Allium lineare;klipplök;Art;1682;Jordbrukslandskap (J) - Stor betydelse;EN;B1ab(iii,v)
+61;98604;Anthericum liliago;stor sandlilja;Art;2207;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse;EN;B2ab(iii,v)
+892;98833;Juncus anceps;svarttåg;Art;178;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;CR;B1ab(iv,v)
+1002;98907;Luzula nivalis;snöfryle;Art;279;Fjäll (F) - Stor betydelse;NT;B2a
+1005;98916;Luzula sylvatica;storfryle;Art;600;Skog (S) - Stor betydelse, Urban miljö (U) - Stor betydelse;VU;D2
+256;98947;Carex atherodes;finnstarr;Art;105;Våtmark (V) - Stor betydelse, Skog (S) - Har betydelse;VU;D2
+261;99023;Carex holostoma;kolstarr;Art;300;Fjäll (F) - Stor betydelse;NT;"B1a+2a; D2"
+263;99050;Carex maritima;bågstarr;Art;761;Havsstrand (H) - Stor betydelse, Fjäll (F) - Har betydelse, Urban miljö (U) - Har betydelse;VU;"A2b; B2ab(ii,iii,v)"
+83;99516;Arctophila fulva;hänggräs;Art;759;Havsstrand (H) - Stor betydelse, Sötvatten (L) - Stor betydelse, Våtmark (V) - Stor betydelse;VU;"B1ab(i,ii,iii,v)+2ab(i,ii,iii,v); D2"
+224542;99518;Arctophila fulva var. pendulina;älvhänggräs;Varietet;22;Havsstrand (H) - Stor betydelse, Sötvatten (L) - Har betydelse, Våtmark (V) - Har betydelse;NE;
+177;99593;Bromus racemosus;ängslosta;Art;640;Jordbrukslandskap (J) - Stor betydelse;EN;B1ab(iii,iv)c(iv)+2ab(iii,iv)c(iv)
+2082;99606;Calamagrostis chalybaea;skogsrör;Art;1967;Skog (S) - Stor betydelse, Urban miljö (U) - Stor betydelse;LC;
+345;99654;Cinna latifolia;sötgräs;Art;1922;Skog (S) - Stor betydelse;NT;B2b(iii,v)
+784;99896;Hordeum secalinum;ängskorn;Art;390;Jordbrukslandskap (J) - Stor betydelse, Havsstrand (H) - Har betydelse;EN;B1ab(ii,iii,v)c(iv)+2ab(ii,iii,v)c(iv)
+904;99908;Koeleria grandis;stor tofsäxing;Art;189;Jordbrukslandskap (J) - Stor betydelse;CR;"B1ab(v)+2ab(v); C2a(i,ii); D"
+903;99909;Koeleria macrantha;fin tofsäxing;Art;100;Urban miljö (U) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;NA;
+1537;100197;Stipa pennata;fjädergräs;Art;451;Jordbrukslandskap (J) - Stor betydelse;CR;B1ab(v)
+1605;100215;Trisetum subalpestre;venhavre;Art;295;Våtmark (V) - Stor betydelse, Sötvatten (L) - Har betydelse;NT;B2a
+475;100293;Corydalis gotlandica;gotländsk nunneört;Art;707;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;NT;D2
+712;100333;Glaucium flavum;strandvallmo;Art;962;Havsstrand (H) - Stor betydelse;VU;"B1ab(iii,v)+2ab(iii,v); C2a(i)"
+1158;100374;Papaver radicatum;fjällvallmo;Art;425;Fjäll (F) - Stor betydelse;NT;B2a
+1157;100375;Papaver radicatum subsp. laestadianum;laestadiusvallmo;Underart;131;Fjäll (F) - Stor betydelse;VU;D1
+224906;100376;Papaver radicatum subsp. radicatum;lappvallmo;Underart;165;Fjäll (F) - Stor betydelse;NT;B2a
+9;100443;Adonis vernalis;våradonis;Art;2437;Jordbrukslandskap (J) - Stor betydelse;NT;B2a
+1365;100504;Coptidium lapponicum;lappranunkel;Art;6058;Skog (S) - Stor betydelse, Våtmark (V) - Stor betydelse;LC;
+1362;100520;Halerpestes cymbalaria;bohusranunkel;Art;191;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse, Havsstrand (H) - Har betydelse;EN;B1ab(i,iii,v)+2ab(i,iii,v)
+222498;100531;Hepatica nobilis;blåsippa;Art;88366;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;LC;
+1332;100546;Pulsatilla patens;nipsippa;Art;2579;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;NT;B2ab(iii,v)
+1853;100548;Pulsatilla vernalis;mosippa;Art;16460;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;EN;A2ac
+222886;100549;Pulsatilla vulgaris;backsippa;Art;31240;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse;VU;A2b
+1333;100550;Pulsatilla vulgaris subsp. gotlandica;gotlandssippa;Underart;689;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;VU;D2
+224913;100551;Pulsatilla vulgaris subsp. vulgaris;vanlig backsippa;Underart;19166;Jordbrukslandskap (J) - Stor betydelse;VU;A2bc+4b
+1360;100561;Ranunculus acris subsp. friesianus;parksmörblomma;Underart;143;Urban miljö (U) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;NA;
+1363;100913;Ranunculus fluitans;jättemöja;Art;640;Sötvatten (L) - Stor betydelse;VU;D2
+1364;100915;Ranunculus hederaceus;murgrönsmöja;Art;642;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse, Sötvatten (L) - Har betydelse, Urban miljö (U) - Har betydelse;NT;B1a+2a
+1366;100933;Ranunculus ophioglossifolius;gotlandsranunkel;Art;0;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;EN;"B1ac(iv); D"
+1368;100964;Ranunculus sulphureus;polarsmörblomma;Art;97;Fjäll (F) - Stor betydelse;VU;D1+2
+1870;101097;Chrysosplenium oppositifolium;kustgullpudra;Art;77;Våtmark (V) - Stor betydelse, Skog (S) - Har betydelse;VU;D2
+1447;101128;Saxifraga cotyledon;fjällbrud;Art;712;Skog (S) - Stor betydelse, Fjäll (F) - Har betydelse;NT;B2a
+1448;101133;Saxifraga hirculus;myrbräcka;Art;2057;Våtmark (V) - Stor betydelse;NT;B2ab(ii,iii,iv)
+264446;101134;Saxifraga hirculus subsp. compacta;liten myrbräcka;Underart;0;;NA;
+264445;101135;Saxifraga hirculus subsp. hirculus;stor myrbräcka;Underart;0;Våtmark (V) - Stor betydelse;NE;
+1449;101143;Saxifraga osloënsis;hällebräcka;Art;7419;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;VU;A2ab
+1478;101225;Sedum villosum;klibbig fetknopp;Art;184;Fjäll (F) - Stor betydelse;NT;"B2a; D1"
+114;101307;Astragalus arenarius;sandvedel;Art;704;Jordbrukslandskap (J) - Stor betydelse;EN;B1ab(ii,iii,v)+2ab(ii,iii,v)
+115;101311;Astragalus danicus;strandvedel;Art;544;Jordbrukslandskap (J) - Stor betydelse, Havsstrand (H) - Har betydelse;CR;C2a(i)
+116;101317;Astragalus penduliflorus;smällvedel;Art;1534;Skog (S) - Stor betydelse, Urban miljö (U) - Stor betydelse;VU;B2ab(ii,iii,v)
+690;101362;Genista anglica;nålginst;Art;831;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;B1ab(iii)
+691;101363;Genista germanica;tysk ginst;Art;321;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;CR;"C2a(i); D"
+776;101380;Hippocrepis emerus;gulkronill;Art;1347;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;NT;B1ab(iii,v)+2ab(iii,v)
+264450;101382;Hippocrepis emerus subsp. emerus;äkta gulkronill;Underart;29;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;NT;B1ab(iii,v)+2ab(iii,v)
+916;101430;Lathyrus sphaericus;vårvial;Art;302;Havsstrand (H) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;EN;D
+917;101433;Lathyrus tuberosus;knölvial;Art;2095;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;VU;"A2b; B2ab(iii,v); C1+2a(i)"
+1023;101488;Medicago minima;sandlusern;Art;1060;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;VU;B2ab(iii,iv,v)
+1035;101513;Melilotus dentatus;strandsötväppling;Art;399;Havsstrand (H) - Stor betydelse, Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;B1ab(i,ii,iii,v)+2ab(i,ii,iii,v)
+1142;101559;Oxytropis pilosa;luddvedel;Art;1325;Jordbrukslandskap (J) - Stor betydelse, Havsstrand (H) - Har betydelse, Urban miljö (U) - Har betydelse;EN;B2ab(iii,v)
+1603;101604;Trifolium alpestre;alpklöver;Art;181;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse, Urban miljö (U) - Har betydelse;EN;"A2ab; B1ab(iii,iv,v)+2ab(iii,iv,v); C1"
+1658;101697;Vicia dumetorum;buskvicker;Art;1643;Skog (S) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;A2ab
+1659;101718;Vicia pisiformis;ärtvicker;Art;1462;Skog (S) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;B2ab(ii,iii,v)
+1287;102045;Potentilla hyparctica;raggfingerört;Art;94;Fjäll (F) - Stor betydelse;VU;D1
+1288;102058;Potentilla multifida;mångfingerört;Art;203;Skog (S) - Stor betydelse, Fjäll (F) - Har betydelse, Urban miljö (U) - Har betydelse;VU;B2ab(v)
+1289;102075;Potentilla sterilis;smultronfingerört;Art;605;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;VU;B1ab(i,ii,iii,v)+2ab(i,ii,iii,v)
+1396;102158;Rosa acicularis;finnros;Art;448;Skog (S) - Stor betydelse, Våtmark (V) - Har betydelse;VU;D2
+1397;102159;Rosa agrestis;åkerros;Art;274;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;CR;D
+1398;102183;Rosa × inodora;västkustros;Art;1141;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse, Urban miljö (U) - Har betydelse;EN;D
+1285;102470;Sibbaldianthe bifurca;spetsfingerört;Art;386;Urban miljö (U) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;NA;
+6037533;102481;Sorbus atrata;garderönn;Art;2271;Skog (S) - Stor betydelse;VU;D1+2
+6037532;102488;Sorbus faohraei;bungerönn;Art;116;Skog (S) - Stor betydelse;CR;"B1ab(v)+2ab(v); C1+2a(i,ii); D"
+1509;102499;Sorbus meinichii/teodori agg.;fagerrönn (aggregat);Kollektivtaxon;3057;Jordbrukslandskap (J) - Stor betydelse;NE;
+1508;102503;Sorbus obtusifolia;norskoxel;Art;374;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;EN;D
+6037534;102512;Sorbus teodori;avarönn;Art;414;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse, Urban miljö (U) - Har betydelse;CR;D
+6002920;102513;Sorbus teodori agg.;avarönn (aggregat);Artkomplex;3028;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse, Urban miljö (U) - Har betydelse;NA;
+225038;102519;Sorbus aucuparia × hybrida;rönn × finnoxel;Hybrid;74;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse;NA;
+836;102814;Hypericum humifusum;dvärgjohannesört;Art;1258;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;"B2ab(i,ii,iii,v); C2a(i)"
+837;102822;Hypericum pulchrum;hedjohannesört;Art;737;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse, Urban miljö (U) - Har betydelse;VU;B1ab(i,ii)+2ab(i,ii)
+1661;102838;Viola alba;silverviol;Art;686;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;CR;B1ab(iii,v)
+1662;102845;Viola collina;bergviol;Art;1377;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse, Urban miljö (U) - Har betydelse;VU;B2ab(iii,v)
+1663;102848;Viola elatior;storviol;Art;1275;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse;EN;B1ab(iii,v)+2ab(iii,v)
+1664;102862;Viola rupestris subsp. relicta;lappviol;Underart;264;Fjäll (F) - Stor betydelse;NT;B2a
+708;103343;Geranium palustre;kärrnäva;Art;802;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse, Urban miljö (U) - Har betydelse, Våtmark (V) - Har betydelse;EN;A2ab
+81;103876;Arabis planisiliqua;gotlandstrav;Art;295;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;EN;B1ab(v)+2ab(v)
+172;103930;Braya linearis;fjällkrassing;Art;519;Fjäll (F) - Stor betydelse;NT;B2a
+254;103974;Cardamine parviflora;strandbräsma;Art;1263;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse, Sötvatten (L) - Har betydelse, Urban miljö (U) - Har betydelse;VU;B2ab(i,ii,iii,iv,v)
+561;104026;Draba cacuminum;blockdraba;Art;136;Fjäll (F) - Stor betydelse;VU;D1
+264649;104027;Draba cacuminum subsp. angusticarpa;nordlig blockdraba;Underart;8;Fjäll (F) - Stor betydelse;NE;
+1878;104047;Draba subcapitata;raggdraba;Art;56;Fjäll (F) - Stor betydelse;EN;D
+1939;104088;Erucastrum supinum;kalkkrassing;Art;3199;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;LC;
+1394;104187;Nasturtium microphyllum;bäckfräne;Art;186;Jordbrukslandskap (J) - Stor betydelse, Sötvatten (L) - Stor betydelse, Våtmark (V) - Har betydelse;CR;D
+1667;104277;Viscum album;mistel;Art;17146;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse, Urban miljö (U) - Stor betydelse;LC;
+86;104297;Armeria scabra;fjälltrift;Art;59;Fjäll (F) - Stor betydelse;VU;D2
+220551;104299;Limonium humile;bohusmarrisp;Art;1485;Havsstrand (H) - Stor betydelse;LC;
+978;104305;Limonium vulgare;marrisp;Art;1458;Havsstrand (H) - Stor betydelse, Jordbrukslandskap (J) - Stor betydelse;VU;"A2b; B2ab(ii,v)"
+1263;104346;Persicaria foliosa;ävjepilört;Art;1781;Havsstrand (H) - Stor betydelse, Sötvatten (L) - Stor betydelse, Våtmark (V) - Stor betydelse, Brackvatten (B) - Har betydelse, Jordbrukslandskap (J) - Har betydelse;NT;B2ab(ii,iii)
+1264;104385;Polygonum oxyspermum;näbbtrampört;Art;642;Havsstrand (H) - Stor betydelse;EN;C2a(i)
+84;104546;Arenaria humifusa;grusnarv;Art;361;Fjäll (F) - Stor betydelse;NT;B1a+2a
+301;104566;Cerastium brachypetalum;raggarv;Art;972;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;VU;B2ab(i,ii,iii,iv,v)
+527;104612;Dianthus arenarius;sandnejlika;Art;3153;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;VU;B2ab(i,ii,iii)
+223945;104613;Dianthus arenarius subsp. arenarius;skånsk sandnejlika;Underart;79;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;NE;
+528;104615;Dianthus armeria;knippnejlika;Art;2363;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;VU;B2ab(i,iii,v)
+529;104631;Dianthus superbus;praktnejlika;Art;1012;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse, Urban miljö (U) - Har betydelse;EN;"A2ab; B2ab(i,ii,iii,v)"
+873;104666;Illecebrum verticillatum;glimmerört;Art;206;Urban miljö (U) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;NA;
+1062;104682;Moehringia lateriflora;ryssnarv;Art;139;Skog (S) - Stor betydelse;VU;B1ab(iii)+2ab(iii)
+1059;104705;Sabulina viscosa;sandnörel;Art;522;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;CR;"B1ab(iv,v)+2ab(iv,v); C2a(i,ii); D"
+1429;104707;Sagina apetala;fältnarv;Art;390;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;VU;B2ab(i,iii,iv,v)
+1494;104745;Silene dichotoma;gaffelglim;Art;1348;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;NA;
+224043;104746;Silene dichotoma subsp. dichotoma;vanlig gaffelglim;Underart;36;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;NA;
+231011;104758;Silene involucrata;polarblära;Art;335;Fjäll (F) - Stor betydelse, Skog (S) - Har betydelse, Urban miljö (U) - Har betydelse;NT;"B1a+2a; D2"
+1496;104760;Silene involucrata subsp. tenella;polarblära;Underart;110;Fjäll (F) - Stor betydelse, Skog (S) - Har betydelse, Urban miljö (U) - Har betydelse;NE;
+1529;104822;Stellaria fennica;finnstjärnblomma;Art;29;Havsstrand (H) - Stor betydelse, Skog (S) - Har betydelse, Våtmark (V) - Har betydelse;CR;B1ab(i,ii,iii,v)
+1528;104828;Stellaria longipes;polarstjärnblomma;Art;139;Fjäll (F) - Stor betydelse;VU;D1+2
+120;104905;Atriplex laciniata;sandmålla;Art;1213;Havsstrand (H) - Stor betydelse;VU°;D
+337;104969;Chenopodiastrum murale;gatmålla;Art;839;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;CR;D
+339;105004;Chenopodium vulvaria;stinkmålla;Art;945;Urban miljö (U) - Stor betydelse, Havsstrand (H) - Har betydelse, Jordbrukslandskap (J) - Har betydelse;EN;D
+754;105032;Halimione portulacoides;portlakmålla;Art;56;Havsstrand (H) - Stor betydelse;CR;D
+1295;105285;Primula nutans;strandviva;Art;960;Havsstrand (H) - Stor betydelse;LC;
+1296;105291;Primula scandinavica;fjällviva;Art;987;Fjäll (F) - Stor betydelse;VU;B2ab(ii,iii,v)
+221141;105296;Primula veris;gullviva;Art;50423;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse;LC;
+288;105519;Centaurium erythraea;bredarun;Art;3969;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse, Havsstrand (H) - Har betydelse;NT;B2ab(i,ii,iii,iv,v)
+287;105520;Centaurium erythraea var. capitatum;huvudarun;Varietet;188;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse, Havsstrand (H) - Har betydelse;EN;D
+224190;105521;Centaurium erythraea var. erythraea;flockarun;Varietet;2256;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;NT;B2ab(i,ii,iii,iv,v)
+1885;105536;Gentiana pneumonanthe;klockgentiana;Art;9073;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;EN;A2bc
+694;105537;Gentiana purpurea;baggsöta;Art;87;Fjäll (F) - Stor betydelse, Våtmark (V) - Stor betydelse;CR;D
+696;105545;Gentianella aurea;blekgentiana;Art;258;Fjäll (F) - Stor betydelse, Urban miljö (U) - Har betydelse;VU;D1+2
+264685;105546;Gentianella campestris;bredgentiana;Art;24960;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;A2ab
+699;105550;Gentianella campestris var. islandica;sätergentiana;Varietet;503;Urban miljö (U) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;NE;
+1039;105674;Mertensia maritima;ostronört;Art;971;Havsstrand (H) - Stor betydelse;CR;C2a(i)
+266165;105675;Mertensia maritima subsp. maritima;atlantisk ostronört;Underart;0;Havsstrand (H) - Stor betydelse;NE;
+1330;105727;Pulmonaria angustifolia;smalbladig lungört;Art;2541;Jordbrukslandskap (J) - Stor betydelse;EN;B2ab(i,ii,iii,v)
+777;106045;Hippuris tetraphylla;ishavshästsvans;Art;272;Brackvatten (B) - Stor betydelse, Havsstrand (H) - Stor betydelse;CR;B1ab(ii,iii,v)+2ab(ii,iii,v)
+902;106052;Kickxia elatine;spjutsporre;Art;1092;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;B2ab(i,ii,iii,iv,v)
+224261;106053;Kickxia elatine subsp. elatine;äkta spjutsporre;Underart;27;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;NE;
+1060;106097;Misopates orontium;kalvnos;Art;1102;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;NT;B2a
+1651;106244;Verbascum densiflorum;ölandskungsljus;Art;922;Urban miljö (U) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;EN;"B2ab(iii,v); C2a(i)"
+1652;106246;Verbascum lychnitis;grenigt kungsljus;Art;2307;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;VU;B2ab(ii,iii,v)
+17;106382;Ajuga genevensis;kritsuga;Art;442;Urban miljö (U) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;CR;B1ab(i,iii,v)+2ab(i,iii,v)
+1524;106396;Betonica officinalis;humlesuga;Art;799;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;B1ab(i,ii,iii,v)+2ab(i,ii,iii,v)
+564;106413;Dracocephalum ruyschiana;drakblomma;Art;1410;Jordbrukslandskap (J) - Stor betydelse;EN;B2ab(i,ii,iii,v)
+565;106414;Dracocephalum thymiflorum;rysk drakblomma;Art;538;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;B1ab(i,ii,iii,iv,v)+2ab(i,ii,iii,iv,v)
+669;106418;Galeopsis angustifolia;kalkdån;Art;706;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;VU;B2ab(i,ii,iii,iv,v)
+1019;106513;Marrubium vulgare;kransborre;Art;1393;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;"B2ab(ii,iii,v); C2a(i)"
+1082;106523;Nepeta cataria;kattmynta;Art;1970;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;"B2ab(i,ii,iii,v); C2a(i)"
+1432;106582;Salvia pratensis;ängssalvia;Art;719;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;VU;"C1; D1"
+1473;106600;Scutellaria minor;småfrossört;Art;248;Jordbrukslandskap (J) - Stor betydelse, Havsstrand (H) - Har betydelse, Våtmark (V) - Har betydelse;EN;B1ab(iii)
+221638;106694;Euphrasia officinalis;läkeögontröst;Art;4923;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;B2ab(i,ii,iii,iv,v)
+627;106696;Euphrasia officinalis subsp. officinalis;finnögontröst;Underart;3387;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;B2ab(i,ii,iii,iv,v)
+629;106697;Euphrasia officinalis subsp. pratensis;stor ögontröst;Underart;1067;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;EN;B2ab(i,ii,iii,iv,v)
+630;106702;Euphrasia salisburgensis subsp. schoenicola;brun ögontröst;Underart;517;Våtmark (V) - Stor betydelse;NT;B1a+2a
+632;106708;Euphrasia stricta var. suecica;svensk ögontröst;Varietet;788;Jordbrukslandskap (J) - Stor betydelse;EN;B1ab(ii,iii,iv,v)+2ab(ii,iii,iv,v)
+1124;106751;Orobanche alba;timjansnyltrot;Art;979;Jordbrukslandskap (J) - Stor betydelse;NT;B2ab(iii,v)
+1125;106757;Orobanche elatior;klintsnyltrot;Art;1187;Jordbrukslandskap (J) - Stor betydelse;EN;B2ab(i,ii,iii,iv,v)c(iv)
+1126;106762;Orobanche minor;klöversnyltrot;Art;117;Jordbrukslandskap (J) - Stor betydelse;NA;
+1128;106764;Orobanche purpurea;röllikesnyltrot;Art;0;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;CR;"C2a(i); D"
+1129;106766;Orobanche reticulata;tistelsnyltrot;Art;953;Skog (S) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse, Urban miljö (U) - Har betydelse, Våtmark (V) - Har betydelse;EN;B2ab(iii,iv,v)
+249008;106797;Rhinanthus osiliensis;öselskallra;Art;231;Våtmark (V) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;NT;"B1a+2a; D2"
+60;106989;Anthemis cotula;kamomillkulla;Art;890;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;"A2b; B1ab(ii,iii,iv,v)+2ab(ii,iii,iv,v)"
+90;107034;Artemisia campestris subsp. bottnica;bottnisk malört;Underart;789;Havsstrand (H) - Stor betydelse, Urban miljö (U) - Har betydelse;LC;
+91;107047;Artemisia oelandica;alvarmalört;Art;2753;Jordbrukslandskap (J) - Stor betydelse;LC;
+286;107177;Centaurea phrygia subsp. phrygia;finnklint;Underart;365;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;EN;B2ab(ii,iii,v)
+648;107425;Filago vulgaris;klotullört;Art;1330;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;LC;
+762;107501;Helichrysum arenarium;hedblomster;Art;6044;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;VU;A2b
+1487;108925;Jacobaea erucifolia;flikstånds;Art;542;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;EN;"B1ab(i,ii,iii,v)+2ab(i,ii,iii,v); C2a(ii)"
+1489;108931;Jacobaea vulgaris subsp. gotlandica;alvarstånds;Underart;2370;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse;LC;
+911;108943;Lactuca quercina;karlsösallat;Art;261;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Har betydelse;EN;B1ab(v)
+941;108962;Leontodon saxatilis;strimfibbla;Art;336;Urban miljö (U) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;NA;
+1734;109567;Taraxacum austrinum;sydmaskros;Art;64;Jordbrukslandskap (J) - Stor betydelse, Våtmark (V) - Stor betydelse;EN;D
+1545;109572;Taraxacum crocodes;jämtlandsmaskros;Art;2108;Våtmark (V) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse;NT;B2ab(ii,iii,iv,v)
+1724;109988;Tephroseris integrifolia;fältnocka;Art;546;Jordbrukslandskap (J) - Stor betydelse;EN;"B1ab(i,ii,iii,v)+2ab(i,ii,iii,v); C2a(i); D"
+1723;109991;Tephroseris palustris;kärrnocka;Art;428;Våtmark (V) - Stor betydelse, Jordbrukslandskap (J) - Har betydelse, Sötvatten (L) - Har betydelse;CR;"C2a(i,ii); D"
+1575;110003;Tragopogon crocifolius;gotländsk haverrot;Art;574;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;VU;B1ab(iii,v)+2ab(iii,v)
+1576;110004;Tragopogon dubius;stor haverrot;Art;189;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Stor betydelse;NA;
+624;110354;Eryngium maritimum;martorn;Art;3698;Havsstrand (H) - Stor betydelse;VU;C1
+79;110364;Helosciadium inundatum;krypfloka;Art;2154;Jordbrukslandskap (J) - Stor betydelse, Sötvatten (L) - Stor betydelse, Våtmark (V) - Har betydelse;VU;"A2b; B2ab(ii,iii,iv,v)"
+1098;110405;Oenanthe fistulosa;pipstäkra;Art;925;Jordbrukslandskap (J) - Stor betydelse, Sötvatten (L) - Stor betydelse, Våtmark (V) - Stor betydelse;EN;"A2b; B2ab(iii,v)"
+1099;110408;Oenanthe lachenalii;smalstäkra;Art;333;Havsstrand (H) - Stor betydelse, Brackvatten (B) - Har betydelse;VU;D2
+1253;110434;Pleurospermum austriacum;piploka;Art;1189;Jordbrukslandskap (J) - Stor betydelse, Skog (S) - Stor betydelse, Urban miljö (U) - Har betydelse;VU;B1ab(iii,v)+2ab(iii,v)
+1451;110444;Scandix pecten-veneris;nålkörvel;Art;1298;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;EN;B2ab(ii,iii,iv,v)
+223558;110446;Scandix pecten-veneris subsp. pecten-veneris;äkta nålkörvel;Underart;136;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;NE;
+1492;110458;Silaum silaus;ängssilja;Art;289;Jordbrukslandskap (J) - Stor betydelse, Urban miljö (U) - Har betydelse;CR;"B1ab(v)+2ab(v); C2a(i,ii); D"
