@@ -8,8 +8,6 @@ let gbifLayer;
 let allDataLoaded = false;
 let insectData = [];
 let plantList = [];
-let fridlyst = [];
-let typisk [];
 let advancedMode = false;
 let currentSelectedPlant = null; // håller senaste match
 
@@ -40,26 +38,6 @@ Papa.parse("Riskklassning2024_Uttag.csv", {
   skipEmptyLines: true,
   complete: function (results) {
     riskData = results.data;
-    checkAllDataLoaded();
-  }
-});
-
-Papa.parse("Typiska_arter.csv", {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function (results) {
-    typisk = results.data;
-    checkAllDataLoaded();
-  }
-});
-
-Papa.parse("Fridlysta_arter.csv", {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function (results) {
-    fridlyst = results.data;
     checkAllDataLoaded();
   }
 });
