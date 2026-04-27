@@ -1,341 +1,808 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="sv">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Växtsök</title>
-  <link rel="icon" href="guckusko-favicon.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Digital flora – 3D-arter</title>
   <style>
+    :root {
+      --ink: #0f1f19;
+      --muted: #58665e;
+      --forest: #10261d;
+      --forest-2: #173527;
+      --moss: #abcfa2;
+      --cream: #f4f1e8;
+      --paper: rgba(255,255,255,.88);
+      --paper-solid: #f7f6f0;
+      --line: rgba(255,255,255,.26);
+      --dark-line: rgba(15,31,25,.12);
+      --shadow: 0 24px 70px rgba(0,0,0,.22);
+      --soft-shadow: 0 16px 40px rgba(15,31,25,.12);
+      --radius-lg: 28px;
+      --radius-md: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
-      font-family: 'Montserrat', sans-serif;
-      background-color: #b7db93;
       margin: 0;
-      padding: 1rem;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: var(--paper-solid);
     }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; }
 
-    h1, h2, h3 {
-      font-weight: 700;
-    }
+    .page { min-height: 100vh; }
+    .wrap { width: min(1180px, calc(100% - 48px)); margin: 0 auto; }
 
-    input[type="text"] {
-      width: 100%;
-      max-width: 600px;
-      font-size: 1.2rem;
-      padding: 10px;
-      margin-bottom: 0.5rem;
-      border-radius: 8px;
-      border: none;
-    }
-
-    #suggestions {
-      background: white;
-      border-radius: 0 0 8px 8px;
-      max-width: 600px;
-      border: 1px solid #ccc;
-      border-top: none;
+    .forest-panel {
       position: relative;
-      z-index: 10;
-    }
-
-    #suggestions div {
-      padding: 10px;
-      cursor: pointer;
-    }
-
-    #suggestions div:hover {
-      background-color: #f0f0f0;
-    }
-
-    button {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 1rem;
-      background-color: #4c814c;
+      min-height: 720px;
+      overflow: hidden;
       color: white;
-      padding: 10px 16px;
-      margin-top: 0.5rem;
-      margin-bottom: 1rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
+      background:
+        linear-gradient(180deg, rgba(7,20,15,.22), rgba(7,20,15,.74)),
+        radial-gradient(circle at 20% 20%, rgba(196,223,180,.18), transparent 34%),
+        url("assets/scandinavian-wet-forest.jpg") center/cover no-repeat,
+        linear-gradient(135deg, #18281e, #324636 46%, #111e18);
     }
-
-    button:hover {
-      background-color: #3a6b3a;
+    .forest-panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,.06), transparent 16%, transparent 78%, rgba(255,255,255,.05)),
+        radial-gradient(ellipse at top, rgba(255,255,255,.30), transparent 46%);
+      pointer-events: none;
     }
+    .forest-panel::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      backdrop-filter: saturate(.86);
+      background: rgba(4,17,12,.16);
+    }
+    .forest-content { position: relative; z-index: 2; padding: 26px 0 54px; }
 
-    .scale {
+    .topbar {
       display: flex;
-      gap: 5px;
-      font-size: 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid rgba(255,255,255,.16);
     }
-
-    .redlist-badge {
-      display: inline-block;
-      width: 2.2rem;
-      height: 2.2rem;
-      border-radius: 50%;
-      font-weight: bold;
-      font-size: 0.9rem;
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      padding: 0;
+    }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.45);
+      background: rgba(255,255,255,.10);
+      backdrop-filter: blur(14px);
+      font-size: 1.18rem;
+    }
+    .brand-title { display: block; font-size: 1.05rem; font-weight: 760; letter-spacing: -.02em; }
+    .brand-sub { display: block; margin-top: 2px; font-size: .88rem; color: rgba(255,255,255,.74); }
+    .nav { display: flex; align-items: center; gap: 22px; }
+    .nav a, .nav button {
+      border: 0;
+      background: transparent;
+      color: rgba(255,255,255,.86);
+      text-decoration: none;
+      font-weight: 650;
+      padding: 8px 0;
+    }
+    .nav .active { color: white; border-bottom: 2px solid white; }
+    .info-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.48);
+      display: grid;
+      place-items: center;
       color: white;
-      text-align: center;
-      line-height: 2.2rem;
-      margin-right: 0.5rem;
     }
 
-    .rl-EX { background-color: #000; }
-    .rl-EW, .rl-RE { background-color: #444; }
-    .rl-CR { background-color: #c40606; }
-    .rl-EN { background-color: #c23a3a; }
-    .rl-VU { background-color: #d97777; color: #000; }
-    .rl-NT { background-color: #f7c6c6; color: #000; }
-    .rl-LC { background-color: #2e8b57; }
-    .rl-DD { background-color: #999; }
-    .rl-NE { background-color: #ccc; color: #000; }
-
-    .risk-tag {
-      padding: 5px 10px;
-      border-radius: 12px;
-      font-weight: bold;
+    .gallery-head {
+      padding-top: 54px;
+      display: grid;
+      grid-template-columns: minmax(280px, 440px) 1fr;
+      gap: 36px;
+      align-items: end;
+    }
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 500;
+      letter-spacing: -.045em;
+      font-size: clamp(3rem, 7vw, 5.4rem);
+      line-height: .98;
+    }
+    .gallery-tools { display: grid; gap: 16px; justify-items: start; }
+    .search-wrap { position: relative; width: min(390px, 100%); }
+    .search-wrap svg { position: absolute; left: 17px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,.74); }
+    .search-input {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      padding: 15px 18px 15px 48px;
+      outline: none;
+      color: white;
+      background: rgba(255,255,255,.13);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 14px 30px rgba(0,0,0,.18);
+    }
+    .search-input::placeholder { color: rgba(255,255,255,.78); }
+    .search-input:focus { border-color: rgba(255,255,255,.68); background: rgba(255,255,255,.18); }
+    .filters { display: flex; flex-wrap: wrap; gap: 12px; }
+    .filter-chip {
+      border: 1px solid rgba(255,255,255,.22);
+      color: white;
+      background: rgba(255,255,255,.15);
+      border-radius: 999px;
+      padding: 11px 19px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.14);
+      backdrop-filter: blur(18px);
+      transition: .18s ease;
+    }
+    .filter-chip:hover { background: rgba(255,255,255,.24); transform: translateY(-1px); }
+    .filter-chip.active { background: rgba(255,255,255,.92); color: var(--ink); }
+    .clear-btn {
+      margin-left: auto;
+      border: 0;
+      background: transparent;
+      color: rgba(255,255,255,.86);
+      font-weight: 650;
+      text-decoration: none;
     }
 
-    .risk-hög {
-      background-color: #d1001c; color: white;
+    .gallery-count { color: rgba(255,255,255,.70); margin: 28px 0 18px; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
     }
-
-    .risk-måttlig {
-      background-color: #e87722; color: white;
+    .card {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 16px;
+      background: rgba(245,245,239,.88);
+      color: var(--ink);
+      text-align: left;
+      box-shadow: var(--shadow);
+      transition: .20s ease;
+      padding: 0;
+      min-height: 282px;
     }
-
-    .risk-låg {
-      background-color: #fecd1a; color: black;
+    .card:hover { transform: translateY(-5px); border-color: rgba(255,255,255,.48); }
+    .taxon-thumb {
+      height: 154px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 38% 42%, rgba(172,201,151,.52), transparent 32%),
+        linear-gradient(135deg, #dfeadd, #becbb8);
     }
-
-    .risk-okänd {
-      background-color: #ccc; color: black;
-    }
-
-    ul.legend {
-      list-style: none;
-      padding-left: 0;
-      margin-top: 2rem;
-    }
-
-    ul.legend li {
-      margin-bottom: 5px;
-    }
-
-    ul.legend span {
-      display: inline-block;
-      min-width: 35px;
-      text-align: center;
-      padding: 3px 8px;
-      border-radius: 8px;
-      font-weight: bold;
-      margin-right: 10px;
-    }
-
-    #container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      align-items: flex-start;
-    }
-
-    #result {
-      flex: 1 1 350px;
-      min-width: 0;
-    }
-
-    #map {
-      flex: 1 1 350px;
-      height: 600px;
-      min-width: 300px;
-      border-radius: 12px;
-      border: 1px solid #888;
-    }
-
-    #legendToggle {
-      margin-top: 2rem;
-      background-color: #333;
-    }
-
-    #legendSection {
+    .taxon-thumb img {
       display: none;
-      margin-top: 1rem;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(.88) contrast(.98);
+    }
+    .taxon-thumb.loaded img { display: block; }
+    .taxon-thumb.loaded .fallback-illustration { display: none; }
+    .fallback-illustration { height: 100%; }
+    .card-body { padding: 16px 16px 15px; }
+    .card h3 { margin: 0; font-size: 1.36rem; letter-spacing: -.035em; }
+    .latin { margin: 4px 0 0; font-style: italic; color: #69746c; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; align-items: center; }
+    .tag {
+      border-radius: 999px;
+      padding: 7px 11px;
+      font-size: .78rem;
+      font-weight: 740;
+      background: #e8ebe2;
+      color: #425047;
+    }
+    .tag.yellow { background: #f5d77a; color: #5c4210; }
+    .tag.green { background: #94e6bf; color: #123f31; }
+    .open-arrow {
+      margin-left: auto;
+      width: 28px;
+      height: 28px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: rgba(255,255,255,.55);
     }
 
-    @media screen and (max-width: 768px) {
-      #container {
-        flex-direction: column;
-      }
-      #map {
-        order: 2;
-        width: 100%;
-      }
+    .illustration {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f3ecc7, #dcecc9, #c8dfcf);
     }
-    #plantListContainer {
-  background: #fff;
-  padding: 1rem;
-  border-radius: 12px;
-  max-width: 600px;
-  margin-top: 2rem;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
+    .illustration.large { height: 330px; border-radius: 22px; }
+    .illustration.tallticka { background: linear-gradient(135deg, #d9dfd6, #c5d7c7, #e6e1cc); }
+    .guckusko-symbol, .tallticka-symbol { position: absolute; inset: 0; display: grid; place-items: center; }
+    .guckusko-symbol::before {
+      content: "";
+      width: 142px;
+      height: 142px;
+      border-radius: 58% 42% 52% 48%;
+      background:
+        radial-gradient(circle at 50% 52%, #f8d83a 0 25%, transparent 26%),
+        radial-gradient(ellipse at 32% 31%, rgba(94,43,22,.78) 0 22%, transparent 23%),
+        radial-gradient(ellipse at 68% 31%, rgba(94,43,22,.78) 0 22%, transparent 23%),
+        linear-gradient(90deg, transparent 48%, rgba(44,122,83,.62) 49% 52%, transparent 53%);
+      filter: drop-shadow(0 18px 18px rgba(15,31,25,.12));
+    }
+    .tallticka-symbol::before {
+      content: "";
+      width: 156px;
+      height: 156px;
+      background:
+        radial-gradient(ellipse at 43% 45%, rgba(91,88,82,.95) 0 24%, transparent 25%),
+        radial-gradient(ellipse at 44% 56%, rgba(50,47,43,.88) 0 17%, transparent 18%),
+        linear-gradient(90deg, transparent 50%, rgba(70,76,66,.54) 51% 70%, transparent 71%);
+      filter: drop-shadow(0 18px 18px rgba(15,31,25,.14));
+    }
+    .empty {
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 18px;
+      background: rgba(255,255,255,.14);
+      padding: 28px;
+      color: white;
+      backdrop-filter: blur(14px);
+    }
 
-#plantList li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
+    .species-page { display: none; background: var(--paper-solid); min-height: 100vh; }
+    .species-layout {
+      display: grid;
+      grid-template-columns: 420px 1fr;
+      min-height: 100vh;
+    }
+    .species-info {
+      padding: 42px 40px 50px max(40px, calc((100vw - 1180px) / 2));
+      background:
+        radial-gradient(circle at 20% 0%, rgba(171,207,162,.24), transparent 35%),
+        linear-gradient(180deg, #f7f6f0, #eeeee8);
+    }
+    .back-btn {
+      display: inline-flex;
+      gap: 9px;
+      align-items: center;
+      border: 0;
+      background: transparent;
+      color: #334238;
+      padding: 0;
+      font-weight: 650;
+      margin-bottom: 34px;
+    }
+    .species-title {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 6vw, 4.8rem);
+      font-weight: 500;
+      line-height: .98;
+      letter-spacing: -.045em;
+      color: #173527;
+    }
+    .species-info .latin { font-size: 1.35rem; margin-top: 10px; }
+    .species-tags { display: flex; flex-wrap: wrap; gap: 9px; margin: 24px 0; }
+    .species-desc { color: #36443a; line-height: 1.75; font-size: 1.02rem; }
+    .facts {
+      display: grid;
+      gap: 18px;
+      margin: 36px 0 34px;
+    }
+    .fact {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 14px;
+      color: #405047;
+    }
+    .fact-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(18,63,49,.22);
+      color: #173527;
+    }
+    .fact strong { display: block; color: #69746c; font-weight: 650; margin-bottom: 3px; }
 
-#plantList button {
-  background-color: #8b0000;
-  color: white;
-  font-size: 0.8rem;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
+    .pyramid-card { margin-top: 34px; }
+    .pyramid {
+      width: min(260px, 84%);
+      display: grid;
+      gap: 9px;
+      margin: 0 auto;
+      justify-items: center;
+    }
+    .pyramid-part {
+      height: 56px;
+      opacity: .44;
+      background: #d7d8ce;
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+      transition: .2s ease;
+    }
+    .pyramid-part.top { width: 86px; background: #174332; opacity: .42; }
+    .pyramid-part.mid {
+      width: 166px;
+      clip-path: polygon(25% 0, 75% 0, 100% 100%, 0 100%);
+      background: #aeb9ab;
+    }
+    .pyramid-part.base {
+      width: 248px;
+      clip-path: polygon(17% 0, 83% 0, 100% 100%, 0 100%);
+      background: #d8d3c9;
+    }
+    .pyramid-part.active {
+      opacity: 1;
+      background: #123f31;
+      filter: drop-shadow(0 16px 26px rgba(18,63,49,.20));
+      transform: scale(1.035);
+    }
+    .pyramid-note { margin-top: 14px; text-align: center; color: #6a766d; font-size: .92rem; }
 
-    /* Glidknapp-stil */
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 48px;
-  height: 24px;
-}
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 24px;
-}
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 18px;
-  width: 18px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-input:checked + .slider {
-  background-color: #4c814c;
-}
-input:checked + .slider:before {
-  transform: translateX(24px);
-}
+    .species-visual {
+      padding: 42px max(40px, calc((100vw - 1180px) / 2)) 42px 36px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(171,207,162,.24), transparent 32%),
+        linear-gradient(180deg, #f5f4ed, #f1f0ea);
+    }
+    .visual-card {
+      border-radius: 18px;
+      background: #151715;
+      border: 1px solid rgba(15,31,25,.16);
+      overflow: hidden;
+      box-shadow: 0 28px 80px rgba(15,31,25,.18);
+    }
+    .viewer-top {
+      position: absolute;
+      z-index: 2;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      color: #17251d;
+      padding: 9px 13px;
+      font-size: .86rem;
+      font-weight: 800;
+      box-shadow: 0 12px 24px rgba(0,0,0,.14);
+    }
+    .splat-wrap { position: relative; }
+    .splat-wrap iframe {
+      display: block;
+      width: 100%;
+      height: min(64vh, 680px);
+      min-height: 520px;
+      border: 0;
+    }
+    .species-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 22px;
+      margin-top: 22px;
+    }
+    .white-card {
+      border: 1px solid var(--dark-line);
+      border-radius: 22px;
+      background: rgba(255,255,255,.76);
+      padding: 24px;
+      box-shadow: var(--soft-shadow);
+    }
+    .card-title { font-weight: 830; margin-bottom: 12px; color: #1a2b22; }
+    .white-card p { color: #4c5a51; line-height: 1.65; }
+    .map-placeholder {
+      height: 180px;
+      margin-top: 18px;
+      border-radius: 18px;
+      padding: 16px;
+      color: #607068;
+      background:
+        radial-gradient(circle at 45% 40%, rgba(18,63,49,.30), transparent 9%),
+        radial-gradient(circle at 52% 58%, rgba(18,63,49,.22), transparent 11%),
+        radial-gradient(circle at 58% 32%, rgba(18,63,49,.16), transparent 8%),
+        linear-gradient(135deg, rgba(255,255,255,.8), rgba(225,228,216,.8));
+      border: 1px solid var(--dark-line);
+    }
+    .look-list { display: grid; gap: 10px; padding: 0; margin: 0; list-style: none; }
+    .look-list li { display: flex; gap: 10px; color: #4c5a51; line-height: 1.45; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 8px; background: #8ee4bb; flex: 0 0 auto; }
+    .dot.yellow { background: #f5d77a; }
 
+    .thumb-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 14px;
+      padding: 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.58);
+      border: 1px solid var(--dark-line);
+    }
+    .mini-thumb {
+      height: 72px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #dfe8dc;
+    }
+    .mini-thumb img { width: 100%; height: 100%; object-fit: cover; display: none; }
+    .mini-thumb.loaded img { display: block; }
+    .mini-thumb .illustration { height: 100%; }
+
+    @media (max-width: 1050px) {
+      .gallery { grid-template-columns: repeat(2, 1fr); }
+      .gallery-head { grid-template-columns: 1fr; }
+      .species-layout { grid-template-columns: 1fr; }
+      .species-info, .species-visual { padding: 36px 24px; }
+      .splat-wrap iframe { height: 560px; min-height: 440px; }
+      .species-bottom { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 680px) {
+      .wrap { width: min(100% - 30px, 1180px); }
+      .nav { display: none; }
+      .forest-panel { min-height: 100vh; }
+      .gallery { grid-template-columns: 1fr; }
+      .filters { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 4px; }
+      .filter-chip { white-space: nowrap; }
+      .splat-wrap iframe { height: 480px; min-height: 420px; }
+      .thumb-strip { grid-template-columns: repeat(3, 1fr); }
+    }
   </style>
 </head>
 <body>
-  <h1>🔎 Växtsök</h1>
+  <div class="page">
+    <section id="gallery-page">
+      <div class="forest-panel">
+        <div class="forest-content">
+          <header class="wrap topbar">
+            <button class="brand" type="button" onclick="showGallery()" aria-label="Gå till startsidan">
+              <span class="brand-mark" aria-hidden="true">♧</span>
+              <span>
+                <span class="brand-title">Digital flora</span>
+                <span class="brand-sub">3D-arter, ekologi och utbredning</span>
+              </span>
+            </button>
+            <nav class="nav" aria-label="Huvudmeny">
+              <a class="active" href="#gallery-page">Artgalleri</a>
+              <a href="#om-projektet">Om projektet</a>
+              <span class="info-dot">i</span>
+            </nav>
+          </header>
 
-  <p>
-    Sök svenska kärlväxter och få ekologisk information om deras härdighet, ljus- och fuktbehov,
-    nektarvärde, biodiversitetsrelevans samt riskklassning. Arter på EU:s lista över invasiva växter och
-    svenska rödlistan markeras särskilt. Välj förenklad eller avancerad information om arten nedan. Data anpassad från <a href="https://www.artfakta.se/" target="_blank">Artfakta</a>
-    och <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">Tyler et al. (2021)</a>. Kartdata över rapporter från norra Europa, från år 2015 och framåt. Källa: 
-  <a href="https://www.gbif.org/" target="_blank" style="color: #004d00; text-decoration: underline;">
-    gbif.org</a>
-  </p>
-  <p>Sök efter växtart med svenskt eller vetenskapligt namn:</p>
-  <label for="searchInput"></label>
-<input id="searchInput" placeholder="svenskt namn" />
+          <section class="wrap gallery-head">
+            <div class="gallery-tools">
+              <h1>Artgalleri</h1>
+              <div class="search-wrap">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="7"></circle><path d="m16.5 16.5 4 4"></path></svg>
+                <input id="search" class="search-input" placeholder="Sök på svenskt eller vetenskapligt namn…" oninput="renderGallery()" />
+              </div>
+            </div>
+            <div>
+              <div id="filters" class="filters"></div>
+              <button id="clear-filters" class="clear-btn" type="button" onclick="clearFilters()" hidden>Rensa filter ↻</button>
+            </div>
+          </section>
 
-<label for="searchScientific"></label>
-<input id="searchScientific" placeholder="vetenskapligt namn" /></br>
-
-<div id="suggestions"></div>
-  <div id="suggestions"></div>
-  <p>Identifiera växt med bild via <a href="https://www.plantnet.org/" target="_blank" style="color: #004d00; text-decoration: underline;"> PlantNet</a>:</p>
-<input type="file" id="imageInput" accept="image/*" />
-<button onclick="identifyPlant()">Identifiera</button>
-<div id="plantnetResult"></div>
-  <div style="margin-bottom: 1rem;"></br>
-  <label style="display: inline-flex; align-items: center; gap: 0.5rem; font-weight: bold;">
-    <span>Förenklat</span>
-    <label class="switch">
-      <input type="checkbox" id="modeToggle" onchange="toggleMode()">
-      <span class="slider"></span>
-    </label>
-    <span>Avancerat</span>
-  </label>
-</div>
-  
-  <div id="container">
-    <div id="result"></div>
-    <div id="map"></div>
-    <div id="plantListContainer">
-  <h2>📝 Min växtlista</h2>
-  <ul id="plantList">
-    <li><em>Inga växter tillagda än.</em></li>
-  </ul>
-</div>
-
-
-  <button id="legendToggle" onclick="toggleLegend()">▼ Visa förklaringar</button>
-
-  <div id="legendSection">
-    <div style="display: flex; flex-wrap: wrap; gap: 2rem;">
-      <div>
-        <h3>Rödlistans kategorier</h3>
-        <ul class="legend">
-          <li><span class="redlist-badge rl-EX">EX</span> Utdöd</li>
-          <li><span class="redlist-badge rl-EW">EW</span> Utdöd i vilt tillstånd</li>
-          <li><span class="redlist-badge rl-CR">CR</span> Akut hotad</li>
-          <li><span class="redlist-badge rl-EN">EN</span> Starkt hotad</li>
-          <li><span class="redlist-badge rl-VU">VU</span> Sårbar</li>
-          <li><span class="redlist-badge rl-NT">NT</span> Nära hotad</li>
-          <li><span class="redlist-badge rl-LC">LC</span> Livskraftig</li>
-          <li><span class="redlist-badge rl-DD">DD</span> Kunskapsbrist</li>
-          <li><span class="redlist-badge rl-NE">NE</span> Ej bedömd</li>
-        </ul>
+          <section class="wrap">
+            <p id="count" class="gallery-count"></p>
+            <div id="gallery" class="gallery"></div>
+            <div id="empty" class="empty" hidden>Inga arter matchade sökningen. Testa att ta bort någon flagga eller sök på “guckusko”, “tallticka”, “orkidé” eller “svamp”.</div>
+          </section>
+        </div>
       </div>
-     <div>
-  
-      <div>
-        <h3>Riskklass (GEIAA)</h3>
-        <ul class="legend">
-          <li><span style="background-color:#c2491d; color:white;">SE</span> Mycket hög risk</li>
-          <li><span style="background-color:#d9782d; color:white;">HI</span> Hög risk</li>
-          <li><span style="background-color:#e2b539; color:black;">PH</span> Potentiellt hög risk</li>
-          <li><span style="background-color:#f3e28c; color:black;">LO</span> Låg risk</li>
-          <li><span style="background-color:#fdf7d4; color:black;">NK</span> Ingen känd risk</li>
-        </ul>
-      </div>
+      <section id="om-projektet" class="wrap" style="padding: 44px 0 60px; color:#4c5a51;">
+        <h2 style="font-family: Georgia, 'Times New Roman', serif; font-size: 2.4rem; font-weight: 500; margin: 0 0 12px; color:#173527;">Om projektet</h2>
+        <p style="max-width: 760px; line-height: 1.7;">En digital flora där klassisk artkunskap kombineras med interaktiva 3D-modeller. Galleriet använder lätta artbilder, medan artsidorna visar inbäddade gaussian splats.</p>
+      </section>
+    </section>
 
-  <!-- PapaParse för CSV -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-  <!-- Leaflet -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <!-- Din JS -->
-  <script src="script.js"></script>
+    <section id="species-page" class="species-page"></section>
+  </div>
 
   <script>
-    function toggleLegend() {
-      const section = document.getElementById("legendSection");
-      const button = document.getElementById("legendToggle");
-      const isVisible = section.style.display === "block";
-      section.style.display = isVisible ? "none" : "block";
-      button.textContent = isVisible ? "▼ Visa förklaringar" : "▲ Dölj förklaringar";
+    const species = [
+      {
+        id: "guckusko",
+        name: "Guckusko",
+        latin: "Cypripedium calceolus",
+        group: "Växter",
+        subgroup: "Orkidé",
+        family: "Orchidaceae",
+        flowering: "Juni – juli",
+        status: "Fridlyst i hela Sverige",
+        signalLevel: 3,
+        flags: ["Alla", "Växter", "Orkidéer", "Fridlyst", "Signalart"],
+        habitat: "Äldre, fuktiga skogar med kalkrik mark",
+        distribution: "Förekommer spritt i Sverige, främst där marken är kalkrik. Arten är lokalt sällsynt och ofta knuten till äldre, halvöppna skogsmiljöer.",
+        description: "Guckuskon är en av våra mest karismatiska orkidéer. Den stora gula läppen fungerar som en tillfällig fälla för insekter, som leds ut förbi pollinierna och därmed hjälper till med pollineringen.",
+        ecology: "Arten är beroende av rätt markkemi, fungerande mykorrhizasvampar och stabila växtplatser. Den kan finnas kvar länge på samma plats men är känslig för tramp, igenväxning och förändrad hydrologi.",
+        lookFor: ["Stor gul toffelformad blomläpp", "Brunröda kalkblad", "Breda veckade blad", "Ofta i kalkpåverkad skog"],
+        viewerUrl: "https://superspl.at/s?id=b46fcc5b",
+        accent: "yellow",
+        illustrationClass: "guckusko"
+      },
+      {
+        id: "tallticka",
+        name: "Tallticka",
+        latin: "Porodaedalea pini",
+        group: "Svampar",
+        subgroup: "Ticka",
+        family: "Hymenochaetaceae",
+        flowering: "Flerårig fruktkropp",
+        status: "Signalart",
+        signalLevel: 1,
+        flags: ["Alla", "Svampar", "Signalart", "Tall", "Vedlevande"],
+        habitat: "Gamla levande tallar, ofta i äldre tallskogar",
+        distribution: "Finns främst i landskap där det fortfarande finns gamla tallar. Den är vanligast i äldre barrskogsmiljöer men saknas i många brukade bestånd.",
+        description: "Talltickan är en flerårig ticka som växer på levande tallar. Den är ofta diskret men viktig eftersom den berättar något om skogens ålder, kontinuitet och förekomsten av gamla träd.",
+        ecology: "Svampen orsakar kärnröta i tall och skapar livsmiljöer för andra arter. Den är därför både en art i sig och en ekologisk motor i gamla tallmiljöer.",
+        lookFor: ["Hård hovformad fruktkropp", "Växer på levande tall", "Ofta högt upp på stammen", "Kopplad till gamla tallar"],
+        viewerUrl: "https://superspl.at/s?id=22d49954",
+        accent: "green",
+        illustrationClass: "tallticka"
+      }
+    ];
+
+    const selectedFlags = new Set(["Alla"]);
+    const allFlags = ["Alla", "Växter", "Svampar", "Orkidéer", "Fridlyst", "Signalart", "Tall", "Vedlevande"];
+
+    console.assert(species.length >= 2, "Minst två arter ska finnas.");
+    console.assert(species.every(item => item.viewerUrl && item.latin && item.signalLevel), "Alla arter ska ha viewerUrl, latin och signalLevel.");
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
     }
+
+    function renderFilters() {
+      const container = document.getElementById("filters");
+      container.innerHTML = allFlags.map(flag => `
+        <button type="button" class="filter-chip ${selectedFlags.has(flag) ? "active" : ""}" onclick="toggleFlag('${escapeHtml(flag)}')">${escapeHtml(flag)}</button>
+      `).join("");
+      document.getElementById("clear-filters").hidden = selectedFlags.size === 0 || (selectedFlags.size === 1 && selectedFlags.has("Alla"));
+    }
+
+    function toggleFlag(flag) {
+      if (flag === "Alla") {
+        selectedFlags.clear();
+        selectedFlags.add("Alla");
+      } else {
+        selectedFlags.delete("Alla");
+        if (selectedFlags.has(flag)) selectedFlags.delete(flag);
+        else selectedFlags.add(flag);
+        if (selectedFlags.size === 0) selectedFlags.add("Alla");
+      }
+      renderFilters();
+      renderGallery();
+    }
+
+    function clearFilters() {
+      selectedFlags.clear();
+      selectedFlags.add("Alla");
+      renderFilters();
+      renderGallery();
+    }
+
+    function matches(item, query) {
+      const text = `${item.name} ${item.latin} ${item.group} ${item.subgroup} ${item.status} ${item.flags.join(" ")}`.toLowerCase();
+      const matchesQuery = !query || text.includes(query);
+      const activeFlags = [...selectedFlags].filter(flag => flag !== "Alla");
+      const matchesFlags = activeFlags.length === 0 || activeFlags.every(flag => item.flags.includes(flag));
+      return matchesQuery && matchesFlags;
+    }
+
+    function renderGallery() {
+      const query = document.getElementById("search").value.trim().toLowerCase();
+      const filtered = species.filter(item => matches(item, query));
+      document.getElementById("count").textContent = `${filtered.length} av ${species.length} arter visas`;
+      document.getElementById("empty").hidden = filtered.length !== 0;
+      document.getElementById("gallery").innerHTML = filtered.map(item => `
+        <button class="card" type="button" onclick="showSpecies('${item.id}')">
+          ${galleryPreviewHtml(item)}
+          <div class="card-body">
+            <h3>${escapeHtml(item.name)}</h3>
+            <p class="latin">${escapeHtml(item.latin)}</p>
+            <div class="tag-row">
+              <span class="tag ${item.accent}">${escapeHtml(item.subgroup)}</span>
+              <span class="tag">${escapeHtml(item.status.split(" i ")[0])}</span>
+              <span class="open-arrow">→</span>
+            </div>
+          </div>
+        </button>
+      `).join("");
+      loadGalleryPhotos(filtered);
+    }
+
+    function galleryPreviewHtml(item) {
+      return `
+        <div class="taxon-thumb" data-photo-for="${escapeHtml(item.id)}" aria-label="Bild av ${escapeHtml(item.name)}">
+          <img alt="${escapeHtml(item.name)}" loading="lazy" />
+          <div class="fallback-illustration">
+            ${illustrationHtml(item)}
+          </div>
+        </div>
+      `;
+    }
+
+    async function fetchINaturalistPhoto(item) {
+      const cacheKey = `inat-photo:${item.latin}`;
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) return cached === "NONE" ? null : cached;
+      const endpoint = `https://api.inaturalist.org/v1/taxa?q=${encodeURIComponent(item.latin)}&rank=species&per_page=5`;
+      try {
+        const response = await fetch(endpoint);
+        if (!response.ok) throw new Error(`iNaturalist svarade ${response.status}`);
+        const data = await response.json();
+        const results = Array.isArray(data.results) ? data.results : [];
+        const exact = results.find(taxon => String(taxon.name).toLowerCase() === item.latin.toLowerCase()) || results[0];
+        const photo = exact && exact.default_photo;
+        const url = photo && (photo.medium_url || photo.square_url || photo.url);
+        localStorage.setItem(cacheKey, url || "NONE");
+        return url || null;
+      } catch (error) {
+        console.warn("Kunde inte hämta artbild från iNaturalist", item.latin, error);
+        return null;
+      }
+    }
+
+    async function loadGalleryPhotos(items) {
+      for (const item of items) {
+        const thumb = document.querySelector(`[data-photo-for="${CSS.escape(item.id)}"]`);
+        if (!thumb || thumb.classList.contains("loaded")) continue;
+        const img = thumb.querySelector("img");
+        const photoUrl = await fetchINaturalistPhoto(item);
+        if (!photoUrl || !img) continue;
+        img.src = photoUrl;
+        img.onload = () => thumb.classList.add("loaded");
+      }
+    }
+
+    function illustrationHtml(item, large = false) {
+      const symbolClass = item.id === "guckusko" ? "guckusko-symbol" : "tallticka-symbol";
+      return `
+        <div class="illustration ${large ? "large" : ""} ${item.illustrationClass}" role="img" aria-label="Illustration av ${escapeHtml(item.name)}">
+          <div class="${symbolClass}"></div>
+        </div>
+      `;
+    }
+
+    function showSpecies(id) {
+      const item = species.find(entry => entry.id === id);
+      if (!item) return;
+      document.getElementById("gallery-page").style.display = "none";
+      const page = document.getElementById("species-page");
+      page.style.display = "block";
+      page.innerHTML = speciesPageHtml(item);
+      window.scrollTo({ top: 0, behavior: "instant" });
+      history.replaceState(null, "", `#${item.id}`);
+      loadSpeciesPhotos(item);
+    }
+
+    function showGallery() {
+      document.getElementById("gallery-page").style.display = "block";
+      const page = document.getElementById("species-page");
+      page.style.display = "none";
+      page.innerHTML = "";
+      history.replaceState(null, "", location.pathname);
+      window.scrollTo({ top: 0, behavior: "instant" });
+    }
+
+    function pyramidHtml(item) {
+      return `
+        <div class="pyramid" aria-label="Signalvärdespyramid">
+          <div class="pyramid-part top ${item.signalLevel === 3 ? "active" : ""}"></div>
+          <div class="pyramid-part mid ${item.signalLevel === 2 ? "active" : ""}"></div>
+          <div class="pyramid-part base ${item.signalLevel === 1 ? "active" : ""}"></div>
+        </div>
+        <div class="pyramid-note">Utifrån Nitare, 2020.</div>
+      `;
+    }
+
+    function speciesPageHtml(item) {
+      return `
+        <div class="species-layout">
+          <aside class="species-info">
+            <button class="back-btn" type="button" onclick="showGallery()">← Tillbaka till galleri</button>
+            <h1 class="species-title">${escapeHtml(item.name)}</h1>
+            <p class="latin">${escapeHtml(item.latin)}</p>
+            <div class="species-tags">
+              <span class="tag ${item.accent}">${escapeHtml(item.subgroup)}</span>
+              <span class="tag">${escapeHtml(item.status.split(" i ")[0])}</span>
+              <span class="tag">${escapeHtml(item.group)}</span>
+            </div>
+            <p class="species-desc">${escapeHtml(item.description)} ${escapeHtml(item.ecology)}</p>
+
+            <div class="facts">
+              <div class="fact"><span class="fact-icon">♧</span><div><strong>Grupp</strong>${escapeHtml(item.group)}</div></div>
+              <div class="fact"><span class="fact-icon">✽</span><div><strong>Familj</strong>${escapeHtml(item.family)}</div></div>
+              <div class="fact"><span class="fact-icon">☼</span><div><strong>Blomningstid</strong>${escapeHtml(item.flowering)}</div></div>
+              <div class="fact"><span class="fact-icon">♧</span><div><strong>Livsmiljö</strong>${escapeHtml(item.habitat)}</div></div>
+              <div class="fact"><span class="fact-icon">↓</span><div><strong>Status</strong>${escapeHtml(item.status)}</div></div>
+            </div>
+
+            <div class="pyramid-card">
+              ${pyramidHtml(item)}
+            </div>
+          </aside>
+
+          <main class="species-visual">
+            <div class="visual-card splat-wrap">
+              <div class="viewer-top">◈ 3D (Gaussian Splat)</div>
+              <iframe title="Interaktiv 3D-modell av ${escapeHtml(item.name)}" allow="fullscreen; xr-spatial-tracking" src="${escapeHtml(item.viewerUrl)}"></iframe>
+            </div>
+            <div id="species-thumbs" class="thumb-strip">
+              ${Array.from({ length: 5 }).map((_, index) => `
+                <div class="mini-thumb" data-mini-photo="${index}">
+                  <img alt="${escapeHtml(item.name)} bild ${index + 1}" loading="lazy" />
+                  ${illustrationHtml(item)}
+                </div>
+              `).join("")}
+            </div>
+
+            <div class="species-bottom">
+              <article class="white-card">
+                <div class="card-title">Utbredning</div>
+                <p>${escapeHtml(item.distribution)}</p>
+                <div class="map-placeholder">Här kan en fyndkarta eller Artportalen/GBIF-modul kopplas in senare.</div>
+              </article>
+              <article class="white-card">
+                <div class="card-title">Kännetecken</div>
+                <ul class="look-list">
+                  ${item.lookFor.map(point => `<li><span class="dot ${item.accent === "yellow" ? "yellow" : ""}"></span>${escapeHtml(point)}</li>`).join("")}
+                </ul>
+              </article>
+            </div>
+          </main>
+        </div>
+      `;
+    }
+
+    async function loadSpeciesPhotos(item) {
+      const photos = await fetchINaturalistPhotos(item, 3);
+
+      document.querySelectorAll("[data-mini-photo]").forEach((thumb, index) => {
+        const img = thumb.querySelector("img");
+        if (!img) return;
+
+        const photoUrl = photos[index] || item.localImage;
+        if (!photoUrl) return;
+
+        img.src = photoUrl;
+        img.onload = () => thumb.classList.add("loaded");
+      });
+    }
+
+    renderFilters();
+    renderGallery();
+    const initialId = location.hash.replace("#", "");
+    if (species.some(item => item.id === initialId)) showSpecies(initialId);
   </script>
 </body>
 </html>
