@@ -118,7 +118,7 @@
       annotation = ` <span class="redlist-annotation" title="${explanation}">${escapeHtml(suffix)}</span>`;
     }
     const criteria = record.criteria ? ` <span class="source-note">(${escapeHtml(record.criteria)})</span>` : "";
-    return `<p><strong>Rödlista 2025:</strong> ${getRedlistBadge(record.category)}${categories[record.category]}${annotation}${criteria}</p>`;
+    return `<p><strong>Rödlista 2025:</strong> ${getRedlistBadge(record.category)} ${categories[record.category]}${annotation}${criteria}</p>`;
   }
 
   function getSpecies(dataset, dyntaxa) {

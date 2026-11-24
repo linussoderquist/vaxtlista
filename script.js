@@ -735,7 +735,7 @@ function formatPlantInfo(match, isEUListad = false) {
   const traitHtml = PlantDataView.renderTraits(nordicTraits, dyntaxa, advancedMode);
   const sourceNote = `<p class="source-note">Kompletterande uppgifter från <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank" rel="noopener">Tyler et al. (2021)</a>.</p>`;
   const header = `
-    <h3>${escape(swedish)} (${escape(scientific)})</h3>
+    <h3>${escape(swedish)} <span class="scientific-name">(${escape(scientific)})</span></h3>
     <p><strong>Familj:</strong> ${escape(match["Family"])}</p>
     ${redlistHtml}
     <p><strong>Invandringstid:</strong> ${immigration}</p>
@@ -746,13 +746,11 @@ function formatPlantInfo(match, isEUListad = false) {
   const artfakta = dyntaxa ? `<p><strong>Artfakta:</strong> <a href="https://artfakta.se/taxa/${encodeURIComponent(dyntaxa)}" target="_blank" rel="noopener">Visa Artfakta</a></p>` : "";
 
   if (!advancedMode) {
-    return `${header}${traitHtml}
-      <h4>Miljöindikatorer</h4>${sourceNote}
-      <p><strong>Värmekrav:</strong> ${getHeatRequirementLabel(match["Heat requirement"])}</p>
-      <p><strong>Ljusbehov:</strong> ${getLightLabel(match["Light"])}</p>
-      <p><strong>Fuktighetskrav:</strong> ${getMoistureLabel(match["Moisture"])}</p>
-      <p><strong>Biodiversitetsrelevans:</strong> ${getBiodiversityRelevanceLabel(match["Biodiversity relevance"])}</p>
-      ${artfakta}${addButton}`;
+    return `<div class="simple-profile">${header}</div>${SimplePlantView.renderSummary(match, nordicTraits, {
+      heat: getHeatRequirementLabel(match["Heat requirement"]),
+      light: getLightLabel(match["Light"]),
+      moisture: getMoistureLabel(match["Moisture"])
+    })}<div class="simple-actions">${artfakta}${addButton}</div>`;
   }
 
   const insectHtml = associatedInsects.length ? `

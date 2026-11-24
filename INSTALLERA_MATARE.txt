@@ -1,0 +1,21 @@
+VÄXTSÖK – FÖRENKLAD VY MED MÄTARE
+
+Packa upp zipfilen. Lägg de uppackade filerna i ditt befintliga GitHub-projekt
+och ersätt filerna med samma namn. Behåll undermappen tests/.
+
+De fyra webbplatsfilerna i projektets rot måste uppdateras tillsammans:
+  index.html
+  script.js
+  data-view.js
+  simple-view.js (ny fil)
+
+Befintliga CSV-filer och data/-mappen används som tidigare och ska finnas kvar.
+
+Den förenklade vyn visar artinformationen först, därefter sju visuella mätare.
+Riskklass och EU-varning visas när de gäller. Avancerat läge visar alla 44 traits.
+Skalorna använder ursprungliga klasser, med markering för saknade/imputerade data.
+
+Verifierat i webbläsare på dator- och mobilbredd. Alla 15 automatiska tester passerar:
+  node --test tests/*.test.js
+
+Detta paket är inte publicerat på GitHub ännu.

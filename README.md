@@ -3,6 +3,20 @@
 Statisk webbplats för att söka svenska kärlväxter. Publiceras som tidigare med
 GitHub Pages; ingen server eller databas behövs.
 
+## Förenklad översikt
+
+Art, vetenskapligt namn, familj, rödlistekategori och invandringstid visas först,
+med riskklass och EU-varning när de gäller. Därefter visas sju kort med mätare:
+biodiversitetsrelevans, nektarproduktion, livslängd, pollination, värmekrav,
+ljusbehov och fuktighetskrav. Korten anpassas till en kolumn på smala skärmar.
+
+Mätarna använder källornas ordinala klasser. De visar inte procent, ett gemensamt
+betyg eller exakta åldrar/temperaturer. Pollination använder klass 0–2 för
+oberoende, delvis beroende och helt beroende av djurpollinatörer; källans
+underkategorier finns kvar i den förklarande texten. Saknade värden får ingen
+markör. Imputerade NordicTraits-värden markeras i respektive kort. Alla 44
+egenskaper finns kvar i avancerat läge.
+
 ## Aktuella artdata
 
 - **Rödlista 2025**, SLU Artdatabanken, publicerad 24 mars 2026. Underlaget omfattar
@@ -78,7 +92,8 @@ Kör syntax- och datakontroller med Node.js 18 eller senare:
 ```sh
 node --check script.js
 node --check data-view.js
-node --test tests/data.test.js
+node --check simple-view.js
+node --test tests/*.test.js
 ```
 
 Kontrollerna omfattar nya och avförda rödlistekategorier, saknad status, NA/NE/RE,

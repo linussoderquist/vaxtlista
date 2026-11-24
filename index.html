@@ -126,6 +126,71 @@
       overflow-wrap: anywhere;
     }
     .trait-table th { width: 43%; }
+    #result { container-type: inline-size; }
+    .simple-profile {
+      background: #fff;
+      border: 1px solid #c3d5b9;
+      border-top: 5px solid #345f3c;
+      border-radius: 16px;
+      padding: 1.4rem;
+      box-shadow: 0 5px 20px #294b2810;
+      color: #223b29;
+    }
+    .simple-profile h3 { margin: 0 0 1.2rem; font-size: 1.55rem; line-height: 1.35; }
+    .simple-profile .scientific-name { display: block; font-style: italic; font-size: 1rem; font-weight: 400; margin-top: 0.45rem; }
+    .simple-profile p { line-height: 1.6; margin: 0.7rem 0; }
+    .simple-profile p:last-child { margin-bottom: 0; }
+    .simple-section-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin: 1.6rem 0 0.85rem; color: #233d2b; }
+    .simple-section-heading h4 { font-size: 1.1rem; margin: 0; }
+    .simple-section-heading > span { font-size: 0.875rem; white-space: nowrap; }
+    .simple-metrics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.85rem; }
+    .metric-card {
+      --accent: #397149;
+      --tint: #edf4e9;
+      --ramp: linear-gradient(90deg, #dde8d8, #397149);
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      padding: 1rem;
+      background: #fff;
+      border: 1px solid #c3d5b9;
+      border-radius: 14px;
+      color: #203326;
+      box-shadow: 0 3px 12px #294b2809;
+    }
+    .metric-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+    .metric-heading { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 0.55rem; align-items: center; }
+    .metric-heading h5 { font-size: 0.875rem; line-height: 1.4; margin: 0; overflow-wrap: anywhere; }
+    .metric-heading .imputed { grid-column: 2; justify-self: start; }
+    .metric-icon { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 8px; background: var(--tint); color: var(--accent); }
+    .metric-icon svg { width: 21px; height: 21px; }
+    .metric-value { font-size: 1.2rem; font-weight: 700; line-height: 1.3; margin: 1rem 0 1.2rem; overflow-wrap: anywhere; }
+    .metric-track { position: relative; height: 9px; margin: 0 8px; border-radius: 20px; background: var(--ramp); }
+    .metric-tick { position: absolute; top: 0; width: 2px; height: 100%; background: #ffffff95; transform: translateX(-50%); }
+    .metric-pointer { position: absolute; top: 50%; width: 17px; height: 17px; border: 3px solid #fff; box-sizing: border-box; border-radius: 50%; background: var(--accent); transform: translate(-50%, -50%); box-shadow: 0 0 0 2px var(--accent), 0 2px 5px #0002; }
+    .metric-endpoints { display: flex; justify-content: space-between; gap: 0.7rem; font-size: 0.875rem; line-height: 1.3; margin-top: 0.65rem; color: #4b5c50; }
+    .metric-endpoints span { flex: 1; }
+    .metric-endpoints span:last-child { text-align: right; }
+    .metric-description { font-size: 0.9rem; line-height: 1.5; margin: 1rem 0; }
+    .metric-footer { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.4rem; padding-top: 0.75rem; margin-top: auto; border-top: 1px solid #e3e9df; font-size: 0.875rem; line-height: 1.4; color: #526255; }
+    .metric-nectar { --accent: #a66a10; --tint: #fff4d9; --ramp: linear-gradient(90deg, #f4e8c7, #d49d36); }
+    .metric-longevity { --accent: #277260; --tint: #e4f1ec; --ramp: linear-gradient(90deg, #cee9df, #328873); }
+    .metric-pollination { --accent: #77509b; --tint: #f1eaf7; --ramp: linear-gradient(90deg, #e4daee, #9563ba); }
+    .metric-heat { --accent: #b3552d; --tint: #fff0e6; --ramp: linear-gradient(90deg, #babde3, #e6c79b, #d27940); }
+    .metric-light { --accent: #94691b; --tint: #fff5d9; --ramp: linear-gradient(90deg, #536176, #aab78f, #f3c85c); }
+    .metric-moisture { --accent: #2e729a; --tint: #e6f2fa; --ramp: linear-gradient(90deg, #cfb889, #a4c6af, #65a2c5, #3975ab); }
+    .metric-meter-missing .metric-track { background: repeating-linear-gradient(120deg, #e5e9e2, #e5e9e2 5px, #f5f7f2 5px, #f5f7f2 10px); }
+    .metric-unknown .metric-value { color: #5f6b61; font-size: 1.05rem; }
+    .simple-source-note { font-size: 0.875rem; line-height: 1.6; color: #334f39; margin: 1rem 0 1.5rem; }
+    .simple-source-note a { color: #254e32; }
+    .simple-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; }
+    .simple-actions > p { margin: 0; font-size: 0.9rem; }
+    .simple-actions > button { margin: 0; }
+    @container (max-width: 420px) {
+      .simple-metrics { grid-template-columns: minmax(0, 1fr); }
+      .simple-profile { padding: 1.1rem; }
+      .metric-card { padding: 1.1rem; }
+    }
     .visually-hidden {
       position: absolute;
       width: 1px;
@@ -212,9 +277,14 @@
       #container {
         flex-direction: column;
       }
+      #result {
+        width: 100%;
+        flex: none;
+      }
       #map {
         order: 2;
         width: 100%;
+        box-sizing: border-box;
       }
     }
     #plantListContainer {
@@ -383,6 +453,7 @@ input:focus-visible + .slider {
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- Din JS -->
   <script src="data-view.js"></script>
+  <script src="simple-view.js"></script>
   <script src="script.js"></script>
 
   <script>

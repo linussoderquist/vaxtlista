@@ -4,6 +4,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const vm = require("node:vm");
 const view = require("../data-view.js");
+const simpleView = require("../simple-view.js");
 const read = name => JSON.parse(fs.readFileSync(path.join(__dirname, "../data", name), "utf8"));
 const redlist = read("redlist-2025.json");
 const nordic = read("nordictraits-v1.json");
@@ -40,7 +41,7 @@ test("current Red List values replace legacy threatened and non-threatened value
   assert.equal(redlist.taxa["222914"].category, "LC"); // backsmörblomma: formerly NT
   assert.equal(redlist.taxa["504"].category, "LC");
   assert.equal(redlist.taxa["222135"].category, "NA");
-  assert.match(view.renderRedlist(redlist, "222135"), /NA<\/span>Ej tillämplig/);
+  assert.match(view.renderRedlist(redlist, "222135"), /NA<\/span> Ej tillämplig/);
   for (const record of Object.values(redlist.taxa)) {
     assert.match(record.categoryRaw, new RegExp(`^${record.category}(?:$|[^A-Z])`));
     assert.match(view.getRedlistBadge(record.categoryRaw), new RegExp(`rl-${record.category}`));
@@ -133,6 +134,7 @@ async function bootSite(failedUrl) {
   const map = {setView() {return this;}};
   const context = vm.createContext({
     PlantDataView: view,
+    SimplePlantView: simpleView,
     document: {getElementById: element},
     L: {map: () => map, tileLayer: () => ({addTo() {}})},
     Papa: {parse(url, options) {Promise.resolve().then(() => url === failedUrl ? options.error(new Error("Simulated download failure")) : options.complete({data: csvFixtures[url]}));}},
@@ -156,16 +158,16 @@ test("site initialization keeps search usable after either new source fails", as
     assert.match(html, /silvergran/);
     assert.doesNotMatch(html, /rl-CR/); // never use legacy CR fixture
     if (failed.includes("redlist")) assert.match(html, /Rödlista 2025:<\/strong> Uppgifterna kunde inte laddas/);
-    else assert.match(html, /NordicTraits:<\/strong> Uppgifterna kunde inte laddas/);
+    else assert.match(html, /Kunde inte laddas/);
   }
 });
 
 test("scientific autocomplete selections keep the selected subspecies in both modes", async () => {
   const {context, element} = await bootSite();
   context.searchPlantByScientific("Armeria maritima ssp. maritima");
-  assert.match(element("result").innerHTML, /strandtrift \(Armeria maritima ssp\. maritima\)/);
+  assert.match(element("result").innerHTML, /strandtrift <span class="scientific-name">\(Armeria maritima ssp\. maritima\)/);
   assert.doesNotMatch(element("result").innerHTML, /backtrift/);
-  assert.match(element("result").innerHTML, /NordicTraits:<\/strong> Uppgift saknas/);
+  assert.match(element("result").innerHTML, /Uppgift saknas/);
   element("modeToggle").checked = true;
   context.toggleMode();
   assert.match(element("result").innerHTML, /strandtrift/);
@@ -179,4 +181,20 @@ test("a failed main plant list reports an error without enabling search", async 
   assert.equal(vm.runInContext("allDataLoaded", context), false);
   assert.equal(element("searchInput").disabled, true);
   assert.match(element("result").textContent, /Artlistan kunde inte laddas/);
+});
+
+test("simplified overview retains identity, red list, immigration, risk and EU listing before all meters", async () => {
+  const {context}=await bootSite();
+  vm.runInContext('riskData = [{TaxonId:"222135", "Riskkategori, utfall enligt GEIAA metodik":"HI"}]',context);
+  const html=context.formatPlantInfo(vm.runInContext("plantData[2]",context),true);
+  assert.match(html,/simple-profile/);
+  assert.match(html,/silvergran/);
+  assert.match(html,/Abies alba Mill\./);
+  let previous=-1;
+  for (const needle of ["Familj:","Rödlista 2025:","Invandringstid:","Riskklass:","EU-listad invasiv art","simple-dashboard"]) {
+    const at=html.indexOf(needle);
+    assert.ok(at>previous,needle+" must occur before the next section");
+    previous=at;
+  }
+  assert.match(html,/>HI<\/span>/);
 });
