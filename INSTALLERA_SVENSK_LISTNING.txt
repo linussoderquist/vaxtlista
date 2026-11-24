@@ -1,0 +1,20 @@
+VÄXTSÖK – SVENSK NATIONELL FÖRTECKNING
+
+Packa upp filerna och lägg dem i ditt befintliga projekt. Ersätt filer med samma
+namn och behåll mapparna data/ och tests/. Paketet innehåller även den senaste
+förenklade vyn med sju mätare.
+
+Nya filer som måste följa med:
+  invasive-view.js
+  data/national-invasive-2026.json
+  simple-view.js (om mätaruppdateringen inte redan lagts in)
+
+Förteckningen omfattar samtliga 11 kärlväxter i bilagan till SFS 2026:311,
+kontrollerad 2026-11-24. EU-listning och nationell listning visas separat.
+Särskilda regler för spärroxbär, tak med fetblad och frösterila vresroshybrider
+finns i respektive arts informationsruta. Regler och undantag kan fällas ut.
+
+Befintliga CSV-filer och de tidigare filerna i data/ ska finnas kvar.
+Kontroll: node --test tests/*.test.js (22 tester passerar).
+
+Ändringarna är förberedda och testade; de är inte publicerade på GitHub ännu.

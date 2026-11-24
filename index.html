@@ -183,6 +183,13 @@
     .metric-unknown .metric-value { color: #5f6b61; font-size: 1.05rem; }
     .simple-source-note { font-size: 0.875rem; line-height: 1.6; color: #334f39; margin: 1rem 0 1.5rem; }
     .simple-source-note a { color: #254e32; }
+    .invasive-notice { margin-top: 1.15rem; padding: 1rem; border-radius: 10px; border: 1px solid #dfb36d; border-left: 4px solid #a76321; background: #fff4df; color: #603b18; }
+    .invasive-notice p { font-size: 0.9rem; line-height: 1.6; margin: 0.6rem 0; }
+    .invasive-notice .invasive-title { margin-top: 0; font-size: 1rem; }
+    .invasive-reference { color: #72532e; }
+    .invasive-details { margin-top: 0.75rem; }
+    .invasive-details summary { cursor: pointer; font-size: 0.9rem; font-weight: bold; }
+    .invasive-notice a { color: #654016; text-decoration: underline; }
     .simple-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; }
     .simple-actions > p { margin: 0; font-size: 0.9rem; }
     .simple-actions > button { margin: 0; }
@@ -371,7 +378,7 @@ input:focus-visible + .slider {
   <p>
     Sök svenska kärlväxter och få ekologisk information om deras härdighet, ljus- och fuktbehov,
     nektarvärde, biodiversitetsrelevans samt riskklassning. Arter på EU:s lista över invasiva växter och
-    svenska rödlistan markeras särskilt. Välj förenklad eller avancerad information om arten nedan.
+    svenska rödlistan markeras särskilt. Även arter på Sveriges nationella förteckning över invasiva främmande arter markeras, med information om regler och undantag. Välj förenklad eller avancerad information om arten nedan.
     Rödlistekategorier från <a href="https://doi.org/10.5878/ffrv-6x57" target="_blank" rel="noopener">SLU Artdatabankens Rödlista 2025</a>, publicerad 24 mars 2026.
     Funktionella egenskaper från <a href="https://github.com/poniitty/NordicTraits" target="_blank" rel="noopener">NordicTraits V1 (Niittynen et al., 2026)</a>.
     Miljöindikatorer och biodiversitetsrelevans från <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank" rel="noopener">Tyler et al. (2021)</a>.
@@ -454,6 +461,7 @@ input:focus-visible + .slider {
   <!-- Din JS -->
   <script src="data-view.js"></script>
   <script src="simple-view.js"></script>
+  <script src="invasive-view.js"></script>
   <script src="script.js"></script>
 
   <script>

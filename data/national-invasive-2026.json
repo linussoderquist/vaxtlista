@@ -1,0 +1,83 @@
+{
+  "source": {
+    "name": "Sveriges nationella förteckning över invasiva främmande arter – kärlväxter",
+    "regulation": "2026:311",
+    "effectiveFrom": "2026-05-15",
+    "checkedOn": "2026-11-24",
+    "url": "https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/forordning-2026311-om-invasiva-frammande-arter_sfs-2026-311/",
+    "guidanceUrl": "https://www.naturvardsverket.se/amnesomraden/invasiva-frammande-arter/nationell-forteckning-over-invasiva-frammande-arter/",
+    "scope": "De elva kärlväxterna i bilagan; djur ingår inte i Växtsök.",
+    "provisions": [
+      "1 kap. 5 § och bilagan",
+      "3 kap. 1 och 5–7 §§"
+    ]
+  },
+  "taxa": {
+    "222991": {
+      "scientificName": "Cotoneaster divaricatus",
+      "swedishName": "spärroxbär",
+      "habitat": "land",
+      "exception": "regional"
+    },
+    "223009": {
+      "scientificName": "Cotula coronopifolia",
+      "swedishName": "strandkotula",
+      "habitat": "land",
+      "exception": null
+    },
+    "221246": {
+      "scientificName": "Lupinus nootkatensis",
+      "swedishName": "sandlupin",
+      "habitat": "land",
+      "exception": null
+    },
+    "221248": {
+      "scientificName": "Lupinus polyphyllus",
+      "swedishName": "blomsterlupin",
+      "habitat": "land",
+      "exception": null
+    },
+    "223354": {
+      "scientificName": "Phedimus hybridus",
+      "swedishName": "sibiriskt fetblad",
+      "habitat": "land",
+      "exception": "vegetation_roof"
+    },
+    "223356": {
+      "scientificName": "Phedimus spurius",
+      "swedishName": "kaukasiskt fetblad",
+      "habitat": "land",
+      "exception": "vegetation_roof"
+    },
+    "223120": {
+      "scientificName": "Rosa rugosa",
+      "swedishName": "vresros",
+      "habitat": "land",
+      "exception": "sterile_hybrids"
+    },
+    "220325": {
+      "scientificName": "Solidago canadensis",
+      "swedishName": "kanadensiskt gullris",
+      "habitat": "land",
+      "exception": null
+    },
+    "220326": {
+      "scientificName": "Solidago gigantea",
+      "swedishName": "höstgullris",
+      "habitat": "land",
+      "exception": null
+    },
+    "219564": {
+      "scientificName": "Elodea canadensis",
+      "swedishName": "vattenpest",
+      "habitat": "water",
+      "exception": null
+    },
+    "222110": {
+      "scientificName": "Nymphoides peltata",
+      "swedishName": "sjögull",
+      "habitat": "water",
+      "exception": null
+    }
+  }
+}

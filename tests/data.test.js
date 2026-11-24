@@ -5,10 +5,12 @@ const path = require("node:path");
 const vm = require("node:vm");
 const view = require("../data-view.js");
 const simpleView = require("../simple-view.js");
+const invasiveView = require("../invasive-view.js");
 const read = name => JSON.parse(fs.readFileSync(path.join(__dirname, "../data", name), "utf8"));
 const redlist = read("redlist-2025.json");
 const nordic = read("nordictraits-v1.json");
 const report = read("update-report.json");
+const national = read("national-invasive-2026.json");
 
 test("all matched taxa have exactly 44 traits, complete imputation flags and source units", () => {
   assert.equal(report.plantCount, 2426);
@@ -123,7 +125,8 @@ async function bootSite(failedUrl) {
   const plants = [
     {"Scientific name": "Armeria maritima ssp. elongata", "Svenskt namn": "backtrift", "Dyntaxa ID number": "223896", "Family": "Plumbaginaceae"},
     {"Scientific name": "Armeria maritima ssp. maritima", "Svenskt namn": "strandtrift", "Dyntaxa ID number": "223898", "Family": "Plumbaginaceae"},
-    {"Scientific name": "Abies alba Mill.", "Svenskt namn": "silvergran", "Dyntaxa ID number": "222135", "Family": "Pinaceae", "Red-listed": "CR"}
+    {"Scientific name": "Abies alba Mill.", "Svenskt namn": "silvergran", "Dyntaxa ID number": "222135", "Family": "Pinaceae", "Red-listed": "CR"},
+    {"Scientific name": "Lupinus polyphyllus Lindl.", "Svenskt namn": "blomsterlupin", "Dyntaxa ID number": "221248", "Family": "Fabaceae", "Time of immigration": "5"}
   ];
   const csvFixtures = {
     "vaxtdata.csv": plants,
@@ -135,10 +138,11 @@ async function bootSite(failedUrl) {
   const context = vm.createContext({
     PlantDataView: view,
     SimplePlantView: simpleView,
+    InvasivePlantView: invasiveView,
     document: {getElementById: element},
     L: {map: () => map, tileLayer: () => ({addTo() {}})},
     Papa: {parse(url, options) {Promise.resolve().then(() => url === failedUrl ? options.error(new Error("Simulated download failure")) : options.complete({data: csvFixtures[url]}));}},
-    fetch: async url => ({ok: url !== failedUrl, status: url === failedUrl ? 503 : 200, json: async () => url.includes("gbif.org") ? {results: [], endOfRecords: true} : url.includes("redlist") ? redlist : nordic}),
+    fetch: async url => ({ok: url !== failedUrl, status: url === failedUrl ? 503 : 200, json: async () => url.includes("gbif.org") ? {results: [], endOfRecords: true} : ({"data/redlist-2025.json": redlist, "data/nordictraits-v1.json": nordic, "data/national-invasive-2026.json": national})[url]}),
     console: {error() {}},
   });
   vm.runInContext(fs.readFileSync(path.join(__dirname, "../script.js"), "utf8"), context);
@@ -197,4 +201,36 @@ test("simplified overview retains identity, red list, immigration, risk and EU l
     previous=at;
   }
   assert.match(html,/>HI<\/span>/);
+});
+
+test("national listing is shown before meters in both modes without being called EU listing", async () => {
+  const {context,element}=await bootSite();
+  context.searchPlantByScientific("Lupinus polyphyllus");
+  let html=element("result").innerHTML;
+  assert.match(html,/Nationellt listad invasiv art/);
+  assert.doesNotMatch(html,/EU-listad invasiv art/);
+  assert.ok(html.indexOf("Nationellt listad")<html.indexOf("simple-dashboard"));
+  element("modeToggle").checked=true;
+  context.toggleMode();
+  html=element("result").innerHTML;
+  assert.match(html,/Nationellt listad invasiv art/);
+  assert.equal((html.match(/<th scope="row"/g)||[]).length,44);
+});
+
+test("failed national listing is reported explicitly while species search and EU status still work", async () => {
+  const {context,element}=await bootSite("data/national-invasive-2026.json");
+  assert.equal(vm.runInContext("allDataLoaded",context),true);
+  context.searchPlantByScientific("Lupinus polyphyllus");
+  assert.match(element("result").innerHTML,/Nationell invasivstatus kunde inte laddas/);
+  assert.doesNotMatch(element("result").innerHTML,/Nationellt listad invasiv art/);
+  assert.match(context.formatPlantInfo(vm.runInContext("plantData[3]",context),true),/EU-listad invasiv art/);
+});
+
+test("the official national name strandkotula is a search alias for the existing kotula record",async()=>{
+  const {context,element}=await bootSite();
+  vm.runInContext('plantData.push({"Scientific name":"Cotula coronopifolia L.","Svenskt namn":"kotula","Dyntaxa ID number":"223009","Family":"Asteraceae"})',context);
+  element("searchInput").value="strandkotula";
+  context.searchPlant();
+  assert.match(element("result").innerHTML,/Cotula coronopifolia/);
+  assert.match(element("result").innerHTML,/Nationellt listad invasiv art/);
 });

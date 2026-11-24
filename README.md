@@ -17,6 +17,27 @@ underkategorier finns kvar i den förklarande texten. Saknade värden får ingen
 markör. Imputerade NordicTraits-värden markeras i respektive kort. Alla 44
 egenskaper finns kvar i avancerat läge.
 
+## Svensk nationell förteckning över invasiva arter
+
+`data/national-invasive-2026.json` omfattar samtliga elva kärlväxter i bilagan
+till [förordning (2026:311)](https://www.riksdagen.se/sv/dokument-och-lagar/dokument/svensk-forfattningssamling/forordning-2026311-om-invasiva-frammande-arter_sfs-2026-311/),
+som gäller sedan 15 maj 2026. Alla elva matchar befintliga arter via Dyntaxa-ID.
+Nationell listning visas i båda lägena, separat från EU-listning och riskklass.
+Uppgifterna kontrollerades 2026-11-24 mot förordningen och
+[Naturvårdsverkets vägledning](https://www.naturvardsverket.se/amnesomraden/invasiva-frammande-arter/nationell-forteckning-over-invasiva-frammande-arter/).
+
+Artinformationen visar de särskilda undantagen för spärroxbär (Gotlands och
+Kalmar län, inget införselförbud), användning av de två fetbladen på vissa
+vegetationstak samt frösterila vresroshybrider. Under ”Regler och undantag” finns
+även information om befintliga förekomster hos privata fastighetsägare och
+nyttjanderättshavare, med villkoret om slutna vattensamlingar för vattenväxter.
+Vägledningen innehåller ingen generell uppmaning att alltid ta bort alla bestånd.
+
+JSON-filen är ett granskat urval för denna växtapp; den hämtas inte automatiskt
+från en myndighet vid sidvisning. Ändringar i lagstiftningen behöver granskas och
+föras in i filen. Om filen inte kan laddas visas detta uttryckligen.
+Det officiella namnet strandkotula fungerar som sökalias till projektets kotula.
+
 ## Aktuella artdata
 
 - **Rödlista 2025**, SLU Artdatabanken, publicerad 24 mars 2026. Underlaget omfattar
@@ -93,6 +114,7 @@ Kör syntax- och datakontroller med Node.js 18 eller senare:
 node --check script.js
 node --check data-view.js
 node --check simple-view.js
+node --check invasive-view.js
 node --test tests/*.test.js
 ```
 

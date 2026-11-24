@@ -3,6 +3,7 @@
 let plantData = [];
 let riskData = [];
 let euInvasiveData = [];
+let nationalInvasiveData = null;
 let nordicTraits = null;
 let redlistData = null;
 let gbifLayer;
@@ -155,7 +156,7 @@ function setupAutocomplete() {
     if (val.length < 2) return;
 
     const matches = plantData
-      .filter(p => p["Svenskt namn"]?.toLowerCase().includes(val))
+      .filter(p => p["Svenskt namn"]?.toLowerCase().includes(val) || InvasivePlantView.nationalRecord(nationalInvasiveData, p["Dyntaxa ID number"])?.swedishName.toLowerCase().includes(val))
       .map(p => p["Svenskt namn"]);
 
     const uniqueMatches = [...new Set(matches)].slice(0, 10);
@@ -335,7 +336,7 @@ function searchPlant() {
   }
 
   const inputVal = input.value.toLowerCase().trim();
-  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal);
+  const match = plantData.find(p => p["Svenskt namn"]?.toLowerCase().trim() === inputVal || InvasivePlantView.nationalRecord(nationalInvasiveData, p["Dyntaxa ID number"])?.swedishName.toLowerCase().trim() === inputVal);
 
   if (!match) {
     resultDiv.innerHTML = "🚫 Växten hittades inte.";
@@ -741,6 +742,7 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Invandringstid:</strong> ${immigration}</p>
     ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
     ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
+    ${InvasivePlantView.renderNationalStatus(nationalInvasiveData, dyntaxa)}
   `;
   const addButton = `<button onclick="addToPlantList(currentSelectedPlant['Svenskt namn'], currentSelectedPlant['Scientific name'])">➕ Lägg till i min växtlista</button>`;
   const artfakta = dyntaxa ? `<p><strong>Artfakta:</strong> <a href="https://artfakta.se/taxa/${encodeURIComponent(dyntaxa)}" target="_blank" rel="noopener">Visa Artfakta</a></p>` : "";
@@ -793,6 +795,7 @@ async function loadJson(url) {
   const dataset = await response.json();
   if (!dataset.source || !dataset.taxa || !Object.keys(dataset.taxa).length) throw new Error(`Ogiltig datafil: ${url}`);
   if (url.includes("nordictraits") && (!dataset.species || dataset.traits?.length !== 44)) throw new Error("Ogiltig NordicTraits-fil");
+  if (url.includes("national-invasive") && (!dataset.source.regulation || !dataset.source.effectiveFrom || Object.values(dataset.taxa).some(row => !row.scientificName || !row.swedishName || !["land", "water"].includes(row.habitat)))) throw new Error("Ogiltig nationell invasivförteckning");
   return dataset;
 }
 
@@ -803,11 +806,12 @@ async function initializeData() {
   const results = await Promise.allSettled([
     loadCsv("vaxtdata.csv"), loadCsv("Riskklassning2024_Uttag.csv"),
     loadCsv("eu_invasiva_vaxtarter.csv"), loadCsv("resource_relevant.csv"),
-    loadJson("data/redlist-2025.json"), loadJson("data/nordictraits-v1.json")
+    loadJson("data/redlist-2025.json"), loadJson("data/nordictraits-v1.json"),
+    loadJson("data/national-invasive-2026.json")
   ]);
   const values = results.map(result => result.status === "fulfilled" ? result.value : null);
   [plantData, riskData, euInvasiveData, insectData] = values.slice(0, 4).map(value => value || []);
-  [redlistData, nordicTraits] = values.slice(4);
+  [redlistData, nordicTraits, nationalInvasiveData] = values.slice(4);
   results.filter(result => result.status === "rejected").forEach(result => console.error("Kunde inte ladda artuppgifter:", result.reason));
   if (!plantData.length) {
     resultDiv.textContent = "Artlistan kunde inte laddas. Försök ladda om sidan.";
