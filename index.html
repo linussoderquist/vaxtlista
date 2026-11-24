@@ -20,6 +20,7 @@
     }
 
     input[type="text"] {
+      box-sizing: border-box;
       width: 100%;
       max-width: 600px;
       font-size: 1.2rem;
@@ -92,7 +93,48 @@
     .rl-NT { background-color: #f7c6c6; color: #000; }
     .rl-LC { background-color: #2e8b57; }
     .rl-DD { background-color: #999; }
-    .rl-NE { background-color: #ccc; color: #000; }
+    .rl-NE, .rl-NA { background-color: #ccc; color: #000; }
+
+    .source-note {
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .imputed {
+      display: inline-block;
+      padding: 0.12rem 0.4rem;
+      border-radius: 0.3rem;
+      background: #e1e8f8;
+      color: #233d68;
+      font-size: 0.875rem;
+    }
+
+    .trait-group {
+      margin: 0.8rem 0;
+      background: #ffffffb8;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+    }
+
+    .trait-group summary { cursor: pointer; font-weight: bold; }
+    .trait-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+    .trait-table th, .trait-table td {
+      padding: 0.55rem 0.3rem;
+      border-bottom: 1px solid #8ba778;
+      text-align: left;
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+    .trait-table th { width: 43%; }
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
 
     .risk-tag {
       padding: 5px 10px;
@@ -210,8 +252,13 @@
 }
 .switch input {
   opacity: 0;
-  width: 0;
-  height: 0;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  z-index: 1;
+  cursor: pointer;
 }
 .slider {
   position: absolute;
@@ -241,6 +288,10 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(24px);
 }
+input:focus-visible + .slider {
+  outline: 3px solid #233d68;
+  outline-offset: 3px;
+}
 
   </style>
 </head>
@@ -250,37 +301,39 @@ input:checked + .slider:before {
   <p>
     Sök svenska kärlväxter och få ekologisk information om deras härdighet, ljus- och fuktbehov,
     nektarvärde, biodiversitetsrelevans samt riskklassning. Arter på EU:s lista över invasiva växter och
-    svenska rödlistan markeras särskilt. Välj förenklad eller avancerad information om arten nedan. Data anpassad från <a href="https://www.artfakta.se/" target="_blank">Artfakta</a>
-    och <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank">Tyler et al. (2021)</a>. Kartdata över rapporter från norra Europa, från år 2015 och framåt. Källa: 
+    svenska rödlistan markeras särskilt. Välj förenklad eller avancerad information om arten nedan.
+    Rödlistekategorier från <a href="https://doi.org/10.5878/ffrv-6x57" target="_blank" rel="noopener">SLU Artdatabankens Rödlista 2025</a>, publicerad 24 mars 2026.
+    Funktionella egenskaper från <a href="https://github.com/poniitty/NordicTraits" target="_blank" rel="noopener">NordicTraits V1 (Niittynen et al., 2026)</a>.
+    Miljöindikatorer och biodiversitetsrelevans från <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank" rel="noopener">Tyler et al. (2021)</a>.
+    Kartdata över rapporter från norra Europa. Källa:
   <a href="https://www.gbif.org/" target="_blank" style="color: #004d00; text-decoration: underline;">
     gbif.org</a>
   </p>
   <p>Sök efter växtart med svenskt eller vetenskapligt namn:</p>
   <label for="searchInput"></label>
-<input id="searchInput" placeholder="svenskt namn" />
+<input type="text" id="searchInput" placeholder="svenskt namn" aria-label="Svenskt namn" disabled />
 
 <label for="searchScientific"></label>
-<input id="searchScientific" placeholder="vetenskapligt namn" /></br>
+<input type="text" id="searchScientific" placeholder="vetenskapligt namn" aria-label="Vetenskapligt namn" disabled /><br>
 
 <div id="suggestions"></div>
-  <div id="suggestions"></div>
   <p>Identifiera växt med bild via <a href="https://www.plantnet.org/" target="_blank" style="color: #004d00; text-decoration: underline;"> PlantNet</a>:</p>
 <input type="file" id="imageInput" accept="image/*" />
 <button onclick="identifyPlant()">Identifiera</button>
 <div id="plantnetResult"></div>
   <div style="margin-bottom: 1rem;"></br>
-  <label style="display: inline-flex; align-items: center; gap: 0.5rem; font-weight: bold;">
+  <div style="display: inline-flex; align-items: center; gap: 0.5rem; font-weight: bold;">
     <span>Förenklat</span>
     <label class="switch">
-      <input type="checkbox" id="modeToggle" onchange="toggleMode()">
+      <input type="checkbox" id="modeToggle" aria-label="Visa alla funktionella egenskaper" onchange="toggleMode()">
       <span class="slider"></span>
     </label>
     <span>Avancerat</span>
-  </label>
+  </div>
 </div>
   
   <div id="container">
-    <div id="result"></div>
+    <div id="result" aria-live="polite"></div>
     <div id="map"></div>
     <div id="plantListContainer">
   <h2>📝 Min växtlista</h2>
@@ -289,7 +342,7 @@ input:checked + .slider:before {
   </ul>
 </div>
 
-
+  </div>
   <button id="legendToggle" onclick="toggleLegend()">▼ Visa förklaringar</button>
 
   <div id="legendSection">
@@ -299,6 +352,7 @@ input:checked + .slider:before {
         <ul class="legend">
           <li><span class="redlist-badge rl-EX">EX</span> Utdöd</li>
           <li><span class="redlist-badge rl-EW">EW</span> Utdöd i vilt tillstånd</li>
+          <li><span class="redlist-badge rl-RE">RE</span> Nationellt utdöd</li>
           <li><span class="redlist-badge rl-CR">CR</span> Akut hotad</li>
           <li><span class="redlist-badge rl-EN">EN</span> Starkt hotad</li>
           <li><span class="redlist-badge rl-VU">VU</span> Sårbar</li>
@@ -306,10 +360,10 @@ input:checked + .slider:before {
           <li><span class="redlist-badge rl-LC">LC</span> Livskraftig</li>
           <li><span class="redlist-badge rl-DD">DD</span> Kunskapsbrist</li>
           <li><span class="redlist-badge rl-NE">NE</span> Ej bedömd</li>
+          <li><span class="redlist-badge rl-NA">NA</span> Ej tillämplig</li>
         </ul>
+        <p class="source-note">Saknad uppgift är inte en rödlistekategori. ° anger nedgradering på grund av immigration; °* anger justering av annat skäl. PRE anger möjligen nationellt utdöd.</p>
       </div>
-     <div>
-  
       <div>
         <h3>Riskklass (GEIAA)</h3>
         <ul class="legend">
@@ -320,12 +374,15 @@ input:checked + .slider:before {
           <li><span style="background-color:#fdf7d4; color:black;">NK</span> Ingen känd risk</li>
         </ul>
       </div>
+    </div>
+  </div>
 
   <!-- PapaParse för CSV -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <!-- Leaflet -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <!-- Din JS -->
+  <script src="data-view.js"></script>
   <script src="script.js"></script>
 
   <script>

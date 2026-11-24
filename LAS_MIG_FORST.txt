@@ -1,0 +1,28 @@
+VÄXTSÖK – UPPDATERING 2026-11-24
+
+Detta paket innehåller de ändrade och nya filerna för projektet
+https://github.com/linussoderquist/vaxtlista
+
+Packa upp filerna i din befintliga projektmapp. Ersätt filerna med samma namn
+och behåll mapparna data/, scripts/ och tests/. Övriga befintliga källfiler,
+bland annat vaxtdata.csv, riskklassningen och fjärilsdata, behövs fortfarande.
+
+Innehåll:
+- Rödlistekategorier enligt Rödlista 2025 (publicerad mars 2026).
+- NordicTraits V1: alla 44 funktionella egenskaper med imputeringsflaggor.
+- Källor, taxonmatchning och listor över saknade uppgifter i data/update-report.json.
+- Reproducerbart dataskript och automatiska tester.
+
+Kör kontrollerna med:
+  node --check script.js
+  node --check data-view.js
+  node --test tests/data.test.js
+
+Ändringarna är testade lokalt, även i webbläsare. De har inte publicerats
+på GitHub eller GitHub Pages. GitHub-anslutning behövs för publicering härifrån.
+
+Läs README.md för källor, datatäckning och uppdatering.
+
+Ursprunglig commit: 6ae6ac99e94039d2b471a3ce9a07e386c2ba0237
+Förberedd commit: 67933467ef48409513c4e6161556223099f66c7f
+Gren: update/redlist-2025-nordictraits

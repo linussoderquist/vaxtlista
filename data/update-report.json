@@ -1,0 +1,6312 @@
+{
+  "retrievedAt": "2026-11-24",
+  "plantCount": 2426,
+  "redlistMatched": 2418,
+  "nordicTraitsMatched": 2256,
+  "nordicTraitsMatchMethods": {
+    "dyntaxa_id": 2230,
+    "exact_name_or_documented_synonym": 26
+  },
+  "redlistCategories": {
+    "CR": 48,
+    "DD": 3,
+    "EN": 86,
+    "LC": 1178,
+    "NA": 768,
+    "NE": 24,
+    "NT": 163,
+    "RE": 13,
+    "VU": 135
+  },
+  "redlistChangesFromLegacyFile": [
+    {
+      "taxonId": "222135",
+      "scientificName": "Abies alba Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222138",
+      "scientificName": "Abies grandis (Douglas ex D. Don) Lindl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223314",
+      "scientificName": "Acer negundo L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223316",
+      "scientificName": "Acer pseudoplatanus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223319",
+      "scientificName": "Acer tataricum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219899",
+      "scientificName": "Achillea crithmifolia Waldst. & Kit.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219902",
+      "scientificName": "Achillea filipendulina Lam.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222767",
+      "scientificName": "Aconitum × stoerkianum Rchb.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "220614",
+      "scientificName": "Aconogonon × fennicum Reiersen",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222769",
+      "scientificName": "Aconogonon alpinum (All.) Schur",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220615",
+      "scientificName": "Aconogonon divaricatum (L.) Nakai",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220616",
+      "scientificName": "Aconogonon weyrichii (F. Schmidt ex Maxim.) H. Hara",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222770",
+      "scientificName": "Actaea rubra (Aiton) Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223321",
+      "scientificName": "Aesculus hippocastanum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221593",
+      "scientificName": "Agastache rugosa (Fisch. & C. A. Mey.) Kuntze",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "14",
+      "scientificName": "Agrostemma githago L.",
+      "oldValue": "CR",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "222197",
+      "scientificName": "Agrostis scabra Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "16",
+      "scientificName": "Aira caryophyllea L.",
+      "oldValue": "NT",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "222777",
+      "scientificName": "Alcea rosea L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222935",
+      "scientificName": "Alchemilla baltica Sam. ex Juz.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222937",
+      "scientificName": "Alchemilla chirophylla",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222940",
+      "scientificName": "Alchemilla cymatophylla Juz.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222948",
+      "scientificName": "Alchemilla mollis (Buser) Rothm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222955",
+      "scientificName": "Alchemilla propinqua H. Lindb. ex Juz.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222958",
+      "scientificName": "Alchemilla sarmatica Juz.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222960",
+      "scientificName": "Alchemilla speciosa Buser",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219740",
+      "scientificName": "Allium hollandicum R. M. Fritsch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219745",
+      "scientificName": "Allium oreophilum C. A. Mey.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219746",
+      "scientificName": "Allium paradoxum (M. Bieb.) G. Don",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219750",
+      "scientificName": "Allium rotundum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219757",
+      "scientificName": "Allium zebdanense Boiss. & Noë",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222016",
+      "scientificName": "Althaea officinalis L.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "220626",
+      "scientificName": "Amaranthus blitum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220632",
+      "scientificName": "Amaranthus hybridus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220637",
+      "scientificName": "Amaranthus retroflexus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219920",
+      "scientificName": "Ambrosia artemisiifolia L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219922",
+      "scientificName": "Ambrosia psilostachya DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219925",
+      "scientificName": "Amelanchier alnifolia (Nutt.) M.Roem.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222967",
+      "scientificName": "Amelanchier confusa Hyl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222969",
+      "scientificName": "Amelanchier lamarckii F. G. Schroed.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222971",
+      "scientificName": "Amelanchier spicata (Lam.) K. Koch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224539",
+      "scientificName": "Ammophila arenaria x Calamagrostis epigejos",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221073",
+      "scientificName": "Anaphalis margaritacea (L.) Benth.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222212",
+      "scientificName": "Androsace elongata L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222779",
+      "scientificName": "Anemone blanda Schott & Kotschy",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224888",
+      "scientificName": "Anemone nemorosa x ranunculoides",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222214",
+      "scientificName": "Anisantha rigida (Roth) Hyl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "61",
+      "scientificName": "Anthericum liliago L.",
+      "oldValue": "EN",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "62",
+      "scientificName": "Anthriscus caucalis M. Bieb.",
+      "oldValue": "VU",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "63",
+      "scientificName": "Anthriscus cerefolium (L.) Hoffm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221163",
+      "scientificName": "Antirrhinum majus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220420",
+      "scientificName": "Arabis blepharophylla Hook. & Arn.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220421",
+      "scientificName": "Arabis caucasica Willd. ex Schltdl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219952",
+      "scientificName": "Aremonia agrimonoides (L.) DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223208",
+      "scientificName": "Aria edulis",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223211",
+      "scientificName": "Aria graeca",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1508",
+      "scientificName": "Aria obtusifolia",
+      "oldValue": "EN",
+      "newValue": "CR"
+    },
+    {
+      "taxonId": "1861",
+      "scientificName": "Arnica angustifolia Vahl",
+      "oldValue": "NT",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "219954",
+      "scientificName": "Arnica chamissonis Less.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "89",
+      "scientificName": "Arnoseris minima (L.) Schweigg. & Körte",
+      "oldValue": "EN",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "219964",
+      "scientificName": "Artemisia dracunculus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219970",
+      "scientificName": "Artemisia pontica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "92",
+      "scientificName": "Artemisia stelleriana Besser",
+      "oldValue": "RE",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219557",
+      "scientificName": "Arum maculatum L.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "222978",
+      "scientificName": "Aruncus dioicus (Walter) Fernald",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6002861",
+      "scientificName": "Asperula cynanchica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1228",
+      "scientificName": "Asplenium scolopendrium L.",
+      "oldValue": "EN",
+      "newValue": "CR"
+    },
+    {
+      "taxonId": "6012035",
+      "scientificName": "Asplenium trichomanes ssp. quadrivalens",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224869",
+      "scientificName": "Asplenium trichomanes ssp. trichomanes",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "221168",
+      "scientificName": "Astragalus cicer L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221176",
+      "scientificName": "Astrantia major L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220656",
+      "scientificName": "Atriplex hortensis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "120",
+      "scientificName": "Atriplex laciniata L.",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "220673",
+      "scientificName": "Atriplex tatarica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220674",
+      "scientificName": "Atropa bella-donna L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221602",
+      "scientificName": "Barbarea intermedia Boreau",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222235",
+      "scientificName": "Beckmannia syzigachne (Steud.) Fernald",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222794",
+      "scientificName": "Berberis thunbergii DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222796",
+      "scientificName": "Bergenia cordifolia (Haw.) Sternb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223331",
+      "scientificName": "Bergenia crassifolia (L.) Fritsch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221830",
+      "scientificName": "Betonica macrantha K. Koch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219998",
+      "scientificName": "Bidens pilosa",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "146",
+      "scientificName": "Bidens radiata Thuill.",
+      "oldValue": "VU",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "6024008",
+      "scientificName": "Blackstonia perfoliata (L.) Huds.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220714",
+      "scientificName": "Blitum capitatum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222238",
+      "scientificName": "Borago officinalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "165",
+      "scientificName": "Botrychium lanceolatum (S. G. Gmel.) Ångstr.",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "166",
+      "scientificName": "Botrychium matricariifolium (Retz.) A. Braun ex Koch",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "168",
+      "scientificName": "Botrychium simplex E. Hitchc.",
+      "oldValue": "EN",
+      "newValue": "CR"
+    },
+    {
+      "taxonId": "220561",
+      "scientificName": "Botrychium tenebrosum",
+      "oldValue": "EN",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219638",
+      "scientificName": "Boykinia richardsonii (Hook.) Rothr.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220439",
+      "scientificName": "Brassica juncea (L.) Czern.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220440",
+      "scientificName": "Brassica napus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220441",
+      "scientificName": "Brassica nigra (L.) W. D. J. Koch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220443",
+      "scientificName": "Brassica rapa L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222246",
+      "scientificName": "Bromopsis erecta (Huds.) Fourr.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222247",
+      "scientificName": "Bromopsis inermis (Leyss.) Holub",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "173",
+      "scientificName": "Bromus arvensis L.",
+      "oldValue": "EN",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "175",
+      "scientificName": "Bromus commutatus Schrad.",
+      "oldValue": "EN",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "1726",
+      "scientificName": "Bromus lepidus Holmb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223416",
+      "scientificName": "Brunnera macrophylla (Adams) I. M. Johnst.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220998",
+      "scientificName": "Bryonia dioica Jacq.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220999",
+      "scientificName": "Buddleja davidii Franch.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "209",
+      "scientificName": "Bunium bulbocastanum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219640",
+      "scientificName": "Bupleurum falcatum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219561",
+      "scientificName": "Buxus sempervirens L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221510",
+      "scientificName": "Cabomba caroliniana A. Gray",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220006",
+      "scientificName": "Calendula officinalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223417",
+      "scientificName": "Calystegia pulchra Brummitt & Heywood",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "265833",
+      "scientificName": "Calystegia sepium ssp. sepium",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1708",
+      "scientificName": "Camelina microcarpa Andrz. ex DC.",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "220455",
+      "scientificName": "Campanula alliariifolia Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "260352",
+      "scientificName": "Campanula glomerata 'Superba'",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223652",
+      "scientificName": "Campanula glomerata ssp. glomerata",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "220014",
+      "scientificName": "Campanula lactiflora M. Bieb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220016",
+      "scientificName": "Campanula medium L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220021",
+      "scientificName": "Campanula rapunculoides L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223420",
+      "scientificName": "Caragana arborescens Lam.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221177",
+      "scientificName": "Caragana frutex (L.) K. Koch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6028243",
+      "scientificName": "Cardamine occulta Hornem.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221979",
+      "scientificName": "Carduus thoermeri",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222278",
+      "scientificName": "Carex aquatilis Wahlenb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "258",
+      "scientificName": "Carex bicolor Bellardi ex All.",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "262",
+      "scientificName": "Carex colchica J. Gay",
+      "oldValue": "NT",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "232089",
+      "scientificName": "Carex concolor",
+      "oldValue": "LC",
+      "newValue": "DD"
+    },
+    {
+      "taxonId": "259",
+      "scientificName": "Carex hartmanii Cajander",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "1866",
+      "scientificName": "Carex pallidula Harmaja",
+      "oldValue": "VU",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "267",
+      "scientificName": "Carex pendula Huds.",
+      "oldValue": "RE",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222359",
+      "scientificName": "Carex praticola Rydb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "268",
+      "scientificName": "Carex punctata Gaudin",
+      "oldValue": "NT",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "222369",
+      "scientificName": "Carex rufina Drejer",
+      "oldValue": "LC",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "230982",
+      "scientificName": "Carex x saamica",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "222384",
+      "scientificName": "Carlina acaulis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220042",
+      "scientificName": "Catapodium rigidum (L.) C. E. Hubb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220043",
+      "scientificName": "Centaurea × moncktonii Thuill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220047",
+      "scientificName": "Centaurea cheiranthifolia Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220055",
+      "scientificName": "Centaurea macrocephala Muss.Puschk. ex Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220058",
+      "scientificName": "Centaurea montana L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "285",
+      "scientificName": "Centaurea nigra L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264742",
+      "scientificName": "Centaurea phrygia L.",
+      "oldValue": "EN",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "220067",
+      "scientificName": "Centaurea stoebe L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "288",
+      "scientificName": "Centaurium erythraea Rafn",
+      "oldValue": "NT",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "221013",
+      "scientificName": "Centranthus ruber (L.) DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "289",
+      "scientificName": "Cephalanthera damasonium (Mill.) Druce",
+      "oldValue": "VU",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "219771",
+      "scientificName": "Cephalaria alpina (L.) Roem. & Schult.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221015",
+      "scientificName": "Cephalaria gigantea (Ledeb.) Bobrov",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "301",
+      "scientificName": "Cerastium brachypetalum Pers.",
+      "oldValue": "VU",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "220701",
+      "scientificName": "Cerastium tomentosum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220703",
+      "scientificName": "Ceratocapnos claviculata (L.) Lidén",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222388",
+      "scientificName": "Ceratochloa sitchensis (Trin.) Cope & Ryves",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221513",
+      "scientificName": "Chaenomeles japonica (Thunb.) Lindl. ex Spach",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235119",
+      "scientificName": "Chaenomeles speciosa (Sweet) Nakai",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222981",
+      "scientificName": "Chaenomeles x superba (Frahm) Rehder",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221619",
+      "scientificName": "Chaerophyllum aromaticum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "315",
+      "scientificName": "Chaerophyllum aureum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "316",
+      "scientificName": "Chaerophyllum bulbosum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221179",
+      "scientificName": "Chamaecytisus × versicolor (Dippel) Karlsson",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222144",
+      "scientificName": "Chamaecytisus elongatus (Waldst. & Kit.) Link",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221182",
+      "scientificName": "Chamaecytisus hirsutus (L.) Link",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220719",
+      "scientificName": "Chenopodium ficifolium Sm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1869",
+      "scientificName": "Chenopodium striatiforme Murr",
+      "oldValue": "EN",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "339",
+      "scientificName": "Chenopodium vulvaria L.",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "340",
+      "scientificName": "Chimaphila umbellata (L.) W. P. C. Barton",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "220075",
+      "scientificName": "Chrysosplenium alternifolium L.",
+      "oldValue": "LC",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "1870",
+      "scientificName": "Chrysosplenium oppositifolium L.",
+      "oldValue": "VU",
+      "newValue": "CR"
+    },
+    {
+      "taxonId": "345",
+      "scientificName": "Cinna latifolia (Trevir.) Griseb.",
+      "oldValue": "NT",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "350",
+      "scientificName": "Cirsium canum (L.) All.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222059",
+      "scientificName": "Claytonia perfoliata Donn ex Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220753",
+      "scientificName": "Claytonia sibirica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222804",
+      "scientificName": "Clematis alpina Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222806",
+      "scientificName": "Clematis tangutica (Maxim.) Korsh.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222807",
+      "scientificName": "Clematis vitalba L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222808",
+      "scientificName": "Clematis viticella L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221803",
+      "scientificName": "Clinopodium grandiflorum (L.) Kuntze",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221606",
+      "scientificName": "Clinopodium nepeta (L.) Kuntze",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221085",
+      "scientificName": "Collomia linearis Nutt.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222983",
+      "scientificName": "Commelina communis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219661",
+      "scientificName": "Corispermum intermedium Schweigg.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224080",
+      "scientificName": "Cornus alba L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220985",
+      "scientificName": "Cornus mas L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224081",
+      "scientificName": "Cornus sericea L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220481",
+      "scientificName": "Corrigiola litoralis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222813",
+      "scientificName": "Corydalis bracteata (Stephan ex Willd.) Pers.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222818",
+      "scientificName": "Corydalis nobilis (L.) Pers.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223325",
+      "scientificName": "Cotoneaster adpressus Bois",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222985",
+      "scientificName": "Cotoneaster ascendens Flinck & B. Hylmö",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222986",
+      "scientificName": "Cotoneaster atropurpureus Flinck & B. Hylmö",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222987",
+      "scientificName": "Cotoneaster bullatus Bois",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222989",
+      "scientificName": "Cotoneaster dammeri C. K. Schneid.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222990",
+      "scientificName": "Cotoneaster dielsianus E. Pritz.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222991",
+      "scientificName": "Cotoneaster divaricatus Rehder & E. H. Wilson",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222992",
+      "scientificName": "Cotoneaster hjelmqvistii Flinck & B. Hylmö",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222993",
+      "scientificName": "Cotoneaster horizontalis Decne.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222997",
+      "scientificName": "Cotoneaster laetevirens (Rehder & E. H. Wilson) Klotz",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264471",
+      "scientificName": "Cotoneaster latifolius J. Fryer & B. Hylmö",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222998",
+      "scientificName": "Cotoneaster lucidus Schltdl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222999",
+      "scientificName": "Cotoneaster moupinensis Franch.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223000",
+      "scientificName": "Cotoneaster multiflorus Bunge",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223001",
+      "scientificName": "Cotoneaster nanshan M. Vilm. ex Mottet",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6002800",
+      "scientificName": "Cotoneaster perpusillus Flinck & B. Hylmö",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223004",
+      "scientificName": "Cotoneaster przewalskii Pojark.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222995",
+      "scientificName": "Cotoneaster pyrenaicus Gand.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235046",
+      "scientificName": "Cotoneaster salicifolius Franch.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "265368",
+      "scientificName": "Cotoneaster simonsii  T. Moore",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223006",
+      "scientificName": "Cotoneaster tomentellus Pojark.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223007",
+      "scientificName": "Cotoneaster tomentosus (Aiton) Lindl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223008",
+      "scientificName": "Cotoneaster veitchii (Rehder & E. H. Wilson) G. Klotz",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235036",
+      "scientificName": "Cotoneaster villosulus (Rehder & E. H. Wilson) Flinck & B. Hylmö",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223009",
+      "scientificName": "Cotula coronopifolia L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "265281",
+      "scientificName": "Crassula helmsii (Kirk) Cockayne",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223010",
+      "scientificName": "Crataegus flabellata (Spach) K. Koch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223016",
+      "scientificName": "Crataegus submollis Sarg.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223017",
+      "scientificName": "Crepis biennis L.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "220099",
+      "scientificName": "Crepis capillaris (L.) Wallr.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220106",
+      "scientificName": "Crepis sibirica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264311",
+      "scientificName": "Crocus × hybridus Petrovic",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219778",
+      "scientificName": "Crocus × stellaris Haw.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220111",
+      "scientificName": "Crocus biflorus Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219779",
+      "scientificName": "Crocus chrysanthus (Herb.) Herb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219782",
+      "scientificName": "Crocus sieberi J. Gay",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219783",
+      "scientificName": "Crocus speciosus M. Bieb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219784",
+      "scientificName": "Crocus tommasinianus Herb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219785",
+      "scientificName": "Crocus vernus (L.) Hill",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219786",
+      "scientificName": "Cruciata glabra (L.) Ehrend.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "490",
+      "scientificName": "Cuscuta epithymum (L.) L.",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "223018",
+      "scientificName": "Cymbalaria muralis G. Gaertn., B. Mey. & Scherb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221519",
+      "scientificName": "Cynoglottis barrelieri (All.) Vural & Kit Tan",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222845",
+      "scientificName": "Dactylorhiza maculata ssp. maculata",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219792",
+      "scientificName": "Dactylorhiza sambucina (L.) Soó",
+      "oldValue": "LC",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "259734",
+      "scientificName": "Daphne laureola L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223435",
+      "scientificName": "Datura stramonium L.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "222824",
+      "scientificName": "Delphinium × belladonna (Kelway) Bergmans",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220113",
+      "scientificName": "Delphinium elatum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222827",
+      "scientificName": "Dennstaedtia punctilobula (Michx.) T. Moore",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "527",
+      "scientificName": "Dianthus arenarius L.",
+      "oldValue": "VU",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "528",
+      "scientificName": "Dianthus armeria L.",
+      "oldValue": "VU",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "220759",
+      "scientificName": "Dianthus barbatus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220763",
+      "scientificName": "Dianthus cruentus Griseb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "231307",
+      "scientificName": "Dianthus giganteiformis Borbas",
+      "oldValue": "LC",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "529",
+      "scientificName": "Dianthus superbus L.",
+      "oldValue": "EN",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "222828",
+      "scientificName": "Dicentra formosa (Haw.) Walp.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221625",
+      "scientificName": "Digitalis lutea L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222422",
+      "scientificName": "Digitaria sanguinalis (L.) Scop.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220488",
+      "scientificName": "Diplotaxis muralis (L.) DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220490",
+      "scientificName": "Dipsacus fullonum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221019",
+      "scientificName": "Dipsacus laciniatus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221021",
+      "scientificName": "Dipsacus strigosus Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221022",
+      "scientificName": "Dittrichia graveolens (L.) Greuter",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220114",
+      "scientificName": "Doronicum columnae Ten.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220116",
+      "scientificName": "Doronicum orientale Hoffm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220117",
+      "scientificName": "Doronicum pardalianches L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220118",
+      "scientificName": "Doronicum plantagineum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "562",
+      "scientificName": "Draba crassifolia Graham",
+      "oldValue": "NT",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "563",
+      "scientificName": "Draba nemorosa L.",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "1878",
+      "scientificName": "Draba subcapitata Simmons",
+      "oldValue": "EN",
+      "newValue": "CR"
+    },
+    {
+      "taxonId": "564",
+      "scientificName": "Dracocephalum ruyschiana L.",
+      "oldValue": "EN",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "1879",
+      "scientificName": "Drymocallis rupestris (L.) Soják",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "222429",
+      "scientificName": "Echinops bannaticus Rochel ex Schrad.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220122",
+      "scientificName": "Echinops exaltatus Schrad.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220123",
+      "scientificName": "Echinops sphaerocephalus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220124",
+      "scientificName": "Echium plantagineum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223023",
+      "scientificName": "Elaeagnus commutata Bernh. ex Rydb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219564",
+      "scientificName": "Elodea canadensis Michx.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219565",
+      "scientificName": "Elodea nuttallii (Planch.) H. St. John",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219566",
+      "scientificName": "Elsholtzia ciliata (Thunb.) Hyl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221090",
+      "scientificName": "Epilobium adenocaulon Hausskn.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222064",
+      "scientificName": "Epilobium ciliatum Raf.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222067",
+      "scientificName": "Epilobium glandulosum Lehm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222070",
+      "scientificName": "Epilobium komarovianum Lév.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222080",
+      "scientificName": "Epimedium alpinum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "619",
+      "scientificName": "Epipactis phyllanthes G. E. Sm.",
+      "oldValue": "EN",
+      "newValue": "CR"
+    },
+    {
+      "taxonId": "222454",
+      "scientificName": "Eragrostis minor Host",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222457",
+      "scientificName": "Eragrostis pilosa (L.) P. Beauv.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222460",
+      "scientificName": "Eranthis cilicica Schott & Kotschy",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222831",
+      "scientificName": "Eranthis hyemalis (L.) Salisb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221689",
+      "scientificName": "Erigeron acris ssp. droebachensis",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220126",
+      "scientificName": "Erigeron annuus (L.) Desf.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "623",
+      "scientificName": "Erucastrum gallicum (Willd.) O. E. Schulz",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219669",
+      "scientificName": "Eryngium campestre L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219670",
+      "scientificName": "Eryngium giganteum M. Bieb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "624",
+      "scientificName": "Eryngium maritimum L.",
+      "oldValue": "VU",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "219673",
+      "scientificName": "Eryngium planum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219936",
+      "scientificName": "Erysimum cheiranthoides L. ssp. alatum",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220513",
+      "scientificName": "Erysimum cheiri (L.) Crantz",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221287",
+      "scientificName": "Erythranthe guttata",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221718",
+      "scientificName": "Erythranthe lutea",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224290",
+      "scientificName": "Erythranthe x maculosa",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221912",
+      "scientificName": "Eschscholzia californica Cham.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "248997",
+      "scientificName": "Euonymus alatus (Thunb.) Siebold",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221528",
+      "scientificName": "Euonymus latifolius (L.) Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221529",
+      "scientificName": "Euonymus nanus M. Bieb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6002824",
+      "scientificName": "Euonymus planipes",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220137",
+      "scientificName": "Euphorbia agraria M. Bieb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221957",
+      "scientificName": "Euphorbia dulcis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221959",
+      "scientificName": "Euphorbia esula L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221965",
+      "scientificName": "Euphorbia maculata L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "626",
+      "scientificName": "Euphrasia micrantha Rchb.",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "6010577",
+      "scientificName": "Euphrasia nemorosa x stricta var. brevipila",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219981",
+      "scientificName": "Eurybia divaricata (L.) G. L. Nesom",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219984",
+      "scientificName": "Eurybia macrophylla (L.) Cass.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219988",
+      "scientificName": "Eurybia schreberi (Nees) Nees",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219990",
+      "scientificName": "Eurybia sibirica (L.) G. L. Nesom",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "232948",
+      "scientificName": "Eutrochium maculatum (L.) E. E. Lamont",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "232949",
+      "scientificName": "Eutrochium purpureum (L.) E. E. Lamont",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221642",
+      "scientificName": "Fagopyrum esculentum Moench",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220777",
+      "scientificName": "Fagopyrum tataricum (L.) Gaertn.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222475",
+      "scientificName": "Festuca brevipila R. Tracey",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "644",
+      "scientificName": "Festuca filiformis Pourr.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "645",
+      "scientificName": "Festuca heterophylla Lam.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220142",
+      "scientificName": "Filipendula camtschatica (Pall.) Maxim.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221643",
+      "scientificName": "Forsythia × intermedia Zabel",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223029",
+      "scientificName": "Fragaria × ananassa (Weston) Duchesne ex Rozier",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219676",
+      "scientificName": "Fragaria moschata Weston",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223031",
+      "scientificName": "Fragaria virginiana Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221645",
+      "scientificName": "Fritillaria imperialis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222835",
+      "scientificName": "Fumaria capreolata L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222837",
+      "scientificName": "Fumaria muralis Sond. ex W. D. J. Koch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "259744",
+      "scientificName": "Galanthus × valentinei Beck",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264321",
+      "scientificName": "Galanthus caucasicus (Baker) Grossh.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220145",
+      "scientificName": "Galanthus elwesii Hook. f.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219806",
+      "scientificName": "Galanthus woronowii Losinsk.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219807",
+      "scientificName": "Galega officinalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221194",
+      "scientificName": "Galega orientalis Lam.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "669",
+      "scientificName": "Galeopsis angustifolia Ehrh. ex Hoffm.",
+      "oldValue": "VU",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "221648",
+      "scientificName": "Galeopsis pubescens Besser",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220146",
+      "scientificName": "Galinsoga parviflora Cav.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220147",
+      "scientificName": "Galinsoga quadriradiata Ruiz & Pav.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224193",
+      "scientificName": "Galium mollugo x verum",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "670",
+      "scientificName": "Galium pumilum Murray",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221198",
+      "scientificName": "Genista sagittalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "693",
+      "scientificName": "Genista tinctoria L.",
+      "oldValue": "VU",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "264685",
+      "scientificName": "Gentianella campestris (L.) Börner",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "221468",
+      "scientificName": "Geranium × magnificum Hyl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221477",
+      "scientificName": "Geranium macrorrhizum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "261642",
+      "scientificName": "Geranium nodosum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "708",
+      "scientificName": "Geranium palustre L.",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "709",
+      "scientificName": "Geranium phaeum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221490",
+      "scientificName": "Geum aleppicum Jacq.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223036",
+      "scientificName": "Geum macrophyllum Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224957",
+      "scientificName": "Geum rivale x urbanum",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221658",
+      "scientificName": "Glechoma hirsuta Waldst. & Kit.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222489",
+      "scientificName": "Glyceria grandis S. Watson",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222493",
+      "scientificName": "Glyceria striata (Lam.) Hitchc.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219567",
+      "scientificName": "Guizotia abyssinica (L. f.) Cass.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220161",
+      "scientificName": "Gunnera magellanica Lam.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220791",
+      "scientificName": "Gypsophila paniculata L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220795",
+      "scientificName": "Hablitzia tamnoides M. Bieb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1362",
+      "scientificName": "Halerpestes cymbalaria (Pursh) Greene",
+      "oldValue": "EN",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "753",
+      "scientificName": "Halimione pedunculata",
+      "oldValue": "Vu",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "219678",
+      "scientificName": "Hedera hibernica (G. Kirchn.) Carrière",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221843",
+      "scientificName": "Hedlundia atrata",
+      "oldValue": "VU",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6002920",
+      "scientificName": "Hedlundia teodori",
+      "oldValue": "CR",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220165",
+      "scientificName": "Helianthus × laetiflorus Pers.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222023",
+      "scientificName": "Helianthus annuus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220175",
+      "scientificName": "Helianthus tuberosus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221534",
+      "scientificName": "Helleborus foetidus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "79",
+      "scientificName": "Helosciadium inundatum (L.) W. D. J. Koch",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "219817",
+      "scientificName": "Hemerocallis fulva (L.) L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219818",
+      "scientificName": "Hemerocallis lilioasphodelus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219682",
+      "scientificName": "Heracleum 'Kungsholm'",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219680",
+      "scientificName": "Heracleum mantegazzianum Sommier & Levier",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222850",
+      "scientificName": "Heracleum persicum Desf. ex Fisch.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "259710",
+      "scientificName": "Heracleum platytaenium Boiss.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "770",
+      "scientificName": "Herminium monorchis (L.) R. Br.",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "220800",
+      "scientificName": "Hesperis matronalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220523",
+      "scientificName": "Hesperis tristis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223340",
+      "scientificName": "Hibiscus trionum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6002782",
+      "scientificName": "Hieracium sect. Oreadea",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6033368",
+      "scientificName": "Hieracium sect. Pulmonarioidea",
+      "oldValue": "LC",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "222956",
+      "scientificName": "Hieracium sect. Tridentata",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "778",
+      "scientificName": "Holosteum umbellatum L.",
+      "oldValue": "NT",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "222509",
+      "scientificName": "Hordeum jubatum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "784",
+      "scientificName": "Hordeum secalinum Schreb.",
+      "oldValue": "EN",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "221944",
+      "scientificName": "Huperzia selago (L.) Bernh. ex Schrank & Mart.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223616",
+      "scientificName": "Hyacinthoides × massartiana Geerinck",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219827",
+      "scientificName": "Hyacinthoides hispanica (Mill.) Rothm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219828",
+      "scientificName": "Hyacinthoides italica (L.) Rothm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219829",
+      "scientificName": "Hyacinthoides non-scripta (L.) Chouard ex Rothm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219830",
+      "scientificName": "Hyacinthus orientalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223341",
+      "scientificName": "Hylotelephium ewersii (L.) H. Ohba",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "225181",
+      "scientificName": "Hylotelephium telephium (ssp. maximum)",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "225182",
+      "scientificName": "Hylotelephium telephium ssp. telephium",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "853",
+      "scientificName": "Hypochaeris glabra L.",
+      "oldValue": "VU",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "220206",
+      "scientificName": "Hyssopus officinalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220527",
+      "scientificName": "Iberis amara L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220530",
+      "scientificName": "Iberis umbellata L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "873",
+      "scientificName": "Illecebrum verticillatum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221100",
+      "scientificName": "Impatiens glandulifera Royle",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221102",
+      "scientificName": "Impatiens parviflora DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220207",
+      "scientificName": "Inula conyzae (Griess.) DC.",
+      "oldValue": "EN",
+      "newValue": "CR (PRE)"
+    },
+    {
+      "taxonId": "220209",
+      "scientificName": "Inula helenium L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "261632",
+      "scientificName": "Inula racemosa Hook. f.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "266071",
+      "scientificName": "Iris × sambucina L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223443",
+      "scientificName": "Iris aphylla L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219832",
+      "scientificName": "Iris germanica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264994",
+      "scientificName": "Iris graminea L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219834",
+      "scientificName": "Iris orientalis Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219835",
+      "scientificName": "Iris pallida Lam.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264314",
+      "scientificName": "Iris sanguinea Donn",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219838",
+      "scientificName": "Iris setosa Pall. ex Link",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219839",
+      "scientificName": "Iris sibirica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "259730",
+      "scientificName": "Iris variegata L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219841",
+      "scientificName": "Iris versicolor L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1463",
+      "scientificName": "Isolepis fluitans (L.) R. Br.",
+      "oldValue": "NT",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "235037",
+      "scientificName": "Isopyrum thalictroides L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1935",
+      "scientificName": "Jacobaea aquatica (Hill) G. Gaertn. et al.",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "220301",
+      "scientificName": "Jacobaea cannabifolia (Less.) E. Wiebe",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1490",
+      "scientificName": "Jacobaea paludosa (L.) G. Gaertn. et al.",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "232956",
+      "scientificName": "Juglans cinerea L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "259669",
+      "scientificName": "Juglans mandshurica Maxim.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223345",
+      "scientificName": "Juglans regia L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224771",
+      "scientificName": "Juncus alpinoarticulatus ssp. alpinoarticul.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "222533",
+      "scientificName": "Juncus ensifolius Wikstr.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222544",
+      "scientificName": "Juncus tenuis Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223215",
+      "scientificName": "Karpatiosorbus latifolia",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "902",
+      "scientificName": "Kickxia elatine (L.) Dumort.",
+      "oldValue": "EN",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "221667",
+      "scientificName": "Kickxia spuria (L.) Dumort.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221024",
+      "scientificName": "Knautia macedonica Griseb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "903",
+      "scientificName": "Koeleria macrantha (Ledeb.) Schult.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "905",
+      "scientificName": "Koeleria pyramidata (Lam.) P. Beauv.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222553",
+      "scientificName": "Koenigia islandica L.",
+      "oldValue": "NT",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "220804",
+      "scientificName": "Kolkwitzia amabilis Graebn.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221026",
+      "scientificName": "Laburnum alpinum (Mill.) Bercht. & J. Presl",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221208",
+      "scientificName": "Laburnum anagyroides Medik.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221207",
+      "scientificName": "Laburnum x watereri (G. Kirchn.) Dippel",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220076",
+      "scientificName": "Lactuca macrophylla (Willd.) A. Gray",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220255",
+      "scientificName": "Lactuca tatarica (L.) C. A. Mey.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220219",
+      "scientificName": "Lactuca virosa L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224264",
+      "scientificName": "Lamiastrum galeobdolon ssp. galeobdolon",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "221676",
+      "scientificName": "Lamium maculatum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "914",
+      "scientificName": "Lappula squarrosa (Retz.) Dumort.",
+      "oldValue": "LC",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "222150",
+      "scientificName": "Larix × marschlinsii Coaz",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222151",
+      "scientificName": "Larix decidua Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235101",
+      "scientificName": "Larix gmelinii (Rupr.) Kuzen.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235102",
+      "scientificName": "Larix kaempferi (Lamb.) Carrière",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235103",
+      "scientificName": "Larix laricina (Du Roi) K. Koch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220222",
+      "scientificName": "Larix sibirica Ledeb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222152",
+      "scientificName": "Laserpitium halleri Crantz",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "266064",
+      "scientificName": "Laserpitium hispidum Bieb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221217",
+      "scientificName": "Lathyrus hirsutus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221219",
+      "scientificName": "Lathyrus incurvus (Roth) Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224130",
+      "scientificName": "Lathyrus latifolius ssp. latifolius",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221224",
+      "scientificName": "Lathyrus nissolia L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221229",
+      "scientificName": "Lathyrus rotundifolius Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221235",
+      "scientificName": "Lathyrus vernus (L.) Bernh.",
+      "oldValue": "LC",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "221236",
+      "scientificName": "Lavandula angustifolia Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222555",
+      "scientificName": "Legousia hybrida (L.) Delarbre",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220225",
+      "scientificName": "Legousia speculum-veneris (L.) Chaix",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "941",
+      "scientificName": "Leontodon saxatilis Lam.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1872",
+      "scientificName": "Lepidium coronopus (L.) Al-Shehbaz",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "220537",
+      "scientificName": "Lepidium densiflorum Schrad.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221187",
+      "scientificName": "Lepidium didymum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220539",
+      "scientificName": "Lepidium heterophyllum Benth.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220541",
+      "scientificName": "Lepidium neglectum Thell.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220234",
+      "scientificName": "Leucanthemum × superbum (Bergmans ex J. W. Ingram) D. H. Kent",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221684",
+      "scientificName": "Leucojum aestivum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219844",
+      "scientificName": "Leucojum vernum L.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "222559",
+      "scientificName": "Leymus innovatus (Beal) Pilg.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221925",
+      "scientificName": "Lilium lancifolium Thunb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "978",
+      "scientificName": "Limonium vulgare Mill.",
+      "oldValue": "VU",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "221692",
+      "scientificName": "Linaria genistifolia (L.) Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221695",
+      "scientificName": "Linaria purpurea (L.) Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221696",
+      "scientificName": "Linaria repens (L.) Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221027",
+      "scientificName": "Linum austriacum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220244",
+      "scientificName": "Lobularia maritima (L.) Desv.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221107",
+      "scientificName": "Lolium multiflorum Lam.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221030",
+      "scientificName": "Lonicera caprifolium L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264796",
+      "scientificName": "Lonicera involucrata (Richardson) Banks ex Spreng.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221040",
+      "scientificName": "Lonicera tatarica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220553",
+      "scientificName": "Lunaria annua L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1000",
+      "scientificName": "Lunaria rediviva L.",
+      "oldValue": "NT",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "221243",
+      "scientificName": "Lupinus × regalis Bergmans",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221246",
+      "scientificName": "Lupinus nootkatensis Donn ex Sims",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221248",
+      "scientificName": "Lupinus polyphyllus Lindl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222572",
+      "scientificName": "Luzula luzuloides (Lam.) Dandy & Wilmott",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220809",
+      "scientificName": "Lychnis chalcedonica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220810",
+      "scientificName": "Lychnis coronaria (L.) Desr.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220814",
+      "scientificName": "Lycium barbarum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223445",
+      "scientificName": "Lycium chinense Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "552",
+      "scientificName": "Lycopodium tristachyum Pursh",
+      "oldValue": "VU",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "221940",
+      "scientificName": "Lycopodium zeilleri (Rouy) Greuter & Burdet",
+      "oldValue": "VU",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "219576",
+      "scientificName": "Lysichiton americanus Hultén & H. St. John",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221110",
+      "scientificName": "Lysimachia punctata L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220248",
+      "scientificName": "Mahonia aquifolium (Pursh) Nutt.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219849",
+      "scientificName": "Maianthemum stellatum (L.) Link",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1056",
+      "scientificName": "Malaxis monophyllos (L.) Sw.",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "222031",
+      "scientificName": "Malus baccata (L.) Borkh.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223045",
+      "scientificName": "Malus domestica Borkh.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223047",
+      "scientificName": "Malus toringo (Siebold) de Vriese",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222037",
+      "scientificName": "Malva parviflora L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221702",
+      "scientificName": "Matricaria discoidea DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221245",
+      "scientificName": "Medicago sativa ssp. falcata",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221244",
+      "scientificName": "Medicago sativa ssp. sativa",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224139",
+      "scientificName": "Medicago sativa ssp. x varia",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "221285",
+      "scientificName": "Melilotus wolgicus Poir.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221286",
+      "scientificName": "Melissa officinalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221709",
+      "scientificName": "Mentha × piperita L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224286",
+      "scientificName": "Mentha × rotundifolia (L.) Huds.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224288",
+      "scientificName": "Mentha × villosa Huds.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221713",
+      "scientificName": "Mentha longifolia (L.) Huds.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221715",
+      "scientificName": "Mentha spicata L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1037",
+      "scientificName": "Mentha suaveolens Ehrh.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220252",
+      "scientificName": "Mercurialis annua L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "266204",
+      "scientificName": "Mertensia sibirica G. Don",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220817",
+      "scientificName": "Meum athamanticum Jacq.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222588",
+      "scientificName": "Milium vernale M. Bieb.",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "220826",
+      "scientificName": "Molopospermum peleponnesiacum (L.) W. D. J. Koch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6002870",
+      "scientificName": "Monotropa hypopitys ssp. hypophegea",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223502",
+      "scientificName": "Muscari armeniacum Leichtlin ex Baker",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219852",
+      "scientificName": "Muscari azureum Fenzl",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235023",
+      "scientificName": "Muscari latifolium J.Kirk",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1898",
+      "scientificName": "Myricaria germanica (L.) Desv.",
+      "oldValue": "NT",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "259679",
+      "scientificName": "Myriophyllum hippuroides Nutt. ex Torr. & A. Gray",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219857",
+      "scientificName": "Narcissus × incomparabilis Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219859",
+      "scientificName": "Narcissus poëticus L.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "219860",
+      "scientificName": "Narcissus pseudonarcissus L.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "221728",
+      "scientificName": "Nepeta × faassenii Bergmans ex Stearn",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1082",
+      "scientificName": "Nepeta cataria L.",
+      "oldValue": "EN",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "221729",
+      "scientificName": "Nepeta grandiflora M. Bieb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221731",
+      "scientificName": "Nepeta racemosa Lam.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221630",
+      "scientificName": "Nepeta sibirica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220568",
+      "scientificName": "Nicandra physalodes (L.) Gaertn.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222860",
+      "scientificName": "Nigella damascena L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223457",
+      "scientificName": "Nonea lutea (Desr.) DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221551",
+      "scientificName": "Nonea pulla DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1094",
+      "scientificName": "Nonea versicolor (Steven) Sweet",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6012036",
+      "scientificName": "Nuphar advena (Aiton) W. T. Aiton",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6012037",
+      "scientificName": "Nymphaea × marliacea Lat.-Marl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6012038",
+      "scientificName": "Nymphaea × thiona D. B. Ward",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221733",
+      "scientificName": "Nymphaea alba L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222110",
+      "scientificName": "Nymphoides peltata (S. G. Gmel.) Kuntze",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222097",
+      "scientificName": "Oenothera glazioviana P. Micheli ex Mart.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221554",
+      "scientificName": "Omphalodes verna Moench",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1111",
+      "scientificName": "Onobrychis viciifolia Scop.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221288",
+      "scientificName": "Onoclea sensibilis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "230665",
+      "scientificName": "Ononis spinosa ssp. procurrens",
+      "oldValue": "LC",
+      "newValue": "RE"
+    },
+    {
+      "taxonId": "220857",
+      "scientificName": "Ononis spinosa ssp. spinosa",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264979",
+      "scientificName": "Ophrys apifera Huds.",
+      "oldValue": "LC",
+      "newValue": "CR"
+    },
+    {
+      "taxonId": "1122",
+      "scientificName": "Orchis spitzelii Saut. ex W. D. J. Koch",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "219696",
+      "scientificName": "Ornithogalum boucheanum (Kunth) Asch.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219868",
+      "scientificName": "Ornithogalum divergens Boreau",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264354",
+      "scientificName": "Ornithogalum narbonense L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219872",
+      "scientificName": "Ornithogalum umbellatum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221740",
+      "scientificName": "Orobanche amethystea Thuill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1125",
+      "scientificName": "Orobanche elatior Sutton",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "221745",
+      "scientificName": "Orobanche flava Mart. ex F. W. Schultz",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221747",
+      "scientificName": "Orobanche hederae Duby",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221748",
+      "scientificName": "Orobanche lucorum F. W. Schultz",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1126",
+      "scientificName": "Orobanche minor Sm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1129",
+      "scientificName": "Orobanche reticulata Wallr.",
+      "oldValue": "EN",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "221754",
+      "scientificName": "Orontium aquaticum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219886",
+      "scientificName": "Othocallis amoena (L.) Trávn.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219890",
+      "scientificName": "Othocallis mischtschenkoana (Grossh.) Speta",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219892",
+      "scientificName": "Othocallis siberica (Haw.) Speta",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222121",
+      "scientificName": "Oxalis corniculata L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222123",
+      "scientificName": "Oxalis dillenii Jacq.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222125",
+      "scientificName": "Oxalis stricta L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1142",
+      "scientificName": "Oxytropis pilosa (L.) DC.",
+      "oldValue": "EN",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "223353",
+      "scientificName": "Panicum capillare L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222596",
+      "scientificName": "Panicum miliaceum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222864",
+      "scientificName": "Papaver atlanticum (Ball) Coss.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220251",
+      "scientificName": "Papaver cambricum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222868",
+      "scientificName": "Papaver croceum Ledeb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222876",
+      "scientificName": "Papaver lasiothrix",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222874",
+      "scientificName": "Papaver orientale L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222879",
+      "scientificName": "Papaver somniferum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221755",
+      "scientificName": "Parietaria judaica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1161",
+      "scientificName": "Parietaria officinalis L.",
+      "oldValue": "VU",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "220262",
+      "scientificName": "Parthenocissus inserta (A. Kern.) Fritsch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221558",
+      "scientificName": "Parthenocissus quinquefolia (L.) Planch.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1174",
+      "scientificName": "Pedicularis sylvatica L.",
+      "oldValue": "NT",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "221763",
+      "scientificName": "Pentaglottis sempervirens (L.) Tausch ex L. H. Bailey",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1263",
+      "scientificName": "Persicaria foliosa (H. Lindb.) Kitag.",
+      "oldValue": "NT",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "220265",
+      "scientificName": "Petasites japonicus (Siebold & Zucc.) Maxim.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1187",
+      "scientificName": "Petrorhagia saxifraga (L.) Link",
+      "oldValue": "NT",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220848",
+      "scientificName": "Petroselinum crispum (Mill.) Fuss",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1188",
+      "scientificName": "Peucedanum oreoselinum (L.) Moench",
+      "oldValue": "VU",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "221125",
+      "scientificName": "Phacelia tanacetifolia Benth.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222608",
+      "scientificName": "Phalaris canariensis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221299",
+      "scientificName": "Phedimus aizoon (L.) `t Hart",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223354",
+      "scientificName": "Phedimus hybridus (L.) `t Hart",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223355",
+      "scientificName": "Phedimus kamtschaticus (Fisch. & C. A. Mey.) `t Hart",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223356",
+      "scientificName": "Phedimus spurius (M. Bieb.) `t Hart",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223357",
+      "scientificName": "Phedimus stoloniferus (S. G. Gmel.) `t Hart",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264665",
+      "scientificName": "Philadelphus × lemoinei Lemoine",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222756",
+      "scientificName": "Philadelphus coronarius L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220995",
+      "scientificName": "Phippsia algida (Sol.) R. Br.",
+      "oldValue": "VU",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "1900",
+      "scientificName": "Phleum arenarium L.",
+      "oldValue": "VU",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "221128",
+      "scientificName": "Phlox paniculata L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223462",
+      "scientificName": "Physalis alkekengi L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223464",
+      "scientificName": "Physalis grisea (Waterf.) M. Martínez",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223468",
+      "scientificName": "Physalis peruviana L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223469",
+      "scientificName": "Physalis philadelphica Lam.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223471",
+      "scientificName": "Physocarpus opulifolius (L.) Maxim.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1236",
+      "scientificName": "Phyteuma nigrum F. W. Schmidt",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1237",
+      "scientificName": "Phyteuma spicatum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220270",
+      "scientificName": "Phytolacca acinosa Roxb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222153",
+      "scientificName": "Picea glauca (Moench) Voss",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222154",
+      "scientificName": "Picea mariana (Mill.) Britton, Sterns & Poggenb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222155",
+      "scientificName": "Picea omorika (Pancic) Purk.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235107",
+      "scientificName": "Picea orientalis (L.) Link",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222156",
+      "scientificName": "Picea pungens Engelm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "232975",
+      "scientificName": "Picea sitchensis (Bong.) Carrière",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223754",
+      "scientificName": "Pilosella × piloselliflora (Nägeli & Peter) Soják",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "6033357",
+      "scientificName": "Pilosella × polioderma (Dahlst.) Soják",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "223737",
+      "scientificName": "Pilosella aurantiaca ssp. decolorans",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "220002",
+      "scientificName": "Pilosella cymosa ssp. gotlandica",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264776",
+      "scientificName": "Pilosella cymosiformis (Froel.) Gottschl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220276",
+      "scientificName": "Pilosella flagellaris (Willd.) Arv.-Touv.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264774",
+      "scientificName": "Pilosella floribunda (Wimm. & Grab.) Arv.-Touv.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223391",
+      "scientificName": "Pilosella officinarum ssp. peleteranum",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223738",
+      "scientificName": "Pilosella pseudoblyttii (Norrl.) Norrl.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "219705",
+      "scientificName": "Pimpinella peregrina L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222158",
+      "scientificName": "Pinus cembra L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222159",
+      "scientificName": "Pinus contorta Douglas ex Loudon",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222160",
+      "scientificName": "Pinus mugo Turra",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222161",
+      "scientificName": "Pinus nigra J. F. Arnold",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235108",
+      "scientificName": "Pinus peuce Gris.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222162",
+      "scientificName": "Pinus strobus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221769",
+      "scientificName": "Plantago arenaria Waldst. & Kit.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1248",
+      "scientificName": "Platanthera obtusata (Banks ex Pursh) Lindl.",
+      "oldValue": "EN",
+      "newValue": "CR"
+    },
+    {
+      "taxonId": "1253",
+      "scientificName": "Pleurospermum austriacum (L.) Hoffm.",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "222627",
+      "scientificName": "Poa chaixii Vill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222622",
+      "scientificName": "Poa x herjedalica Harry Sm.",
+      "oldValue": "LC",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "222623",
+      "scientificName": "Poa x jemtlandica (Almq.) K. Richt.",
+      "oldValue": "LC",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "1262",
+      "scientificName": "Polygala comosa Schkuhr",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "265348",
+      "scientificName": "Polygala serpyllifolia Hosé",
+      "oldValue": "EN",
+      "newValue": "CR"
+    },
+    {
+      "taxonId": "222133",
+      "scientificName": "Polygala vulgaris L.",
+      "oldValue": "LC",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "223257",
+      "scientificName": "Populus × canadensis Moench",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223258",
+      "scientificName": "Populus × canescens (Aiton) Sm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "225057",
+      "scientificName": "Populus × jackii Sarg.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222760",
+      "scientificName": "Populus alba L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223261",
+      "scientificName": "Populus balsamifera L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223262",
+      "scientificName": "Populus laurifolia Ledeb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223263",
+      "scientificName": "Populus nigra L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223264",
+      "scientificName": "Populus simonii Carrière",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223266",
+      "scientificName": "Populus trichocarpa Torr. & A.Gray ex Hook.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "225059",
+      "scientificName": "Populus tristis Fisch.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223981",
+      "scientificName": "Portulaca sativa Haw.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1284",
+      "scientificName": "Potamogeton trichoides Cham. & Schltdl.",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "259685",
+      "scientificName": "Potentilla alba L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1906",
+      "scientificName": "Potentilla anglica Laichard.",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "223054",
+      "scientificName": "Potentilla atrosanguinea G. Lodd. ex D. Don",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1286",
+      "scientificName": "Potentilla heptaphylla L.",
+      "oldValue": "EN",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "223059",
+      "scientificName": "Potentilla inclinata Vill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223060",
+      "scientificName": "Potentilla intermedia L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223061",
+      "scientificName": "Potentilla micrantha Ramond ex DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223066",
+      "scientificName": "Potentilla recta L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1289",
+      "scientificName": "Potentilla sterilis (L.) Garcke",
+      "oldValue": "VU",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "223074",
+      "scientificName": "Potentilla thuringiaca Bernh. ex Link",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6012040",
+      "scientificName": "Primula × polyantha Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223077",
+      "scientificName": "Prunus cerasifera Ehrh.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223081",
+      "scientificName": "Prunus laurocerasus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223082",
+      "scientificName": "Prunus mahaleb L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "232953",
+      "scientificName": "Prunus pensylvanica L.f.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223085",
+      "scientificName": "Prunus serotina Ehrh.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223087",
+      "scientificName": "Prunus tenella Batsch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223088",
+      "scientificName": "Prunus virginiana L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220050",
+      "scientificName": "Psephellus dealbatus (Willd.) K. Koch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222882",
+      "scientificName": "Pseudofumaria lutea (L.) Borkh.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "719",
+      "scientificName": "Pseudognaphalium luteoalbum (L.) Hilliard & B. L. Burtt",
+      "oldValue": "EN",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "975",
+      "scientificName": "Pseudorchis albida (L.) Á. Löve & D. Löve",
+      "oldValue": "EN",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "219883",
+      "scientificName": "Pseudotsuga menziesii (Mirb.) Franco",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222761",
+      "scientificName": "Pterocarya fraxinifolia (Poir.) Spach",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221403",
+      "scientificName": "Ptilostemon afer (Jacq.) Greuter",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264414",
+      "scientificName": "Puccinellia nutkaënsis (J. Presl) Fernald & Weath",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "222652",
+      "scientificName": "Pulicaria dysenterica (L.) Bernh.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220286",
+      "scientificName": "Pulmonaria affinis Jord.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221569",
+      "scientificName": "Pulmonaria mollis Wulfen ex Hornem.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221572",
+      "scientificName": "Pulmonaria rubra Schott",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221573",
+      "scientificName": "Pulmonaria saccharata Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219884",
+      "scientificName": "Puschkinia scilloides Adams",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223090",
+      "scientificName": "Pyracantha coccinea M. Roem.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223091",
+      "scientificName": "Pyrus communis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223092",
+      "scientificName": "Pyrus pyraster (L.) Baumg.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221404",
+      "scientificName": "Quercus cerris L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1910",
+      "scientificName": "Radiola linoides Roth",
+      "oldValue": "NT",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "222888",
+      "scientificName": "Ranunculus aquatilis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222726",
+      "scientificName": "Ranunculus auricomus agg.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1363",
+      "scientificName": "Ranunculus fluitans Lam.",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "1364",
+      "scientificName": "Ranunculus hederaceus L.",
+      "oldValue": "NT",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "222903",
+      "scientificName": "Ranunculus lanuginosus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222914",
+      "scientificName": "Ranunculus polyanthemos L.",
+      "oldValue": "NT",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "222915",
+      "scientificName": "Ranunculus psilostachys Griseb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1368",
+      "scientificName": "Ranunculus sulphureus Sol.",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "220571",
+      "scientificName": "Raphanus raphanistrum L.",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "220572",
+      "scientificName": "Raphanus sativus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220573",
+      "scientificName": "Rapistrum perenne (L.) All.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220574",
+      "scientificName": "Rapistrum rugosum (L.) All.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220575",
+      "scientificName": "Reseda alba L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220782",
+      "scientificName": "Reynoutria japonica Houtt.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220783",
+      "scientificName": "Reynoutria sachalinensis (F. Schmidt ex Maxim.) Nakai",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220779",
+      "scientificName": "Reynoutria x bohemica Chrtek & Chrtková",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220866",
+      "scientificName": "Rheum rhabarbarum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221148",
+      "scientificName": "Rhododendron brachycarpum D. Don ex G. Don",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6037484",
+      "scientificName": "Rhododendron canadensis",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221149",
+      "scientificName": "Rhododendron catawbiense Michx.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235130",
+      "scientificName": "Rhododendron luteum Sweet",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222810",
+      "scientificName": "Rhododendron maximum",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235131",
+      "scientificName": "Rhododendron ponticum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223327",
+      "scientificName": "Rhus typhina L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223360",
+      "scientificName": "Ribes × houghtonianum Jancz.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "223361",
+      "scientificName": "Ribes × pallidum Otto & A.Dietr.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223363",
+      "scientificName": "Ribes aureum Pursh",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223365",
+      "scientificName": "Ribes divaricatum Douglas",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223369",
+      "scientificName": "Ribes sanguineum Pursh",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221302",
+      "scientificName": "Robinia pseudoacacia L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "261627",
+      "scientificName": "Rodgersia aesculifolia Batalin",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223372",
+      "scientificName": "Rodgersia podophylla A. Gray",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220581",
+      "scientificName": "Rorippa × anceps (Wahlenb.) Rchb.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "220582",
+      "scientificName": "Rorippa × armoracioides (Tausch) Fuss",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220584",
+      "scientificName": "Rorippa austriaca (Crantz) Besser",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223096",
+      "scientificName": "Rosa × damascena Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223099",
+      "scientificName": "Rosa × spaethiana Graebn.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223104",
+      "scientificName": "Rosa canina agg.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223107",
+      "scientificName": "Rosa elliptica Tausch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223110",
+      "scientificName": "Rosa glauca Pourr.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223115",
+      "scientificName": "Rosa multiflora Thunb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223120",
+      "scientificName": "Rosa rugosa Thunb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "225022",
+      "scientificName": "Rosa villosa L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223126",
+      "scientificName": "Rosa virginiana Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223106",
+      "scientificName": "Rosa vosagica",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1398",
+      "scientificName": "Rosa x inodora Fr.",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "221452",
+      "scientificName": "Rubia tinctorum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220845",
+      "scientificName": "Rubrivena polystachya (Wall. ex Meisn.) M. Král",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223128",
+      "scientificName": "Rubus allegheniensis Porter",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223130",
+      "scientificName": "Rubus armeniacus Focke",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1403",
+      "scientificName": "Rubus axillaris Lej.",
+      "oldValue": "NT",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "235038",
+      "scientificName": "Rubus bertramii G. Braun",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223133",
+      "scientificName": "Rubus bifrons Vest",
+      "oldValue": "EN",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264505",
+      "scientificName": "Rubus canadensis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223137",
+      "scientificName": "Rubus chlorothyrsos Focke",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223143",
+      "scientificName": "Rubus echinatus Lindley",
+      "oldValue": "VU",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "223152",
+      "scientificName": "Rubus gratus Focke",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235039",
+      "scientificName": "Rubus henrici-weberi A. Beek",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "266084",
+      "scientificName": "Rubus hirtus Waldst. & Kit.",
+      "oldValue": "LC",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "223159",
+      "scientificName": "Rubus laciniatus Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223168",
+      "scientificName": "Rubus montanus Lib. ex Lej.",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "223174",
+      "scientificName": "Rubus odoratus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223175",
+      "scientificName": "Rubus parviflorus Nutt.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235041",
+      "scientificName": "Rubus rubercadaver A. Beek",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264506",
+      "scientificName": "Rubus rudis Weihe",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1928",
+      "scientificName": "Rubus sciocharis (Sudre) W. C. R. Watson",
+      "oldValue": "EN",
+      "newValue": "CR"
+    },
+    {
+      "taxonId": "220629",
+      "scientificName": "Rubus sect. Corylifolii",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223188",
+      "scientificName": "Rubus senticosus Köhler ex Weihe",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223190",
+      "scientificName": "Rubus spectabilis Pursh",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1417",
+      "scientificName": "Rubus vestervicensis (Gust.) Gust.",
+      "oldValue": "CR",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "1418",
+      "scientificName": "Rubus vestitus Weihe",
+      "oldValue": "NT",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "220292",
+      "scientificName": "Rudbeckia laciniata L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220875",
+      "scientificName": "Rumex confertus Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1420",
+      "scientificName": "Rumex conglomeratus Murray",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "220887",
+      "scientificName": "Rumex patientia L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220890",
+      "scientificName": "Rumex rugosus Campd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220892",
+      "scientificName": "Rumex scutatus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220895",
+      "scientificName": "Rumex triangulivalvis (Danser) Rech. f.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220818",
+      "scientificName": "Sabulina rubella",
+      "oldValue": "NT",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "223267",
+      "scientificName": "Salix × alopecuroides Tausch ex Opiz",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223275",
+      "scientificName": "Salix × fragilis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223272",
+      "scientificName": "Salix × meyeriana Rostk. ex Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223273",
+      "scientificName": "Salix × mollissima Hoffm. ex Elwert",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223277",
+      "scientificName": "Salix × smithiana Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223280",
+      "scientificName": "Salix alba L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223285",
+      "scientificName": "Salix cinerea L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223286",
+      "scientificName": "Salix daphnoides Vill.",
+      "oldValue": "VU",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223287",
+      "scientificName": "Salix dasyclados Wimm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223288",
+      "scientificName": "Salix elaeagnos Scop.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221789",
+      "scientificName": "Salix repens ssp. rosmarinifolia",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223305",
+      "scientificName": "Salix starkeana Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221790",
+      "scientificName": "Salvia × sylvestris L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221793",
+      "scientificName": "Salvia glutinosa L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221794",
+      "scientificName": "Salvia nemorosa L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221795",
+      "scientificName": "Salvia officinalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221577",
+      "scientificName": "Sambucus racemosa L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223201",
+      "scientificName": "Sanguisorba dodecandra Moretti",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219711",
+      "scientificName": "Sanicula europaea L.",
+      "oldValue": "LC",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "220911",
+      "scientificName": "Saponaria ocymoides L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221153",
+      "scientificName": "Sarracenia purpurea L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223373",
+      "scientificName": "Saxifraga × arendsii Engl.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1934",
+      "scientificName": "Saxifraga × opdalensis A. Blytt",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "223376",
+      "scientificName": "Saxifraga × urbium D. A. Webb",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1448",
+      "scientificName": "Saxifraga hirculus L.",
+      "oldValue": "NT",
+      "newValue": "LC"
+    },
+    {
+      "taxonId": "223385",
+      "scientificName": "Saxifraga hostii Tausch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223386",
+      "scientificName": "Saxifraga hypnoides L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223392",
+      "scientificName": "Saxifraga sibthorpii Boiss.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221045",
+      "scientificName": "Scabiosa ochroleuca L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219885",
+      "scientificName": "Scilla × allenii (G. Nicholson) Speta",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219887",
+      "scientificName": "Scilla bifolia L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219888",
+      "scientificName": "Scilla forbesii (Baker) Speta",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219889",
+      "scientificName": "Scilla luciliae (Boiss.) Speta",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219891",
+      "scientificName": "Scilla sardensis (Whittall ex Barr & Sugden) Speta",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1471",
+      "scientificName": "Scolochloa festucacea (Willd.) Link",
+      "oldValue": "NT",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "223475",
+      "scientificName": "Scopolia carniolica Jacq.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220298",
+      "scientificName": "Scorzonera hispanica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221809",
+      "scientificName": "Scrophularia chrysantha Jaub. & Spach",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1472",
+      "scientificName": "Scrophularia vernalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221818",
+      "scientificName": "Scutellaria altissima L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221304",
+      "scientificName": "Securigera varia (L.) Lassen",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223402",
+      "scientificName": "Sedum forsterianum Sm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223404",
+      "scientificName": "Sedum hispanicum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223405",
+      "scientificName": "Sedum lydium Boiss.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1478",
+      "scientificName": "Sedum villosum L.",
+      "oldValue": "NT",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "219718",
+      "scientificName": "Selinum silaifolium (Jacq.) G. Beck",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220533",
+      "scientificName": "Sempervivum globiferum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220306",
+      "scientificName": "Senecio inaequidens DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220316",
+      "scientificName": "Senecio leucanthemifolius Poir.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220310",
+      "scientificName": "Senecio ovatus (G. Gaertn., B. Mey. & Scherb.) Willd.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220312",
+      "scientificName": "Senecio sarracenicus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220313",
+      "scientificName": "Senecio squalidus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219720",
+      "scientificName": "Seseli montanum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222673",
+      "scientificName": "Setaria italica (L.) P. Beauv.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222675",
+      "scientificName": "Setaria pumila (Poir.) Roem. & Schult.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222676",
+      "scientificName": "Setaria verticillata (L.) P. Beauv.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1285",
+      "scientificName": "Sibbaldianthe bifurca (L.) Kurtto & T. Erikss.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1493",
+      "scientificName": "Silene conica L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1494",
+      "scientificName": "Silene dichotoma Ehrh.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220932",
+      "scientificName": "Silene multifida (Adams) Rohrb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220940",
+      "scientificName": "Silene tatarica (L.) Pers.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220322",
+      "scientificName": "Silphium perfoliatum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220323",
+      "scientificName": "Silybum marianum (L.) Gaertn.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220587",
+      "scientificName": "Sinapis alba L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220589",
+      "scientificName": "Sisymbrium altissimum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220592",
+      "scientificName": "Sisymbrium irio L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220593",
+      "scientificName": "Sisymbrium loeselii L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220596",
+      "scientificName": "Sisymbrium orientale L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220600",
+      "scientificName": "Sisymbrium strictissimum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220603",
+      "scientificName": "Sisymbrium volgense M. Bieb. ex E. Fourn.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1502",
+      "scientificName": "Sisyrinchium montanum Greene",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219724",
+      "scientificName": "Smyrnium perfoliatum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223486",
+      "scientificName": "Solanum lycopersicum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223489",
+      "scientificName": "Solanum physalifolium Rusby",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223499",
+      "scientificName": "Solanum tuberosum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223500",
+      "scientificName": "Solanum villosum Mill.",
+      "oldValue": "EN",
+      "newValue": "NE"
+    },
+    {
+      "taxonId": "220325",
+      "scientificName": "Solidago canadensis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220326",
+      "scientificName": "Solidago gigantea Aiton",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223206",
+      "scientificName": "Sorbaria kirilowii (Regel) Maxim.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223207",
+      "scientificName": "Sorbaria sorbifolia (L.) A. Braun",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "231296",
+      "scientificName": "Sparganium erectum L.",
+      "oldValue": "LC",
+      "newValue": "DD"
+    },
+    {
+      "taxonId": "224843",
+      "scientificName": "Sparganium microcarpum",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223223",
+      "scientificName": "Spiraea × billardii Hérincq",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223224",
+      "scientificName": "Spiraea × cinerea Zabel",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223226",
+      "scientificName": "Spiraea × macrothyrsa Dippel",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223227",
+      "scientificName": "Spiraea × rosalba Dippel",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223228",
+      "scientificName": "Spiraea × rubella Dippel",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223229",
+      "scientificName": "Spiraea × vanhouttei (Briot) Zabel",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223232",
+      "scientificName": "Spiraea chamaedryfolia L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223235",
+      "scientificName": "Spiraea douglasii Hook.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223237",
+      "scientificName": "Spiraea japonica L. f.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223238",
+      "scientificName": "Spiraea latifolia (Aiton) Borkh.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223241",
+      "scientificName": "Spiraea salicifolia L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223242",
+      "scientificName": "Spiraea tomentosa L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219894",
+      "scientificName": "Spiranthes spiralis (L.) Chevall.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221828",
+      "scientificName": "Stachys byzantina K. Koch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "231968",
+      "scientificName": "Stellaria nemorum L. ssp. montana",
+      "oldValue": "LC",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "1537",
+      "scientificName": "Stipa pennata L.",
+      "oldValue": "CR",
+      "newValue": "EN°*"
+    },
+    {
+      "taxonId": "222697",
+      "scientificName": "Stipa tirsa",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221048",
+      "scientificName": "Symphoricarpos × chenaultii Rehder",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221047",
+      "scientificName": "Symphoricarpos albus (L.) S. F. Blake",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219978",
+      "scientificName": "Symphyotrichum × salignum (Willd.) G. L. Nesom",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219979",
+      "scientificName": "Symphyotrichum × versicolor (Willd.) G. L. Nesom",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219985",
+      "scientificName": "Symphyotrichum novae-angliae (L.) G. L. Nesom",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219986",
+      "scientificName": "Symphyotrichum novi-belgii (L.) G. L. Nesom",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219987",
+      "scientificName": "Symphyotrichum patulum (Lam.) Karlsson",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221579",
+      "scientificName": "Symphytum × uplandicum Nyman",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221580",
+      "scientificName": "Symphytum asperum Lepech.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6007427",
+      "scientificName": "Symphytum grandiflorum DC.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221582",
+      "scientificName": "Symphytum tuberosum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264695",
+      "scientificName": "Syringa × henryi C. K. Schneid.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221839",
+      "scientificName": "Syringa josikaea J. Jacq. ex Rchb.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221841",
+      "scientificName": "Syringa vulgaris L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220341",
+      "scientificName": "Tanacetum balsamita L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220343",
+      "scientificName": "Tanacetum corymbosum (L.) Sch. Bip.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220344",
+      "scientificName": "Tanacetum macrophyllum (Waldst. & Kit.) Sch. Bip.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222167",
+      "scientificName": "Taxus × media Rehder",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220383",
+      "scientificName": "Telekia speciosa (Schreb.) Baumg.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1724",
+      "scientificName": "Tephroseris integrifolia (L.) Holub",
+      "oldValue": "EN",
+      "newValue": "CR"
+    },
+    {
+      "taxonId": "221842",
+      "scientificName": "Teucrium botrys L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221845",
+      "scientificName": "Teucrium scorodonia L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "235137",
+      "scientificName": "Thalictrum lucidum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264439",
+      "scientificName": "Thalictrum venulosum Trel.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221308",
+      "scientificName": "Thermopsis montana Nutt. ex Torr. & A. Gray",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222170",
+      "scientificName": "Thuja occidentalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222171",
+      "scientificName": "Thuja plicata Donn ex D. Don",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "224314",
+      "scientificName": "Thymus pseudolanuginosus Ronniger",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1562",
+      "scientificName": "Thymus pulegioides L.",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "221850",
+      "scientificName": "Thymus vulgaris L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222050",
+      "scientificName": "Tilia × europaea L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220984",
+      "scientificName": "Tradescantia virginiana L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1576",
+      "scientificName": "Tragopogon dubius Scop.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220391",
+      "scientificName": "Tragopogon porrifolius L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "222705",
+      "scientificName": "Trisetum flavescens (L.) P. Beauv.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221934",
+      "scientificName": "Tulipa gesneriana L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221355",
+      "scientificName": "Ulex europaeus L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223246",
+      "scientificName": "Ulmus glabra Huds.",
+      "oldValue": "CR",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "223248",
+      "scientificName": "Ulmus minor Mill.",
+      "oldValue": "CR",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "223245",
+      "scientificName": "Ulmus x hollandica Mill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "220973",
+      "scientificName": "Vaccaria hispanica (Mill.) Rauschert",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221155",
+      "scientificName": "Vaccinium corymbosum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1644",
+      "scientificName": "Valerianella dentata (L.) Pollich",
+      "oldValue": "VU",
+      "newValue": "VU°*"
+    },
+    {
+      "taxonId": "221938",
+      "scientificName": "Veratrum album L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221858",
+      "scientificName": "Verbascum chaixii Vill.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1652",
+      "scientificName": "Verbascum lychnitis L.",
+      "oldValue": "VU",
+      "newValue": "NT"
+    },
+    {
+      "taxonId": "221865",
+      "scientificName": "Verbascum phlomoides L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221866",
+      "scientificName": "Verbascum phoeniceum L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221869",
+      "scientificName": "Verbascum speciosum Schrad.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221871",
+      "scientificName": "Verbascum virgatum Stokes",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221875",
+      "scientificName": "Verbena officinalis L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221882",
+      "scientificName": "Veronica austriaca L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221889",
+      "scientificName": "Veronica filiformis Sm.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221891",
+      "scientificName": "Veronica gentianoides Vahl",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221897",
+      "scientificName": "Veronica peregrina L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221898",
+      "scientificName": "Veronica persica Poir.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1656",
+      "scientificName": "Veronica triphyllos L.",
+      "oldValue": "NT",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "221585",
+      "scientificName": "Viburnum lantana L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1658",
+      "scientificName": "Vicia dumetorum L.",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "221372",
+      "scientificName": "Vicia lutea L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221377",
+      "scientificName": "Vicia pannonica Crantz",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1660",
+      "scientificName": "Vicia villosa Roth",
+      "oldValue": "VU",
+      "newValue": "NT°*"
+    },
+    {
+      "taxonId": "221456",
+      "scientificName": "Vinca minor L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "264686",
+      "scientificName": "Vincetoxicum rossicum (Kleopow) Barbar.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "221991",
+      "scientificName": "Viola × wittrockiana Gams ex Kappert",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1661",
+      "scientificName": "Viola alba Besser",
+      "oldValue": "CR",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "1662",
+      "scientificName": "Viola collina Besser",
+      "oldValue": "VU",
+      "newValue": "EN"
+    },
+    {
+      "taxonId": "1671",
+      "scientificName": "Vulpia bromoides (L.) Gray",
+      "oldValue": "EN",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "222724",
+      "scientificName": "Vulpia myuros (L.) C. C. Gmel.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "223255",
+      "scientificName": "Waldsteinia ternata (Stephan) Fritsch",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "6002733",
+      "scientificName": "Wolffia arrhiza",
+      "oldValue": "LC",
+      "newValue": "VU"
+    },
+    {
+      "taxonId": "220404",
+      "scientificName": "Xanthium strumarium L.",
+      "oldValue": "LC",
+      "newValue": "NA"
+    },
+    {
+      "taxonId": "219616",
+      "scientificName": "Zostera marina L.",
+      "oldValue": "VU",
+      "newValue": "NT"
+    }
+  ],
+  "redlistUnmatched": [
+    {
+      "taxonId": "220186",
+      "scientificName": "Hieracium sect. Alpestria"
+    },
+    {
+      "taxonId": "220187",
+      "scientificName": "Hieracium sect. Alpina"
+    },
+    {
+      "taxonId": "220191",
+      "scientificName": "Hieracium sect. Foliosa"
+    },
+    {
+      "taxonId": "220192",
+      "scientificName": "Hieracium sect. Hieracium"
+    },
+    {
+      "taxonId": "220195",
+      "scientificName": "Hieracium sect. Prenanthoidea"
+    },
+    {
+      "taxonId": "220196",
+      "scientificName": "Hieracium sect. Sabauda"
+    },
+    {
+      "taxonId": "220200",
+      "scientificName": "Hieracium sect. Vulgata"
+    },
+    {
+      "taxonId": "",
+      "scientificName": "Quercus rubra agg."
+    }
+  ],
+  "nordicTraitsUnmatched": [
+    {
+      "taxonId": "222767",
+      "scientificName": "Aconitum × stoerkianum Rchb."
+    },
+    {
+      "taxonId": "220614",
+      "scientificName": "Aconogonon × fennicum Reiersen"
+    },
+    {
+      "taxonId": "224539",
+      "scientificName": "Ammophila arenaria x Calamagrostis epigejos"
+    },
+    {
+      "taxonId": "224888",
+      "scientificName": "Anemone nemorosa x ranunculoides"
+    },
+    {
+      "taxonId": "223896",
+      "scientificName": "Armeria maritima ssp. elongata"
+    },
+    {
+      "taxonId": "223898",
+      "scientificName": "Armeria maritima ssp. maritima"
+    },
+    {
+      "taxonId": "6012035",
+      "scientificName": "Asplenium trichomanes ssp. quadrivalens"
+    },
+    {
+      "taxonId": "224869",
+      "scientificName": "Asplenium trichomanes ssp. trichomanes"
+    },
+    {
+      "taxonId": "220561",
+      "scientificName": "Botrychium tenebrosum"
+    },
+    {
+      "taxonId": "221608",
+      "scientificName": "Callitriche × vigens K. Martinsson"
+    },
+    {
+      "taxonId": "265833",
+      "scientificName": "Calystegia sepium ssp. sepium"
+    },
+    {
+      "taxonId": "225194",
+      "scientificName": "Calystegia sepium ssp. spectabilis"
+    },
+    {
+      "taxonId": "223652",
+      "scientificName": "Campanula glomerata ssp. glomerata"
+    },
+    {
+      "taxonId": "221979",
+      "scientificName": "Carduus thoermeri"
+    },
+    {
+      "taxonId": "222373",
+      "scientificName": "Carex × grahamii"
+    },
+    {
+      "taxonId": "232089",
+      "scientificName": "Carex concolor"
+    },
+    {
+      "taxonId": "222317",
+      "scientificName": "Carex halophila F. Nyl."
+    },
+    {
+      "taxonId": "222334",
+      "scientificName": "Carex macloviana d'Urv."
+    },
+    {
+      "taxonId": "230982",
+      "scientificName": "Carex x saamica"
+    },
+    {
+      "taxonId": "220043",
+      "scientificName": "Centaurea × moncktonii Thuill."
+    },
+    {
+      "taxonId": "222981",
+      "scientificName": "Chaenomeles x superba (Frahm) Rehder"
+    },
+    {
+      "taxonId": "221179",
+      "scientificName": "Chamaecytisus × versicolor (Dippel) Karlsson"
+    },
+    {
+      "taxonId": "346",
+      "scientificName": "Circaea × intermedia Ehrh."
+    },
+    {
+      "taxonId": "264472",
+      "scientificName": "Crataegus × macrocarpa Hegetschw."
+    },
+    {
+      "taxonId": "224948",
+      "scientificName": "Crataegus × media Bechst."
+    },
+    {
+      "taxonId": "264473",
+      "scientificName": "Crataegus × subsphaerica Gand."
+    },
+    {
+      "taxonId": "264311",
+      "scientificName": "Crocus × hybridus Petrovic"
+    },
+    {
+      "taxonId": "219778",
+      "scientificName": "Crocus × stellaris Haw."
+    },
+    {
+      "taxonId": "223591",
+      "scientificName": "Dactylorhiza maculata ssp. fuchsii"
+    },
+    {
+      "taxonId": "222845",
+      "scientificName": "Dactylorhiza maculata ssp. maculata"
+    },
+    {
+      "taxonId": "222824",
+      "scientificName": "Delphinium × belladonna (Kelway) Bergmans"
+    },
+    {
+      "taxonId": "224094",
+      "scientificName": "Equisetum × moorei Newman"
+    },
+    {
+      "taxonId": "223702",
+      "scientificName": "Erigeron acris L. ssp. acris"
+    },
+    {
+      "taxonId": "221689",
+      "scientificName": "Erigeron acris ssp. droebachensis"
+    },
+    {
+      "taxonId": "223705",
+      "scientificName": "Erigeron acris ssp. politus"
+    },
+    {
+      "taxonId": "224735",
+      "scientificName": "Eriophorum × medium Anderss."
+    },
+    {
+      "taxonId": "219936",
+      "scientificName": "Erysimum cheiranthoides L. ssp. alatum"
+    },
+    {
+      "taxonId": "219674",
+      "scientificName": "Erysimum cheiranthoides L. ssp. cheiranthoides"
+    },
+    {
+      "taxonId": "224290",
+      "scientificName": "Erythranthe x maculosa"
+    },
+    {
+      "taxonId": "6002824",
+      "scientificName": "Euonymus planipes"
+    },
+    {
+      "taxonId": "6010577",
+      "scientificName": "Euphrasia nemorosa x stricta var. brevipila"
+    },
+    {
+      "taxonId": "221643",
+      "scientificName": "Forsythia × intermedia Zabel"
+    },
+    {
+      "taxonId": "223029",
+      "scientificName": "Fragaria × ananassa (Weston) Duchesne ex Rozier"
+    },
+    {
+      "taxonId": "259744",
+      "scientificName": "Galanthus × valentinei Beck"
+    },
+    {
+      "taxonId": "224193",
+      "scientificName": "Galium mollugo x verum"
+    },
+    {
+      "taxonId": "221468",
+      "scientificName": "Geranium × magnificum Hyl."
+    },
+    {
+      "taxonId": "224957",
+      "scientificName": "Geum rivale x urbanum"
+    },
+    {
+      "taxonId": "753",
+      "scientificName": "Halimione pedunculata"
+    },
+    {
+      "taxonId": "754",
+      "scientificName": "Halimione portulacoides"
+    },
+    {
+      "taxonId": "221843",
+      "scientificName": "Hedlundia atrata"
+    },
+    {
+      "taxonId": "6037532",
+      "scientificName": "Hedlundia faohraei"
+    },
+    {
+      "taxonId": "220165",
+      "scientificName": "Helianthus × laetiflorus Pers."
+    },
+    {
+      "taxonId": "219682",
+      "scientificName": "Heracleum 'Kungsholm'"
+    },
+    {
+      "taxonId": "220186",
+      "scientificName": "Hieracium sect. Alpestria"
+    },
+    {
+      "taxonId": "220187",
+      "scientificName": "Hieracium sect. Alpina"
+    },
+    {
+      "taxonId": "231939",
+      "scientificName": "Hieracium sect. Bifida"
+    },
+    {
+      "taxonId": "220191",
+      "scientificName": "Hieracium sect. Foliosa"
+    },
+    {
+      "taxonId": "220192",
+      "scientificName": "Hieracium sect. Hieracium"
+    },
+    {
+      "taxonId": "6002782",
+      "scientificName": "Hieracium sect. Oreadea"
+    },
+    {
+      "taxonId": "220195",
+      "scientificName": "Hieracium sect. Prenanthoidea"
+    },
+    {
+      "taxonId": "6033368",
+      "scientificName": "Hieracium sect. Pulmonarioidea"
+    },
+    {
+      "taxonId": "220196",
+      "scientificName": "Hieracium sect. Sabauda"
+    },
+    {
+      "taxonId": "222733",
+      "scientificName": "Hieracium sect. Subalpina"
+    },
+    {
+      "taxonId": "222956",
+      "scientificName": "Hieracium sect. Tridentata"
+    },
+    {
+      "taxonId": "220200",
+      "scientificName": "Hieracium sect. Vulgata"
+    },
+    {
+      "taxonId": "221948",
+      "scientificName": "Hippuris × lanceolata Retz."
+    },
+    {
+      "taxonId": "223616",
+      "scientificName": "Hyacinthoides × massartiana Geerinck"
+    },
+    {
+      "taxonId": "225182",
+      "scientificName": "Hylotelephium telephium ssp. telephium"
+    },
+    {
+      "taxonId": "266071",
+      "scientificName": "Iris × sambucina L."
+    },
+    {
+      "taxonId": "224771",
+      "scientificName": "Juncus alpinoarticulatus ssp. alpinoarticul."
+    },
+    {
+      "taxonId": "222521",
+      "scientificName": "Juncus alpinoarticulatus ssp. rariflorus"
+    },
+    {
+      "taxonId": "221207",
+      "scientificName": "Laburnum x watereri (G. Kirchn.) Dippel"
+    },
+    {
+      "taxonId": "231695",
+      "scientificName": "Lamiastrum galeobdolon ssp. argentatum"
+    },
+    {
+      "taxonId": "224264",
+      "scientificName": "Lamiastrum galeobdolon ssp. galeobdolon"
+    },
+    {
+      "taxonId": "222150",
+      "scientificName": "Larix × marschlinsii Coaz"
+    },
+    {
+      "taxonId": "915",
+      "scientificName": "Lathyrus latifolius ssp. heterophyllus"
+    },
+    {
+      "taxonId": "224130",
+      "scientificName": "Lathyrus latifolius ssp. latifolius"
+    },
+    {
+      "taxonId": "220234",
+      "scientificName": "Leucanthemum × superbum (Bergmans ex J. W. Ingram) D. H. Kent"
+    },
+    {
+      "taxonId": "221243",
+      "scientificName": "Lupinus × regalis Bergmans"
+    },
+    {
+      "taxonId": "221245",
+      "scientificName": "Medicago sativa ssp. falcata"
+    },
+    {
+      "taxonId": "221244",
+      "scientificName": "Medicago sativa ssp. sativa"
+    },
+    {
+      "taxonId": "224139",
+      "scientificName": "Medicago sativa ssp. x varia"
+    },
+    {
+      "taxonId": "1038",
+      "scientificName": "Mentha × gracilis Sole"
+    },
+    {
+      "taxonId": "221709",
+      "scientificName": "Mentha × piperita L."
+    },
+    {
+      "taxonId": "224286",
+      "scientificName": "Mentha × rotundifolia (L.) Huds."
+    },
+    {
+      "taxonId": "221710",
+      "scientificName": "Mentha × verticillata L."
+    },
+    {
+      "taxonId": "224288",
+      "scientificName": "Mentha × villosa Huds."
+    },
+    {
+      "taxonId": "6002870",
+      "scientificName": "Monotropa hypopitys ssp. hypophegea"
+    },
+    {
+      "taxonId": "224099",
+      "scientificName": "Monotropa hypopitys ssp. hypopitys"
+    },
+    {
+      "taxonId": "219857",
+      "scientificName": "Narcissus × incomparabilis Mill."
+    },
+    {
+      "taxonId": "220564",
+      "scientificName": "Nasturtium × sterile (Airy Shaw) Oefelein"
+    },
+    {
+      "taxonId": "221728",
+      "scientificName": "Nepeta × faassenii Bergmans ex Stearn"
+    },
+    {
+      "taxonId": "6012037",
+      "scientificName": "Nymphaea × marliacea Lat.-Marl."
+    },
+    {
+      "taxonId": "6012038",
+      "scientificName": "Nymphaea × thiona D. B. Ward"
+    },
+    {
+      "taxonId": "224145",
+      "scientificName": "Ononis spinosa ssp. hircina"
+    },
+    {
+      "taxonId": "230665",
+      "scientificName": "Ononis spinosa ssp. procurrens"
+    },
+    {
+      "taxonId": "220857",
+      "scientificName": "Ononis spinosa ssp. spinosa"
+    },
+    {
+      "taxonId": "222876",
+      "scientificName": "Papaver lasiothrix"
+    },
+    {
+      "taxonId": "264665",
+      "scientificName": "Philadelphus × lemoinei Lemoine"
+    },
+    {
+      "taxonId": "223754",
+      "scientificName": "Pilosella × piloselliflora (Nägeli & Peter) Soják"
+    },
+    {
+      "taxonId": "6033357",
+      "scientificName": "Pilosella × polioderma (Dahlst.) Soják"
+    },
+    {
+      "taxonId": "223744",
+      "scientificName": "Pilosella × scandinavica (Fr.) F. W. Schultz & Sch. Bip."
+    },
+    {
+      "taxonId": "266011",
+      "scientificName": "Pilosella aurantiaca ssp. aurantiaca var. aurantiaca"
+    },
+    {
+      "taxonId": "223737",
+      "scientificName": "Pilosella aurantiaca ssp. decolorans"
+    },
+    {
+      "taxonId": "774",
+      "scientificName": "Pilosella aurantiaca ssp. dimorpha"
+    },
+    {
+      "taxonId": "223743",
+      "scientificName": "Pilosella cymosa ssp. cymosa"
+    },
+    {
+      "taxonId": "220002",
+      "scientificName": "Pilosella cymosa ssp. gotlandica"
+    },
+    {
+      "taxonId": "223750",
+      "scientificName": "Pilosella cymosa ssp. praealta"
+    },
+    {
+      "taxonId": "223757",
+      "scientificName": "Pilosella officinarum ssp. officinarum"
+    },
+    {
+      "taxonId": "223391",
+      "scientificName": "Pilosella officinarum ssp. peleteranum"
+    },
+    {
+      "taxonId": "222622",
+      "scientificName": "Poa x herjedalica Harry Sm."
+    },
+    {
+      "taxonId": "222623",
+      "scientificName": "Poa x jemtlandica (Almq.) K. Richt."
+    },
+    {
+      "taxonId": "223257",
+      "scientificName": "Populus × canadensis Moench"
+    },
+    {
+      "taxonId": "223258",
+      "scientificName": "Populus × canescens (Aiton) Sm."
+    },
+    {
+      "taxonId": "225057",
+      "scientificName": "Populus × jackii Sarg."
+    },
+    {
+      "taxonId": "6012040",
+      "scientificName": "Primula × polyantha Mill."
+    },
+    {
+      "taxonId": "",
+      "scientificName": "Quercus rubra agg."
+    },
+    {
+      "taxonId": "222726",
+      "scientificName": "Ranunculus auricomus agg."
+    },
+    {
+      "taxonId": "224928",
+      "scientificName": "Ranunculus peltatus ssp. baudotii"
+    },
+    {
+      "taxonId": "230870",
+      "scientificName": "Ranunculus peltatus ssp. peltatus"
+    },
+    {
+      "taxonId": "220779",
+      "scientificName": "Reynoutria x bohemica Chrtek & Chrtková"
+    },
+    {
+      "taxonId": "6037484",
+      "scientificName": "Rhododendron canadensis"
+    },
+    {
+      "taxonId": "223360",
+      "scientificName": "Ribes × houghtonianum Jancz."
+    },
+    {
+      "taxonId": "223361",
+      "scientificName": "Ribes × pallidum Otto & A.Dietr."
+    },
+    {
+      "taxonId": "220581",
+      "scientificName": "Rorippa × anceps (Wahlenb.) Rchb."
+    },
+    {
+      "taxonId": "220582",
+      "scientificName": "Rorippa × armoracioides (Tausch) Fuss"
+    },
+    {
+      "taxonId": "223096",
+      "scientificName": "Rosa × damascena Mill."
+    },
+    {
+      "taxonId": "223099",
+      "scientificName": "Rosa × spaethiana Graebn."
+    },
+    {
+      "taxonId": "223104",
+      "scientificName": "Rosa canina agg."
+    },
+    {
+      "taxonId": "1400",
+      "scientificName": "Rosa tomentella"
+    },
+    {
+      "taxonId": "223106",
+      "scientificName": "Rosa vosagica"
+    },
+    {
+      "taxonId": "1398",
+      "scientificName": "Rosa x inodora Fr."
+    },
+    {
+      "taxonId": "220629",
+      "scientificName": "Rubus sect. Corylifolii"
+    },
+    {
+      "taxonId": "220818",
+      "scientificName": "Sabulina rubella"
+    },
+    {
+      "taxonId": "220897",
+      "scientificName": "Sagina × normaniana Lagerh."
+    },
+    {
+      "taxonId": "230793",
+      "scientificName": "Sagittaria natans x sagittifolia"
+    },
+    {
+      "taxonId": "223267",
+      "scientificName": "Salix × alopecuroides Tausch ex Opiz"
+    },
+    {
+      "taxonId": "223268",
+      "scientificName": "Salix × arctogena Flod."
+    },
+    {
+      "taxonId": "223275",
+      "scientificName": "Salix × fragilis L."
+    },
+    {
+      "taxonId": "223272",
+      "scientificName": "Salix × meyeriana Rostk. ex Willd."
+    },
+    {
+      "taxonId": "223273",
+      "scientificName": "Salix × mollissima Hoffm. ex Elwert"
+    },
+    {
+      "taxonId": "223277",
+      "scientificName": "Salix × smithiana Willd."
+    },
+    {
+      "taxonId": "223303",
+      "scientificName": "Salix repens ssp. repens"
+    },
+    {
+      "taxonId": "221789",
+      "scientificName": "Salix repens ssp. rosmarinifolia"
+    },
+    {
+      "taxonId": "221790",
+      "scientificName": "Salvia × sylvestris L."
+    },
+    {
+      "taxonId": "223373",
+      "scientificName": "Saxifraga × arendsii Engl."
+    },
+    {
+      "taxonId": "1934",
+      "scientificName": "Saxifraga × opdalensis A. Blytt"
+    },
+    {
+      "taxonId": "223376",
+      "scientificName": "Saxifraga × urbium D. A. Webb"
+    },
+    {
+      "taxonId": "219885",
+      "scientificName": "Scilla × allenii (G. Nicholson) Speta"
+    },
+    {
+      "taxonId": "224843",
+      "scientificName": "Sparganium microcarpum"
+    },
+    {
+      "taxonId": "1940",
+      "scientificName": "Sparganium neglectum"
+    },
+    {
+      "taxonId": "223223",
+      "scientificName": "Spiraea × billardii Hérincq"
+    },
+    {
+      "taxonId": "223224",
+      "scientificName": "Spiraea × cinerea Zabel"
+    },
+    {
+      "taxonId": "223226",
+      "scientificName": "Spiraea × macrothyrsa Dippel"
+    },
+    {
+      "taxonId": "223227",
+      "scientificName": "Spiraea × rosalba Dippel"
+    },
+    {
+      "taxonId": "223228",
+      "scientificName": "Spiraea × rubella Dippel"
+    },
+    {
+      "taxonId": "223229",
+      "scientificName": "Spiraea × vanhouttei (Briot) Zabel"
+    },
+    {
+      "taxonId": "231968",
+      "scientificName": "Stellaria nemorum L. ssp. montana"
+    },
+    {
+      "taxonId": "231402",
+      "scientificName": "Stellaria nemorum ssp. nemorum"
+    },
+    {
+      "taxonId": "221048",
+      "scientificName": "Symphoricarpos × chenaultii Rehder"
+    },
+    {
+      "taxonId": "219978",
+      "scientificName": "Symphyotrichum × salignum (Willd.) G. L. Nesom"
+    },
+    {
+      "taxonId": "219979",
+      "scientificName": "Symphyotrichum × versicolor (Willd.) G. L. Nesom"
+    },
+    {
+      "taxonId": "221579",
+      "scientificName": "Symphytum × uplandicum Nyman"
+    },
+    {
+      "taxonId": "264695",
+      "scientificName": "Syringa × henryi C. K. Schneid."
+    },
+    {
+      "taxonId": "222167",
+      "scientificName": "Taxus × media Rehder"
+    },
+    {
+      "taxonId": "222050",
+      "scientificName": "Tilia × europaea L."
+    },
+    {
+      "taxonId": "222703",
+      "scientificName": "Trichophorum cespitosum ssp. cespitosum"
+    },
+    {
+      "taxonId": "224858",
+      "scientificName": "Trichophorum cespitosum ssp. germanicum"
+    },
+    {
+      "taxonId": "223245",
+      "scientificName": "Ulmus x hollandica Mill."
+    },
+    {
+      "taxonId": "221991",
+      "scientificName": "Viola × wittrockiana Gams ex Kappert"
+    }
+  ],
+  "notes": [
+    "Legacy 'Not Red-listed' is shown as LC only in this comparison, not used as current status.",
+    "No fuzzy matches, parent-species fallbacks or invented traits are used.",
+    "Source longevity level 0 occurs in Apera interrupta and Draba norvegica but is not defined in V1 metadata; preserve it explicitly."
+  ]
+}

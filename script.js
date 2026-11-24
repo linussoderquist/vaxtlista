@@ -3,7 +3,8 @@
 let plantData = [];
 let riskData = [];
 let euInvasiveData = [];
-let plantTraits = [];
+let nordicTraits = null;
+let redlistData = null;
 let gbifLayer;
 let allDataLoaded = false;
 let insectData = [];
@@ -21,56 +22,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
 }).addTo(map);
 
-// Ladda CSV-filer
-Papa.parse("vaxtdata.csv", {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function (results) {
-    plantData = results.data;
-    checkAllDataLoaded();
-  }
-});
-
-Papa.parse("Riskklassning2024_Uttag.csv", {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function (results) {
-    riskData = results.data;
-    checkAllDataLoaded();
-  }
-});
-
-Papa.parse("eu_invasiva_vaxtarter.csv", {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function (results) {
-    euInvasiveData = results.data;
-    checkAllDataLoaded();
-  }
-});
-
-Papa.parse("karaktarer.csv", {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function (results) {
-    plantTraits = results.data;
-    checkAllDataLoaded();
-  }
-});
-
-Papa.parse("resource_relevant.csv", {
-  download: true,
-  header: true,
-  skipEmptyLines: true,
-  complete: function (results) {
-    insectData = results.data;
-    checkAllDataLoaded();
-  }
-});
+// Källorna laddas av initializeData() när alla funktioner har definierats.
 
 function displayPlantNetResults(data) {
   const resultDiv = document.getElementById("plantnetResult");
@@ -168,27 +120,19 @@ function setupAutocompleteScientific() {
 }
 
 function searchPlantByScientific(name) {
-  name = decodeURIComponent(name).trim().toLowerCase();
+  const query = decodeURIComponent(name).trim();
+  name = query.toLowerCase();
   if (!allDataLoaded) {
     resultDiv.innerHTML = "🔄 Datan laddas fortfarande...";
     return;
   }
 
-  // Försök matcha exakt släkte + art
-  const simplified = name.split(" ").slice(0, 2).join(" ");
-
-  let match = plantData.find(p => {
-    const plantName = p["Scientific name"]?.toLowerCase().trim();
-    const shortName = plantName?.split(" ").slice(0, 2).join(" ");
-    return shortName === simplified;
-  });
-
-  // Om inget exakt match, försök fuzzy match
+  // Bevara underarter, hybrider och aggregat när ett taxon väljs.
+  let match = plantData.find(p => p["Scientific name"]?.toLowerCase().trim() === name);
   if (!match) {
-    match = plantData.find(p => {
-      const plantName = p["Scientific name"]?.toLowerCase().trim();
-      return plantName && plantName.includes(simplified);
-    });
+    const key = PlantDataView.scientificNameKey(query);
+    const matches = plantData.filter(p => PlantDataView.scientificNameKey(p["Scientific name"]) === key);
+    if (matches.length === 1) match = matches[0];
   }
 
   if (!match) {
@@ -435,12 +379,7 @@ function drawHeight(cm) {
   return `${value} cm`;
 }
 function getRedlistBadge(status) {
-  if (!status || status.toUpperCase().includes("NOT RED-LISTED")) {
-    return `<span class="redlist-badge rl-LC">LC</span>`;
-  }
-  const s = status.trim().toUpperCase();
-  const code = s.match(/(EX|EW|RE|CR|EN|VU|NT|LC|DD|NE)/)?.[1] || "NE";
-  return `<span class="redlist-badge rl-${code}">${code}</span>`;
+  return PlantDataView.getRedlistBadge(status);
 }
 
 function getImmigrationLabel(value) {
@@ -784,133 +723,106 @@ function getParasitismLabel(value) {
 
 function formatPlantInfo(match, isEUListad = false) {
   const dyntaxa = match["Dyntaxa ID number"];
-  const traits = plantTraits.find(t => t["Dyntaxa ID number"]?.toString() === dyntaxa);
+  const escape = PlantDataView.escapeHtml;
   const riskklass = getRiskklassningFromXLSX(dyntaxa);
-  let invasionPotential = null;
-  let ecologicalEffect = null;
-  let nativeRange = null;
-
-const riskDataRow = riskData.find(r => r["TaxonId"]?.toString() === dyntaxa?.toString());
-if (riskDataRow) {
-  invasionPotential = riskDataRow["Invasionspotential"] || null;
-  ecologicalEffect = riskDataRow["Ekologisk effekt"] || null;
-  nativeRange = riskDataRow["Ursprunglig utbredning"] || null;
-}
-
-  const zon = heatRequirementToZone(match["Heat requirement"]);
+  const riskRow = riskData.find(r => r["TaxonId"]?.toString() === dyntaxa?.toString());
   const immigration = getImmigrationLabel(match["Time of immigration"]);
-  const redlist = ["0", "1", "2", "3"].includes(match["Time of immigration"]?.toString());
-
-  const genus = match["Scientific name"].split(" ")[0];
-  const species = match["Scientific name"].split(" ")[1] || "";
   const scientific = match["Scientific name"];
   const swedish = match["Svenskt namn"];
+  const [genus, species = ""] = scientific.split(" ");
   const associatedInsects = getAssociatedInsects(genus, species);
-
-  const blomningsstart = traits?.["Blomningsstart"] || "okänt";
-  const blomningsslut = traits?.["Blomningsslut"] || "okänt";
-  const blommar = traits?.["Blommande?"] === "Ja";
-  const blomfarg = traits?.["Blomfärg"] || "okänd";
-
-  const insectHtml = associatedInsects.length > 0 ? `
-    <h4>Associerade fjärilar (Lepidoptera), enligt  <a href="https://doi.org/10.5519/havt50xw" target="_blank">Robinson et al. (2023)</a>:</h4>
-    <ul>
-      ${associatedInsects.map(insect => `
-        <li><em>${insect["Insect Genus"]} ${insect["Insect Species"]}</em> (${insect["Insect Family"]}) - ${insect["Damage"] || "ingen specifik skada angiven"}</li>
-      `).join('')}
-    </ul>
-  ` : "";
-
-  const addButton = `<button onclick="addToPlantList('${swedish}', '${scientific}')">➕ Lägg till i min växtlista</button>`;
-  const scale = (label1, label2) => [label1, label2];
+  const redlistHtml = PlantDataView.renderRedlist(redlistData, dyntaxa);
+  const traitHtml = PlantDataView.renderTraits(nordicTraits, dyntaxa, advancedMode);
+  const sourceNote = `<p class="source-note">Kompletterande uppgifter från <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank" rel="noopener">Tyler et al. (2021)</a>.</p>`;
+  const header = `
+    <h3>${escape(swedish)} (${escape(scientific)})</h3>
+    <p><strong>Familj:</strong> ${escape(match["Family"])}</p>
+    ${redlistHtml}
+    <p><strong>Invandringstid:</strong> ${immigration}</p>
+    ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
+    ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
+  `;
+  const addButton = `<button onclick="addToPlantList(currentSelectedPlant['Svenskt namn'], currentSelectedPlant['Scientific name'])">➕ Lägg till i min växtlista</button>`;
+  const artfakta = dyntaxa ? `<p><strong>Artfakta:</strong> <a href="https://artfakta.se/taxa/${encodeURIComponent(dyntaxa)}" target="_blank" rel="noopener">Visa Artfakta</a></p>` : "";
 
   if (!advancedMode) {
-    //Förenklad
-    return `
-      <h3>${swedish} (${scientific})</h3>
-      <p><strong>Familj:</strong> ${match["Family"]}</p>
-      ${redlist ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>` : ""}
-      <p><strong>Invandringstid:</strong> ${immigration}</p>
-      ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
-      ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
-      <p><strong>Blomning:</strong> ${blommar ? `Ja (${blomningsstart}–${blomningsslut})` : "Nej eller okänt"}</p>
-    <p><strong>Blomfärg:</strong> 
-  <span style="display: inline-block; width: 16px; height: 16px; border-radius: 50%; background-color: ${blomfargTillCSS(blomfarg)}; vertical-align: middle; margin-right: 0.5rem;"></span>
-  ${blomfarg}
-</p>
-<p><strong>Härdig till odlingszon:</strong> ${zon}</p>
-<p><strong>Biodiversitetsrelevans:</strong> ${getBiodiversityRelevanceLabel(match["Biodiversity relevance"])}</p>
-    <p><strong>Nektarproduktion:</strong> ${getNectarProductionLabel(match["Nectar production"])}</p>
-      ${addButton}
-    `;
+    return `${header}${traitHtml}
+      <h4>Miljöindikatorer</h4>${sourceNote}
+      <p><strong>Värmekrav:</strong> ${getHeatRequirementLabel(match["Heat requirement"])}</p>
+      <p><strong>Ljusbehov:</strong> ${getLightLabel(match["Light"])}</p>
+      <p><strong>Fuktighetskrav:</strong> ${getMoistureLabel(match["Moisture"])}</p>
+      <p><strong>Biodiversitetsrelevans:</strong> ${getBiodiversityRelevanceLabel(match["Biodiversity relevance"])}</p>
+      ${artfakta}${addButton}`;
   }
 
-  //Avancerad
-  return `
-    <h3>${swedish} (${scientific})</h3>
-    <p><strong>Familj:</strong> ${match["Family"]}</p>
-    ${redlist ? `<p><strong>Rödlistning:</strong> ${getRedlistBadge(match["Red-listed"])}</p>` : ""}
-    <p><strong>Härdig till odlingszon:</strong> ${zon}</p>
-    <p><strong>Invandringstid:</strong> ${immigration}</p>
-    ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
-    ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
-    ${nativeRange ? `<p><strong>Ursprunglig utbredning:</strong> ${nativeRange}</p>` : ""}
-${(invasionPotential && ecologicalEffect) ? `
-  <p><strong>Invasionspotential:</strong> ${invasionPotential}</p>
-  <p><strong>Ekologisk effekt:</strong> ${ecologicalEffect}</p>
-` : ""}
+  const insectHtml = associatedInsects.length ? `
+    <h4>Associerade fjärilar (Lepidoptera), enligt <a href="https://doi.org/10.5519/havt50xw" target="_blank" rel="noopener">Robinson et al. (2023)</a>:</h4>
+    <ul>${associatedInsects.map(insect => `<li><em>${escape(insect["Insect Genus"])} ${escape(insect["Insect Species"])}</em> (${escape(insect["Insect Family"])}) – ${escape(insect["Damage"] || "ingen specifik skada angiven")}</li>`).join("")}</ul>` : "";
 
-    ${traits ? `<p><strong>Växtsätt:</strong> ${getGrowthFormIcon(traits["Växtsätt"])} ${traits["Växtsätt"]}</p>` : ""}
-    ${traits ? `<p><strong>Medelhöjd:</strong> ${drawHeight(traits["Medelhöjd (cm)"])}</p>` : ""}
-
-    <p><strong>Blomning:</strong> ${blommar ? `Ja (${blomningsstart}–${blomningsslut})` : "Nej eller okänt"}</p>
-    <p><strong>Blomfärg:</strong> 
-  <span style="display: inline-block; width: 16px; height: 16px; border-radius: 50%; background-color: ${blomfargTillCSS(blomfarg)}; vertical-align: middle; margin-right: 0.5rem;"></span>
-  ${blomfarg}
-</p>
-
-    <!-- Indikatorer-->
-
+  return `${header}
+    ${riskRow?.["Ursprunglig utbredning"] ? `<p><strong>Ursprunglig utbredning:</strong> ${escape(riskRow["Ursprunglig utbredning"])}</p>` : ""}
+    ${riskRow?.["Invasionspotential"] ? `<p><strong>Invasionspotential:</strong> ${escape(riskRow["Invasionspotential"])}</p>` : ""}
+    ${riskRow?.["Ekologisk effekt"] ? `<p><strong>Ekologisk effekt:</strong> ${escape(riskRow["Ekologisk effekt"])}</p>` : ""}
+    ${traitHtml}
+    <h4>Miljöindikatorer</h4>${sourceNote}
     <p><strong>Biodiversitetsrelevans:</strong> ${getBiodiversityRelevanceLabel(match["Biodiversity relevance"])}</p>
-    <p><strong>Nektarproduktion:</strong> ${getNectarProductionLabel(match["Nectar production"])}</p>
-    <p><strong>Värmekrav (härdighet):</strong> ${getHeatRequirementLabel(match["Heat requirement"])}</p>
+    <p><strong>Värmekrav:</strong> ${getHeatRequirementLabel(match["Heat requirement"])}</p>
     <p><strong>Köldkrav:</strong> ${getColdRequirementLabel(match["Cold requirement"])}</p>
     <p><strong>Ljusbehov:</strong> ${getLightLabel(match["Light"])}</p>
     <p><strong>Fuktighetskrav:</strong> ${getMoistureLabel(match["Moisture"])}</p>
-    <p><strong>pH:</strong> ${match["Soil reaction (pH)"] || "<em>okänt</em>"}</p>
+    <p><strong>Markreaktion (pH-index):</strong> ${escape(match["Soil reaction (pH)"]) || "<em>okänt</em>"}</p>
     <p><strong>Kvävepreferens:</strong> ${getNitrogenLabel(match["Nitrogen (N)"])}</p>
     <p><strong>Fosforpreferens:</strong> ${getPhosphorusLabel(match["Phosphorus (P)"])}</p>
     <p><strong>Salttålighet:</strong> ${getSalinityLabel(match["Salinity"])}</p>
     <p><strong>Bete/slåtter:</strong> ${getGrazingLabel(match["Grazing/mowing"])}</p>
     <p><strong>Markstörningsbehov:</strong> ${getSoilDisturbanceLabel(match["Soil disturbance"])}</p>
-    <p><strong>Livslängd:</strong> ${getLongevityLabel(match["Longevity"])}</p>
-    <p><strong>Beroende av pollinatörer:</strong> ${getPollinatorDependenceLabel(match["Pollinator dependence"])}</p>
-    <p><strong>Fröspridning:</strong> ${getSeedDispersalLabel(match["Seed disperser"])}</p>
-    <p><strong>Frövila:</strong> ${getSeedDormancyLabel(match["Seed dormancy"])}</p>
-    <p><strong>Fröbankens livslängd:</strong> ${getSeedBankLabel(match["Seed bank"])}</p>
-    <p><strong>Kvävefixering:</strong> ${match["Nitrogen fixation"] === "1" ? "Ja" : "Nej"}</p>
-    <p><strong>Mykorrhiza:</strong> ${getMycorrhizaLabel(match["Mycorrhiza"])}</p>
-    <p><strong>Parasitism:</strong> ${getParasitismLabel(match["Parasitism"])}</p>
-
-
-    <p><strong>Artfakta:</strong> <a href="https://www.artfakta.se/taxa/${dyntaxa}" target="_blank">Visa artfakta</a></p>
-    <hr/>
-    ${insectHtml}
-    ${addButton}
-  `;
+    ${artfakta}<hr>${insectHtml}${addButton}`;
 }
 
-function checkAllDataLoaded() {
-  if (
-    plantData.length &&
-    riskData.length &&
-    euInvasiveData.length &&
-    plantTraits.length &&
-    insectData.length
-  ) {
-    allDataLoaded = true;
-    plantNames = [...new Set(plantData.map(p => p["Svenskt namn"]))];
-    setupAutocomplete();
-    setupAutocompleteScientific();
+function loadCsv(url) {
+  return new Promise((resolve, reject) => {
+    Papa.parse(url, {
+      download: true, header: true, skipEmptyLines: true,
+      complete: results => results.data.length ? resolve(results.data) : reject(new Error(`Tom datafil: ${url}`)),
+      error: reject
+    });
+  });
+}
+
+async function loadJson(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`${url}: HTTP ${response.status}`);
+  const dataset = await response.json();
+  if (!dataset.source || !dataset.taxa || !Object.keys(dataset.taxa).length) throw new Error(`Ogiltig datafil: ${url}`);
+  if (url.includes("nordictraits") && (!dataset.species || dataset.traits?.length !== 44)) throw new Error("Ogiltig NordicTraits-fil");
+  return dataset;
+}
+
+async function initializeData() {
+  input.disabled = true;
+  inputScientific.disabled = true;
+  resultDiv.textContent = "🔄 Artuppgifterna laddas…";
+  const results = await Promise.allSettled([
+    loadCsv("vaxtdata.csv"), loadCsv("Riskklassning2024_Uttag.csv"),
+    loadCsv("eu_invasiva_vaxtarter.csv"), loadCsv("resource_relevant.csv"),
+    loadJson("data/redlist-2025.json"), loadJson("data/nordictraits-v1.json")
+  ]);
+  const values = results.map(result => result.status === "fulfilled" ? result.value : null);
+  [plantData, riskData, euInvasiveData, insectData] = values.slice(0, 4).map(value => value || []);
+  [redlistData, nordicTraits] = values.slice(4);
+  results.filter(result => result.status === "rejected").forEach(result => console.error("Kunde inte ladda artuppgifter:", result.reason));
+  if (!plantData.length) {
+    resultDiv.textContent = "Artlistan kunde inte laddas. Försök ladda om sidan.";
+    return;
   }
+  allDataLoaded = true;
+  input.disabled = false;
+  inputScientific.disabled = false;
+  setupAutocomplete();
+  setupAutocompleteScientific();
+  resultDiv.textContent = results.some(result => result.status === "rejected")
+    ? "Vissa uppgifter kunde inte laddas. Du kan söka efter arter; ladda om sidan för att försöka igen."
+    : "Välj en art för att visa dess uppgifter.";
 }
+
+initializeData();
