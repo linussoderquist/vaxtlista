@@ -438,3 +438,31 @@ body .risk-code {
   #planner #entries .selection-card[hidden] { display: block !important; }
   #planner #entries[data-view] { grid-template-columns: repeat(2,minmax(0,1fr)); }
 }
+
+/* Scale the complete card, including its typography and month grid. */
+#planner #entries[data-view] { grid-template-columns: repeat(auto-fill,var(--card-width)); justify-content: center; gap: 1.5rem; }
+#planner #entries[data-view="deck"] { grid-template-columns: var(--card-width); }
+#planner #entries[data-view] .selection-card { box-sizing: border-box; max-width: none; }
+#planner #entries[data-view="gallery"] .selection-card h3 { font-size: 2rem; }
+#planner .selection-metrics { grid-template-columns: repeat(2,minmax(0,1fr)); }
+#planner .selection-metrics > div { min-width: 0; }
+#planner .selection-metrics > div > span { overflow-wrap: anywhere; }
+#planner .selection-months { grid-template-columns: repeat(12,minmax(0,1fr)); }
+#planner .selection-months > span { min-width: 0; padding-inline: 0; font-size: .62rem; white-space: nowrap; }
+.card-stage { position: relative; min-width: 0; }
+@media(max-width:430px) { #planner .selection-metrics { grid-template-columns: 1fr; } }
+.card-stage .deck-nav { justify-content: center; gap: 1rem; margin-bottom: 1rem; }
+#planner .candidate-list { display: flex; flex-wrap: wrap; gap: .3rem .5rem; }
+#planner .candidate-list button { font: 500 .78rem/1.3 var(--sans); margin: 0; padding: .3rem .5rem; min-height: 30px; }
+@media(min-width:761px) {
+  .card-stage[data-view="deck"] { padding-inline: 60px; }
+  .card-stage[data-view="deck"] .deck-nav { margin-bottom: .5rem; }
+  .card-stage[data-view="deck"] #previousCard, .card-stage[data-view="deck"] #nextCard { position: absolute; top: 220px; width: 44px; min-height: 48px; z-index: 2; }
+  .card-stage[data-view="deck"] #previousCard { left: 0; }
+  .card-stage[data-view="deck"] #nextCard { right: 0; }
+}
+@media print {
+  .deck-nav { display: none !important; }
+  #planner #entries[data-view] .selection-card { zoom: 1 !important; width: auto !important; }
+  #planner #entries[data-view] { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}

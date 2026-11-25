@@ -5,7 +5,8 @@ const norm = value => String(value ?? "").trim().replace(/\s+/g," ").toLocaleLow
 const filters = [
   ["Light","Ljus",[["Skugga",1,3],["Halvskugga",3,5],["Sol",5,7]]],
   ["Moisture","Markfukt",[["Torr",1,3],["Frisk",3,5],["Fuktig",5,7],["Blöt",7,9],["Periodvis översvämmad",9,10],["Permanent vatten",11,12]]],
-  ["Soil reaction (pH)","Markreaktion",[["Sur",1,4],["Svagt sur",4,6],["Kring neutral",6,7],["Alkalisk",8,8]]]
+  ["Soil reaction (pH)","Markreaktion",[["Sur",1,4],["Svagt sur",4,6],["Kring neutral",6,7],["Alkalisk",8,8]]],
+  ["Salinity","Salttolerans",[["Inte salttålig",1,1],["Måttligt salttålig",2,2],["Gynnas av måttlig salthalt",3,3],["Främst måttlig–hög salthalt",4,4],["Endast hög salthalt",5,5]]]
 ];
 const months = "Jan Feb Mar Apr Maj Jun Jul Aug Sep Okt Nov Dec".split(" ");
 const key = "vaxtval-plan-v1";
@@ -240,7 +241,7 @@ function render(){
   if(!national||!eu||!risks){el("candidates").textContent="Invasiv- eller riskunderlaget saknas.";return;}
   if(!Object.values(site).some(Boolean)){el("candidates").textContent="Välj minst ett ståndortsvillkor.";return;}
   const suitable=catalog.filter(p=>status(p)==="Matchar ståndorten"&&!unique.has(p["Dyntaxa ID number"])&&!national.taxa[p["Dyntaxa ID number"]]&&!eu.has(p["Dyntaxa ID number"])&&!["HI","SE"].includes(risks.get(p["Dyntaxa ID number"]))&&p["Time of immigration"]==="0").sort((a,b)=>a["Svenskt namn"].localeCompare(b["Svenskt namn"],"sv"));
-  el("candidates").innerHTML='<p>'+suitable.length+' inhemska taxa matchar. Visar högst 30 i bokstavsordning.</p>'+suitable.slice(0,30).map(p=>'<button data-name="'+esc(p["Scientific name"])+'">'+esc(p["Svenskt namn"])+' +</button> ').join("");
+  el("candidates").innerHTML='<p>'+suitable.length+' inhemska taxa matchar. Alla träffar visas i bokstavsordning.</p><div class="candidate-list">'+suitable.map(p=>'<button data-name="'+esc(p["Scientific name"])+'">'+esc(p["Svenskt namn"])+' +</button>').join("")+'</div>';
 }
 el("candidates").onclick=e=>{if(e.target.dataset.name){rows.push({name:e.target.dataset.name});save();}};
 el("entries").onclick=e=>{
