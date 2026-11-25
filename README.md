@@ -145,3 +145,23 @@ intervall. Kalendern räknar varje matchat taxon en gång. Ty­lers ståndortsin
 grupperas i överlappande klasser enligt gränsbeskrivningarna i originalartikeln.
 Täckningen av odlingssorter är begränsad. Projektets EU-fil är ett urval för
 katalogen. Se [Naturvårdsverkets förteckning](https://www.naturvardsverket.se/amnesomraden/invasiva-frammande-arter/forbjudna-invasiva-frammande-arter/).
+
+## Plantskolornas namn
+
+Det första granskade registret i nursery.js innehåller nio poster från Cramers,
+Stångby och Björkhaga. Källänkar och verifieringsdatum finns i sortkorten.
+Samma normalisering används vid import och sökning efter vetenskapligt namn.
+Apostrofer, versaler och varumärkessymboler normaliseras och dokumenterade
+sortsynonymer hanteras. Originaltexten bevaras vid CSV-export.
+
+Varje sort har egen identitet. En artkoppling länkar till Artfakta när arten finns
+i grundkatalogen. Sorterna får inga automatiskt ärvda nektar-, rödlist- eller
+biodiversitetsvärden. Caradonnas juni–september-intervall visas i kalendern med
+plantskolan som källa. Övriga sortintervall är okända. Registret är ett begränsat,
+manuellt granskat urval, inte plantskolornas fullständiga sortiment.
+Ogranskade namn förblir omatchade. Registerutökning kräver källa för varje post.
+
+Blomningsartikel:
+Auffret, A. (2021). Historical floras reflect broad shifts in flowering phenology
+in response to a warming climate. Ecosphere, 12(7), e03683.
+https://doi.org/10.1002/ecs2.3683

@@ -131,6 +131,7 @@ function searchPlantByScientific(name) {
 
   // Bevara underarter, hybrider och aggregat när ett taxon väljs.
   let match = plantData.find(p => p["Scientific name"]?.toLowerCase().trim() === name);
+  if (!match) match = globalThis.NurseryPlants?.find(plantData, query);
   if (!match) {
     const key = PlantDataView.scientificNameKey(query);
     const matches = plantData.filter(p => PlantDataView.scientificNameKey(p["Scientific name"]) === key);
@@ -146,7 +147,7 @@ function searchPlantByScientific(name) {
 
   const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
   resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
-  drawMapFromGBIF(match["Scientific name"]);
+  if (!match.nursery) drawMapFromGBIF(match["Scientific name"]);
 }
 
 
@@ -295,7 +296,7 @@ function searchPlant() {
 
   const isEUListad = isEUInvasive(match["Dyntaxa ID number"]);
   resultDiv.innerHTML = formatPlantInfo(match, isEUListad);
-  drawMapFromGBIF(match["Scientific name"]);
+  if (!match.nursery) drawMapFromGBIF(match["Scientific name"]);
 }
 
 function getGrowthFormIcon(type) {
@@ -671,6 +672,7 @@ function getParasitismLabel(value) {
 }
 
 function formatPlantInfo(match, isEUListad = false) {
+  if (match.nursery) return NurseryPlants.describe(match) + '<button onclick="addSearchSelection()">Lägg till i Växtval</button>';
   const dyntaxa = match["Dyntaxa ID number"];
   const escape = PlantDataView.escapeHtml;
   const riskklass = getRiskklassningFromXLSX(dyntaxa);
@@ -766,6 +768,7 @@ async function initializeData() {
     resultDiv.textContent = "Artlistan kunde inte laddas. Försök ladda om sidan.";
     return;
   }
+  if (globalThis.NurseryPlants) plantData.push(...NurseryPlants.build(plantData));
   allDataLoaded = true;
   globalThis.startPlanner?.(plantData, nordicTraits, nationalInvasiveData, values[2], values[1]);
   input.disabled = false;

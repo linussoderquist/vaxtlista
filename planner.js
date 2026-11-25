@@ -29,8 +29,9 @@ function route(){
 window.addEventListener("hashchange",route);
 window.addEventListener("DOMContentLoaded",route);
 function addSearchSelection(){const p=currentSelectedPlant;if(!p)return;rows.push({name:p["Scientific name"]});save();location.hash="vaxtval";}
-function match(name){return byName.get(norm(name));}
+function match(name){return byName.get(norm(name)) || globalThis.NurseryPlants?.find(catalog,name);}
 function status(p){
+  if(p.nursery)return "Sortpost · se plantskolans ståndortsbeskrivning";
   const issues=[],unknown=[];
   for(const [field,label,options] of filters){
     const range=options.find(o=>o[0]===site[field]); if(!range)continue;
@@ -74,7 +75,7 @@ function startPlanner(plants,n,t,e,r){
   ready=true;
   el("conditions").innerHTML=filters.map(([field,label,options],i)=>'<label>'+label+'<select data-i="'+i+'"><option value="">Ej valt</option>'+options.map(([name])=>'<option '+(site[field]===name?'selected':'')+'>'+name+'</option>').join("")+'</select></label>').join("");
   note("");render();
-  loadJson("data/flowering-sv.json").then(data=>{flowering=data.taxa;render();}).catch(()=>{el("calendar").textContent="Blomningsdata kunde inte laddas.";});
+  loadJson("data/flowering-sv.json").then(data=>{flowering={...data.taxa};for(const p of catalog){if(p.nursery?.flowering)flowering[p["Dyntaxa ID number"]]=p.nursery.flowering;}render();}).catch(()=>{el("calendar").textContent="Blomningsdata kunde inte laddas.";});
 }
 el("conditions").onchange=e=>{site[filters[e.target.dataset.i][0]]=e.target.value;save();};
 el("pick").oninput=e=>{
@@ -94,7 +95,7 @@ function render(){
     const euInfo = euRecord ? InvasivePlantView.renderEUStatus(euRecord) : "";
     const cls=p?.["Biodiversity relevance"];
     const messages=p?[status(p),cls>0&&assoc[cls]?"Associerade arter i källan "+assoc[cls]:"",...flags(p)]:["Omatchat namn eller sort · artuppgifter saknas"];
-    return '<div class="row"><div><strong>'+esc(p?.["Svenskt namn"]||row.name)+'</strong><small>'+[row.name,row.quantity,row.plot].filter(Boolean).map(esc).join(" · ")+'</small><small>'+messages.filter(Boolean).map(esc).join(" · ")+'</small>'+euInfo+'</div><div>'+(p?'<button data-open="'+i+'">Artkort</button> ':'')+'<button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></div></div>';
+    return '<div class="row"><div><strong>'+esc(p?.["Svenskt namn"]||row.name)+'</strong><small>'+[row.name,row.quantity,row.plot].filter(Boolean).map(esc).join(" · ")+'</small><small>'+messages.filter(Boolean).map(esc).join(" · ")+'</small>'+(p?.nursery?NurseryPlants.describe(p):'')+euInfo+'</div><div>'+(p?'<button data-open="'+i+'">Artkort</button> ':'')+'<button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></div></div>';
   }).join("")+(rows.length?'<button id="exportList">Exportera CSV</button>':'<p>Listan är tom. <button id="example">Prova en exempellista</button></p>');
   if(el("example"))el("example").onclick=()=>{rows=["sälg","prästkrage","rödklint"].map(name=>({name}));save();};
   if(el("exportList"))el("exportList").onclick=()=>{
@@ -106,7 +107,7 @@ function render(){
   el("calendar").innerHTML='<p>'+counted.length+' av '+unique.size+' matchade taxa har ett dokumenterat blomningsintervall. '+(rows.filter(r=>!match(r.name)).length)+' omatchade rader.</p><div class="months">'+months.map((m,i)=>{
     const blooming=counted.filter(([id])=>flowering[id][0]<=i+1&&flowering[id][1]>=i+1);
     return '<div class="'+(blooming.length?'bloom':'')+'" title="'+esc(blooming.map(([,p])=>p["Svenskt namn"]).join(", "))+'">'+m+'<strong>'+blooming.length+'</strong></div>';
-  }).join("")+'</div><small>Antal olika taxa med belagd blomning per månad. Noll anger en lucka i underlaget för listan.</small>'+ (counted.length?'<details><summary>Visa arter och nektarklass</summary>'+counted.map(([id,p])=>{const record=PlantDataView.getSpecies(traits,id);return '<p>'+esc(p["Svenskt namn"])+' · '+months[flowering[id][0]-1]+'–'+months[flowering[id][1]-1]+' · nektarklass '+esc(record?.values.nectar_production??"saknas")+(record?.imputed.includes("nectar_production")?" (modellskattad)":"")+'</p>';}).join("")+'</details>':'');
+  }).join("")+'</div><small>Antal olika taxa med belagd blomning per månad. Noll anger en lucka i underlaget för listan.</small>'+ (counted.length?'<details><summary>Visa arter och nektarklass</summary>'+counted.map(([id,p])=>{const record=PlantDataView.getSpecies(traits,id);return '<p>'+esc(p["Svenskt namn"])+' · '+months[flowering[id][0]-1]+'–'+months[flowering[id][1]-1]+' · '+(p.nursery?'Plantskolans sortuppgift':'Auffret, A. (2021)')+' · nektarklass '+esc(record?.values.nectar_production??"saknas")+(record?.imputed.includes("nectar_production")?" (modellskattad)":"")+'</p>';}).join("")+'</details>':'');
   if(!national||!eu||!risks){el("candidates").textContent="Invasiv- eller riskunderlaget saknas.";return;}
   if(!Object.values(site).some(Boolean)){el("candidates").textContent="Välj minst ett ståndortsvillkor.";return;}
   const suitable=catalog.filter(p=>status(p)==="Matchar ståndorten"&&!unique.has(p["Dyntaxa ID number"])&&!national.taxa[p["Dyntaxa ID number"]]&&!eu.has(p["Dyntaxa ID number"])&&!["HI","SE"].includes(risks.get(p["Dyntaxa ID number"]))&&p["Time of immigration"]==="0").sort((a,b)=>a["Svenskt namn"].localeCompare(b["Svenskt namn"],"sv"));
