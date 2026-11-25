@@ -3,3 +3,13 @@ Växtaffischen för Växtlista
 Packa upp filerna i den befintliga webbplatsens rot (samma mapp som index.html). Ersätt filer med samma namn och behåll övriga filer. Mapparna assets/vaxtformer och assets/fonts ska följa med. Uppdateringen bygger på versionen med exponentiella planeringspoäng, revision 8ffba49.
 
 WebP-bilderna är genererade illustrationer av växtformer. Växtsätt hämtas ur karaktarer.csv via Dyntaxa-ID. En sort med dokumenterad moderart kan använda moderartens typbild, vilket anges på kortet. Övriga egenskaper redovisas per taxon.
+
+Uppdatering: klassmärkningar och grafik
+- Rödlistekategori, riskklass och invasivklassning har tryckramar, dämpade tryckfärger och raster.
+- Nektar och biodiversitetsrelevans har numrerade klassrutor; blomning har en tryckt månadstabell.
+- Texten Biorelevans är ersatt med Biodiversitetsrelevans.
+- Taxa med dokumenterad invandringskod 0 visas som Inhemsk art. Okänd status och sorter får inte automatiskt denna märkning.
+- Kortens lutning är cirka halverad, och ännu mindre på mobil.
+- Befintliga poäng, källuppgifter och listningsregler bevaras.
+
+35 automatiserade tester passerar. Visuell webbläsarkontroll kunde inte genomföras i arbetsmiljön.

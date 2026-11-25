@@ -678,6 +678,7 @@ function formatPlantInfo(match, isEUListad = false) {
   const riskklass = getRiskklassningFromXLSX(dyntaxa);
   const riskRow = riskData.find(r => r["TaxonId"]?.toString() === dyntaxa?.toString());
   const immigration = getImmigrationLabel(match["Time of immigration"]);
+  const native = String(match["Time of immigration"] ?? "").trim() === "0";
   const scientific = match["Scientific name"];
   const swedish = match["Svenskt namn"];
   const [genus, species = ""] = scientific.split(" ");
@@ -688,9 +689,9 @@ function formatPlantInfo(match, isEUListad = false) {
   const header = `
     <h3>${escape(swedish)} <span class="scientific-name">(${escape(scientific)})</span></h3>
     <p><strong>Familj:</strong> ${escape(match["Family"])}</p>
-    ${redlistHtml}
-    <p><strong>Invandringstid:</strong> ${immigration}</p>
-    ${riskklass ? `<div><strong>Riskklass:</strong>${InvasivePlantView.renderRiskStatus(riskklass)}</div>` : ""}
+    <div class="redlist-print">${redlistHtml}</div>
+    ${native ? '<p class="native-status">Inhemsk art</p>' : `<p><strong>Invandringstid:</strong> ${immigration}</p>`}
+    ${!native && riskklass ? `<div><strong>Riskklass:</strong>${InvasivePlantView.renderRiskStatus(riskklass)}</div>` : ""}
     ${isEUListad ? InvasivePlantView.renderEUStatus(euInvasiveData.find(row => row["Dyntaxa ID"] === String(dyntaxa)) || {}) : euListAvailable ? "" : "<p>EU-förteckningen kunde inte laddas.</p>"}
     ${InvasivePlantView.renderNationalStatus(nationalInvasiveData, dyntaxa)}
   `;

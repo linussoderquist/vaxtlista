@@ -235,3 +235,13 @@ test("the official national name strandkotula is a search alias for the existing
   assert.match(element("result").innerHTML,/Cotula coronopifolia/);
   assert.match(element("result").innerHTML,/Nationellt listad invasiv art/);
 });
+
+test('native species use an origin label without an ecological risk notice', async () => {
+  const {context} = await bootSite();
+  const native = {"Scientific name":"Salix caprea", "Svenskt namn":"sälg", "Dyntaxa ID number":"native", "Time of immigration":"0"};
+  vm.runInContext('riskData = [{TaxonId:"native", "Riskkategori, utfall enligt GEIAA metodik":"NK"}]',context);
+  const html = context.formatPlantInfo(native);
+  assert.match(html, /class="native-status">Inhemsk art/);
+  assert.doesNotMatch(html, /class="risk-notice/);
+  assert.match(context.formatPlantInfo({...native, "Time of immigration":""}), /class="risk-notice/);
+});

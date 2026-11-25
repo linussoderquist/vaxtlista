@@ -1,0 +1,34 @@
+const test=require('node:test');
+const assert=require('node:assert/strict');
+const vm=require('node:vm');
+const fs=require('node:fs');
+const path=require('node:path');
+const PlantDataView=require('../data-view.js');
+const InvasivePlantView=require('../invasive-view.js');
+
+test('planner distinguishes native, introduced, unknown and listed plants',()=>{
+  const elements=new Map();
+  const element=id=>{if(!elements.has(id))elements.set(id,{innerHTML:'',dataset:{}});return elements.get(id);};
+  const context=vm.createContext({document:{getElementById:element},window:{addEventListener(){}},PlantDataView,InvasivePlantView});
+  const run=s=>vm.runInContext(s,context);
+  run(fs.readFileSync(path.join(__dirname,'../planner.js'),'utf8'));
+  run(`ready=true; national={taxa:{}}; eu=new Map(); risks=new Map([['a','NK']]);
+    byName.set('a',{'Dyntaxa ID number':'a','Svenskt namn':'A','Scientific name':'Salix caprea','Time of immigration':'0','Biodiversity relevance':8});
+    rows=[{name:'a'}];render();`);
+  let html=element('entries').innerHTML;
+  assert.match(html,/Inhemsk art/);
+  assert.doesNotMatch(html,/Invasivklassning|risk-notice/);
+  assert.match(html,/Biodiversitetsrelevans/);
+  assert.doesNotMatch(html,/Biorelevans/);
+  run(`byName.get('a')['Time of immigration']='5'; risks.set('a','SE');render();`);
+  html=element('entries').innerHTML;
+  assert.match(html,/Invasivklassning/);assert.match(html,/Mycket hög risk/);
+  assert.doesNotMatch(html,/Inhemsk art/);
+  run(`byName.get('a')['Time of immigration']=''; risks.clear();render();`);
+  assert.doesNotMatch(element('entries').innerHTML,/Inhemsk art/);
+  run(`eu.set('a',{'Gäller från':'2000-01-01'});render();`);
+  assert.match(element('entries').innerHTML,/EU-listad invasiv art/);
+  run(`rows=[{name:'unknown'}];render();`);
+  html=element('entries').innerHTML;
+  assert.match(html,/Status saknas för detta växtval/);assert.doesNotMatch(html,/Inhemsk art/);
+});
