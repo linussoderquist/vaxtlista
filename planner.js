@@ -56,7 +56,7 @@ const posterForms = new Map([
   ["klättrande växt", ["klatter", "Klättrande växt"]],
   ["parasitiskt växt", ["parasit", "Parasitisk växt"]]
 ]);
-let growthById = new Map(), plannerRedlist = null;
+let growthById = new Map(), growthInfoById = new Map(), plannerRedlist = null;
 
 function formImage(plant) {
   const portrait = globalThis.SpeciesArt?.render(plant);
@@ -71,10 +71,12 @@ function formImage(plant) {
 function startPlanner(plants,n,t,e,r,redlist=null,habits=[]){
   plannerRedlist = redlist;
   growthById = new Map();
+  growthInfoById = new Map();
   for (const row of habits || []) {
     const id = row["Dyntaxa ID number"]?.trim();
     const form = posterForms.get(norm(row["Växtsätt"]));
     if (id && form) growthById.set(id, form);
+    if (id) growthInfoById.set(id, {growth: row["Växtsätt"], height: row["Medelhöjd (cm)"]});
   }
   catalog=plants;traits=n;national=t;
   eu=e ? new Map(e.filter(row=>row["Dyntaxa ID"]).map(row=>[row["Dyntaxa ID"],row])) : null;
@@ -103,6 +105,15 @@ function startPlanner(plants,n,t,e,r,redlist=null,habits=[]){
   el("conditions").innerHTML=filters.map(([field,label,options],i)=>'<label>'+label+'<select data-i="'+i+'"><option value="">Ej valt</option>'+options.map(([name])=>'<option '+(site[field]===name?'selected':'')+'>'+name+'</option>').join("")+'</select></label>').join("");
   note("");render();
   loadJson("data/flowering-sv.json").then(data=>{flowering={...data.taxa};floweringSources=data.taxonSources || {};for(const p of catalog){if(p.nursery?.flowering)flowering[p["Dyntaxa ID number"]]=p.nursery.flowering;}render();}).catch(()=>{el("calendar").textContent="Blomningsdata kunde inte laddas.";});
+}
+
+function renderSelectionFacts(plant, id) {
+  const info = growthInfoById.get(String(id || "").trim()) || {};
+  const record = PlantDataView.getSpecies(traits, id);
+  const rawHeight = info.height || record?.values.height;
+  const number = Number(String(rawHeight ?? "").replace(",", "."));
+  const height = Number.isFinite(number) && number > 0 ? `${number.toLocaleString("sv-SE", {maximumFractionDigits: 0})} cm` : "Uppgift saknas";
+  return `<div class="selection-facts" aria-label="Växtsätt och medelhöjd"><div><span>Växtsätt</span><strong>${esc(info.growth || "Uppgift saknas")}</strong></div><div><span>Medelhöjd</span><strong>${esc(height)}</strong></div></div>`;
 }
 el("conditions").onchange=e=>{site[filters[e.target.dataset.i][0]]=e.target.value;save();};
 el("pick").oninput=e=>{
@@ -182,6 +193,7 @@ function render(){
 
     const segments=(value,max)=>'<span class="selection-scale" aria-hidden="true">'+Array.from({length:max},(_,n)=>'<i class="'+(n<value?'filled':'')+'">'+(n+1)+'</i>').join("")+'</span>';
     return '<article class="selection-card'+warningClass+'">'+formImage(p)+'<div class="poster-body"><header><div><h3>'+esc(p?.["Svenskt namn"]||row.name)+'</h3><small>'+esc(p?.["Scientific name"]||"Omatchad växt")+'</small></div><button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></header>'+
+      (p ? renderSelectionFacts(p,id) : "")+
       ((row.quantity||row.plot)?'<p class="selection-meta">'+[row.quantity?'Mängd '+esc(row.quantity):"",row.plot?'Yta '+esc(row.plot):""].filter(Boolean).join(" · ")+'</p>':"")+
       (siteStatus?'<p class="selection-status '+(attention?'needs-review':'')+'">'+esc(siteStatus)+'</p>':"")+
       '<div class="redlist-print">'+PlantDataView.renderRedlist(plannerRedlist,id)+'</div>' +

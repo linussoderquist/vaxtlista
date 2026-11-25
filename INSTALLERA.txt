@@ -32,3 +32,6 @@ https://www.slu.se/artdatabanken/arter-och-natur/invasiva-frammande-arter/riskli
 20 nya artbilder tillagda: vitklöver, blåklint, åkervädd, ängsvädd, smörblomma, tjärblomster, rödblära, kråkvicker, häckvicker, älggräs, humleblomster, kabbleka, liljekonvalj, ljung, blåbär, lingon, hägg, rönn, skogslind och röllika. Totalt 30 bilder. Kopiera species-art.js och hela assets/arter/. Befintliga blomningsdata är oförändrade; en bild i blom tillför inte ett blomningsintervall.
 
 Ytterligare 10 artbilder tillagda: ängsviol, teveronika, gökärt, kungsängslilja, sommargyllen, nattviol, skogskovall, kattfot, slåttergubbe och gulmåra. Totalt 40 bilder.
+
+Stilmanual
+`ARTBILDER_STILINSTRUKTION.md` är den fasta instruktionen för framtida bildgenerering. Läs den före varje ny bild och använd de första godkända illustrationerna som stilreferenser. Den ska förhindra att serien glider mot modernare, mer färgmättad eller mer digital grafik.

@@ -6,6 +6,7 @@ let euInvasiveData = [];
 let euListAvailable = false;
 let nationalInvasiveData = null;
 let nordicTraits = null;
+let habitData = [];
 let redlistData = null;
 let gbifLayer;
 let allDataLoaded = false;
@@ -13,6 +14,21 @@ let insectData = [];
 
 let advancedMode = false;
 let currentSelectedPlant = null; // håller senaste match
+
+function formatCentimetres(value) {
+  const number = Number(String(value ?? "").replace(",", "."));
+  if (!Number.isFinite(number) || number <= 0) return "Uppgift saknas";
+  return `${number.toLocaleString("sv-SE", {maximumFractionDigits: 0})} cm`;
+}
+
+function renderPlantQuickFacts(plant) {
+  const id = String(plant?.["Dyntaxa ID number"] ?? "").trim();
+  const habit = habitData.find(row => String(row["Dyntaxa ID number"] ?? "").trim() === id);
+  const trait = PlantDataView.getSpecies(nordicTraits, id);
+  const growth = habit?.["Växtsätt"] || "Uppgift saknas";
+  const height = habit?.["Medelhöjd (cm)"] || trait?.values.height;
+  return `<div class="plant-quick-facts" aria-label="Växtsätt och medelhöjd"><div><strong>Växtsätt</strong><span>${PlantDataView.escapeHtml(growth)}</span></div><div><strong>Medelhöjd</strong><span>${PlantDataView.escapeHtml(formatCentimetres(height))}</span></div></div>`;
+}
 
 const input = document.getElementById("searchInput");
 const suggestions = document.getElementById("suggestions");
@@ -690,6 +706,7 @@ function formatPlantInfo(match, isEUListad = false) {
     ${globalThis.SpeciesArt?.render(match) || ""}
     <h3>${escape(swedish)} <span class="scientific-name">(${escape(scientific)})</span></h3>
     <p><strong>Familj:</strong> ${escape(match["Family"])}</p>
+    ${renderPlantQuickFacts(match)}
     <div class="redlist-print">${redlistHtml}</div>
     ${native ? '<p class="native-status">Inhemsk art</p>' : `<p><strong>Invandringstid:</strong> ${immigration}</p>`}
     ${!native && riskklass ? `<div><strong>Riskklass:</strong>${InvasivePlantView.renderRiskStatus(riskklass)}</div>` : ""}
@@ -765,6 +782,7 @@ async function initializeData() {
   [plantData, riskData, euInvasiveData, insectData] = values.slice(0, 4).map(value => value || []);
   euListAvailable = Boolean(values[2]);
   [redlistData, nordicTraits, nationalInvasiveData] = values.slice(4);
+  habitData = values[7] || [];
   results.filter(result => result.status === "rejected").forEach(result => console.error("Kunde inte ladda artuppgifter:", result.reason));
   if (!plantData.length) {
     resultDiv.textContent = "Artlistan kunde inte laddas. Försök ladda om sidan.";
