@@ -1,0 +1,5 @@
+Växtaffischen för Växtlista
+
+Packa upp filerna i den befintliga webbplatsens rot (samma mapp som index.html). Ersätt filer med samma namn och behåll övriga filer. Mapparna assets/vaxtformer och assets/fonts ska följa med. Uppdateringen bygger på versionen med exponentiella planeringspoäng, revision 8ffba49.
+
+WebP-bilderna är genererade illustrationer av växtformer. Växtsätt hämtas ur karaktarer.csv via Dyntaxa-ID. En sort med dokumenterad moderart kan använda moderartens typbild, vilket anges på kortet. Övriga egenskaper redovisas per taxon.

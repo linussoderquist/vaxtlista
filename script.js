@@ -757,7 +757,7 @@ async function initializeData() {
     loadCsv("vaxtdata.csv"), loadCsv("Riskklassning2024_Uttag.csv"),
     loadCsv("eu_invasiva_vaxtarter.csv"), loadCsv("resource_relevant.csv"),
     loadJson("data/redlist-2025.json"), loadJson("data/nordictraits-v1.json"),
-    loadJson("data/national-invasive-2026.json")
+    loadJson("data/national-invasive-2026.json"), loadCsv("karaktarer.csv")
   ]);
   const values = results.map(result => result.status === "fulfilled" ? result.value : null);
   [plantData, riskData, euInvasiveData, insectData] = values.slice(0, 4).map(value => value || []);
@@ -770,7 +770,7 @@ async function initializeData() {
   }
   if (globalThis.NurseryPlants) plantData.push(...NurseryPlants.build(plantData));
   allDataLoaded = true;
-  globalThis.startPlanner?.(plantData, nordicTraits, nationalInvasiveData, values[2], values[1]);
+  globalThis.startPlanner?.(plantData, nordicTraits, nationalInvasiveData, values[2], values[1], redlistData, values[7]);
   input.disabled = false;
   inputScientific.disabled = false;
   setupAutocomplete();

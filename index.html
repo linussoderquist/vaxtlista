@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Växtsök</title>
   <link rel="icon" href="guckusko-favicon.png" type="image/png">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     body {
@@ -345,12 +344,12 @@ input:focus-visible + .slider {
 }
 
   </style>
-<link rel="stylesheet" href="planner.css"></head>
+<link rel="stylesheet" href="planner.css"><link rel="stylesheet" href="affisch.css"></head>
 <body>
-  <nav aria-label="Verktyg"><a id="slink" href="#vaxtsok">Växtsök</a><a id="plink" href="#vaxtval">Växtval</a></nav>
+  <nav class="masthead" aria-label="Verktyg"><a class="wordmark" href="#vaxtsok">Växtlista</a><a id="slink" href="#vaxtsok">Växtsök</a><a id="plink" href="#vaxtval">Växtval</a></nav>
   <main id="searchPage"><h1>Växtsök</h1>
 
-  <p>
+  <details><summary>Om Växtsök och datakällorna</summary><p>
     Sök svenska kärlväxter och få ekologisk information om deras härdighet, ljus- och fuktbehov,
     nektarvärde, biodiversitetsrelevans samt riskklassning. Arter på EU:s lista över invasiva växter och
     svenska rödlistan markeras särskilt. Även arter på Sveriges nationella förteckning över invasiva främmande arter markeras, med information om regler och undantag. Välj förenklad eller avancerad information om arten nedan.
@@ -360,7 +359,7 @@ input:focus-visible + .slider {
     Kartdata över rapporter från norra Europa. Källa:
   <a href="https://www.gbif.org/" target="_blank" style="color: #004d00; text-decoration: underline;">
     gbif.org</a>
-  </p>
+  </p></details>
   <p>Sök efter växtart med svenskt eller vetenskapligt namn:</p>
   <label for="searchInput"></label>
 <input type="text" id="searchInput" placeholder="svenskt namn" aria-label="Svenskt namn" disabled />
@@ -426,12 +425,12 @@ input:focus-visible + .slider {
 
   </main>
   <main id="planner" hidden>
-    <h1>Växtval</h1><p>Granska en planteringslista eller hitta arter för en viss ståndort.</p>
-    <section><h2>Planteringslista</h2><form id="addForm"><label for="pick">Lägg till en växt</label><div class="line"><input id="pick" list="choices" required placeholder="Svenskt eller vetenskapligt namn"><datalist id="choices"></datalist><button>Lägg till</button></div></form>
-    <details id="importBox"><summary>Importera växtförteckning</summary><p>Öppna en XLSX-, CSV- eller tabbfil, eller klistra in celler från Excel. Välj namnkolumn innan raderna läggs till.</p><input type="file" id="file" accept=".xlsx,.csv,.tsv,.txt"><label for="paste">Klistra in tabell</label><textarea id="paste" rows="3"></textarea><button id="preview">Granska tabell</button><div id="mapping"></div></details><div id="listSummary" aria-live="polite"></div><div id="entries"></div></section>
-    <section><h2>Ståndort</h2><p>Välj förhållandena på planteringsytan.</p><div id="conditions"></div><details><summary>Hitta arter för ståndorten</summary><div id="candidates"></div></details></section>
-    <section><h2>Blomning över året</h2><div id="calendar"></div></section>
-    <details><summary>Underlag och tolkning</summary><p>Ståndortsfiltren grupperar svenska indikatorvärden för arternas typiska växtmiljö. Övergångsklasser kan passa två lägen. Värdväxtklassen beskriver associerade organismer i källmaterialet. Samma organism kan nyttja flera växter. <a href="https://doi.org/10.1016/j.ecolind.2020.106923">Tyler m.fl.</a></p><p>Kalendern använder blomningsintervall från Nordens flora (2018) i det länkade forskningsdatasetet. Lokal blomning varierar med klimat, år och skötsel. Nektarklass 4–7 avser måttlig till mycket stor produktion. Mängd i ritningen påverkar inte artantalet. <a href="https://doi.org/10.5878/rn49-wx18">Dataset</a> · <a href="https://github.com/poniitty/NordicTraits">NordicTraits</a></p><p class="source-note"><a href="https://doi.org/10.1002/ecs2.3683">Auffret, A. (2021). Historical floras reflect broad shifts in flowering phenology in response to a warming climate. Ecosphere, 12(7), e03683.</a></p></details>
+    <div class="poster-layout"><div class="planner-tools"><h1>Planterings&shy;lista</h1><div id="listSummary" aria-live="polite"></div>
+    <form id="addForm"><label for="pick">Lägg till en växt</label><div class="line"><input id="pick" list="choices" required placeholder="Svenskt eller vetenskapligt namn"><datalist id="choices"></datalist><button>Lägg till</button></div></form>
+    <details id="importBox"><summary>Importera växtförteckning</summary><p>Öppna en XLSX-, CSV- eller tabbfil, eller klistra in celler från Excel. Välj namnkolumn innan raderna läggs till.</p><input type="file" id="file" accept=".xlsx,.csv,.tsv,.txt"><label for="paste">Klistra in tabell</label><textarea id="paste" rows="3"></textarea><button id="preview">Granska tabell</button><div id="mapping"></div></details><div class="jump-links"><a href="#standort" onclick="document.getElementById('standort').scrollIntoView();return false">Ståndort ↓</a><a href="#blomningskalender" onclick="document.getElementById('blomningskalender').scrollIntoView();return false">Blomning över året ↓</a></div></div><div id="entries" aria-label="Växter i listan"></div></div>
+    <section id="standort"><h2>Ståndort</h2><p>Välj förhållandena på planteringsytan.</p><div id="conditions"></div><details><summary>Hitta arter för ståndorten</summary><div id="candidates"></div></details></section>
+    <section id="blomningskalender"><h2>Blomning över året</h2><div id="calendar"></div></section>
+    <details><summary>Underlag och tolkning</summary><p>Ståndortsfiltren grupperar svenska indikatorvärden för arternas typiska växtmiljö. Övergångsklasser kan passa två lägen. Bilderna visar växtformen enligt växtsätt i katalogunderlaget. Samma illustration används för alla taxa med samma växtform. Värdväxtklassen beskriver associerade organismer i källmaterialet. Samma organism kan nyttja flera växter. <a href="https://doi.org/10.1016/j.ecolind.2020.106923">Tyler m.fl.</a></p><p>Kalendern använder blomningsintervall från Nordens flora (2018) i det länkade forskningsdatasetet. Lokal blomning varierar med klimat, år och skötsel. Nektarklass 4–7 avser måttlig till mycket stor produktion. Mängd i ritningen påverkar inte artantalet. <a href="https://doi.org/10.5878/rn49-wx18">Dataset</a> · <a href="https://github.com/poniitty/NordicTraits">NordicTraits</a></p><p class="source-note"><a href="https://doi.org/10.1002/ecs2.3683">Auffret, A. (2021). Historical floras reflect broad shifts in flowering phenology in response to a warming climate. Ecosphere, 12(7), e03683.</a></p></details>
     <p id="feedback" role="status">Artunderlaget laddas…</p>
   </main>
   <!-- PapaParse för CSV -->

@@ -130,6 +130,7 @@ async function bootSite(failedUrl) {
   ];
   const csvFixtures = {
     "vaxtdata.csv": plants,
+    "karaktarer.csv": [{"Dyntaxa ID number":"222135","Växtsätt":"Träd"}],
     "Riskklassning2024_Uttag.csv": [{TaxonId: "0"}],
     "eu_invasiva_vaxtarter.csv": [{"Dyntaxa ID": "0"}],
     "resource_relevant.csv": [{"Hostplant Genus": "other"}]

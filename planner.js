@@ -48,7 +48,32 @@ function flags(p){
   if(risks?.get(id)) labels.push("Riskklass "+risks.get(id));
   return labels;
 }
-function startPlanner(plants,n,t,e,r){
+const posterForms = new Map([
+  ["träd", ["trad", "Träd"]], ["buske", ["buske", "Buske"]],
+  ["buske/träd", ["busktrad", "Buske/träd"]], ["ört", ["ort", "Ört"]],
+  ["gräs", ["gras", "Gräs"]], ["gräs/halvgräs", ["halvgras", "Gräs/halvgräs"]],
+  ["vattenväxt", ["vatten", "Vattenväxt"]], ["ormbunke", ["ormbunke", "Ormbunke"]],
+  ["klättrande växt", ["klatter", "Klättrande växt"]],
+  ["parasitiskt växt", ["parasit", "Parasitisk växt"]]
+]);
+let growthById = new Map(), plannerRedlist = null;
+
+function formImage(plant) {
+  const direct = growthById.get(plant?.["Dyntaxa ID number"]);
+  const parent = growthById.get(plant?.nursery?.parentId);
+  const [file, label] = direct || parent || ["okand", "Växtform saknas"];
+  const caption = !direct && parent ? label + " · moderartens växtform" : label;
+  return `<figure class="form-print"><img loading="lazy" decoding="async" src="assets/vaxtformer/${file}.webp" alt=""><figcaption>${caption}</figcaption></figure>`;
+}
+
+function startPlanner(plants,n,t,e,r,redlist=null,habits=[]){
+  plannerRedlist = redlist;
+  growthById = new Map();
+  for (const row of habits || []) {
+    const id = row["Dyntaxa ID number"]?.trim();
+    const form = posterForms.get(norm(row["Växtsätt"]));
+    if (id && form) growthById.set(id, form);
+  }
   catalog=plants;traits=n;national=t;
   eu=e ? new Map(e.filter(row=>row["Dyntaxa ID"]).map(row=>[row["Dyntaxa ID"],row])) : null;
   euNames.clear();
@@ -113,12 +138,12 @@ function renderListSummary() {
   const number = value => value.toLocaleString("sv-SE", {maximumFractionDigits:2});
   const signed = value => value > 0 ? "+" + number(value) : number(value);
   const visual = PlantListScore.appearance(score.total);
-  container.innerHTML = '<section class="list-summary"><div class="score-heading"><div><h2>Listans planeringspoäng</h2><p>'+score.items.length+' unika växtval · varje växt räknas en gång</p></div><strong class="score-total score-'+visual.state+'" style="--score-border:'+visual.border+';--score-background:'+visual.background+';--score-color:'+visual.color+'">'+signed(score.total)+'<span>poäng'+(score.missing || sourcesMissing ? ' · delunderlag' : '')+'</span></strong></div>'+
-    '<div class="score-components"><div><span>Associerade arter</span><strong>+'+number(score.associated)+'</strong></div><div><span>Nektarproduktion</span><strong>+'+number(score.nectar)+'</strong></div><div><span>Risk och listning</span><strong>−'+number(score.penalty)+'</strong></div></div>'+
+  container.innerHTML = '<section class="list-summary"><div class="score-heading"><div><h2>Listans planeringspoäng</h2><p>'+score.items.length+' unika växtval · varje växt räknas en gång</p></div><strong class="score-total score-'+visual.state+'" style="--score-digits:'+signed(score.total).length+';--score-border:'+visual.border+';--score-background:'+visual.background+';--score-color:'+visual.color+'">'+signed(score.total)+'<span>poäng'+(score.missing || sourcesMissing ? ' · delunderlag' : '')+'</span></strong></div>'+
+    '<details class="score-analysis"><summary>Poängfördelning</summary><div class="score-components"><div><span>Associerade arter</span><strong>+'+number(score.associated)+'</strong></div><div><span>Nektarproduktion</span><strong>+'+number(score.nectar)+'</strong></div><div><span>Risk och listning</span><strong>−'+number(score.penalty)+'</strong></div></div></details>'+
     (score.listed ? '<p class="selection-warning"><strong>'+score.listed+' växtval är invasivlistade.</strong> Kontrollera regler och undantag i respektive kort även när summan är positiv.</p>' : '')+
     (sourcesMissing ? '<p class="selection-warning">Risk- eller invasivunderlag kunde inte laddas. Avdragen är ofullständiga.</p>' : '')+
-    '<p class="score-coverage">'+score.excluded+' växtval ger inga pluspoäng på grund av invasivrisk eller listning. '+score.missing+' övriga växtval saknar minst en plusuppgift. '+score.imputed+' nektarvärden är modellskattade.</p>'+
-    '<details><summary>Så räknas poängen</summary><p>Växtvals egen jämförelsemodell, version 2. Vikterna är valda för planering och har inte validerats som ett mått på faktisk biologisk mångfald. Summan påverkas av listans längd och datatäckning.</p>'+
+    '<details><summary>Så räknas poängen</summary><p class="score-coverage">'+score.excluded+' växtval ger inga pluspoäng på grund av invasivrisk eller listning. '+score.missing+' övriga växtval saknar minst en plusuppgift. '+score.imputed+' nektarvärden är modellskattade.</p>'+
+    '<p>Växtvals egen jämförelsemodell, version 2. Vikterna är valda för planering och har inte validerats som ett mått på faktisk biologisk mångfald. Summan påverkas av listans längd och datatäckning.</p>'+
     '<p>Associerade arter ger 0–7 poäng för källans klass 1–8. Nektar ger 0–6 poäng för klass 1–7. Poängen viktas exponentiellt: (maxklass − 1) × (2^(klass − 1) − 1) / (2^(maxklass − 1) − 1). Maxpoängen är oförändrade. Klasserna är ordinala. Saknade värden bidrar inte till summan och redovisas som saknade.</p>'+
     '<p>Avdrag per växt är NK 0, LO −2, PH −5, HI −10 och SE −15. Nationell listning ger −20 och gällande EU-listning −30. Endast det största avdraget används per växt. Listningsavdraget gäller även arter med villkorade undantag, vilka måste granskas i artkortet. Framtida EU-förbud visas i artkortet och börjar ge listningsavdrag från ikraftträdandet.</p>'+
     '<p>Riskklass LO–SE, svensk listning och EU-listning (även kommande) utesluter alla pluspoäng. NK utesluter inte pluspoäng. Uteslutna värden räknas inte som saknade eller modellskattade. Beräkningen använder full precision; visningen avrundas till två decimaler.</p><p>Utebliven riskklass ger inget riskklassavdrag. Sorter ärver inga pluspoäng från arten. Antal plantor och upprepad import av samma växt ökar inte poängen. Associerade organismer kan vara gemensamma för flera arter.</p>'+
@@ -149,17 +174,21 @@ function render(){
     const warningClass = legalNotice || ["SE","HI"].includes(riskCode) ? " selection-card-warning" : "";
 
     const segments=(value,max)=>'<span class="selection-scale" aria-hidden="true">'+Array.from({length:max},(_,n)=>'<i class="'+(n<value?'filled':'')+'"></i>').join("")+'</span>';
-    return '<article class="selection-card'+warningClass+'"><header><div><h3>'+esc(p?.["Svenskt namn"]||row.name)+'</h3><small>'+esc(p?.["Scientific name"]||"Omatchad växt")+'</small></div><button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></header>'+
+    return '<article class="selection-card'+warningClass+'">'+formImage(p)+'<div class="poster-body"><header><div><h3>'+esc(p?.["Svenskt namn"]||row.name)+'</h3><small>'+esc(p?.["Scientific name"]||"Omatchad växt")+'</small></div><button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></header>'+
       ((row.quantity||row.plot)?'<p class="selection-meta">'+[row.quantity?'Mängd '+esc(row.quantity):"",row.plot?'Yta '+esc(row.plot):""].filter(Boolean).join(" · ")+'</p>':"")+
       (siteStatus?'<p class="selection-status '+(attention?'needs-review':'')+'">'+esc(siteStatus)+'</p>':"")+
-      legalNotice + riskNotice +
+      PlantDataView.renderRedlist(plannerRedlist,id) +
+      '<div class="invasion"><strong>Invasivitet</strong>' + legalNotice + riskNotice +
+      (!national || !eu || !risks ? '<p>Risk- eller listningsunderlag saknas.</p>' : '') +
+      (!legalNotice && !riskNotice && national && eu && risks ? '<p>'+(!p || p.nursery ? 'Status saknas för detta växtval.' : 'Ingen träff i riskklassningen eller invasivlistorna.')+'</p>' : '') +
+      '</div>' +
       '<div class="selection-metrics"><div><span>Nektarproduktion</span><strong>'+esc(nectarKnown?["","Ingen","Obetydlig","Liten","Måttlig","Ganska stor","Stor","Mycket stor"][nectarClass]:"Uppgift saknas")+'</strong>'+segments(nectarKnown?nectarClass:0,7)+'<small>'+(nectarKnown?'Klass '+nectarClass+' av 7'+(nectar.imputed.includes("nectar_production")?' · modellskattad':''):'Ingen klassning')+'</small></div>'+
-      '<div><span>Associerade arter</span><strong>'+esc(biodiversityKnown?assoc[biodiversity]:"Uppgift saknas")+'</strong>'+segments(biodiversityKnown?biodiversity:0,8)+'<small>Artens klass i källmaterialet</small></div></div>'+
+      '<div><span>Biorelevans</span><strong>'+esc(biodiversityKnown?assoc[biodiversity]:"Uppgift saknas")+'</strong>'+segments(biodiversityKnown?biodiversity:0,8)+'<small>Associerade arter</small></div></div>'+
       '<div class="selection-flowering"><span>Blomning'+(interval?' · '+months[interval[0]-1]+'–'+months[interval[1]-1]:' · uppgift saknas')+'</span><div class="selection-months" aria-label="'+esc(interval?'Blomning '+months[interval[0]-1]+' till '+months[interval[1]-1]:'Blomningsuppgift saknas')+'">'+months.map((m,n)=>'<span class="'+(interval&&n+1>=interval[0]&&n+1<=interval[1]?'active':'')+'">'+m+'</span>').join("")+'</div></div>'+
       '<details><summary>Uppgifter och källor</summary><p>Importerad som '+esc(row.name)+'</p>'+(p?.nursery?NurseryPlants.describe(p):'<p>Ordinala klasser från NordicTraits och Tyler m.fl. Se Underlag och tolkning.</p>')+'</details>'+
-      (p?'<button class="selection-open" data-open="'+i+'">Öppna artkort</button>':"")+'</article>';
+      (p?'<button class="selection-open" data-open="'+i+'">Öppna artkort</button>':"")+'</div></article>';
 
-  }).join("")+(rows.length?'<button id="exportList">Exportera CSV</button>':'<p>Listan är tom. <button id="example">Prova en exempellista</button></p>');
+  }).join("")+(rows.length?'<button id="exportList">Exportera CSV</button>':'<div class="empty-list"><div class="print-triptych" aria-hidden="true"><img src="assets/vaxtformer/trad.webp" alt=""><img src="assets/vaxtformer/ort.webp" alt=""><img src="assets/vaxtformer/ormbunke.webp" alt=""></div><h2>Din planteringslista är tom</h2><p>Lägg till en växt, importera din lista eller börja med sälg, prästkrage och rödklint.</p><button id="example">Prova en exempellista →</button></div>');
   if(el("example"))el("example").onclick=()=>{rows=["sälg","prästkrage","rödklint"].map(name=>({name}));save();};
   if(el("exportList"))el("exportList").onclick=()=>{
     const csv=Papa.unparse([["Växtnamn","Mängd","Delyta"],...rows.map(r=>[r.name,r.quantity||"",r.plot||""])],{delimiter:";",escapeFormulae:true});
