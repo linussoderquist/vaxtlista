@@ -3,6 +3,7 @@
 let plantData = [];
 let riskData = [];
 let euInvasiveData = [];
+let euListAvailable = false;
 let nationalInvasiveData = null;
 let nordicTraits = null;
 let redlistData = null;
@@ -688,7 +689,7 @@ function formatPlantInfo(match, isEUListad = false) {
     ${redlistHtml}
     <p><strong>Invandringstid:</strong> ${immigration}</p>
     ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
-    ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
+    ${isEUListad ? InvasivePlantView.renderEUStatus(euInvasiveData.find(row => row["Dyntaxa ID"] === String(dyntaxa)) || {}) : euListAvailable ? "" : "<p>EU-förteckningen kunde inte laddas.</p>"}
     ${InvasivePlantView.renderNationalStatus(nationalInvasiveData, dyntaxa)}
   `;
   const addButton = '<button onclick="addSearchSelection()">Lägg till i Växtval</button>';
@@ -758,6 +759,7 @@ async function initializeData() {
   ]);
   const values = results.map(result => result.status === "fulfilled" ? result.value : null);
   [plantData, riskData, euInvasiveData, insectData] = values.slice(0, 4).map(value => value || []);
+  euListAvailable = Boolean(values[2]);
   [redlistData, nordicTraits, nationalInvasiveData] = values.slice(4);
   results.filter(result => result.status === "rejected").forEach(result => console.error("Kunde inte ladda artuppgifter:", result.reason));
   if (!plantData.length) {

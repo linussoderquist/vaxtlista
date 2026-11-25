@@ -1,17 +1,49 @@
-Dyntaxa ID,Svenskt namn
-222201,Gudaträd
-219576,Gul skunkkalla
-221100,Jättebalsamin
-219680,Jätteloka
-249004,Sidenört
-220845,Syrenslide
-222850,Tromsöloka
-221099,Japansk humle
-264403,Fjäderborstgräs
-6011322,Röd jättegunnera
-221510,Kabomba
-265281,Sydfyrling
-219565,Smal vattenpest
-220782,Parkslide
-220783,Jätteslide
-220779,Hybridslide
+Dyntaxa ID,Svenskt namn,Vetenskapligt namn,Gäller från
+,Afrikansk vattenpest,Lagarosiphon major,2016-08-03
+,Alligatorblad,Alternanthera philoxeroides,2017-08-02
+,Andinskt pampasgräs,Cortaderia jubata,2019-08-15
+,Ballongranka,Cardiospermum grandiflorum,2019-08-15
+,Bredloka,Heracleum sosnowskyi,2016-08-03
+264403,Fjäderborstgräs,Cenchrus setaceus (f.d. Pennisetum setaceum),2017-08-02
+,Flikpartenium,Parthenium hysterophorus,2016-08-03
+,Flytspikblad,Hydrocotyle ranunculoides,2016-08-03
+,Garvakacia,Acacia mearnsii,2025-08-07
+,Gisselpilört,Persicaria perfoliata (Polygonum perfoliatum),2016-08-03
+222201,Gudaträd,Ailanthus altissima,2019-08-15
+219576,Gul skunkkalla,Lysichiton americanus,2016-08-03
+,Hakea,Hakea sericea,2022-08-02
+220779,Hybridslide,Reynoutria x bohemica,2025-08-07
+221099,Japansk humle,Humulus japonicus (scandens),2019-08-15
+,Japansk klätterbräken,Lygodium japonicum,2019-08-15
+,Japanskt styltgräs,Microstegium vimineum,2017-08-02
+219651,Japansk träddödare,Celastrus orbiculatus,2027-08-02
+,Japanskt ålgräs,Nanozostera japonica/Zostera japonica,2025-08-07
+221100,Jättebalsamin,Impatiens glandulifera,2017-08-02
+219680,Jätteloka,Heracleum mantegazzianum,2017-08-02
+,Jättesimbräken,Salvinia molesta,2019-08-15
+220783,Jätteslide,Reynoutria sachalinensis,2025-08-07
+221510,Kabomba,Cabomba caroliniana,2016-08-03
+,Kamslinga,Myriophyllum heterophyllum,2017-08-02
+,Kinesisk buskklöver,Lespedeza cuneata,2019-08-15
+,Kinesiskt talgträd,Triadica sebifera,2019-08-15
+,Krypludwigia,Ludwigia peploides,2016-08-03
+,"Kudzuböna, japansk arrowrot",Pueraria montana var. lobata (Pueraria lobata),2016-08-03
+,Mesquite,Prosopis juliflora,2019-08-15
+,Musselblomma,Pistia stratiotes,2024-08-02
+,Pappersmullbärsträd,Broussonetia papyrifera,2025-08-07
+220782,Parkslide,Reynoutria japonica,2025-08-07
+6011322,Röd jättegunnera,Gunnera tinctoria,2017-08-02
+,Saltbaccharis,Baccharis halimifolia,2016-08-03
+249004,Sidenört,Asclepias syriaca,2017-08-02
+219565,Smal vattenpest,Elodea nuttallii,2017-08-02
+,Sommarmurgröna,Delairea odorata,2025-08-07
+,Storblommig ludwigia,Ludwigia grandiflora,2016-08-03
+,Storslinga,Myriophyllum aquaticum,2016-08-03
+265281,Sydfyrling,Crassula helmsii,2025-08-07
+220845,Syrenslide,Rubrivena (Koenigia) polystachya,2022-08-02
+222850,Tromsöloka,Heracleum persicum,2016-08-03
+,Tårakacia,Acacia saligna,2019-08-15
+,Vattenflockel,Gymnocoronis spilanthoides,2019-08-15
+,Vattenhyacint,Eichhornia crassipes,2016-08-03
+,Veldgräs,Ehrharta calycina,2019-08-15
+,Whiskygräs,Andropogon virginicus,2019-08-15

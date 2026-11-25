@@ -9,6 +9,7 @@ const filters = [
 ];
 const months = "Jan Feb Mar Apr Maj Jun Jul Aug Sep Okt Nov Dec".split(" ");
 const key = "vaxtval-plan-v1";
+let euNames = new Map();
 let rows=[], site={}, catalog=[], byName=new Map(), flowering=null, traits, national, eu, risks, sheets=[], matrix=[], ready=false;
 try {
   const saved=JSON.parse(localStorage.getItem(key));
@@ -42,13 +43,27 @@ function status(p){
 function flags(p){
   const id=p["Dyntaxa ID number"], labels=[];
   if(national?.taxa[id]) labels.push("Nationellt listad · se artkortets undantag");
-  if(eu?.has(id)) labels.push("EU-listad");
+
   if(risks?.get(id)) labels.push("Riskklass "+risks.get(id));
   return labels;
 }
 function startPlanner(plants,n,t,e,r){
   catalog=plants;traits=n;national=t;
-  eu=e ? new Set(e.map(x=>x["Dyntaxa ID"])) : null;
+  eu=e ? new Map(e.filter(row=>row["Dyntaxa ID"]).map(row=>[row["Dyntaxa ID"],row])) : null;
+  euNames.clear();
+  for(const entry of e || []){
+    const scientific=entry["Vetenskapligt namn"] || "";
+    const alternativeNames = {
+      "Syrenslide":["Koenigia polystachya","Rubrivena polystachya"],
+      "Japansk humle":["Humulus scandens"],
+      "Fjäderborstgräs":["Pennisetum setaceum"],
+      "Kudzuböna, japansk arrowrot":["Pueraria lobata"],
+      "Gisselpilört":["Polygonum perfoliatum"],
+      "Hybridslide":["Reynoutria × bohemica"]
+    };
+    const aliases=[...(alternativeNames[entry["Svenskt namn"]] || []),scientific,...(scientific.endsWith(")")?[scientific.split(" (")[0]]:[]),...scientific.split("/"),...(entry["Svenskt namn"] || "").split(",")];
+    for(const alias of aliases.filter(Boolean))euNames.set(norm(alias),entry);
+  }
   risks=r ? new Map(r.map(x=>[x.TaxonId,x["Riskkategori, utfall enligt GEIAA metodik"]])) : null;
   for(const p of catalog){
     for(const name of [p["Scientific name"],PlantDataView.scientificNameKey(p["Scientific name"]),p["Svenskt namn"],t?.taxa[p["Dyntaxa ID number"]]?.swedishName]){
@@ -75,9 +90,11 @@ function render(){
   el("entries").innerHTML=rows.map((row,i)=>{
     const p=match(row.name), id=p?.["Dyntaxa ID number"];
     if(p)unique.set(id,p);
+    const euRecord = eu?.get(id) || euNames.get(norm(row.name));
+    const euInfo = euRecord ? InvasivePlantView.renderEUStatus(euRecord) : "";
     const cls=p?.["Biodiversity relevance"];
     const messages=p?[status(p),cls>0&&assoc[cls]?"Associerade arter i källan "+assoc[cls]:"",...flags(p)]:["Omatchat namn eller sort · artuppgifter saknas"];
-    return '<div class="row"><div><strong>'+esc(p?.["Svenskt namn"]||row.name)+'</strong><small>'+[row.name,row.quantity,row.plot].filter(Boolean).map(esc).join(" · ")+'</small><small>'+messages.filter(Boolean).map(esc).join(" · ")+'</small></div><div>'+(p?'<button data-open="'+i+'">Artkort</button> ':'')+'<button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></div></div>';
+    return '<div class="row"><div><strong>'+esc(p?.["Svenskt namn"]||row.name)+'</strong><small>'+[row.name,row.quantity,row.plot].filter(Boolean).map(esc).join(" · ")+'</small><small>'+messages.filter(Boolean).map(esc).join(" · ")+'</small>'+euInfo+'</div><div>'+(p?'<button data-open="'+i+'">Artkort</button> ':'')+'<button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></div></div>';
   }).join("")+(rows.length?'<button id="exportList">Exportera CSV</button>':'<p>Listan är tom. <button id="example">Prova en exempellista</button></p>');
   if(el("example"))el("example").onclick=()=>{rows=["sälg","prästkrage","rödklint"].map(name=>({name}));save();};
   if(el("exportList"))el("exportList").onclick=()=>{

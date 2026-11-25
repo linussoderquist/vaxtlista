@@ -38,7 +38,21 @@
     </aside>`;
   }
 
-  const api = {nationalRecord, renderNationalStatus};
+  function renderEUStatus(record, today = new Date().toLocaleDateString("sv-SE", {timeZone:"Europe/Stockholm"})) {
+    if (!record) return "";
+    const date = record["Gäller från"];
+    const future = date && date > today;
+    const formatted = date ? new Date(date + "T12:00:00Z").toLocaleDateString("sv-SE", {day:"numeric", month:"long", year:"numeric", timeZone:"UTC"}) : "";
+    return `<aside class="invasive-notice invasive-eu" aria-label="EU-regler för invasiv art">
+      <p class="invasive-title"><strong>EU-listad invasiv art${future ? " – kommande förbud" : ""}</strong></p>
+      <p>${future ? "EU-förbuden börjar gälla" : "Välj en annan art för nyplantering. EU-förbuden gäller"}${formatted ? " från " + escape(formatted) : ""}.</p>
+      <details class="invasive-details"><summary>EU-regler och undantag</summary>
+      <p>Artikel 7 i förordning (EU) nr 1143/2014 förbjuder bland annat att avsiktligt odla, hålla, sälja, byta eller släppa ut arten i miljön. Även frön och växtdelar som kan ge upphov till nya exemplar omfattas.</p>
+      <p>Transport är också begränsad. Artikel 7 medger transport till anläggningar i samband med utrotning. För forskning eller bevarande utanför den naturliga miljön finns särskilda tillstånd enligt artikel 8.</p>
+      <p><a href="https://eur-lex.europa.eu/legal-content/SV/TXT/?uri=CELEX:32014R1143">EU-förordningen</a> · <a href="https://eur-lex.europa.eu/legal-content/SV/TXT/?uri=CELEX:02016R1141-20250807">Unionsförteckningen</a> · <a href="https://www.naturvardsverket.se/amnesomraden/invasiva-frammande-arter/forbjudna-invasiva-frammande-arter/">Naturvårdsverkets vägledning</a></p>
+      <p class="source-note">Kontrollerat 25 november 2026.</p></details></aside>`;
+  }
+  const api = {nationalRecord, renderNationalStatus, renderEUStatus};
   root.InvasivePlantView = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(globalThis);

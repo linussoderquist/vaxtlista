@@ -46,3 +46,14 @@ test("nonlisted species and hybrids are not classified from their genus or ecolo
   }
   assert.match(view.renderNationalStatus(null,"221248"),/kunde inte laddas/);
 });
+
+test("EU planting notice distinguishes current and future rules", () => {
+  const {renderEUStatus} = require("../invasive-view.js");
+  const entry = {"Gäller från":"2027-08-02"};
+  assert.match(renderEUStatus(entry,"2026-11-25"), /kommande förbud/);
+  const active = renderEUStatus(entry,"2027-08-02");
+  assert.match(active, /Välj en annan art/);
+  assert.match(active, /2 augusti 2027/);
+  assert.match(active, /Unionsförteckningen/);
+  assert.doesNotMatch(active, /kommande förbud/);
+});
