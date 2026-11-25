@@ -33,7 +33,12 @@ function match(name){return byName.get(norm(name)) || globalThis.NurseryPlants?.
 function status(p){
   if(p.nursery)return "Sortpost · se plantskolans ståndortsbeskrivning"+(site.zone?" · odlingszon saknar underlag":"");
   const issues=[],unknown=[];
-  if(site.zone) unknown.push("odlingszon "+site.zone);
+  if(site.zone){
+    const zone=['I','II','III','IV','V','VI','VII','VIII','IX'].indexOf(site.zone)+1;
+    const heat=Number(p['Heat requirement']);
+    if(!zone || !Number.isInteger(heat) || heat<1 || heat>14) unknown.push('odlingszon (värmekrav)');
+    else if(heat>14-zone) issues.push('odlingszon '+site.zone+' (värmekrav)');
+  }
   for(const [field,label,options] of filters){
     const range=options.find(o=>o[0]===site[field]); if(!range)continue;
     const value=Number(p[field]);
@@ -104,7 +109,7 @@ function startPlanner(plants,n,t,e,r,redlist=null,habits=[]){
   }
   ready=true;
   el("conditions").innerHTML=filters.map(([field,label,options],i)=>'<label>'+label+'<select data-i="'+i+'"><option value="">Ej valt</option>'+options.map(([name])=>'<option '+(site[field]===name?'selected':'')+'>'+name+'</option>').join("")+'</select></label>').join("");
-  el("conditions").innerHTML+='<label>Odlingszon<select data-field="zone"><option value="">Ej valt</option>'+['I','II','III','IV','V','VI','VII','VIII'].map(zone=>'<option '+(site.zone===zone?'selected':'')+'>'+zone+'</option>').join('')+'</select></label><p class="zone-note">Zonen sparas för din planteringsyta. Artunderlaget saknar odlingszoner, så härdighet kan ännu inte kontrolleras.</p>';
+  el("conditions").innerHTML+='<label>Odlingszon · värmekrav<select data-field="zone"><option value="">Ej valt</option>'+['I','II','III','IV','V','VI','VII','VIII','IX'].map((zone,i)=>'<option value="'+zone+'" '+(site.zone===zone?'selected':'')+'>'+zone+' ('+(i+1)+')'+(i===8?' · subalpint':'')+'</option>').join('')+'</select></label><p class="zone-note">Matchningen bygger på värmekrav enligt Tyler et al., samma indelning som i Växtsök. IX (9) avser den subalpina zonen; klass 5 kräver gynnsamt mikroklimat där. Värmekrav är vägledning, ingen garanti för övervintring.</p>';
   note("");render();
   loadJson("data/flowering-sv.json").then(data=>{flowering={...data.taxa};floweringSources=data.taxonSources || {};for(const p of catalog){if(p.nursery?.flowering)flowering[p["Dyntaxa ID number"]]=p.nursery.flowering;}render();}).catch(()=>{el("calendar").textContent="Blomningsdata kunde inte laddas.";});
 }

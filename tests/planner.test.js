@@ -30,4 +30,16 @@ test("import, calendar and site matching preserve taxon boundaries",async()=>{
   run('site={Light:"Sol"}');
   assert.match(run('status({Light:"8"})'),/saknas/);
   assert.equal(run('status({Light:"5"})'),"Matchar ståndorten");
+  run('site={zone:"VI"}');
+  assert.equal(run('status({"Heat requirement":"8"})'),"Matchar ståndorten");
+  assert.match(run('status({"Heat requirement":"9"})'),/Avviker.*odlingszon VI/);
+  assert.match(run('status({"Heat requirement":""})'),/Uppgift saknas/);
+  run('site={zone:"IX"}');
+  assert.equal(run('status({"Heat requirement":"5"})'),"Matchar ståndorten");
+  assert.match(run('status({"Heat requirement":"6"})'),/Avviker/);
+  run('site={zone:"I"}');
+  assert.equal(run('status({"Heat requirement":"13"})'),"Matchar ståndorten");
+  assert.match(run('status({"Heat requirement":"14"})'),/Avviker/);
+  run('site={zone:"VI",Light:"Sol"}');
+  assert.match(run('status({"Heat requirement":"8",Light:"1"})'),/Avviker för Ljus/);
 });
