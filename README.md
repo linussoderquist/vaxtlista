@@ -122,3 +122,26 @@ Kontrollerna omfattar nya och avförda rödlistekategorier, saknad status, NA/NE
 källtillägg, enheter, imputeringsmarkeringar, alla 44 traitfält och bevarade
 taxongränser. För lokal granskning kan projektmappen serveras med valfri statisk
 webbserver; öppna sidan via HTTP så att CSV- och JSON-filerna kan laddas.
+
+## Växtval
+
+Öppna fliken Växtval för att lägga till arter, granska ett kalkylblad eller söka
+inhemska taxa för en viss ståndort. Listan och ståndorten sparas lokalt i
+webbläsaren. CSV-exporten innehåller namn, ursprunglig mängdtext och delyta.
+Ståndorten avser hela den aktiva listan. Analysera en planteringsyta i taget.
+
+Utformningen följer växtförteckningar i svensk projektering (Sollentunas tekniska
+handbok, kap. 5.2.3) och [Vectorworks arbetsbladsexport](https://app-help.vectorworks.net/2026/eng/VW2026_Guide/Worksheets/Exporting%20worksheets.htm).
+XLSX stöds via read-excel-file 9.3.20 och CSV/TSV via Papa Parse 5.5.3.
+Båda levereras med licens under vendor/. Importören låter projektören välja
+blad, kolumner och första datarad. Sortnamn behålls och omatchade rader finns
+kvar för granskning. Mängder används inte som ekologiska vikter.
+
+Blomningsintervallen kommer från [Auffrets dataset](https://doi.org/10.5878/rn49-wx18)
+(CC0), delmängden MOS2018 i phenology_data_2021.csv. Start och Stop är
+inkluderande kalendermånader. Endast entydiga artnamn som även överensstämmer
+med vetenskapligt namn i 2025 års rödlistedata används. 226 katalogtaxa har
+intervall. Kalendern räknar varje matchat taxon en gång. Ty­lers ståndortsindex
+grupperas i överlappande klasser enligt gränsbeskrivningarna i originalartikeln.
+Täckningen av odlingssorter är begränsad. Projektets EU-fil är ett urval för
+katalogen. Se [Naturvårdsverkets förteckning](https://www.naturvardsverket.se/amnesomraden/invasiva-frammande-arter/forbjudna-invasiva-frammande-arter/).

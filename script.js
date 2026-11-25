@@ -9,7 +9,7 @@ let redlistData = null;
 let gbifLayer;
 let allDataLoaded = false;
 let insectData = [];
-let plantList = [];
+
 let advancedMode = false;
 let currentSelectedPlant = null; // håller senaste match
 
@@ -18,8 +18,8 @@ const suggestions = document.getElementById("suggestions");
 const resultDiv = document.getElementById("result");
 
 // Leaflet-karta
-let map = L.map("map").setView([62.0, 15.0], 5); // centrera Sverige
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+let map = typeof L === "undefined" ? null : L.map("map").setView([62.0, 15.0], 5); // centrera Sverige
+if (map) L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
 }).addTo(map);
 
@@ -192,7 +192,7 @@ function isEUInvasive(dyntaxaId) {
 
 // GBIF karta
 async function drawMapFromGBIF(scientificName) {
-  if (!scientificName) return;
+  if (!scientificName || !map) return;
 
   if (gbifLayer && map.hasLayer(gbifLayer)) {
     map.removeLayer(gbifLayer);
@@ -264,59 +264,6 @@ function drawArrowScale(value, min, max, labels = null, unit = "") {
       ${labelLine}
     </div>
   `;
-}
-
-function addToPlantList(swedishName, scientificName) {
-  // Undvik dubbletter
-  if (plantList.some(p => p.scientific === scientificName)) return;
-
-  // Hämta växten från plantData
-  const plant = plantData.find(p => p["Scientific name"] === scientificName);
-  if (!plant) return;
-
-  // Hämta Dyntaxa ID och riskklass
-  const dyntaxa = plant["Dyntaxa ID number"];
-  const riskklass = getRiskklassningFromXLSX(dyntaxa);
-  
-  // Lägg till i listan
-  plantList.push({
-    swedish: swedishName,
-    scientific: scientificName,
-    riskklass: riskklass
-  });
-
-  updatePlantListUI();
-}
-
-function removeFromPlantList(scientificName) {
-  plantList = plantList.filter(p => p.scientific !== scientificName);
-  updatePlantListUI();
-}
-
-function updatePlantListUI() {
-  const list = document.getElementById("plantList");
-  list.innerHTML = "";
-
-  if (plantList.length === 0) {
-    list.innerHTML = "<li><em>Inga växter tillagda än.</em></li>";
-    return;
-  }
-
-  plantList.forEach(p => {
-    const li = document.createElement("li");
-    li.innerHTML = `
-      <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
-        <div style="width: 60px;">
-          ${p.riskklass ? getColoredRiskTag(p.riskklass) : ""}
-        </div>
-        <div style="flex: 1;">
-          <strong>${p.swedish}</strong>
-        </div>
-        <button onclick="removeFromPlantList('${p.scientific}')">–</button>
-      </div>
-    `;
-    list.appendChild(li);
-  });
 }
 
 function toggleMode() {
@@ -744,7 +691,7 @@ function formatPlantInfo(match, isEUListad = false) {
     ${isEUListad ? `<p><strong style="color:#b30000;">⚠️ EU-listad invasiv art</strong></p>` : ""}
     ${InvasivePlantView.renderNationalStatus(nationalInvasiveData, dyntaxa)}
   `;
-  const addButton = `<button onclick="addToPlantList(currentSelectedPlant['Svenskt namn'], currentSelectedPlant['Scientific name'])">➕ Lägg till i min växtlista</button>`;
+  const addButton = '<button onclick="addSearchSelection()">Lägg till i Växtval</button>';
   const artfakta = dyntaxa ? `<p><strong>Artfakta:</strong> <a href="https://artfakta.se/taxa/${encodeURIComponent(dyntaxa)}" target="_blank" rel="noopener">Visa Artfakta</a></p>` : "";
 
   if (!advancedMode) {
@@ -818,6 +765,7 @@ async function initializeData() {
     return;
   }
   allDataLoaded = true;
+  globalThis.startPlanner?.(plantData, nordicTraits, nationalInvasiveData, values[2], values[1]);
   input.disabled = false;
   inputScientific.disabled = false;
   setupAutocomplete();
