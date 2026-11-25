@@ -28,3 +28,5 @@ Tidskriftsruta och kategorifärger (2026-11-25)
 Färgförlagor:
 https://www.slu.se/artdatabanken/rodlistade-arter/hur-blir-en-art-rodlistad/
 https://www.slu.se/artdatabanken/arter-och-natur/invasiva-frammande-arter/risklista-2024/
+
+20 nya artbilder tillagda: vitklöver, blåklint, åkervädd, ängsvädd, smörblomma, tjärblomster, rödblära, kråkvicker, häckvicker, älggräs, humleblomster, kabbleka, liljekonvalj, ljung, blåbär, lingon, hägg, rönn, skogslind och röllika. Totalt 30 bilder. Kopiera species-art.js och hela assets/arter/. Befintliga blomningsdata är oförändrade; en bild i blom tillför inte ett blomningsintervall.

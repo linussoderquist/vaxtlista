@@ -10,10 +10,10 @@ const root=path.join(__dirname,'..');
 const plants=Papa.parse(fs.readFileSync(path.join(root,'vaxtdata.csv'),'utf8'),{header:true,skipEmptyLines:true}).data;
 const bloom=require('../data/flowering-sv.json');
 
-test('ten unique illustrated species have matching IDs, image files and flowering intervals',()=>{
- assert.equal(art.portraits.length,10);
- assert.equal(new Set(art.portraits.map(a=>a.slug)).size,10);
- assert.equal(new Set(art.portraits.map(a=>a.id)).size,10);
+test('thirty unique illustrated species have matching IDs, image files and valid available flowering intervals',()=>{
+ assert.equal(art.portraits.length,30);
+ assert.equal(new Set(art.portraits.map(a=>a.slug)).size,30);
+ assert.equal(new Set(art.portraits.map(a=>a.id)).size,30);
  for(const a of art.portraits){
   const p=plants.find(p=>p['Dyntaxa ID number']===a.id);
   assert.ok(p,a.name); assert.equal(p['Svenskt namn'],a.name);
@@ -21,8 +21,8 @@ test('ten unique illustrated species have matching IDs, image files and flowerin
   assert.equal(art.get(p),a);
   const bytes=fs.readFileSync(path.join(root,'assets/arter',a.slug+'.webp'));
   assert.equal(bytes.subarray(8,12).toString(),'WEBP');
-  const interval=bloom.taxa[a.id]; assert.equal(interval.length,2);
-  assert.ok(interval[0]>=1 && interval[0]<=interval[1] && interval[1]<=12);
+  const interval=bloom.taxa[a.id]; if (interval) { assert.equal(interval.length,2);
+  assert.ok(interval[0]>=1 && interval[0]<=interval[1] && interval[1]<=12); }
   assert.match(art.render(p),/Artillustration/);
  }
  assert.deepEqual(bloom.taxa['221338'],[6,9]);
