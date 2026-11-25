@@ -1,0 +1,16 @@
+✔ scores ordinal classes once per identity and keeps missing data explicit (2.03875ms)
+✔ penalties increase with risk and use strongest listing without double counting (1.933264ms)
+✔ imputation and legal warnings survive an overall positive score (0.355562ms)
+✔ exponential curves retain endpoints, increase and accelerate at every class (0.691453ms)
+✔ every invasive category excludes all benefits and missing/imputed counts (0.727487ms)
+✔ fractional points aggregate without rounding and exact cancellation stays neutral (0.268121ms)
+✔ circle is red below zero, neutral at zero and progressively greener (0.59042ms)
+✔ planner summary integrates data, exclusions, dates, totals and circle styling (38.657014ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 232.211712

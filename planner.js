@@ -110,18 +110,20 @@ function renderListSummary() {
   });
   const score = PlantListScore.calculate(entries);
   const sourcesMissing = !national || !eu || !risks;
-  const signed = value => value > 0 ? "+" + value : String(value);
-  container.innerHTML = '<section class="list-summary"><div class="score-heading"><div><h2>Listans planeringspoäng</h2><p>'+score.items.length+' unika växtval · varje växt räknas en gång</p></div><strong class="score-total">'+signed(score.total)+'<span>poäng'+(score.missing || sourcesMissing ? ' · delunderlag' : '')+'</span></strong></div>'+
-    '<div class="score-components"><div><span>Associerade arter</span><strong>+'+score.associated+'</strong></div><div><span>Nektarproduktion</span><strong>+'+score.nectar+'</strong></div><div><span>Risk och listning</span><strong>−'+score.penalty+'</strong></div></div>'+
+  const number = value => value.toLocaleString("sv-SE", {maximumFractionDigits:2});
+  const signed = value => value > 0 ? "+" + number(value) : number(value);
+  const visual = PlantListScore.appearance(score.total);
+  container.innerHTML = '<section class="list-summary"><div class="score-heading"><div><h2>Listans planeringspoäng</h2><p>'+score.items.length+' unika växtval · varje växt räknas en gång</p></div><strong class="score-total score-'+visual.state+'" style="--score-border:'+visual.border+';--score-background:'+visual.background+';--score-color:'+visual.color+'">'+signed(score.total)+'<span>poäng'+(score.missing || sourcesMissing ? ' · delunderlag' : '')+'</span></strong></div>'+
+    '<div class="score-components"><div><span>Associerade arter</span><strong>+'+number(score.associated)+'</strong></div><div><span>Nektarproduktion</span><strong>+'+number(score.nectar)+'</strong></div><div><span>Risk och listning</span><strong>−'+number(score.penalty)+'</strong></div></div>'+
     (score.listed ? '<p class="selection-warning"><strong>'+score.listed+' växtval är invasivlistade.</strong> Kontrollera regler och undantag i respektive kort även när summan är positiv.</p>' : '')+
     (sourcesMissing ? '<p class="selection-warning">Risk- eller invasivunderlag kunde inte laddas. Avdragen är ofullständiga.</p>' : '')+
-    '<p class="score-coverage">'+score.missing+' växtval saknar minst en plusuppgift. '+score.imputed+' nektarvärden är modellskattade.</p>'+
-    '<details><summary>Så räknas poängen</summary><p>Växtvals egen jämförelsemodell, version 1. Vikterna är valda för planering och har inte validerats som ett mått på faktisk biologisk mångfald. Summan påverkas av listans längd och datatäckning.</p>'+
-    '<p>Associerade arter ger 0–7 poäng för källans klass 1–8. Nektar ger 0–6 poäng för klass 1–7. Klasserna är ordinala. Saknade värden bidrar inte till summan och redovisas som saknade.</p>'+
+    '<p class="score-coverage">'+score.excluded+' växtval ger inga pluspoäng på grund av invasivrisk eller listning. '+score.missing+' övriga växtval saknar minst en plusuppgift. '+score.imputed+' nektarvärden är modellskattade.</p>'+
+    '<details><summary>Så räknas poängen</summary><p>Växtvals egen jämförelsemodell, version 2. Vikterna är valda för planering och har inte validerats som ett mått på faktisk biologisk mångfald. Summan påverkas av listans längd och datatäckning.</p>'+
+    '<p>Associerade arter ger 0–7 poäng för källans klass 1–8. Nektar ger 0–6 poäng för klass 1–7. Poängen viktas exponentiellt: (maxklass − 1) × (2^(klass − 1) − 1) / (2^(maxklass − 1) − 1). Maxpoängen är oförändrade. Klasserna är ordinala. Saknade värden bidrar inte till summan och redovisas som saknade.</p>'+
     '<p>Avdrag per växt är NK 0, LO −2, PH −5, HI −10 och SE −15. Nationell listning ger −20 och gällande EU-listning −30. Endast det största avdraget används per växt. Listningsavdraget gäller även arter med villkorade undantag, vilka måste granskas i artkortet. Framtida EU-förbud visas i artkortet och börjar ge listningsavdrag från ikraftträdandet.</p>'+
-    '<p>Utebliven riskklass ger inget riskklassavdrag. Sorter ärver inga pluspoäng från arten. Antal plantor och upprepad import av samma växt ökar inte poängen. Associerade organismer kan vara gemensamma för flera arter.</p>'+
+    '<p>Riskklass LO–SE, svensk listning och EU-listning (även kommande) utesluter alla pluspoäng. NK utesluter inte pluspoäng. Uteslutna värden räknas inte som saknade eller modellskattade. Beräkningen använder full precision; visningen avrundas till två decimaler.</p><p>Utebliven riskklass ger inget riskklassavdrag. Sorter ärver inga pluspoäng från arten. Antal plantor och upprepad import av samma växt ökar inte poängen. Associerade organismer kan vara gemensamma för flera arter.</p>'+
     '<div class="score-table-wrap"><table><caption>Poäng per unikt växtval</caption><thead><tr><th>Växt</th><th>Associerade</th><th>Nektar</th><th>Avdrag</th><th>Summa</th></tr></thead><tbody>'+
-    score.items.map(item => '<tr><th scope="row">'+esc(item.name)+(item.futureEU?' · kommande EU-förbud':'')+'</th><td>'+(item.associated === null ? 'Saknas' : '+'+item.associated)+'</td><td>'+(item.nectar === null ? 'Saknas' : '+'+item.nectar+(item.imputed?'*':''))+'</td><td>−'+item.penalty+'</td><td>'+signed(item.total)+'</td></tr>').join("")+
+    score.items.map(item => '<tr><th scope="row">'+esc(item.name)+(item.futureEU?' · kommande EU-förbud':'')+'</th><td>'+(item.excluded ? 'Räknas inte' : item.associated === null ? 'Saknas' : '+'+number(item.associated))+'</td><td>'+(item.excluded ? 'Räknas inte' : item.nectar === null ? 'Saknas' : '+'+number(item.nectar)+(item.imputed?'*':''))+'</td><td>−'+item.penalty+'</td><td>'+signed(item.total)+'</td></tr>').join("")+
     '</tbody></table></div><p>* Modellskattat nektarvärde.</p></details></section>';
 }
 function render(){

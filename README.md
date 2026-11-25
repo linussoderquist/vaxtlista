@@ -168,7 +168,7 @@ https://doi.org/10.1002/ecs2.3683
 
 ## Listans planeringspoäng
 
-Jämförelsemodellen v1 ger 0–7 poäng för biodiversitetsklass 1–8 och 0–6 för
+Jämförelsemodellen v2 ger 0–7 poäng för biodiversitetsklass 1–8 och 0–6 för
 nektarklass 1–7. Avdragen är NK 0, LO 2, PH 5, HI 10, SE 15, nationell
 listning 20 och gällande EU-listning 30. Största avdraget används per växt.
 Vikterna är redaktionella val för denna funktion och är inte ett validerat
@@ -180,3 +180,33 @@ och gemener. Saknade plusvärden ingår inte och antalet berörda växtval anges
 Imputerade nektarvärden markeras. Om en risk- eller invasivkälla inte laddas
 visas resultatet som delunderlag. Nationella undantag avgörs inte automatiskt.
 Positiv totalsumma tar aldrig bort listningsvarningen.
+
+
+### Uppdatering 25 november 2026: exponentiella poäng
+
+Kopiera ZIP-filens innehåll till roten av din befintliga vaxtlista och ersätt
+filer med samma namn. Behåll alla övriga filer och datakataloger. Detta är en
+uppdatering, inte en komplett fristående webbplats.
+
+Poängen är (maxklass − 1) × (2^(klass − 1) − 1) / (2^(maxklass − 1) − 1).
+Bas 2 ger dubbelt så stor poängökning för varje klasssteg, med oförändrade
+ändpunkter: associerade arter 0–7, nektar 0–6. Beräkningen avrundas inte;
+visningen använder upp till två decimaler.
+
+Riskklass LO–SE, nationell listning eller EU-listning (även kommande) gör att
+både associerade arter och nektar utesluts helt. NK utesluter inte pluspoäng.
+Uteslutna värden visas som ”Räknas inte” och påverkar inte antalet saknade
+eller modellskattade värden. Avdragen är oförändrade, inklusive att EU-avdraget
+börjar gälla på ikraftträdandedagen. En framtida EU-listad art utan annan
+riskklass/listning ger därför noll fram till dess.
+
+Summan visas i en cirkel: röd vid minus, grå vid noll och gradvis mer mättat
+grön vid högre plus. Grön intensitet styrs kontinuerligt av summa/(summa+26)
+och planar ut utan ett hårt tak. Tecken och siffra visas även utan färg.
+
+Kör uppdateringens självständiga tester med:
+`node --test tests/list-score.test.js tests/summary-render.test.js`
+
+Det äldre `tests/planner.test.js` kräver hela webbplatsens datafiler och vendor-
+filer och har inte körts i denna uppdaterings-ZIP. Webbläsarens visuella layout
+har inte verifierats här; renderingstestet kontrollerar genererad HTML och färgval.
