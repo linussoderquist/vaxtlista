@@ -128,8 +128,13 @@
     return `<p><strong>Rödlista 2025:</strong> ${getRedlistBadge(record.category)} ${categories[record.category]}${annotation}${criteria}</p>`;
   }
 
-  function getSpecies(dataset, dyntaxa) {
-    const match = dataset?.taxa[String(dyntaxa || "").trim()];
+  function getSpecies(dataset, dyntaxa, scientificName = "") {
+    let match = dataset?.taxa[String(dyntaxa || "").trim()];
+    if (!match && scientificName) {
+      const parentKey = parentSpeciesKey(scientificName);
+      const parentName = parentKey && Object.keys(dataset?.species || {}).find(name => parentSpeciesKey(name) === parentKey && !/\b(ssp|subsp|var)\./i.test(name));
+      if (parentName) match = {species: parentName, method: "parent_species_fallback"};
+    }
     if (!match) return null;
     const own = dataset.species[match.species];
     const parentKey = parentSpeciesKey(match.species);

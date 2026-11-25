@@ -45,14 +45,14 @@
   }
 
   function renderSummary(plant, dataset, descriptions = {}) {
-    const record = dataView.getSpecies(dataset, plant["Dyntaxa ID number"]);
+    const record = dataView.getSpecies(dataset, plant["Dyntaxa ID number"], plant["Scientific name"]);
     const values = record?.values || {};
     const imputed = new Set(record?.imputed || []);
     const missing = dataset ? "Uppgift saknas" : "Kunde inte laddas";
     const definition = key => dataset?.traits.find(d => d.key === key);
     const traitDetail = key => definition(key) ? dataView.formatValue(definition(key), values[key]) : "";
     const biodiversity = ordinal(plant["Biodiversity relevance"], 1, 8);
-    const nectar = ordinal(values.nectar_production, 1, 7);
+    const nectar = ordinal(values.nectar_production ?? plant["Nectar production"], 1, 7);
     const longevity = ordinal(values.longevity, 1, 4);
     const pollination = pollinationLevel(values.pollinator_type);
     const heat = ordinal(plant["Heat requirement"], 1, 14);

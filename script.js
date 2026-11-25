@@ -39,7 +39,7 @@ function renderPlantQuickFacts(plant) {
   const id = String(plant?.["Dyntaxa ID number"] ?? "").trim();
   const parentKey = PlantDataView.parentSpeciesKey(plant?.["Scientific name"]);
   const habit = habitData.find(row => String(row["Dyntaxa ID number"] ?? "").trim() === id) || habitData.find(row => PlantDataView.parentSpeciesKey(row["Växtnamn"]) === parentKey && !/\b(ssp|subsp|var)\./i.test(String(row["Växtnamn"] || "")));
-  const trait = PlantDataView.getSpecies(nordicTraits, id);
+  const trait = PlantDataView.getSpecies(nordicTraits, id, plant?.["Scientific name"]);
   const growth = habit?.["Växtsätt"] || "Uppgift saknas";
   const height = habit?.["Medelhöjd (cm)"] || trait?.values.height;
   return `<div class="plant-quick-facts" aria-label="Växtsätt och medelhöjd"><div><strong>Växtsätt</strong><span>${PlantDataView.escapeHtml(growth)}</span></div><div><strong>Medelhöjd</strong><span>${PlantDataView.escapeHtml(formatCentimetres(height))}</span></div></div>`;
