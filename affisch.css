@@ -95,3 +95,81 @@ a { color: var(--jade); }
   .masthead { padding: .75rem 4%; }
   #planner .score-heading { flex-wrap: nowrap; }
 }
+
+/* Paper, ink and slightly skewed botanical clippings. */
+:root { --paper: #f2e5c9; --card: #fcf0d6; --line: #b9a680; }
+body {
+  background-color: var(--paper);
+  background-image:
+    radial-gradient(ellipse at 12% 30%, #ad7c3010, transparent 65%),
+    repeating-linear-gradient(0deg, #78552d03 0 1px, transparent 1px 4px);
+}
+.masthead { border-bottom: 3px double #654626; background-color: #e8b447; }
+.masthead .wordmark { text-shadow: .7px .5px #9b42232b; }
+#entries {
+  padding: 1rem .9rem 1.5rem;
+  box-sizing: border-box;
+  column-gap: clamp(1.8rem, 3vw, 3rem);
+  row-gap: 2.8rem;
+}
+#planner .selection-card {
+  transform: rotate(-1.8deg);
+  transform-origin: center 32%;
+  background-color: var(--card);
+  background-image: repeating-linear-gradient(0deg, #78552d04 0 1px, transparent 1px 4px);
+  box-shadow: 2px 5px 7px #56391915, 0 1px 1px #56391922;
+}
+#planner .selection-card:nth-of-type(even) { transform: rotate(1.6deg); }
+#planner .selection-card:nth-of-type(3n) { transform: rotate(-.9deg); }
+#planner .selection-card:focus-within { position: relative; z-index: 1; }
+.form-print { margin: .65rem .65rem 0; }
+.form-print figcaption {
+  bottom: .5rem; left: .5rem;
+  font-family: Georgia, serif; font-style: italic; font-weight: 400;
+}
+.poster-body>p, .invasion, #planner .selection-flowering>span,
+#planner .selection-card details {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: .97rem;
+}
+#planner .selection-metrics { border-top: 3px double var(--line); }
+#planner .selection-metrics strong { font-size: 1.28rem; }
+#planner .selection-months span { background: none; border-bottom: 1px solid var(--line); }
+#planner .selection-months span.active { background: var(--jade); color: var(--card); }
+#planner #addForm { border-top: 3px double var(--line); padding-top: 1rem; }
+#planner #addForm label { font: 700 1.3rem var(--display); margin-bottom: .45rem; }
+#planner #pick {
+  background: transparent; border: 0; border-bottom: 1px solid var(--ink);
+  border-radius: 0; box-shadow: none; padding: .55rem 0;
+  font: italic 1.02rem/1.4 Georgia, serif; margin: 0;
+}
+#planner #pick::placeholder { color: #756149; opacity: 1; }
+#planner #addForm .line { gap: .7rem; align-items: baseline; }
+#planner #addForm button {
+  padding: .45rem 0; border: 0; border-radius: 0;
+  color: var(--brick); background: transparent;
+  font-weight: 750; text-decoration: underline; text-underline-offset: .3em;
+  min-height: 44px;
+}
+#planner #addForm button::after { content: " →"; }
+#planner #addForm button:hover { color: var(--jade); }
+#planner :is(textarea, select, input[type=number]) {
+  background: transparent; border: 0; border-bottom: 1px solid var(--line);
+  border-radius: 0;
+}
+#planner .jump-links, #planner #importBox>summary { font-family: var(--display); }
+#planner .score-heading h2 { font: 700 1.2rem/1.12 var(--display); }
+#planner .score-heading p { font-family: Georgia, serif; font-size: .9rem; }
+#planner .list-summary { border-bottom: 0; }
+#planner :is(input,textarea,select,button,a,summary):focus-visible {
+  outline: 2px solid var(--jade); outline-offset: 4px;
+}
+@media (max-width: 760px) {
+  #entries { padding: .9rem .65rem 1.5rem; row-gap: 2rem; }
+  #planner .selection-card { transform: rotate(-.8deg); }
+  #planner .selection-card:nth-of-type(even) { transform: rotate(.8deg); }
+  #planner .selection-card:nth-of-type(3n) { transform: rotate(-.5deg); }
+}
+@media print {
+  #planner .selection-card { transform: none !important; box-shadow: none; break-inside: avoid; }
+}
