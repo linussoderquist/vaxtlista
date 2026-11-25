@@ -13,8 +13,8 @@
     if (total < 0) return {state:"negative", border:"#a13e32", background:"#ecd2b9", color:"#7b2b25"};
     if (total === 0) return {state:"neutral", border:"#85745a", background:"#ece0c4", color:"#514331"};
     const strength = total / (total + 26);
-    return {state:"positive", border:`hsl(138, ${24 + 24 * strength}%, ${44 - 20 * strength}%)`,
-      background:`hsl(95, ${22 + 14 * strength}%, ${87 - 14 * strength}%)`, color:"#244b34"};
+    return {state:"positive", border:`hsl(138, ${24 + 24 * strength}%, ${32 - 16 * strength}%)`,
+      background:`hsl(138, ${25 + 14 * strength}%, ${34 - 15 * strength}%)`, color:"#fff4d8"};
   }
   function calculate(entries) {
     const unique = new Map();

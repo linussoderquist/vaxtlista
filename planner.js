@@ -31,8 +31,9 @@ window.addEventListener("DOMContentLoaded",route);
 function addSearchSelection(){const p=currentSelectedPlant;if(!p)return;rows.push({name:p["Scientific name"]});save();location.hash="vaxtval";}
 function match(name){return byName.get(norm(name)) || globalThis.NurseryPlants?.find(catalog,name);}
 function status(p){
-  if(p.nursery)return "Sortpost · se plantskolans ståndortsbeskrivning";
+  if(p.nursery)return "Sortpost · se plantskolans ståndortsbeskrivning"+(site.zone?" · odlingszon saknar underlag":"");
   const issues=[],unknown=[];
+  if(site.zone) unknown.push("odlingszon "+site.zone);
   for(const [field,label,options] of filters){
     const range=options.find(o=>o[0]===site[field]); if(!range)continue;
     const value=Number(p[field]);
@@ -103,6 +104,7 @@ function startPlanner(plants,n,t,e,r,redlist=null,habits=[]){
   }
   ready=true;
   el("conditions").innerHTML=filters.map(([field,label,options],i)=>'<label>'+label+'<select data-i="'+i+'"><option value="">Ej valt</option>'+options.map(([name])=>'<option '+(site[field]===name?'selected':'')+'>'+name+'</option>').join("")+'</select></label>').join("");
+  el("conditions").innerHTML+='<label>Odlingszon<select data-field="zone"><option value="">Ej valt</option>'+['I','II','III','IV','V','VI','VII','VIII'].map(zone=>'<option '+(site.zone===zone?'selected':'')+'>'+zone+'</option>').join('')+'</select></label><p class="zone-note">Zonen sparas för din planteringsyta. Artunderlaget saknar odlingszoner, så härdighet kan ännu inte kontrolleras.</p>';
   note("");render();
   loadJson("data/flowering-sv.json").then(data=>{flowering={...data.taxa};floweringSources=data.taxonSources || {};for(const p of catalog){if(p.nursery?.flowering)flowering[p["Dyntaxa ID number"]]=p.nursery.flowering;}render();}).catch(()=>{el("calendar").textContent="Blomningsdata kunde inte laddas.";});
 }
@@ -115,7 +117,7 @@ function renderSelectionFacts(plant, id) {
   const height = Number.isFinite(number) && number > 0 ? `${number.toLocaleString("sv-SE", {maximumFractionDigits: 0})} cm` : "Uppgift saknas";
   return `<div class="selection-facts" aria-label="Växtsätt och medelhöjd"><div><span>Växtsätt</span><strong>${esc(info.growth || "Uppgift saknas")}</strong></div><div><span>Medelhöjd</span><strong>${esc(height)}</strong></div></div>`;
 }
-el("conditions").onchange=e=>{site[filters[e.target.dataset.i][0]]=e.target.value;save();};
+el("conditions").onchange=e=>{const field=e.target.dataset.field || filters[e.target.dataset.i]?.[0];if(field){site[field]=e.target.value;save();}};
 el("pick").oninput=e=>{
   const q=norm(e.target.value);
   const hits=q.length>=2?catalog.filter(p=>[p["Scientific name"],p["Svenskt namn"]].some(s=>norm(s).includes(q))).slice(0,20):[];
@@ -127,11 +129,8 @@ function floweringSourceHtml(id) {
   const source = floweringSources[id];
   return source ? '<small class="flowering-source">Blomning: <a href="'+esc(source.url)+'" target="_blank" rel="noopener">'+esc(source.label)+'</a></small>' : '';
 }
-function renderListSummary() {
-  const container = el("listSummary");
-  if (!rows.length) { container.innerHTML = ""; return; }
+function scoreEntry(row) {
   const today = new Date().toLocaleDateString("sv-SE", {timeZone:"Europe/Stockholm"});
-  const entries = rows.map(row => {
     const plant = match(row.name);
     const id = plant?.["Dyntaxa ID number"];
     const record = PlantDataView.getSpecies(traits, id);
@@ -149,7 +148,11 @@ function renderListSummary() {
       futureEU:Boolean(euRecord?.["Gäller från"] > today),
       exception:Boolean(nationalRecord?.exception && nationalRecord.exception !== "none")
     };
-  });
+}
+function renderListSummary() {
+  const container = el("listSummary");
+  if (!rows.length) { container.innerHTML = ""; return; }
+  const entries = rows.map(scoreEntry);
   const score = PlantListScore.calculate(entries);
   const sourcesMissing = !national || !eu || !risks;
   const number = value => value.toLocaleString("sv-SE", {maximumFractionDigits:2});
@@ -167,6 +170,13 @@ function renderListSummary() {
     '<div class="score-table-wrap"><table><caption>Poäng per unikt växtval</caption><thead><tr><th>Växt</th><th>Associerade</th><th>Nektar</th><th>Avdrag</th><th>Summa</th></tr></thead><tbody>'+
     score.items.map(item => '<tr><th scope="row">'+esc(item.name)+(item.futureEU?' · kommande EU-förbud':'')+'</th><td>'+(item.excluded ? 'Räknas inte' : item.associated === null ? 'Saknas' : '+'+number(item.associated))+'</td><td>'+(item.excluded ? 'Räknas inte' : item.nectar === null ? 'Saknas' : '+'+number(item.nectar)+(item.imputed?'*':''))+'</td><td>−'+item.penalty+'</td><td>'+signed(item.total)+'</td></tr>').join("")+
     '</tbody></table></div><p>* Modellskattat nektarvärde.</p></details></section>';
+}
+function renderCardScore(row) {
+  if(!globalThis.PlantListScore)return '';
+  const score=PlantListScore.calculate([scoreEntry(row)]), item=score.items[0];
+  const value=score.total.toLocaleString('sv-SE',{maximumFractionDigits:2});
+  const partial=score.missing || !national || !eu || !risks;
+  return '<div class="card-score '+(score.total<0?'negative':'positive')+'"><span>Planeringspoäng</span><strong>'+(score.total>0?'+':'')+value+'</strong><small>'+(partial?'Delunderlag':item.excluded?'Invasivrisk/listning · inga pluspoäng':'Per unikt växtval')+'</small></div>';
 }
 function render(){
   if(!ready)return;
@@ -194,6 +204,7 @@ function render(){
     const segments=(value,max)=>'<span class="selection-scale" aria-hidden="true">'+Array.from({length:max},(_,n)=>'<i class="'+(n<value?'filled':'')+'">'+(n+1)+'</i>').join("")+'</span>';
     return '<article class="selection-card'+warningClass+'">'+formImage(p)+'<div class="poster-body"><header><div><h3>'+esc(p?.["Svenskt namn"]||row.name)+'</h3><small>'+esc(p?.["Scientific name"]||"Omatchad växt")+'</small></div><button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></header>'+
       (p ? renderSelectionFacts(p,id) : "")+
+      renderCardScore(row)+
       ((row.quantity||row.plot)?'<p class="selection-meta">'+[row.quantity?'Mängd '+esc(row.quantity):"",row.plot?'Yta '+esc(row.plot):""].filter(Boolean).join(" · ")+'</p>':"")+
       (siteStatus?'<p class="selection-status '+(attention?'needs-review':'')+'">'+esc(siteStatus)+'</p>':"")+
       '<div class="redlist-print">'+PlantDataView.renderRedlist(plannerRedlist,id)+'</div>' +
@@ -210,6 +221,7 @@ function render(){
 
   }).join("")+(rows.length?'<button id="exportList">Exportera CSV</button>':'<div class="empty-list"><div class="print-triptych" aria-hidden="true"><img src="assets/vaxtformer/trad.webp" alt=""><img src="assets/vaxtformer/ort.webp" alt=""><img src="assets/vaxtformer/ormbunke.webp" alt=""></div><h2>Din planteringslista är tom</h2><p>Lägg till en växt, importera din lista eller börja med sälg, prästkrage och rödklint.</p><button id="example">Prova en exempellista →</button></div>');
   if(el("example"))el("example").onclick=()=>{rows=["sälg","prästkrage","rödklint"].map(name=>({name}));save();};
+  globalThis.PlannerCards?.refresh();
   if(el("exportList"))el("exportList").onclick=()=>{
     const csv=Papa.unparse([["Växtnamn","Mängd","Delyta"],...rows.map(r=>[r.name,r.quantity||"",r.plot||""])],{delimiter:";",escapeFormulae:true});
     const url=URL.createObjectURL(new Blob(["\ufeff"+csv],{type:"text/csv;charset=utf-8"}));
