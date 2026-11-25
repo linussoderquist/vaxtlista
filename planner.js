@@ -93,9 +93,26 @@ function render(){
     if(p)unique.set(id,p);
     const euRecord = eu?.get(id) || euNames.get(norm(row.name));
     const euInfo = euRecord ? InvasivePlantView.renderEUStatus(euRecord) : "";
-    const cls=p?.["Biodiversity relevance"];
-    const messages=p?[status(p),cls>0&&assoc[cls]?"Associerade arter i källan "+assoc[cls]:"",...flags(p)]:["Omatchat namn eller sort · artuppgifter saknas"];
-    return '<div class="row"><div><strong>'+esc(p?.["Svenskt namn"]||row.name)+'</strong><small>'+[row.name,row.quantity,row.plot].filter(Boolean).map(esc).join(" · ")+'</small><small>'+messages.filter(Boolean).map(esc).join(" · ")+'</small>'+(p?.nursery?NurseryPlants.describe(p):'')+euInfo+'</div><div>'+(p?'<button data-open="'+i+'">Artkort</button> ':'')+'<button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></div></div>';
+    const siteStatus=p?status(p):"Namn behöver granskas";
+    const attention=!p || siteStatus.startsWith("Avviker");
+    const nectar=PlantDataView.getSpecies(traits,id);
+    const nectarClass=Number(nectar?.values.nectar_production);
+    const nectarKnown=Number.isInteger(nectarClass)&&nectarClass>=1&&nectarClass<=7;
+    const biodiversity=Number(p?.["Biodiversity relevance"]);
+    const biodiversityKnown=Number.isInteger(biodiversity)&&biodiversity>=1&&biodiversity<=8;
+    const interval=flowering?.[id];
+    const legal=[...(p?flags(p):[]),...(euRecord?["EU-listad · läs reglerna"]:[])];
+    const segments=(value,max)=>'<span class="selection-scale" aria-hidden="true">'+Array.from({length:max},(_,n)=>'<i class="'+(n<value?'filled':'')+'"></i>').join("")+'</span>';
+    return '<article class="selection-card"><header><div><h3>'+esc(p?.["Svenskt namn"]||row.name)+'</h3><small>'+esc(p?.["Scientific name"]||"Omatchad växt")+'</small></div><button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></header>'+
+      ((row.quantity||row.plot)?'<p class="selection-meta">'+[row.quantity?'Mängd '+esc(row.quantity):"",row.plot?'Yta '+esc(row.plot):""].filter(Boolean).join(" · ")+'</p>':"")+
+      (siteStatus?'<p class="selection-status '+(attention?'needs-review':'')+'">'+esc(siteStatus)+'</p>':"")+
+      (legal.length?'<p class="selection-warning">'+legal.map(esc).join(" · ")+'</p>':"")+
+      '<div class="selection-metrics"><div><span>Nektarproduktion</span><strong>'+esc(nectarKnown?["","Ingen","Obetydlig","Liten","Måttlig","Ganska stor","Stor","Mycket stor"][nectarClass]:"Uppgift saknas")+'</strong>'+segments(nectarKnown?nectarClass:0,7)+'<small>'+(nectarKnown?'Klass '+nectarClass+' av 7'+(nectar.imputed.includes("nectar_production")?' · modellskattad':''):'Ingen klassning')+'</small></div>'+
+      '<div><span>Associerade arter</span><strong>'+esc(biodiversityKnown?assoc[biodiversity]:"Uppgift saknas")+'</strong>'+segments(biodiversityKnown?biodiversity:0,8)+'<small>Artens klass i källmaterialet</small></div></div>'+
+      '<div class="selection-flowering"><span>Blomning'+(interval?' · '+months[interval[0]-1]+'–'+months[interval[1]-1]:' · uppgift saknas')+'</span><div class="selection-months" aria-label="'+esc(interval?'Blomning '+months[interval[0]-1]+' till '+months[interval[1]-1]:'Blomningsuppgift saknas')+'">'+months.map((m,n)=>'<span class="'+(interval&&n+1>=interval[0]&&n+1<=interval[1]?'active':'')+'">'+m+'</span>').join("")+'</div></div>'+
+      '<details><summary>Uppgifter och källor</summary><p>Importerad som '+esc(row.name)+'</p>'+(p?.nursery?NurseryPlants.describe(p):'<p>Ordinala klasser från NordicTraits och Tyler m.fl. Se Underlag och tolkning.</p>')+euInfo+(p&&national?.taxa[id]?InvasivePlantView.renderNationalStatus(national,id):"")+'</details>'+
+      (p?'<button class="selection-open" data-open="'+i+'">Öppna artkort</button>':"")+'</article>';
+
   }).join("")+(rows.length?'<button id="exportList">Exportera CSV</button>':'<p>Listan är tom. <button id="example">Prova en exempellista</button></p>');
   if(el("example"))el("example").onclick=()=>{rows=["sälg","prästkrage","rödklint"].map(name=>({name}));save();};
   if(el("exportList"))el("exportList").onclick=()=>{
@@ -107,7 +124,7 @@ function render(){
   el("calendar").innerHTML='<p>'+counted.length+' av '+unique.size+' matchade taxa har ett dokumenterat blomningsintervall. '+(rows.filter(r=>!match(r.name)).length)+' omatchade rader.</p><div class="months">'+months.map((m,i)=>{
     const blooming=counted.filter(([id])=>flowering[id][0]<=i+1&&flowering[id][1]>=i+1);
     return '<div class="'+(blooming.length?'bloom':'')+'" title="'+esc(blooming.map(([,p])=>p["Svenskt namn"]).join(", "))+'">'+m+'<strong>'+blooming.length+'</strong></div>';
-  }).join("")+'</div><small>Antal olika taxa med belagd blomning per månad. Noll anger en lucka i underlaget för listan.</small>'+ (counted.length?'<details><summary>Visa arter och nektarklass</summary>'+counted.map(([id,p])=>{const record=PlantDataView.getSpecies(traits,id);return '<p>'+esc(p["Svenskt namn"])+' · '+months[flowering[id][0]-1]+'–'+months[flowering[id][1]-1]+' · '+(p.nursery?'Plantskolans sortuppgift':'Auffret, A. (2021)')+' · nektarklass '+esc(record?.values.nectar_production??"saknas")+(record?.imputed.includes("nectar_production")?" (modellskattad)":"")+'</p>';}).join("")+'</details>':'');
+  }).join("")+'</div><small>Antal olika taxa med belagd blomning per månad. Noll anger en lucka i underlaget för listan.</small>'+ (counted.length?'<details><summary>Visa arter och nektarklass</summary>'+counted.map(([id,p])=>{const record=PlantDataView.getSpecies(traits,id);return '<p>'+esc(p["Svenskt namn"])+' · '+months[flowering[id][0]-1]+'–'+months[flowering[id][1]-1]+' · '+(p.nursery?'Plantskolans sortuppgift':'Artuppgift')+' · nektarklass '+esc(record?.values.nectar_production??"saknas")+(record?.imputed.includes("nectar_production")?" (modellskattad)":"")+'</p>';}).join("")+'</details>':'');
   if(!national||!eu||!risks){el("candidates").textContent="Invasiv- eller riskunderlaget saknas.";return;}
   if(!Object.values(site).some(Boolean)){el("candidates").textContent="Välj minst ett ståndortsvillkor.";return;}
   const suitable=catalog.filter(p=>status(p)==="Matchar ståndorten"&&!unique.has(p["Dyntaxa ID number"])&&!national.taxa[p["Dyntaxa ID number"]]&&!eu.has(p["Dyntaxa ID number"])&&!["HI","SE"].includes(risks.get(p["Dyntaxa ID number"]))&&p["Time of immigration"]==="0").sort((a,b)=>a["Svenskt namn"].localeCompare(b["Svenskt namn"],"sv"));
