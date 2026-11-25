@@ -12,9 +12,19 @@ Uppdatering: klassmärkningar och grafik
 - Kortens lutning är cirka halverad, och ännu mindre på mobil.
 - Befintliga poäng, källuppgifter och listningsregler bevaras.
 
-38 automatiserade tester passerar. Visuell webbläsarkontroll kunde inte genomföras i arbetsmiljön.
+38 automatiserade tester passerar. Visuellt kontrollerad i Chromium vid 320, 390, 800 och 1440 pixlars bredd.
 
 Tio artbilder (2026-11-25)
 Kopiera även species-art.js, assets/arter/ och data/flowering-sv.json.
 Artbilder finns för sälg, rödklöver, prästkrage, rödklint, liten blåklocka, gullviva, vitsippa, mjölke, käringtand och blåsippa. De visas både i Växtval och i artinformationen. Övriga arter behåller sina växtformsbilder.
 Rödklöver har fått ett separat källmärkt blomningsintervall juni–september. Se ARTBILDER.md för art-ID, bildfiler och genereringsprompter.
+
+Tidskriftsruta och kategorifärger (2026-11-25)
+- Poängsammanfattningen har ny typografi, dubbla linjer, en rasterfärgad medaljong och synlig poängfördelning.
+- Rödlistefärgerna följer SLU:s svenska färgfamiljer: RE mörkröd, CR karminröd, EN rosaröd, VU rosa, NT ljusrosa, DD grå och LC gulgrön. Färgerna är anpassade till tryck på varmt papper.
+- Riskklass NK–SE har separata färger från gräddgult via gult och ockra till orange och bränd orange. Samma färger används i artkort och teckenförklaring.
+- Positiva poäng blir successivt grönare med dämpade tryckfärger. Negativa summor har röd medaljong.
+- Kopiera även list-score.js och invasive-view.js; de ingår nu i uppdateringen. Poängberäkningen är oförändrad.
+Färgförlagor:
+https://www.slu.se/artdatabanken/rodlistade-arter/hur-blir-en-art-rodlistad/
+https://www.slu.se/artdatabanken/arter-och-natur/invasiva-frammande-arter/risklista-2024/

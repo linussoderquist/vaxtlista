@@ -15,7 +15,7 @@ test('planner summary integrates data, exclusions, dates, totals and circle styl
     byName.set('a',{'Dyntaxa ID number':'a','Svenskt namn':'A','Biodiversity relevance':8});
     rows=[{name:'a'},{name:'a'}]; renderListSummary();`);
   let html=getElementById('listSummary').innerHTML;
-  assert.match(html,/1 unika växtval/);assert.match(html,/score-positive/);assert.match(html,/\+13<span>/);assert.match(html,/--score-border:hsl/);
+  assert.match(html,/1 unikt växtval/);assert.match(html,/score-positive/);assert.match(html,/\+13<span>/);assert.match(html,/--score-border:hsl/);
   run(`national.taxa.a={}; renderListSummary();`);
   html=getElementById('listSummary').innerHTML;
   assert.match(html,/score-negative/);assert.match(html,/−20<span>/);assert.equal((html.match(/Räknas inte/g)||[]).length,2);

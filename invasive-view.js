@@ -25,7 +25,7 @@
       ? 'För privata fastighetsägare och nyttjanderättshavare finns undantag för befintliga förekomster. Skyldigheten att hindra spridning från fastigheten gäller här vattenväxter i slutna vattensamlingar.'
       : 'Privata fastighetsägare och nyttjanderättshavare får låta befintliga förekomster växa och föröka sig, men ska hindra spridning från fastigheten. Detta undantag för befintliga förekomster tillåter inte odling eller plantering.';
     return `<aside class="invasive-notice invasive-national" aria-label="Svensk reglering av invasiv art">
-      <p class="invasive-title"><span aria-hidden="true">⚠</span> <strong>${title}</strong></p>
+      <p class="invasive-title"><span aria-hidden="true">⚠︎</span> <strong>${title}</strong></p>
       <p class="invasive-reference">Förordning (${escape(dataset.source.regulation)}), gäller sedan 15 maj 2026.</p>
       ${regional ? scope : ""}
       ${exceptions[record.exception] || ""}
@@ -57,8 +57,8 @@
     const labels = {SE:"Mycket hög risk", HI:"Hög risk", PH:"Potentiellt hög risk", LO:"Låg risk", NK:"Ingen känd risk"};
     if (!code) return "";
     const level = ["SE","HI"].includes(code) ? "high" : code === "PH" ? "potential" : "low";
-    return '<aside class="risk-notice risk-'+level+'" aria-label="Ekologisk riskklass"><strong>'+
-      (level === "low" ? "" : '<span aria-hidden="true">⚠ </span>')+
+    return '<aside class="risk-notice risk-'+level+' risk-category-'+(Object.hasOwn(labels, code) ? code : "unknown")+'" aria-label="Ekologisk riskklass"><strong>'+
+      (level === "low" ? "" : '<span aria-hidden="true">⚠︎ </span>')+
       escape(labels[code] || "Riskklass saknar förklaring")+' <span class="risk-code">'+escape(code)+'</span></strong>'+
       '<span>Ekologisk riskklassning 2024</span>'+
       (level === "high" ? "<p>Överväg en annan växt vid nyplantering på grund av artens risk för biologisk mångfald.</p>" : "")+'</aside>';

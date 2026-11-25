@@ -10,11 +10,11 @@
       ? (max - 1) * (2 ** (n - 1) - 1) / (2 ** (max - 1) - 1) : null;
   }
   function appearance(total) {
-    if (total < 0) return {state:"negative", border:"#ba302c", background:"#fff0ee", color:"#7b211e"};
-    if (total === 0) return {state:"neutral", border:"#a7afa9", background:"#f2f4f2", color:"#39433c"};
+    if (total < 0) return {state:"negative", border:"#a13e32", background:"#ecd2b9", color:"#7b2b25"};
+    if (total === 0) return {state:"neutral", border:"#85745a", background:"#ece0c4", color:"#514331"};
     const strength = total / (total + 26);
-    return {state:"positive", border:`hsl(135, ${35 + 45 * strength}%, ${65 - 35 * strength}%)`,
-      background:`hsl(135, ${25 + 40 * strength}%, ${97 - 19 * strength}%)`, color:"#163d24"};
+    return {state:"positive", border:`hsl(138, ${24 + 24 * strength}%, ${44 - 20 * strength}%)`,
+      background:`hsl(95, ${22 + 14 * strength}%, ${87 - 14 * strength}%)`, color:"#244b34"};
   }
   function calculate(entries) {
     const unique = new Map();
