@@ -690,7 +690,7 @@ function formatPlantInfo(match, isEUListad = false) {
     <p><strong>Familj:</strong> ${escape(match["Family"])}</p>
     ${redlistHtml}
     <p><strong>Invandringstid:</strong> ${immigration}</p>
-    ${riskklass ? `<p><strong>Riskklass:</strong> ${getColoredRiskTag(riskklass)}</p>` : ""}
+    ${riskklass ? `<div><strong>Riskklass:</strong>${InvasivePlantView.renderRiskStatus(riskklass)}</div>` : ""}
     ${isEUListad ? InvasivePlantView.renderEUStatus(euInvasiveData.find(row => row["Dyntaxa ID"] === String(dyntaxa)) || {}) : euListAvailable ? "" : "<p>EU-förteckningen kunde inte laddas.</p>"}
     ${InvasivePlantView.renderNationalStatus(nationalInvasiveData, dyntaxa)}
   `;

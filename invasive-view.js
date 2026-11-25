@@ -52,7 +52,19 @@
       <p><a href="https://eur-lex.europa.eu/legal-content/SV/TXT/?uri=CELEX:32014R1143">EU-förordningen</a> · <a href="https://eur-lex.europa.eu/legal-content/SV/TXT/?uri=CELEX:02016R1141-20250807">Unionsförteckningen</a> · <a href="https://www.naturvardsverket.se/amnesomraden/invasiva-frammande-arter/forbjudna-invasiva-frammande-arter/">Naturvårdsverkets vägledning</a></p>
       <p class="source-note">Kontrollerat 25 november 2026.</p></details></aside>`;
   }
-  const api = {nationalRecord, renderNationalStatus, renderEUStatus};
+
+  function renderRiskStatus(code) {
+    const labels = {SE:"Mycket hög risk", HI:"Hög risk", PH:"Potentiellt hög risk", LO:"Låg risk", NK:"Ingen känd risk"};
+    if (!code) return "";
+    const level = ["SE","HI"].includes(code) ? "high" : code === "PH" ? "potential" : "low";
+    return '<aside class="risk-notice risk-'+level+'" aria-label="Ekologisk riskklass"><strong>'+
+      (level === "low" ? "" : '<span aria-hidden="true">⚠ </span>')+
+      escape(labels[code] || "Riskklass saknar förklaring")+' <span class="risk-code">'+escape(code)+'</span></strong>'+
+      '<span>Ekologisk riskklassning 2024</span>'+
+      (level === "high" ? "<p>Överväg en annan växt vid nyplantering på grund av artens risk för biologisk mångfald.</p>" : "")+'</aside>';
+  }
+  const api = {nationalRecord, renderNationalStatus, renderEUStatus, renderRiskStatus};
+
   root.InvasivePlantView = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(globalThis);

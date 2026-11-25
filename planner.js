@@ -101,16 +101,20 @@ function render(){
     const biodiversity=Number(p?.["Biodiversity relevance"]);
     const biodiversityKnown=Number.isInteger(biodiversity)&&biodiversity>=1&&biodiversity<=8;
     const interval=flowering?.[id];
-    const legal=[...(p?flags(p):[]),...(euRecord?["EU-listad · läs reglerna"]:[])];
+    const riskCode = risks?.get(id);
+    const riskNotice = riskCode ? InvasivePlantView.renderRiskStatus(riskCode) : "";
+    const legalNotice = euInfo + (national?.taxa[id] ? InvasivePlantView.renderNationalStatus(national,id) : "");
+    const warningClass = legalNotice || ["SE","HI"].includes(riskCode) ? " selection-card-warning" : "";
+
     const segments=(value,max)=>'<span class="selection-scale" aria-hidden="true">'+Array.from({length:max},(_,n)=>'<i class="'+(n<value?'filled':'')+'"></i>').join("")+'</span>';
-    return '<article class="selection-card"><header><div><h3>'+esc(p?.["Svenskt namn"]||row.name)+'</h3><small>'+esc(p?.["Scientific name"]||"Omatchad växt")+'</small></div><button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></header>'+
+    return '<article class="selection-card'+warningClass+'"><header><div><h3>'+esc(p?.["Svenskt namn"]||row.name)+'</h3><small>'+esc(p?.["Scientific name"]||"Omatchad växt")+'</small></div><button data-remove="'+i+'" aria-label="Ta bort '+esc(row.name)+'">Ta bort</button></header>'+
       ((row.quantity||row.plot)?'<p class="selection-meta">'+[row.quantity?'Mängd '+esc(row.quantity):"",row.plot?'Yta '+esc(row.plot):""].filter(Boolean).join(" · ")+'</p>':"")+
       (siteStatus?'<p class="selection-status '+(attention?'needs-review':'')+'">'+esc(siteStatus)+'</p>':"")+
-      (legal.length?'<p class="selection-warning">'+legal.map(esc).join(" · ")+'</p>':"")+
+      legalNotice + riskNotice +
       '<div class="selection-metrics"><div><span>Nektarproduktion</span><strong>'+esc(nectarKnown?["","Ingen","Obetydlig","Liten","Måttlig","Ganska stor","Stor","Mycket stor"][nectarClass]:"Uppgift saknas")+'</strong>'+segments(nectarKnown?nectarClass:0,7)+'<small>'+(nectarKnown?'Klass '+nectarClass+' av 7'+(nectar.imputed.includes("nectar_production")?' · modellskattad':''):'Ingen klassning')+'</small></div>'+
       '<div><span>Associerade arter</span><strong>'+esc(biodiversityKnown?assoc[biodiversity]:"Uppgift saknas")+'</strong>'+segments(biodiversityKnown?biodiversity:0,8)+'<small>Artens klass i källmaterialet</small></div></div>'+
       '<div class="selection-flowering"><span>Blomning'+(interval?' · '+months[interval[0]-1]+'–'+months[interval[1]-1]:' · uppgift saknas')+'</span><div class="selection-months" aria-label="'+esc(interval?'Blomning '+months[interval[0]-1]+' till '+months[interval[1]-1]:'Blomningsuppgift saknas')+'">'+months.map((m,n)=>'<span class="'+(interval&&n+1>=interval[0]&&n+1<=interval[1]?'active':'')+'">'+m+'</span>').join("")+'</div></div>'+
-      '<details><summary>Uppgifter och källor</summary><p>Importerad som '+esc(row.name)+'</p>'+(p?.nursery?NurseryPlants.describe(p):'<p>Ordinala klasser från NordicTraits och Tyler m.fl. Se Underlag och tolkning.</p>')+euInfo+(p&&national?.taxa[id]?InvasivePlantView.renderNationalStatus(national,id):"")+'</details>'+
+      '<details><summary>Uppgifter och källor</summary><p>Importerad som '+esc(row.name)+'</p>'+(p?.nursery?NurseryPlants.describe(p):'<p>Ordinala klasser från NordicTraits och Tyler m.fl. Se Underlag och tolkning.</p>')+'</details>'+
       (p?'<button class="selection-open" data-open="'+i+'">Öppna artkort</button>':"")+'</article>';
 
   }).join("")+(rows.length?'<button id="exportList">Exportera CSV</button>':'<p>Listan är tom. <button id="example">Prova en exempellista</button></p>');
