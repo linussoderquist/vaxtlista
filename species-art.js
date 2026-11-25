@@ -177,6 +177,66 @@ const portraits = [
     "scientificName": "Tilia cordata Mill."
   },
   {
+    "id": "221995",
+    "slug": "angsviol",
+    "name": "ängsviol",
+    "scientificName": "Viola canina"
+  },
+  {
+    "id": "221887",
+    "slug": "teveronika",
+    "name": "teveronika",
+    "scientificName": "Veronica chamaedrys"
+  },
+  {
+    "id": "221222",
+    "slug": "gokart",
+    "name": "gökärt",
+    "scientificName": "Lathyrus linifolius"
+  },
+  {
+    "id": "221913",
+    "slug": "kungsangslilja",
+    "name": "kungsängslilja",
+    "scientificName": "Fritillaria meleagris"
+  },
+  {
+    "id": "220433",
+    "slug": "sommargyllen",
+    "name": "sommargyllen",
+    "scientificName": "Barbarea vulgaris"
+  },
+  {
+    "id": "219874",
+    "slug": "nattviol",
+    "name": "nattviol",
+    "scientificName": "Platanthera bifolia"
+  },
+  {
+    "id": "221706",
+    "slug": "skogskovall",
+    "name": "skogskovall",
+    "scientificName": "Melampyrum sylvaticum"
+  },
+  {
+    "id": "219933",
+    "slug": "kattfot",
+    "name": "kattfot",
+    "scientificName": "Antennaria dioica"
+  },
+  {
+    "id": "219955",
+    "slug": "slattergubbe",
+    "name": "slåttergubbe",
+    "scientificName": "Arnica montana"
+  },
+  {
+    "id": "221439",
+    "slug": "gulmara",
+    "name": "gulmåra",
+    "scientificName": "Galium verum"
+  },
+  {
     "id": "219906",
     "slug": "rolleka",
     "name": "röllika",

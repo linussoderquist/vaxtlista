@@ -10,10 +10,10 @@ const root=path.join(__dirname,'..');
 const plants=Papa.parse(fs.readFileSync(path.join(root,'vaxtdata.csv'),'utf8'),{header:true,skipEmptyLines:true}).data;
 const bloom=require('../data/flowering-sv.json');
 
-test('thirty unique illustrated species have matching IDs, image files and valid available flowering intervals',()=>{
- assert.equal(art.portraits.length,30);
- assert.equal(new Set(art.portraits.map(a=>a.slug)).size,30);
- assert.equal(new Set(art.portraits.map(a=>a.id)).size,30);
+test('forty unique illustrated species have matching IDs, image files and valid available flowering intervals',()=>{
+ assert.equal(art.portraits.length,40);
+ assert.equal(new Set(art.portraits.map(a=>a.slug)).size,40);
+ assert.equal(new Set(art.portraits.map(a=>a.id)).size,40);
  for(const a of art.portraits){
   const p=plants.find(p=>p['Dyntaxa ID number']===a.id);
   assert.ok(p,a.name); assert.equal(p['Svenskt namn'],a.name);

@@ -17,6 +17,21 @@ Skapade 2026-11-25 med den inbyggda bildgeneratorn. Dekorativa AI-genererade ill
 
 Blomningsintervall för nio arter finns redan i Auffrets MOS2018-underlag. Rödklöver har kompletterats med juni–september, med separat källhänvisning i datafilen och i gränssnittet. Intervallen är ungefärliga och varierar med plats, väder och skötsel.
 
+## Ytterligare tio artbilder
+
+| Art | Vetenskapligt namn | Dyntaxa-ID | Fil |
+|---|---|---:|---|
+| ängsviol | Viola canina | 221995 | assets/arter/angsviol.webp |
+| teveronika | Veronica chamaedrys | 221887 | assets/arter/teveronika.webp |
+| gökärt | Lathyrus linifolius | 221222 | assets/arter/gokart.webp |
+| kungsängslilja | Fritillaria meleagris | 221913 | assets/arter/kungsangslilja.webp |
+| sommargyllen | Barbarea vulgaris | 220433 | assets/arter/sommargyllen.webp |
+| nattviol | Platanthera bifolia | 219874 | assets/arter/nattviol.webp |
+| skogskovall | Melampyrum sylvaticum | 221706 | assets/arter/skogskovall.webp |
+| kattfot | Antennaria dioica | 219933 | assets/arter/kattfot.webp |
+| slåttergubbe | Arnica montana | 219955 | assets/arter/slattergubbe.webp |
+| gulmåra | Galium verum | 221439 | assets/arter/gulmara.webp |
+
 ## Genereringsprompter
 
 ### salg
