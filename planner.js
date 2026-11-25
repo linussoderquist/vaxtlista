@@ -85,8 +85,48 @@ el("pick").oninput=e=>{
 };
 el("addForm").onsubmit=e=>{e.preventDefault();if(!ready)return;const name=el("pick").value.trim();if(name){rows.push({name});el("pick").value="";save();}};
 const assoc=["","<6","6–12","13–24","25–50","51–100","101–200","201–400",">400"];
+function renderListSummary() {
+  const container = el("listSummary");
+  if (!rows.length) { container.innerHTML = ""; return; }
+  const today = new Date().toLocaleDateString("sv-SE", {timeZone:"Europe/Stockholm"});
+  const entries = rows.map(row => {
+    const plant = match(row.name);
+    const id = plant?.["Dyntaxa ID number"];
+    const record = PlantDataView.getSpecies(traits, id);
+    const euRecord = eu?.get(id) || euNames.get(norm(row.name));
+    const nationalRecord = national?.taxa[id];
+    return {
+      key:id || (euRecord ? "eu:" + euRecord["Vetenskapligt namn"] : "name:" + norm(row.name)),
+      name:plant?.["Svenskt namn"] || row.name,
+      associated:plant?.["Biodiversity relevance"],
+      nectar:record?.values.nectar_production,
+      imputed:record?.imputed.includes("nectar_production"),
+      risk:risks?.get(id),
+      national:Boolean(nationalRecord),
+      eu:Boolean(euRecord && (!euRecord["Gäller från"] || euRecord["Gäller från"] <= today)),
+      futureEU:Boolean(euRecord?.["Gäller från"] > today),
+      exception:Boolean(nationalRecord?.exception && nationalRecord.exception !== "none")
+    };
+  });
+  const score = PlantListScore.calculate(entries);
+  const sourcesMissing = !national || !eu || !risks;
+  const signed = value => value > 0 ? "+" + value : String(value);
+  container.innerHTML = '<section class="list-summary"><div class="score-heading"><div><h2>Listans planeringspoäng</h2><p>'+score.items.length+' unika växtval · varje växt räknas en gång</p></div><strong class="score-total">'+signed(score.total)+'<span>poäng'+(score.missing || sourcesMissing ? ' · delunderlag' : '')+'</span></strong></div>'+
+    '<div class="score-components"><div><span>Associerade arter</span><strong>+'+score.associated+'</strong></div><div><span>Nektarproduktion</span><strong>+'+score.nectar+'</strong></div><div><span>Risk och listning</span><strong>−'+score.penalty+'</strong></div></div>'+
+    (score.listed ? '<p class="selection-warning"><strong>'+score.listed+' växtval är invasivlistade.</strong> Kontrollera regler och undantag i respektive kort även när summan är positiv.</p>' : '')+
+    (sourcesMissing ? '<p class="selection-warning">Risk- eller invasivunderlag kunde inte laddas. Avdragen är ofullständiga.</p>' : '')+
+    '<p class="score-coverage">'+score.missing+' växtval saknar minst en plusuppgift. '+score.imputed+' nektarvärden är modellskattade.</p>'+
+    '<details><summary>Så räknas poängen</summary><p>Växtvals egen jämförelsemodell, version 1. Vikterna är valda för planering och har inte validerats som ett mått på faktisk biologisk mångfald. Summan påverkas av listans längd och datatäckning.</p>'+
+    '<p>Associerade arter ger 0–7 poäng för källans klass 1–8. Nektar ger 0–6 poäng för klass 1–7. Klasserna är ordinala. Saknade värden bidrar inte till summan och redovisas som saknade.</p>'+
+    '<p>Avdrag per växt är NK 0, LO −2, PH −5, HI −10 och SE −15. Nationell listning ger −20 och gällande EU-listning −30. Endast det största avdraget används per växt. Listningsavdraget gäller även arter med villkorade undantag, vilka måste granskas i artkortet. Framtida EU-förbud visas i artkortet och börjar ge listningsavdrag från ikraftträdandet.</p>'+
+    '<p>Utebliven riskklass ger inget riskklassavdrag. Sorter ärver inga pluspoäng från arten. Antal plantor och upprepad import av samma växt ökar inte poängen. Associerade organismer kan vara gemensamma för flera arter.</p>'+
+    '<div class="score-table-wrap"><table><caption>Poäng per unikt växtval</caption><thead><tr><th>Växt</th><th>Associerade</th><th>Nektar</th><th>Avdrag</th><th>Summa</th></tr></thead><tbody>'+
+    score.items.map(item => '<tr><th scope="row">'+esc(item.name)+(item.futureEU?' · kommande EU-förbud':'')+'</th><td>'+(item.associated === null ? 'Saknas' : '+'+item.associated)+'</td><td>'+(item.nectar === null ? 'Saknas' : '+'+item.nectar+(item.imputed?'*':''))+'</td><td>−'+item.penalty+'</td><td>'+signed(item.total)+'</td></tr>').join("")+
+    '</tbody></table></div><p>* Modellskattat nektarvärde.</p></details></section>';
+}
 function render(){
   if(!ready)return;
+  if (globalThis.PlantListScore) renderListSummary();
   const unique=new Map();
   el("entries").innerHTML=rows.map((row,i)=>{
     const p=match(row.name), id=p?.["Dyntaxa ID number"];

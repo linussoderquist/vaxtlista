@@ -14,7 +14,7 @@ test("import, calendar and site matching preserve taxon boundaries",async()=>{
   }
   const plants=Papa.parse(fs.readFileSync(path.join(dir,"vaxtdata.csv"),"utf8"),{header:true,skipEmptyLines:true}).data;
   const bloom=require("../data/flowering-sv.json");
-  const ctx=vm.createContext({document:{getElementById},window:{addEventListener(){}},PlantDataView:data,Papa,plants,loadJson:async()=>bloom});
+  const ctx=vm.createContext({document:{getElementById},window:{addEventListener(){}},PlantDataView:data,PlantListScore:require("../list-score.js"),Papa,plants,loadJson:async()=>bloom});
   const run=code=>vm.runInContext(code,ctx);
   run(fs.readFileSync(path.join(dir,"planner.js"),"utf8"));
   run('startPlanner(plants,null,{taxa:{}},[],[])');
@@ -25,6 +25,8 @@ test("import, calendar and site matching preserve taxon boundaries",async()=>{
   run('rows=[{name:"sälg"},{name:"Salix caprea"},{name:"okänd sort"}];render()');
   assert.match(getElementById("calendar").innerHTML,/1 av 1 matchade taxa/);
   assert.match(getElementById("calendar").innerHTML,/1 omatchade/);
+  assert.match(getElementById("listSummary").innerHTML,/2 unika växtval/);
+  assert.match(getElementById("listSummary").innerHTML,/delunderlag/);
   run('site={Light:"Sol"}');
   assert.match(run('status({Light:"8"})'),/saknas/);
   assert.equal(run('status({Light:"5"})'),"Matchar ståndorten");

@@ -428,7 +428,7 @@ input:focus-visible + .slider {
   <main id="planner" hidden>
     <h1>Växtval</h1><p>Granska en planteringslista eller hitta arter för en viss ståndort.</p>
     <section><h2>Planteringslista</h2><form id="addForm"><label for="pick">Lägg till en växt</label><div class="line"><input id="pick" list="choices" required placeholder="Svenskt eller vetenskapligt namn"><datalist id="choices"></datalist><button>Lägg till</button></div></form>
-    <details id="importBox"><summary>Importera växtförteckning</summary><p>Öppna en XLSX-, CSV- eller tabbfil, eller klistra in celler från Excel. Välj namnkolumn innan raderna läggs till.</p><input type="file" id="file" accept=".xlsx,.csv,.tsv,.txt"><label for="paste">Klistra in tabell</label><textarea id="paste" rows="3"></textarea><button id="preview">Granska tabell</button><div id="mapping"></div></details><div id="entries"></div></section>
+    <details id="importBox"><summary>Importera växtförteckning</summary><p>Öppna en XLSX-, CSV- eller tabbfil, eller klistra in celler från Excel. Välj namnkolumn innan raderna läggs till.</p><input type="file" id="file" accept=".xlsx,.csv,.tsv,.txt"><label for="paste">Klistra in tabell</label><textarea id="paste" rows="3"></textarea><button id="preview">Granska tabell</button><div id="mapping"></div></details><div id="listSummary" aria-live="polite"></div><div id="entries"></div></section>
     <section><h2>Ståndort</h2><p>Välj förhållandena på planteringsytan.</p><div id="conditions"></div><details><summary>Hitta arter för ståndorten</summary><div id="candidates"></div></details></section>
     <section><h2>Blomning över året</h2><div id="calendar"></div></section>
     <details><summary>Underlag och tolkning</summary><p>Ståndortsfiltren grupperar svenska indikatorvärden för arternas typiska växtmiljö. Övergångsklasser kan passa två lägen. Värdväxtklassen beskriver associerade organismer i källmaterialet. Samma organism kan nyttja flera växter. <a href="https://doi.org/10.1016/j.ecolind.2020.106923">Tyler m.fl.</a></p><p>Kalendern använder blomningsintervall från Nordens flora (2018) i det länkade forskningsdatasetet. Lokal blomning varierar med klimat, år och skötsel. Nektarklass 4–7 avser måttlig till mycket stor produktion. Mängd i ritningen påverkar inte artantalet. <a href="https://doi.org/10.5878/rn49-wx18">Dataset</a> · <a href="https://github.com/poniitty/NordicTraits">NordicTraits</a></p><p class="source-note"><a href="https://doi.org/10.1002/ecs2.3683">Auffret, A. (2021). Historical floras reflect broad shifts in flowering phenology in response to a warming climate. Ecosphere, 12(7), e03683.</a></p></details>
@@ -442,7 +442,7 @@ input:focus-visible + .slider {
   <script src="data-view.js"></script>
   <script src="simple-view.js"></script>
   <script src="invasive-view.js"></script>
-  <script src="vendor/read-excel-file.min.js"></script><script src="nursery.js"></script><script src="planner.js"></script><script src="script.js"></script>
+  <script src="vendor/read-excel-file.min.js"></script><script src="nursery.js"></script><script src="list-score.js"></script><script src="planner.js"></script><script src="script.js"></script>
 
   <script>
     function toggleLegend() {

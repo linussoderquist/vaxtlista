@@ -165,3 +165,18 @@ Blomningsartikel:
 Auffret, A. (2021). Historical floras reflect broad shifts in flowering phenology
 in response to a warming climate. Ecosphere, 12(7), e03683.
 https://doi.org/10.1002/ecs2.3683
+
+## Listans planeringspoäng
+
+Jämförelsemodellen v1 ger 0–7 poäng för biodiversitetsklass 1–8 och 0–6 för
+nektarklass 1–7. Avdragen är NK 0, LO 2, PH 5, HI 10, SE 15, nationell
+listning 20 och gällande EU-listning 30. Största avdraget används per växt.
+Vikterna är redaktionella val för denna funktion och är inte ett validerat
+biodiversitetsindex. Listans längd och datatäckning påverkar summan.
+
+Varje matchat taxon/sort räknas en gång. Omatchade EU-namn grupperas på
+EU-postens vetenskapliga namn. Andra omatchade namn grupperas efter trimning
+och gemener. Saknade plusvärden ingår inte och antalet berörda växtval anges.
+Imputerade nektarvärden markeras. Om en risk- eller invasivkälla inte laddas
+visas resultatet som delunderlag. Nationella undantag avgörs inte automatiskt.
+Positiv totalsumma tar aldrig bort listningsvarningen.
