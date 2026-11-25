@@ -687,6 +687,7 @@ function formatPlantInfo(match, isEUListad = false) {
   const traitHtml = PlantDataView.renderTraits(nordicTraits, dyntaxa, advancedMode);
   const sourceNote = `<p class="source-note">Kompletterande uppgifter från <a href="https://doi.org/10.1016/j.ecolind.2020.106923" target="_blank" rel="noopener">Tyler et al. (2021)</a>.</p>`;
   const header = `
+    ${globalThis.SpeciesArt?.render(match) || ""}
     <h3>${escape(swedish)} <span class="scientific-name">(${escape(scientific)})</span></h3>
     <p><strong>Familj:</strong> ${escape(match["Family"])}</p>
     <div class="redlist-print">${redlistHtml}</div>

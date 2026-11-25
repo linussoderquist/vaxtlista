@@ -293,3 +293,9 @@ body :is(.rl-EX,.rl-EW,.rl-RE) { --stamp-ink: #352416; border-style: solid; }
     print-color-adjust: exact; -webkit-print-color-adjust: exact;
   }
 }
+
+/* Species portraits retain their complete composition. */
+.form-print.species-print img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: contain; }
+.form-print.species-print figcaption { position: static; display: block; padding: .3rem .15rem; background: none; font-size: .72rem; color: #65513a; }
+#searchPage .species-print { max-width: 42rem; margin: 0 0 1rem; }
+#planner .flowering-source { margin-top: .4rem; font: .75rem/1.4 Georgia,serif; color: #65513a; }

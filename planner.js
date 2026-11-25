@@ -10,7 +10,7 @@ const filters = [
 const months = "Jan Feb Mar Apr Maj Jun Jul Aug Sep Okt Nov Dec".split(" ");
 const key = "vaxtval-plan-v1";
 let euNames = new Map();
-let rows=[], site={}, catalog=[], byName=new Map(), flowering=null, traits, national, eu, risks, sheets=[], matrix=[], ready=false;
+let rows=[], site={}, catalog=[], byName=new Map(), flowering=null, floweringSources={}, traits, national, eu, risks, sheets=[], matrix=[], ready=false;
 try {
   const saved=JSON.parse(localStorage.getItem(key));
   if(Array.isArray(saved?.rows)) rows=saved.rows.filter(r=>typeof r?.name==="string");
@@ -59,6 +59,8 @@ const posterForms = new Map([
 let growthById = new Map(), plannerRedlist = null;
 
 function formImage(plant) {
+  const portrait = globalThis.SpeciesArt?.render(plant);
+  if (portrait) return portrait;
   const direct = growthById.get(plant?.["Dyntaxa ID number"]);
   const parent = growthById.get(plant?.nursery?.parentId);
   const [file, label] = direct || parent || ["okand", "Växtform saknas"];
@@ -100,7 +102,7 @@ function startPlanner(plants,n,t,e,r,redlist=null,habits=[]){
   ready=true;
   el("conditions").innerHTML=filters.map(([field,label,options],i)=>'<label>'+label+'<select data-i="'+i+'"><option value="">Ej valt</option>'+options.map(([name])=>'<option '+(site[field]===name?'selected':'')+'>'+name+'</option>').join("")+'</select></label>').join("");
   note("");render();
-  loadJson("data/flowering-sv.json").then(data=>{flowering={...data.taxa};for(const p of catalog){if(p.nursery?.flowering)flowering[p["Dyntaxa ID number"]]=p.nursery.flowering;}render();}).catch(()=>{el("calendar").textContent="Blomningsdata kunde inte laddas.";});
+  loadJson("data/flowering-sv.json").then(data=>{flowering={...data.taxa};floweringSources=data.taxonSources || {};for(const p of catalog){if(p.nursery?.flowering)flowering[p["Dyntaxa ID number"]]=p.nursery.flowering;}render();}).catch(()=>{el("calendar").textContent="Blomningsdata kunde inte laddas.";});
 }
 el("conditions").onchange=e=>{site[filters[e.target.dataset.i][0]]=e.target.value;save();};
 el("pick").oninput=e=>{
@@ -110,6 +112,10 @@ el("pick").oninput=e=>{
 };
 el("addForm").onsubmit=e=>{e.preventDefault();if(!ready)return;const name=el("pick").value.trim();if(name){rows.push({name});el("pick").value="";save();}};
 const assoc=["","<6","6–12","13–24","25–50","51–100","101–200","201–400",">400"];
+function floweringSourceHtml(id) {
+  const source = floweringSources[id];
+  return source ? '<small class="flowering-source">Blomning: <a href="'+esc(source.url)+'" target="_blank" rel="noopener">'+esc(source.label)+'</a></small>' : '';
+}
 function renderListSummary() {
   const container = el("listSummary");
   if (!rows.length) { container.innerHTML = ""; return; }
@@ -186,7 +192,7 @@ function render(){
         '</div>') +
       '<div class="selection-metrics"><div><span>Nektarproduktion</span><strong>'+esc(nectarKnown?["","Ingen","Obetydlig","Liten","Måttlig","Ganska stor","Stor","Mycket stor"][nectarClass]:"Uppgift saknas")+'</strong>'+segments(nectarKnown?nectarClass:0,7)+'<small>'+(nectarKnown?'Klass '+nectarClass+' av 7'+(nectar.imputed.includes("nectar_production")?' · modellskattad':''):'Ingen klassning')+'</small></div>'+
       '<div><span>Biodiversitetsrelevans</span><strong>'+esc(biodiversityKnown?assoc[biodiversity]:"Uppgift saknas")+'</strong>'+segments(biodiversityKnown?biodiversity:0,8)+'<small>Associerade arter'+(biodiversityKnown?' · klass '+biodiversity+' av 8':'')+'</small></div></div>'+
-      '<div class="selection-flowering"><span>Blomning'+(interval?' · '+months[interval[0]-1]+'–'+months[interval[1]-1]:' · uppgift saknas')+'</span><div class="selection-months" aria-label="'+esc(interval?'Blomning '+months[interval[0]-1]+' till '+months[interval[1]-1]:'Blomningsuppgift saknas')+'">'+months.map((m,n)=>'<span class="'+(interval&&n+1>=interval[0]&&n+1<=interval[1]?'active':'')+'">'+m+'</span>').join("")+'</div></div>'+
+      '<div class="selection-flowering"><span>Blomning'+(interval?' · '+months[interval[0]-1]+'–'+months[interval[1]-1]:' · uppgift saknas')+'</span><div class="selection-months" aria-label="'+esc(interval?'Blomning '+months[interval[0]-1]+' till '+months[interval[1]-1]:'Blomningsuppgift saknas')+'">'+months.map((m,n)=>'<span class="'+(interval&&n+1>=interval[0]&&n+1<=interval[1]?'active':'')+'">'+m+'</span>').join("")+'</div>'+floweringSourceHtml(id)+'</div>'+
       '<details><summary>Uppgifter och källor</summary><p>Importerad som '+esc(row.name)+'</p>'+(p?.nursery?NurseryPlants.describe(p):'<p>Ordinala klasser från NordicTraits och Tyler m.fl. Se Underlag och tolkning.</p>')+'</details>'+
       (p?'<button class="selection-open" data-open="'+i+'">Öppna artkort</button>':"")+'</div></article>';
 
@@ -201,7 +207,7 @@ function render(){
   el("calendar").innerHTML='<p>'+counted.length+' av '+unique.size+' matchade taxa har ett dokumenterat blomningsintervall. '+(rows.filter(r=>!match(r.name)).length)+' omatchade rader.</p><div class="months">'+months.map((m,i)=>{
     const blooming=counted.filter(([id])=>flowering[id][0]<=i+1&&flowering[id][1]>=i+1);
     return '<div class="'+(blooming.length?'bloom':'')+'" title="'+esc(blooming.map(([,p])=>p["Svenskt namn"]).join(", "))+'">'+m+'<strong>'+blooming.length+'</strong></div>';
-  }).join("")+'</div><small>Antal olika taxa med belagd blomning per månad. Noll anger en lucka i underlaget för listan.</small>'+ (counted.length?'<details><summary>Visa arter och nektarklass</summary>'+counted.map(([id,p])=>{const record=PlantDataView.getSpecies(traits,id);return '<p>'+esc(p["Svenskt namn"])+' · '+months[flowering[id][0]-1]+'–'+months[flowering[id][1]-1]+' · '+(p.nursery?'Plantskolans sortuppgift':'Artuppgift')+' · nektarklass '+esc(record?.values.nectar_production??"saknas")+(record?.imputed.includes("nectar_production")?" (modellskattad)":"")+'</p>';}).join("")+'</details>':'');
+  }).join("")+'</div><small>Antal olika taxa med belagd blomning per månad. Noll anger en lucka i underlaget för listan.</small>'+ (counted.length?'<details><summary>Visa arter och nektarklass</summary>'+counted.map(([id,p])=>{const record=PlantDataView.getSpecies(traits,id);return '<p>'+esc(p["Svenskt namn"])+' · '+months[flowering[id][0]-1]+'–'+months[flowering[id][1]-1]+' · '+(p.nursery?'Plantskolans sortuppgift':floweringSources[id] ? esc(floweringSources[id].label) : 'Artuppgift')+' · nektarklass '+esc(record?.values.nectar_production??"saknas")+(record?.imputed.includes("nectar_production")?" (modellskattad)":"")+'</p>';}).join("")+'</details>':'');
   if(!national||!eu||!risks){el("candidates").textContent="Invasiv- eller riskunderlaget saknas.";return;}
   if(!Object.values(site).some(Boolean)){el("candidates").textContent="Välj minst ett ståndortsvillkor.";return;}
   const suitable=catalog.filter(p=>status(p)==="Matchar ståndorten"&&!unique.has(p["Dyntaxa ID number"])&&!national.taxa[p["Dyntaxa ID number"]]&&!eu.has(p["Dyntaxa ID number"])&&!["HI","SE"].includes(risks.get(p["Dyntaxa ID number"]))&&p["Time of immigration"]==="0").sort((a,b)=>a["Svenskt namn"].localeCompare(b["Svenskt namn"],"sv"));

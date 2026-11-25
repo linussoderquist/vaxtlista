@@ -12,4 +12,9 @@ Uppdatering: klassmärkningar och grafik
 - Kortens lutning är cirka halverad, och ännu mindre på mobil.
 - Befintliga poäng, källuppgifter och listningsregler bevaras.
 
-35 automatiserade tester passerar. Visuell webbläsarkontroll kunde inte genomföras i arbetsmiljön.
+38 automatiserade tester passerar. Visuell webbläsarkontroll kunde inte genomföras i arbetsmiljön.
+
+Tio artbilder (2026-11-25)
+Kopiera även species-art.js, assets/arter/ och data/flowering-sv.json.
+Artbilder finns för sälg, rödklöver, prästkrage, rödklint, liten blåklocka, gullviva, vitsippa, mjölke, käringtand och blåsippa. De visas både i Växtval och i artinformationen. Övriga arter behåller sina växtformsbilder.
+Rödklöver har fått ett separat källmärkt blomningsintervall juni–september. Se ARTBILDER.md för art-ID, bildfiler och genereringsprompter.
