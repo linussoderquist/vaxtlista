@@ -97,6 +97,13 @@
     return (match ? match[1] : name).toLowerCase();
   }
 
+  function parentSpeciesKey(name) {
+    const raw = String(name || "").trim().replace(/\s+/g, " ");
+    if (!raw || /×|\sx\s|\b(agg|hybrid)\b|['"]/i.test(raw)) return null;
+    const match = raw.match(/^([A-Z][\p{L}-]+ [a-z][\p{L}-]+)/u);
+    return match ? match[1].toLowerCase() : null;
+  }
+
   function getRedlistBadge(status) {
     const match = String(status || "").trim().match(/^(EX|EW|RE|CR|EN|VU|NT|LC|DD|NE|NA)(?=$|[^A-Z])/);
     if (!match) return "<em>Uppgift saknas</em>";
@@ -123,7 +130,16 @@
 
   function getSpecies(dataset, dyntaxa) {
     const match = dataset?.taxa[String(dyntaxa || "").trim()];
-    return match ? {name: match.species, ...dataset.species[match.species]} : null;
+    if (!match) return null;
+    const own = dataset.species[match.species];
+    const parentKey = parentSpeciesKey(match.species);
+    let parentName = null;
+    if (parentKey) parentName = Object.keys(dataset.species || {}).find(name => parentSpeciesKey(name) === parentKey && !/\b(ssp|subsp|var)\./i.test(name));
+    const parent = parentName ? dataset.species[parentName] : null;
+    if (!own && !parent) return null;
+    const values = {...(parent?.values || {}), ...(own?.values || {})};
+    const inherited = Object.keys(values).filter(key => (own?.values?.[key] === null || own?.values?.[key] === undefined || own?.values?.[key] === "") && parent?.values?.[key] != null);
+    return {name: match.species, ...(parent || {}), ...(own || {}), values, inherited};
   }
 
   function formatValue(definition, value) {
@@ -156,7 +172,7 @@
     return `<h4>Alla 44 funktionella egenskaper</h4>${source}${body}`;
   }
 
-  const api = {escapeHtml, scientificNameKey, getRedlistBadge, renderRedlist, getSpecies, formatValue, renderTraits, labels, groups};
+  const api = {escapeHtml, scientificNameKey, parentSpeciesKey, getRedlistBadge, renderRedlist, getSpecies, formatValue, renderTraits, labels, groups};
   root.PlantDataView = api;
   if (typeof module !== "undefined" && module.exports) module.exports = api;
 })(globalThis);

@@ -63,7 +63,7 @@ const posterForms = new Map([
   ["klättrande växt", ["klatter", "Klättrande växt"]],
   ["parasitiskt växt", ["parasit", "Parasitisk växt"]]
 ]);
-let growthById = new Map(), growthInfoById = new Map(), plannerRedlist = null;
+let growthById = new Map(), growthInfoById = new Map(), growthInfoByParent = new Map(), plannerRedlist = null;
 
 function formImage(plant) {
   const portrait = globalThis.SpeciesArt?.render(plant);
@@ -79,11 +79,14 @@ function startPlanner(plants,n,t,e,r,redlist=null,habits=[]){
   plannerRedlist = redlist;
   growthById = new Map();
   growthInfoById = new Map();
+  growthInfoByParent = new Map();
   for (const row of habits || []) {
     const id = row["Dyntaxa ID number"]?.trim();
     const form = posterForms.get(norm(row["Växtsätt"]));
     if (id && form) growthById.set(id, form);
     if (id) growthInfoById.set(id, {growth: row["Växtsätt"], height: row["Medelhöjd (cm)"]});
+    const parentKey = PlantDataView.parentSpeciesKey(row["Växtnamn"]);
+    if (parentKey && !/\b(ssp|subsp|var)\./i.test(String(row["Växtnamn"] || ""))) growthInfoByParent.set(parentKey, {growth: row["Växtsätt"], height: row["Medelhöjd (cm)"]});
   }
   catalog=plants;traits=n;national=t;
   eu=e ? new Map(e.filter(row=>row["Dyntaxa ID"]).map(row=>[row["Dyntaxa ID"],row])) : null;
@@ -116,7 +119,7 @@ function startPlanner(plants,n,t,e,r,redlist=null,habits=[]){
 }
 
 function renderSelectionFacts(plant, id) {
-  const info = growthInfoById.get(String(id || "").trim()) || {};
+  const info = growthInfoById.get(String(id || "").trim()) || growthInfoByParent.get(PlantDataView.parentSpeciesKey(plant?.["Scientific name"])) || {};
   const record = PlantDataView.getSpecies(traits, id);
   const rawHeight = info.height || record?.values.height;
   const number = Number(String(rawHeight ?? "").replace(",", "."));

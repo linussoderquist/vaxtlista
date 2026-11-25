@@ -21,9 +21,24 @@ function formatCentimetres(value) {
   return `${number.toLocaleString("sv-SE", {maximumFractionDigits: 0})} cm`;
 }
 
+function inheritMissingPlantValues(rows) {
+  const parents = new Map();
+  for (const row of rows) {
+    const key = PlantDataView.parentSpeciesKey(row["Scientific name"]);
+    if (key && !/\b(ssp|subsp|var)\./i.test(String(row["Scientific name"] || ""))) parents.set(key, row);
+  }
+  for (const row of rows) {
+    const key = PlantDataView.parentSpeciesKey(row["Scientific name"]), parent = parents.get(key);
+    if (!parent || parent === row) continue;
+    for (const field of Object.keys(parent)) if (String(row[field] ?? "").trim() === "" && String(parent[field] ?? "").trim() !== "") row[field] = parent[field];
+  }
+  return rows;
+}
+
 function renderPlantQuickFacts(plant) {
   const id = String(plant?.["Dyntaxa ID number"] ?? "").trim();
-  const habit = habitData.find(row => String(row["Dyntaxa ID number"] ?? "").trim() === id);
+  const parentKey = PlantDataView.parentSpeciesKey(plant?.["Scientific name"]);
+  const habit = habitData.find(row => String(row["Dyntaxa ID number"] ?? "").trim() === id) || habitData.find(row => PlantDataView.parentSpeciesKey(row["Växtnamn"]) === parentKey && !/\b(ssp|subsp|var)\./i.test(String(row["Växtnamn"] || "")));
   const trait = PlantDataView.getSpecies(nordicTraits, id);
   const growth = habit?.["Växtsätt"] || "Uppgift saknas";
   const height = habit?.["Medelhöjd (cm)"] || trait?.values.height;
@@ -780,6 +795,7 @@ async function initializeData() {
   ]);
   const values = results.map(result => result.status === "fulfilled" ? result.value : null);
   [plantData, riskData, euInvasiveData, insectData] = values.slice(0, 4).map(value => value || []);
+  inheritMissingPlantValues(plantData);
   euListAvailable = Boolean(values[2]);
   [redlistData, nordicTraits, nationalInvasiveData] = values.slice(4);
   habitData = values[7] || [];
