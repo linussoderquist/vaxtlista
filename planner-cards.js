@@ -13,7 +13,7 @@
   panel.append(stage);
   stage.append(toolbar.querySelector('.deck-nav'), entries);
   const desktop = window.matchMedia('(min-width: 761px)');
-  let mode = 'gallery', index = 0, zoom = desktop.matches ? 75 : 100;
+  let mode = 'gallery', index = 0, zoom = desktop.matches ? 60 : 100;
   try {
     const saved = JSON.parse(localStorage.getItem('vaxtval-card-view'));
     if(saved?.mode === 'deck') mode = 'deck';
