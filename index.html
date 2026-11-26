@@ -427,7 +427,7 @@ input:focus-visible + .slider {
   <main id="planner" hidden>
     <h1>Planterings&shy;lista</h1><div id="listSummary" aria-live="polite"></div>
     <div class="poster-layout"><div class="planner-tools">
-    <form id="addForm"><label for="pick">Lägg till en växt</label><div class="line"><input id="pick" list="choices" required placeholder="Svenskt eller vetenskapligt namn"><datalist id="choices"></datalist><button>Lägg till</button></div></form>
+    <form id="addForm"><label for="pick">Lägg till en växt</label><div class="line"><input id="pick" list="choices" required placeholder="Svenskt/vetenskapligt namn"><datalist id="choices"></datalist><button>Lägg till</button></div></form>
     <button id="clearList" type="button" hidden>Töm växtlistan</button>
     <details id="importBox"><summary>Importera växtförteckning</summary><p>Öppna en XLSX-, CSV- eller tabbfil, eller klistra in celler från Excel. Välj namnkolumn innan raderna läggs till.</p><input type="file" id="file" accept=".xlsx,.csv,.tsv,.txt"><label for="paste">Klistra in tabell</label><textarea id="paste" rows="3"></textarea><button id="preview">Granska tabell</button><div id="mapping"></div></details><div class="jump-links"><a href="#standort" onclick="document.getElementById('standort').scrollIntoView();return false">Ståndort ↓</a><a href="#blomningskalender" onclick="document.getElementById('blomningskalender').scrollIntoView();return false">Blomning över året ↓</a></div></div><div id="entries" aria-label="Växter i listan"></div></div>
     <section id="standort"><h2>Ståndort</h2><p>Välj förhållandena på planteringsytan.</p><div id="conditions"></div><details><summary>Hitta arter för ståndorten</summary><div id="candidates"></div></details></section>
