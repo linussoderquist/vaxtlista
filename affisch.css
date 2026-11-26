@@ -60,7 +60,17 @@ a { color: var(--jade); }
 .empty-list { grid-column: 1/-1; }
 .empty-list p { max-width: 38rem; }
 .print-triptych { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .65rem; margin: 0 0 2rem; }
-.print-triptych img { width: 100%; aspect-ratio: .95; object-fit: cover; box-shadow: 0 3px 8px #35241622; }
+.print-triptych img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 3px 8px #35241622;
+}
+
+.print-triptych img:nth-child(2) {
+  transform: none;
+}
 .print-triptych img:nth-child(2) { transform: translateY(.6rem); }
 #planner .months .bloom { background: #c6d9bb; }
 #planner .months div { background: #eee2c9; }
