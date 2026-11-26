@@ -70,9 +70,8 @@ function formImage(plant) {
   if (portrait) return portrait;
   const direct = growthById.get(plant?.["Dyntaxa ID number"]);
   const parent = growthById.get(plant?.nursery?.parentId);
-  const [file, label] = direct || parent || ["okand", "Växtform saknas"];
-  const caption = !direct && parent ? label + " · moderartens växtform" : label;
-  return `<figure class="form-print"><img loading="lazy" decoding="async" src="assets/vaxtformer/${file}.webp" alt=""><figcaption>${caption}</figcaption></figure>`;
+  const file = (direct || parent)?.[0] || "okand";
+  return `<figure class="form-print"><img loading="lazy" decoding="async" src="assets/vaxtformer/${file}.webp" alt=""></figure>`;
 }
 
 function startPlanner(plants,n,t,e,r,redlist=null,habits=[]){
@@ -133,6 +132,18 @@ el("pick").oninput=e=>{
   el("choices").innerHTML=hits.map(p=>'<option value="'+esc(p["Scientific name"])+'">'+esc(p["Svenskt namn"])+'</option>').join("");
 };
 el("addForm").onsubmit=e=>{e.preventDefault();if(!ready)return;const name=el("pick").value.trim();if(name){rows.push({name});el("pick").value="";save();}};
+let clearedRows = null;
+const clearListButton = el("clearList");
+clearListButton.onclick = () => {
+  if (rows.length) {
+    clearedRows = rows;
+    rows = [];
+  } else if (clearedRows) {
+    rows = clearedRows;
+    clearedRows = null;
+  }
+  save();
+};
 const assoc=["","<6","6–12","13–24","25–50","51–100","101–200","201–400",">400"];
 function floweringSourceHtml(id) {
   const source = floweringSources[id];
@@ -167,7 +178,7 @@ function renderListSummary() {
   const number = value => value.toLocaleString("sv-SE", {maximumFractionDigits:2});
   const signed = value => value === 0 ? "0" : value > 0 ? "+" + number(value) : number(value);
   const visual = PlantListScore.appearance(score.total);
-  container.innerHTML = '<section class="list-summary" aria-labelledby="score-title"><div class="score-kicker"><span>Växtval</span><span>Sammanställning</span></div><h2 id="score-title">Listans<br>planeringspoäng</h2><div class="score-heading"><strong class="score-total score-'+visual.state+'" style="--score-digits:'+signed(score.total).length+';--score-border:'+visual.border+';--score-background:'+visual.background+';--score-color:'+visual.color+'">'+signed(score.total)+'<span>poäng'+(score.missing || sourcesMissing ? ' · delunderlag' : '')+'</span></strong><div class="score-caption"><p><b>'+score.items.length+(score.items.length === 1 ? ' unikt växtval' : ' unika växtval')+'</b></p><p>Varje växt räknas<br>en gång.</p></div></div>'+
+  container.innerHTML = '<section class="list-summary" aria-labelledby="score-title"><div class="score-kicker"><span>Sammanställning</span></div><h2 id="score-title">Listans<br>planeringspoäng</h2><div class="score-heading"><strong class="score-total score-'+visual.state+'" style="--score-digits:'+signed(score.total).length+';--score-border:'+visual.border+';--score-background:'+visual.background+';--score-color:'+visual.color+'">'+signed(score.total)+'<span>poäng'+(score.missing || sourcesMissing ? ' · delunderlag' : '')+'</span></strong><div class="score-caption"><p><b>'+score.items.length+(score.items.length === 1 ? ' unikt växtval' : ' unika växtval')+'</b></p></div></div>'+
     '<div class="score-analysis"><h3>Poängfördelning</h3><div class="score-components"><div><span>Biodiversitetsrelevans</span><strong>+'+number(score.associated)+'</strong></div><div><span>Nektarproduktion</span><strong>+'+number(score.nectar)+'</strong></div><div><span>Risk och listning</span><strong>'+signed(-score.penalty)+'</strong></div></div></div>'+
     (score.listed ? '<p class="selection-warning"><strong>'+score.listed+' växtval är invasivlistade.</strong> Kontrollera regler och undantag i respektive kort även när summan är positiv.</p>' : '')+
     (sourcesMissing ? '<p class="selection-warning">Risk- eller invasivunderlag kunde inte laddas. Avdragen är ofullständiga.</p>' : '')+
@@ -189,6 +200,9 @@ function renderCardScore(row) {
 }
 function render(){
   if(!ready)return;
+  if (rows.length) clearedRows = null;
+  clearListButton.hidden = !rows.length && !clearedRows;
+  clearListButton.textContent = rows.length ? "Töm växtlistan" : "Ångra tömning";
   if (globalThis.PlantListScore) renderListSummary();
   const unique=new Map();
   el("entries").innerHTML=rows.map((row,i)=>{
@@ -216,16 +230,15 @@ function render(){
       renderCardScore(row)+
       ((row.quantity||row.plot)?'<p class="selection-meta">'+[row.quantity?'Mängd '+esc(row.quantity):"",row.plot?'Yta '+esc(row.plot):""].filter(Boolean).join(" · ")+'</p>':"")+
       (siteStatus?'<p class="selection-status '+(attention?'needs-review':'')+'">'+esc(siteStatus)+'</p>':"")+
-      '<div class="redlist-print">'+PlantDataView.renderRedlist(plannerRedlist,id)+'</div>' +
-      (native ? '<p class="native-status">Inhemsk art</p>' + legalNotice :
+      '<div class="redlist-print">'+PlantDataView.renderRedlist(plannerRedlist,id)+(native ? '<span class="native-status">Inhemsk art</span>' : '')+'</div>' +
+      (native ? legalNotice :
         '<div class="invasion"><strong class="classification-heading">Invasivklassning</strong>' + legalNotice + riskNotice +
         (!national || !eu || !risks ? '<p>Risk- eller listningsunderlag saknas.</p>' : '') +
         (!legalNotice && !riskNotice && national && eu && risks ? '<p>'+(!p || p.nursery ? 'Status saknas för detta växtval.' : 'Ingen träff i riskklassningen eller invasivlistorna.')+'</p>' : '') +
         '</div>') +
-      '<div class="selection-metrics"><div><span>Nektarproduktion</span><strong>'+esc(nectarKnown?["","Ingen","Obetydlig","Liten","Måttlig","Ganska stor","Stor","Mycket stor"][nectarClass]:"Uppgift saknas")+'</strong>'+segments(nectarKnown?nectarClass:0,7)+'<small>'+(nectarKnown?'Klass '+nectarClass+' av 7'+(nectar?.imputed?.includes("nectar_production")?' · modellskattad':''):'Ingen klassning')+'</small></div>'+ 
-      '<div><span>Biodiversitetsrelevans</span><strong>'+esc(biodiversityKnown?assoc[biodiversity]:"Uppgift saknas")+'</strong>'+segments(biodiversityKnown?biodiversity:0,8)+'<small>Associerade arter'+(biodiversityKnown?' · klass '+biodiversity+' av 8':'')+'</small></div></div>'+
-      '<div class="selection-flowering"><span>Blomning'+(interval?' · '+months[interval[0]-1]+'–'+months[interval[1]-1]:' · uppgift saknas')+'</span><div class="selection-months" aria-label="'+esc(interval?'Blomning '+months[interval[0]-1]+' till '+months[interval[1]-1]:'Blomningsuppgift saknas')+'">'+months.map((m,n)=>'<span class="'+(interval&&n+1>=interval[0]&&n+1<=interval[1]?'active':'')+'">'+m+'</span>').join("")+'</div>'+floweringSourceHtml(id)+'</div>'+
-      '<details><summary>Uppgifter och källor</summary><p>Importerad som '+esc(row.name)+'</p>'+(p?.nursery?NurseryPlants.describe(p):'<p>Ordinala klasser från NordicTraits och Tyler m.fl. Se Underlag och tolkning.</p>')+'</details>'+
+      '<div class="selection-metrics"><div><span>Nektarproduktion</span><strong>'+esc(nectarKnown?["","Ingen","Obetydlig","Liten","Måttlig","Ganska stor","Stor","Mycket stor"][nectarClass]:"Uppgift saknas")+'</strong>'+segments(nectarKnown?nectarClass:0,7)+'</div>'+ 
+      '<div><span>Biodiversitetsrelevans</span><strong>'+esc(biodiversityKnown?assoc[biodiversity]:"Uppgift saknas")+'</strong>'+segments(biodiversityKnown?biodiversity:0,8)+'</div></div>'+
+      '<div class="selection-flowering"><span>Blomning'+(interval?'':' · uppgift saknas')+'</span><div class="selection-months" role="img" aria-label="'+esc(interval?'Blomning '+months[interval[0]-1]+' till '+months[interval[1]-1]:'Blomningsuppgift saknas')+'">'+months.map((m,n)=>'<span class="'+(interval&&n+1>=interval[0]&&n+1<=interval[1]?'active':'')+'">'+m+'</span>').join("")+'</div>'+floweringSourceHtml(id)+'</div>'+
       (p?'<button class="selection-open" data-open="'+i+'">Öppna artkort</button>':"")+'</div></article>';
 
   }).join("")+(rows.length?'<button id="exportList">Exportera CSV</button>':'<div class="empty-list"><div class="print-triptych" aria-hidden="true"><img src="assets/vaxtformer/trad.webp" alt=""><img src="assets/vaxtformer/ort.webp" alt=""><img src="assets/vaxtformer/ormbunke.webp" alt=""></div><h2>Din planteringslista är tom</h2><p>Lägg till en växt, importera din lista eller börja med sälg, prästkrage och rödklint.</p><button id="example">Prova en exempellista →</button></div>');

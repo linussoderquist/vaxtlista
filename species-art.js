@@ -250,7 +250,7 @@ function get(plant) {
 function render(plant) {
   const art = get(plant);
   if (!art) return "";
-  return '<figure class="form-print species-print"><img loading="lazy" decoding="async" width="1536" height="1024" src="assets/arter/'+art.slug+'.webp" alt="Illustration av '+art.name+' ('+art.scientificName+') i blom"><figcaption>Artillustration</figcaption></figure>';
+  return '<figure class="form-print species-print"><img loading="lazy" decoding="async" width="1536" height="1024" src="assets/arter/'+art.slug+'.webp" alt="Illustration av '+art.name+' ('+art.scientificName+') i blom"></figure>';
 }
 root.SpeciesArt={portraits,get,render};
 if(typeof module!=="undefined" && module.exports) module.exports=root.SpeciesArt;

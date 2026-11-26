@@ -23,7 +23,8 @@ test('forty unique illustrated species have matching IDs, image files and valid 
   assert.equal(bytes.subarray(8,12).toString(),'WEBP');
   const interval=bloom.taxa[a.id]; if (interval) { assert.equal(interval.length,2);
   assert.ok(interval[0]>=1 && interval[0]<=interval[1] && interval[1]<=12); }
-  assert.match(art.render(p),/Artillustration/);
+  assert.match(art.render(p),/alt="Illustration av /);
+  assert.doesNotMatch(art.render(p),/<figcaption/);
  }
  assert.deepEqual(bloom.taxa['221338'],[6,9]);
  assert.match(bloom.taxonSources['221338'].label,/Jordbruksverket/);
