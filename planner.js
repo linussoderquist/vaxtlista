@@ -178,8 +178,8 @@ function renderListSummary() {
   const number = value => value.toLocaleString("sv-SE", {maximumFractionDigits:2});
   const signed = value => value === 0 ? "0" : value > 0 ? "+" + number(value) : number(value);
   const visual = PlantListScore.appearance(score.total);
-  container.innerHTML = '<section class="list-summary" aria-labelledby="score-title"><div class="score-kicker"><span>Sammanställning</span></div><h2 id="score-title">Listans<br>planeringspoäng</h2><div class="score-heading"><strong class="score-total score-'+visual.state+'" style="--score-digits:'+signed(score.total).length+';--score-border:'+visual.border+';--score-background:'+visual.background+';--score-color:'+visual.color+'">'+signed(score.total)+'<span>poäng'+(score.missing || sourcesMissing ? ' · delunderlag' : '')+'</span></strong><div class="score-caption"><p><b>'+score.items.length+(score.items.length === 1 ? ' unikt växtval' : ' växtarter valda i listan')+'</b></p></div></div>'+
-    '<div class="score-analysis"><h3>Poängfördelning</h3><div class="score-components"><div><span>Biodiversitetsrelevans</span><strong>+'+number(score.associated)+'</strong></div><div><span>Nektarproduktion</span><strong>+'+number(score.nectar)+'</strong></div><div><span>Invasivitetsrisk</span><strong>'+signed(-score.penalty)+'</strong></div></div></div>'+
+  container.innerHTML = '<section class="list-summary" aria-labelledby="score-title"><div class="score-kicker"><span>Sammanställning</span></div><h2 id="score-title">Listans<br>planeringspoäng</h2><div class="score-heading"><strong class="score-total score-'+visual.state+'" style="--score-digits:'+signed(score.total).length+';--score-border:'+visual.border+';--score-background:'+visual.background+';--score-color:'+visual.color+'">'+signed(score.total)+'<span>poäng'+(score.missing || sourcesMissing ? ' · delunderlag' : '')+'</span></strong><div class="score-caption"><p><b>'+score.items.length+(score.items.length === 1 ? ' unikt växtval' : ' unika växtval')+'</b></p></div></div>'+
+    '<div class="score-analysis"><h3>Poängfördelning</h3><div class="score-components"><div><span>Biodiversitetsrelevans</span><strong>+'+number(score.associated)+'</strong></div><div><span>Nektarproduktion</span><strong>+'+number(score.nectar)+'</strong></div><div><span>Risk och listning</span><strong>'+signed(-score.penalty)+'</strong></div></div></div>'+
     (score.listed ? '<p class="selection-warning"><strong>'+score.listed+' växtval är invasivlistade.</strong> Kontrollera regler och undantag i respektive kort även när summan är positiv.</p>' : '')+
     (sourcesMissing ? '<p class="selection-warning">Risk- eller invasivunderlag kunde inte laddas. Avdragen är ofullständiga.</p>' : '')+
     '<details><summary>Så räknas poängen</summary><p class="score-coverage">'+score.excluded+' växtval ger inga pluspoäng på grund av invasivrisk eller listning. '+score.missing+' övriga växtval saknar minst en plusuppgift. '+score.imputed+' nektarvärden är modellskattade.</p>'+
@@ -196,7 +196,7 @@ function renderCardScore(row) {
   const score=PlantListScore.calculate([scoreEntry(row)]), item=score.items[0];
   const value=score.total.toLocaleString('sv-SE',{maximumFractionDigits:2});
   const partial=score.missing || !national || !eu || !risks;
-  return '<div class="card-score '+(score.total<0?'negative':'positive')+'"><span>Planeringspoäng</span><strong>'+(score.total>0?'+':'')+value+'</strong><small>'+(partial?'Delunderlag':item.excluded?'Invasivrisk/listning · inga pluspoäng')+'</small></div>';
+  return '<div class="card-score '+(score.total<0?'negative':'positive')+'"><span>Planeringspoäng</span><strong>'+(score.total>0?'+':'')+value+'</strong><small>'+(partial?'Delunderlag':item.excluded?'Invasivrisk/listning · inga pluspoäng':'Per unikt växtval')+'</small></div>';
 }
 function render(){
   if(!ready)return;
