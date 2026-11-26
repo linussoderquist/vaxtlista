@@ -196,7 +196,7 @@ function renderCardScore(row) {
   const score=PlantListScore.calculate([scoreEntry(row)]), item=score.items[0];
   const value=score.total.toLocaleString('sv-SE',{maximumFractionDigits:2});
   const partial=score.missing || !national || !eu || !risks;
-  return '<div class="card-score '+(score.total<0?'negative':'positive')+'"><span>Planeringspoäng</span><strong>'+(score.total>0?'+':'')+value+'</strong><small>'+(partial?'Delunderlag':item.excluded?'Invasivrisk/listning · inga pluspoäng':'Per unikt växtval')+'</small></div>';
+  return '<div class="card-score '+(score.total<0?'negative':'positive')+'"><span>Planeringspoäng</span><strong>'+(score.total>0?'+':'')+value+'</strong></div>';
 }
 function render(){
   if(!ready)return;
