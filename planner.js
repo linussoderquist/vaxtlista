@@ -241,7 +241,7 @@ function render(){
       '<div class="selection-flowering"><span>Blomning'+(interval?'':' · uppgift saknas')+'</span><div class="selection-months" role="img" aria-label="'+esc(interval?'Blomning '+months[interval[0]-1]+' till '+months[interval[1]-1]:'Blomningsuppgift saknas')+'">'+months.map((m,n)=>'<span class="'+(interval&&n+1>=interval[0]&&n+1<=interval[1]?'active':'')+'">'+m+'</span>').join("")+'</div>'+floweringSourceHtml(id)+'</div>'+
       (p?'<button class="selection-open" data-open="'+i+'">Öppna artkort</button>':"")+'</div></article>';
 
-  }).join("")+(rows.length?'<button id="exportList">Exportera CSV</button>':'<div class="empty-list"><div class="print-triptych" aria-hidden="true"><img src="assets/vaxtformer/trad.webp" alt=""><img src="assets/vaxtformer/ort.webp" alt=""><img src="assets/vaxtformer/ormbunke.webp" alt=""></div><h2>Din planteringslista är tom</h2><p>Lägg till en växt, importera din lista eller börja med sälg, prästkrage och rödklint.</p><button id="example">Prova en exempellista →</button></div>');
+  }).join("")+(rows.length?'<button id="exportList">Exportera CSV</button>':'<div class="empty-list"><div class="print-triptych" aria-hidden="true"><img src="assets/arter/salg.webp" alt="Sälg"><img src="assets/arter/prastkrage.webp" alt="Prästkrage"><img src="assets/arter/rodklint.webp" alt="Rödklint"></div><h2>Din planteringslista är tom</h2><p>Lägg till en växt, importera din lista eller börja med sälg, prästkrage och rödklint.</p><button id="example">Prova en exempellista →</button></div>');
   if(el("example"))el("example").onclick=()=>{rows=["sälg","prästkrage","rödklint"].map(name=>({name}));save();};
   globalThis.PlannerCards?.refresh();
   if(el("exportList"))el("exportList").onclick=()=>{
