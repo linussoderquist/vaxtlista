@@ -186,7 +186,7 @@ function renderListSummary() {
 
         <div>
           <span class="info-tooltip" tabindex="0"
-                data-tooltip="Poängen baseras på hur många andra arter som är associerade med de valda växterna. Växter med många associerade arter viktas högre.">
+                data-tooltip="En arts betydelse för den biologiska mångfalden bedömt utifrån hur många andra organismer som nyttjar den för exempelvis föda, livsmiljö eller skydd.">
             Biodiversitetsrelevans
           </span>
           <strong>+${number(score.associated)}</strong>
@@ -194,7 +194,7 @@ function renderListSummary() {
 
         <div>
           <span class="info-tooltip" tabindex="0"
-                data-tooltip="Poängen baseras på växternas nektarproduktion. Växter med hög nektarproduktion viktas högre eftersom de bidrar med föda till pollinerande insekter.">
+                data-tooltip="Mängden nektar och pollen som en växt producerar kan användas som ett mått på dess betydelse för pollinatörer.">
             Nektarproduktion
           </span>
           <strong>+${number(score.nectar)}</strong>
