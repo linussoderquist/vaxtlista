@@ -54,27 +54,13 @@ a { color: var(--jade); }
 .selection-scale i.filled { background: var(--jade); }
 .selection-months { gap: 1px; }
 .selection-months span { font-size: .64rem; background: #ede3cb; color: #433c31; }
-#planner .months .bloom {
-  background: #86b0a6;
-  border-bottom: 3px solid #86b0a6;
-  color: #352416;
-}
+.selection-months span.active { background: var(--jade); color: white; }
 #planner .selection-open { background: none; color: var(--brick); width: auto; padding: .25rem 0; font-weight: 700; border-bottom: 2px solid currentColor; border-radius: 0; }
 #planner .selection-card .risk-notice, #planner .selection-card .invasive-notice { border-radius: 0; }
 .empty-list { grid-column: 1/-1; }
 .empty-list p { max-width: 38rem; }
 .print-triptych { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: .65rem; margin: 0 0 2rem; }
-.print-triptych img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  display: block;
-  box-shadow: 0 3px 8px #35241622;
-}
-
-.print-triptych img:nth-child(2) {
-  transform: none;
-}
+.print-triptych img { width: 100%; aspect-ratio: .95; object-fit: cover; box-shadow: 0 3px 8px #35241622; }
 .print-triptych img:nth-child(2) { transform: translateY(.6rem); }
 #planner .months .bloom { background: #c6d9bb; }
 #planner .months div { background: #eee2c9; }
@@ -267,43 +253,17 @@ body .risk-code {
   display: block; font: 700 .86rem/1.35 var(--sans); min-height: 2.35em;
   overflow-wrap: normal; hyphens: auto;
 }
-#planner .selection-metrics strong {
-  font: 750 1.55rem/1.15 var(--display);
-  margin: .25rem 0 .7rem;
-}
-
-/* Biodiversitetsrelevans */
-.selection-scale {
-  gap: 3px;
-  color: #60acc6;
-}
-
-/* Nektarproduktion */
-.selection-metrics > div:first-child .selection-scale {
-  color: #bd4b30;
-}
-
+#planner .selection-metrics strong { font: 750 1.55rem/1.15 var(--display); margin: .25rem 0 .7rem; }
+.selection-scale { gap: 3px; color: var(--jade); }
+.selection-metrics>div:first-child .selection-scale { color: #88551d; }
 .selection-scale i {
-  display: grid;
-  place-items: center;
-  height: 1.3rem;
-  min-width: 0;
-  border: 1px solid #b9a680;
-  border-radius: 0;
-  box-sizing: border-box;
-  background: transparent;
-  color: #756149;
-  font: 600 .65rem/1 var(--sans);
+  display: grid; place-items: center; height: 1.3rem; min-width: 0;
+  border: 1px solid #b9a680; border-radius: 0; box-sizing: border-box;
+  background: transparent; color: #756149; font: 600 .65rem/1 var(--sans);
 }
-
-.selection-scale i.filled {
-  background-color: currentColor;
-  color: var(--card);
-  border-color: currentColor;
-  background-image: radial-gradient(
-    #fcf0d655 .5px,
-    transparent .7px
-  );
+.selection-scale i.filled, .selection-metrics>div:first-child .selection-scale i.filled {
+  background-color: var(--jade); color: var(--card); border-color: var(--jade);
+  background-image: radial-gradient(#fcf0d655 .5px, transparent .7px);
   background-size: 3px 3px;
 }
 .selection-metrics>div:first-child .selection-scale i.filled { background-color: #88551d; border-color: #88551d; }
@@ -326,11 +286,7 @@ body .risk-code {
 }
 #planner .months { gap: 0; border: 1px solid var(--line); }
 #planner .months div { background: transparent; border-radius: 0; border: 1px solid var(--line); font-family: Georgia, serif; }
-#planner .months .bloom {
-  background: #86b0a6;
-  border-bottom: 3px solid #86b0a6;
-  color: #352416;
-}
+#planner .months .bloom { background: #275b4810; border-bottom: 3px solid var(--jade); }
 #planner .months strong { font: 750 1.35rem/1.5 var(--display); }
 #searchPage .metric-card { border-top: 3px double var(--line); }
 #searchPage .metric-value { font: 750 1.6rem/1.2 var(--display); color: var(--ink); }
@@ -390,9 +346,7 @@ body .risk-code {
 .score-components { display: block; margin: 0 0 .6rem; }
 .score-components>div { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem;
   padding: .45rem 0; border-bottom: 1px dotted var(--line); border-radius: 0; background: none; }
-.score-components span {
-  font: 750 .86rem/1.35 var(--display);
-}
+.score-components span { font: .86rem/1.35 Georgia,serif; }
 .score-components strong { flex-shrink: 0; color: var(--jade); font: 700 1.18rem/1.2 var(--display); font-variant-numeric: lining-nums tabular-nums; }
 .score-components>div:last-child strong { color: var(--brick); }
 #planner .list-summary details { margin: .7rem 0 0; font: .84rem/1.5 Georgia,serif; }
@@ -538,4 +492,137 @@ body .risk-code {
   .deck-nav { display: none !important; }
   #planner #entries[data-view] .selection-card { zoom: 1 !important; width: auto !important; }
   #planner #entries[data-view] { grid-template-columns: repeat(2,minmax(0,1fr)); }
+}
+
+/* Final overrides: keep indicator colours, typography and flowering months consistent. */
+#planner .score-components span {
+  font: 700 .86rem/1.35 var(--display);
+  color: var(--ink);
+}
+
+#planner .selection-metrics > div:first-child {
+  --metric-color: #bd4b30;
+}
+
+#planner .selection-metrics > div:nth-child(2) {
+  --metric-color: #60acc6;
+}
+
+#planner .selection-metrics > div > span:first-child {
+  color: var(--ink);
+}
+
+#planner .selection-metrics > div > strong {
+  color: var(--metric-color);
+}
+
+#planner .selection-metrics > div .selection-scale {
+  gap: 3px;
+  color: var(--metric-color);
+}
+
+#planner .selection-metrics > div .selection-scale i {
+  display: grid;
+  place-items: center;
+  height: 1.3rem;
+  min-width: 0;
+  flex: 1 1 0;
+  box-sizing: border-box;
+  border: 1px solid currentColor;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: 600 .65rem/1 var(--sans);
+}
+
+#planner .selection-metrics > div .selection-scale i.filled {
+  background-color: var(--metric-color);
+  color: var(--card);
+  border-color: var(--metric-color);
+  background-image: radial-gradient(#fcf0d655 .5px, transparent .7px);
+  background-size: 3px 3px;
+}
+
+#planner .selection-flowering {
+  padding: .8rem 0 .9rem;
+  border-bottom: 1px solid var(--line);
+}
+
+#planner .selection-flowering > span {
+  display: block;
+  margin-bottom: .55rem;
+  color: var(--ink);
+  font: 700 .96rem/1.35 var(--display);
+}
+
+#planner .selection-months {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 0;
+  margin-top: .4rem;
+  border: 1px solid #86b0a6;
+}
+
+#planner .selection-months > span {
+  position: relative;
+  min-width: 0;
+  padding: .38rem .1rem;
+  border: 0;
+  border-right: 1px solid #86b0a6;
+  background: var(--card);
+  color: var(--ink);
+  text-align: center;
+  font: 600 .62rem/1 var(--sans);
+  white-space: nowrap;
+}
+
+#planner .selection-months > span:last-child {
+  border-right: 0;
+}
+
+#planner .selection-months > span.active {
+  background: #86b0a6;
+  color: var(--ink);
+  font-weight: 850;
+  box-shadow: inset 0 -3px 0 #527f76;
+}
+
+#planner .selection-months > span.active::after {
+  display: none;
+}
+
+#planner .months .bloom {
+  background: #86b0a6;
+  border-bottom: 3px solid #527f76;
+  color: var(--ink);
+}
+
+#planner .months div {
+  background: #eee2c9;
+}
+
+/* Empty-list illustrations: same crop, same height, no staggered middle image. */
+.print-triptych {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .65rem;
+  margin: 0 0 2rem;
+}
+
+.print-triptych img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 3px 8px #35241622;
+}
+
+.print-triptych img:nth-child(2) {
+  transform: none;
+}
+
+@media (max-width: 760px) {
+  #planner .selection-months > span {
+    font-size: .58rem;
+  }
 }
