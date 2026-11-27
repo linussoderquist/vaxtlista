@@ -203,7 +203,7 @@ function renderListSummary() {
 
         <div>
           <span class="info-tooltip" tabindex="0"
-                data-tooltip="Poäng enligt Rödlista 2025: NA/DD/NE/EX = 0, LC = 1, NT = 2, VU = 4, EN = 6 och CR/EW/RE = 8. Riskklassade eller invasivlistade växter får inga pluspoäng.">
+                data-tooltip="Poäng ges utifrån artens rödlistekategori, med fler poäng för mer hotade arter. Förutsätter att växtmaterialet har lämplig proveniens.">
             Rödlistning
           </span>
           <strong>+${number(score.redlist)}</strong>
@@ -235,8 +235,16 @@ function renderCardScore(row) {
   if(!globalThis.PlantListScore)return '';
   const score=PlantListScore.calculate([scoreEntry(row)]), item=score.items[0];
   const value=score.total.toLocaleString('sv-SE',{maximumFractionDigits:2});
-  const partial=score.missing || !national || !eu || !risks;
-  return '<div class="card-score '+(score.total<0?'negative':'positive')+'"><span>Poäng</span><strong>'+(score.total>0?'+':'')+value+'</strong></div>';
+  const breakdown = [
+    ['Nektarproduktion', item.nectar],
+    ['Biodiversitetsrelevans', item.associated],
+    ['Rödlistning', item.redlist],
+    ['Invasivitetsavdrag', -item.penalty]
+  ].filter(([, points]) => Number.isFinite(points) && points !== 0)
+    .map(([label, points]) => label + ': ' + (points < 0 ? '−' : '') + Math.abs(points).toLocaleString('sv-SE',{maximumFractionDigits:2}))
+    .join('\n');
+  const tooltip = breakdown ? ' tabindex="0" data-tooltip="'+esc(breakdown)+'"' : '';
+  return '<div class="card-score '+(score.total<0?'negative':'positive')+(breakdown?' info-tooltip':'')+'"'+tooltip+'><span>Poäng</span><strong>'+(score.total>0?'+':'')+value+'</strong></div>';
 }
 function render(){
   if(!ready)return;

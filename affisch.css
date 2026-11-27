@@ -1562,3 +1562,20 @@ body .risk-code {
   opacity: 1;
   visibility: visible;
 }
+
+/* Poängfördelning på artkort: en rad per bidrag. */
+.card-score.info-tooltip { border-bottom-style: solid; }
+.card-score.info-tooltip::after {
+  left: 0;
+  right: 0;
+  width: auto;
+  max-width: none;
+  box-sizing: border-box;
+  padding: .65rem .8rem;
+  white-space: pre-line;
+}
+.card-score.info-tooltip:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+#planner .selection-card:hover { position: relative; z-index: 2; }
