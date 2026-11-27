@@ -160,6 +160,7 @@ function scoreEntry(row) {
       key:id || (euRecord ? "eu:" + euRecord["Vetenskapligt namn"] : "name:" + norm(row.name)),
       name:plant?.["Svenskt namn"] || row.name,
       associated:plant?.["Biodiversity relevance"],
+      redlistCategory:plannerRedlist?.taxa?.[id]?.category,
       nectar:record?.values.nectar_production ?? plant?.["Nectar production"],
       imputed:record?.imputed.includes("nectar_production"),
       risk:risks?.get(id),
@@ -174,7 +175,7 @@ function renderListSummary() {
   if (!rows.length) { container.innerHTML = ""; return; }
   const entries = rows.map(scoreEntry);
   const score = PlantListScore.calculate(entries);
-  const sourcesMissing = !national || !eu || !risks;
+  const sourcesMissing = !national || !eu || !risks || !plannerRedlist;
   const number = value => value.toLocaleString("sv-SE", {maximumFractionDigits:2});
   const signed = value => value === 0 ? "0" : value > 0 ? "+" + number(value) : number(value);
   const visual = PlantListScore.appearance(score.total);
@@ -186,7 +187,7 @@ function renderListSummary() {
 
         <div>
           <span class="info-tooltip" tabindex="0"
-                data-tooltip="En arts betydelse för den biologiska mångfalden bedömt utifrån hur många andra organismer som nyttjar den för exempelvis föda, livsmiljö eller skydd.">
+                data-tooltip="En arts betydelse för den biologiska mångfalden bedömt utifrån hur många andra organismer som nyttjar den för exempelvis föda, livsmiljö eller skydd. Poäng: klass², från 1 till 64.">
             Biodiversitetsrelevans
           </span>
           <strong>+${number(score.associated)}</strong>
@@ -194,10 +195,18 @@ function renderListSummary() {
 
         <div>
           <span class="info-tooltip" tabindex="0"
-                data-tooltip="Mängden nektar och pollen som en växt producerar kan användas som ett mått på dess betydelse för pollinatörer.">
+                data-tooltip="Nektarproduktion används som en indikator på växtens betydelse för pollinatörer. Poäng: nektarklass², från 1 till 49.">
             Nektarproduktion
           </span>
           <strong>+${number(score.nectar)}</strong>
+        </div>
+
+        <div>
+          <span class="info-tooltip" tabindex="0"
+                data-tooltip="Poäng enligt Rödlista 2025: NA/DD/NE/EX = 0, LC = 1, NT = 2, VU = 4, EN = 6 och CR/EW/RE = 8. Riskklassade eller invasivlistade växter får inga pluspoäng.">
+            Rödlistning
+          </span>
+          <strong>+${number(score.redlist)}</strong>
         </div>
 
         <div>
@@ -211,14 +220,15 @@ function renderListSummary() {
       </div>
     </div>`+
     (score.listed ? '<p class="selection-warning"><strong>'+score.listed+' växtval är invasivlistade.</strong> Kontrollera regler och undantag i respektive kort även när summan är positiv.</p>' : '')+
-    (sourcesMissing ? '<p class="selection-warning">Risk- eller invasivunderlag kunde inte laddas. Avdragen är ofullständiga.</p>' : '')+
+    (sourcesMissing ? '<p class="selection-warning">Risk-, invasiv- eller rödlisteunderlag kunde inte laddas. Poängen är ofullständiga.</p>' : '')+
     '<details><summary>Så räknas poängen</summary><p class="score-coverage">'+score.excluded+' växtval ger inga pluspoäng på grund av invasivrisk eller listning. '+score.missing+' övriga växtval saknar minst en plusuppgift. '+score.imputed+' nektarvärden är modellskattade.</p>'+
-    '<p>Växtvals egen jämförelsemodell, version 2. Vikterna är valda för planering och har inte validerats som ett mått på faktisk biologisk mångfald. Summan påverkas av listans längd och datatäckning.</p>'+
-    '<p>Associerade arter ger 0–7 poäng för källans klass 1–8. Nektar ger 0–6 poäng för klass 1–7. Poängen viktas exponentiellt: (maxklass − 1) × (2^(klass − 1) − 1) / (2^(maxklass − 1) − 1). Maxpoängen är oförändrade. Klasserna är ordinala. Saknade värden bidrar inte till summan och redovisas som saknade.</p>'+
+    '<p>Växtvals egen jämförelsemodell, version 3. Vikterna är valda för planering och har inte validerats som ett mått på faktisk biologisk mångfald. Summan påverkas av listans längd och datatäckning.</p>'+
+    '<p>Biodiversitetsrelevans ger klass²: 1, 4, 9, 16, 25, 36, 49 eller 64 poäng för klass 1–8. Nektarproduktion ger klass²: 1, 4, 9, 16, 25, 36 eller 49 poäng för klass 1–7. Även nektarklass 1 (Ingen) ger 1 poäng i denna modell. Saknade värden bidrar inte till summan och redovisas som saknade.</p>'+
+    '<p>Rödlistning är en egen kategori: NA/DD/NE/EX ger 0, LC 1, NT 2, VU 4, EN 6 och CR/EW/RE 8 poäng. Kategorin hämtas från samma post i Rödlista 2025 som visas på artkortet. Saknad kategori ger 0 i summan och redovisas som saknad. Totalpoäng = biodiversitetsrelevans + nektarproduktion + rödlistning − invasivitetsavdrag.</p>'+
     '<p>Avdrag per växt är NK 0, LO −2, PH −5, HI −10 och SE −15. Nationell listning ger −20 och gällande EU-listning −30. Endast det största avdraget används per växt. Listningsavdraget gäller även arter med villkorade undantag, vilka måste granskas i artkortet. Framtida EU-förbud visas i artkortet och börjar ge listningsavdrag från ikraftträdandet.</p>'+
     '<p>Riskklass LO–SE, svensk listning och EU-listning (även kommande) utesluter alla pluspoäng. NK utesluter inte pluspoäng. Uteslutna värden räknas inte som saknade eller modellskattade. Beräkningen använder full precision; visningen avrundas till två decimaler.</p><p>Utebliven riskklass ger inget riskklassavdrag. Sorter ärver inga pluspoäng från arten. Antal plantor och upprepad import av samma växt ökar inte poängen. Associerade organismer kan vara gemensamma för flera arter.</p>'+
-    '<div class="score-table-wrap"><table><thead><tr><th>Växt</th><th>Associerade</th><th>Nektar</th><th>Avdrag</th><th>Summa</th></tr></thead><tbody>'+
-    score.items.map(item => '<tr><th scope="row">'+esc(item.name)+(item.futureEU?' · kommande EU-förbud':'')+'</th><td>'+(item.excluded ? 'Räknas inte' : item.associated === null ? 'Saknas' : '+'+number(item.associated))+'</td><td>'+(item.excluded ? 'Räknas inte' : item.nectar === null ? 'Saknas' : '+'+number(item.nectar)+(item.imputed?'*':''))+'</td><td>−'+item.penalty+'</td><td>'+signed(item.total)+'</td></tr>').join("")+
+    '<div class="score-table-wrap"><table><thead><tr><th>Växt</th><th>Associerade</th><th>Nektar</th><th>Rödlistning</th><th>Avdrag</th><th>Summa</th></tr></thead><tbody>'+
+    score.items.map(item => '<tr><th scope="row">'+esc(item.name)+(item.futureEU?' · kommande EU-förbud':'')+'</th><td>'+(item.excluded ? 'Räknas inte' : item.associated === null ? 'Saknas' : '+'+number(item.associated))+'</td><td>'+(item.excluded ? 'Räknas inte' : item.nectar === null ? 'Saknas' : '+'+number(item.nectar)+(item.imputed?'*':''))+'</td><td>'+(item.excluded ? 'Räknas inte' : item.redlist === null ? 'Saknas' : esc(item.redlistCategory)+' · '+signed(item.redlist))+'</td><td>−'+item.penalty+'</td><td>'+signed(item.total)+'</td></tr>').join("")+
     '</tbody></table></div><p>* Modellskattat nektarvärde.</p></details></section>';
 }
 function renderCardScore(row) {

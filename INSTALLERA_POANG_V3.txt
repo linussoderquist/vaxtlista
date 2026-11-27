@@ -1,0 +1,36 @@
+Uppdatering av poängmodell – 2026-11-27
+
+Utgår från GitHub-version 26a0183 (Update planner.js).
+
+Ladda upp och ersätt dessa tre filer i roten av linussoderquist/vaxtlista:
+  list-score.js
+  planner.js
+  affisch.css
+
+Behåll befintliga data-, bild- och övriga kodfiler. Testfilerna i tests/
+kan också laddas upp för att hålla projektets tester aktuella.
+Ingen befintlig planteringslista raderas; poängen räknas om vid omladdning.
+
+Poängmodell version 3:
+  Biodiversitetsrelevans: klass 1–8 ger 1, 4, 9, 16, 25, 36, 49, 64.
+  Nektarproduktion: klass 1–7 ger 1, 4, 9, 16, 25, 36, 49.
+  Rödlistning: NA/DD/NE/EX 0; LC 1; NT 2; VU 4; EN 6; CR/EW/RE 8.
+  Total = biodiversitet + nektar + rödlistning − invasivitetsavdrag.
+
+Rödlistan hämtas ur samma Rödlista 2025-post som artkortets märkning.
+Saknade kategorier ger 0 i summan men redovisas som saknade uppgifter.
+Även nektarklass 1 (Ingen) ger 1 poäng enligt klass²-formeln.
+
+Tidigare undantag och avdrag behålls:
+  Riskklass LO–SE samt svensk/EU-listning (även kommande EU-listning)
+  utesluter samtliga pluspoäng, inklusive rödlistningspoäng.
+  NK 0; LO −2; PH −5; HI −10; SE −15; svensk lista −20; EU-lista −30.
+  Endast största avdraget per växt används.
+  Samma växt räknas en gång oberoende av mängd och upprepade rader.
+
+Bannern har fyra kategorier med informationsrutor. Detaljtabellen och
+förklaringarna är uppdaterade. Vid mellanstor skärm visas fördelningen
+i två kolumner så att de fyra kategorierna får plats.
+
+Kontroller: node --test tests/*.test.js — 39 godkända tester.
+Uppdateringen är förberedd lokalt, inte publicerad på GitHub.

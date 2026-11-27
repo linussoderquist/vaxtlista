@@ -25,7 +25,7 @@ test("import, calendar and site matching preserve taxon boundaries",async()=>{
   run('rows=[{name:"sälg"},{name:"Salix caprea"},{name:"okänd sort"}];render()');
   assert.match(getElementById("calendar").innerHTML,/1 av 1 matchade taxa/);
   assert.match(getElementById("calendar").innerHTML,/1 omatchade/);
-  assert.match(getElementById("listSummary").innerHTML,/2 unika växtval/);
+  assert.match(getElementById("listSummary").innerHTML,/2 växtarter/);
   assert.match(getElementById("listSummary").innerHTML,/delunderlag/);
   run('site={Light:"Sol"}');
   assert.match(run('status({Light:"8"})'),/saknas/);

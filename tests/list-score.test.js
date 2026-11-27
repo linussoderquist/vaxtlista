@@ -2,9 +2,9 @@ const test = require("node:test");
 const assert = require("node:assert/strict");
 const {calculate} = require("../list-score.js");
 test("scores ordinal classes once per identity and keeps missing data explicit", () => {
-  const result=calculate([{key:"a",associated:8,nectar:7},{key:"a",associated:8,nectar:7},
+  const result=calculate([{key:"a",associated:8,nectar:7,redlistCategory:"LC"},{key:"a",associated:8,nectar:7,redlistCategory:"LC"},
     {key:"b",associated:"",nectar:null},{key:"c",associated:0,nectar:8}]);
-  assert.equal(result.total,13);
+  assert.equal(result.total,114);
   assert.equal(result.items.length,3);
   assert.equal(result.missing,2);
 });
@@ -17,37 +17,49 @@ test("penalties increase with risk and use strongest listing without double coun
 test("imputation and legal warnings survive an overall positive score",()=>{
   const result=calculate([{key:"x",eu:true},{key:"a",associated:8,nectar:7,imputed:true},
     {key:"b",associated:8,nectar:7},{key:"c",associated:8,nectar:7}]);
-  assert.equal(result.total,9);
+  assert.equal(result.total,309);
   assert.equal(result.listed,1);
   assert.equal(result.imputed,1);
 });
-test("exponential curves retain endpoints, increase and accelerate at every class",()=>{
+test("every valid class scores its square and invalid classes stay missing",()=>{
   const {ordinal}=require("../list-score.js");
   for(const max of [7,8]) {
     const points=Array.from({length:max},(_,i)=>ordinal(i+1,max));
-    assert.equal(points[0],0); assert.equal(points.at(-1),max-1);
-    for(let i=1;i<max;i++) assert.ok(points[i]>points[i-1]);
-    for(let i=2;i<max;i++) assert.ok(Math.abs((points[i]-points[i-1])-2*(points[i-1]-points[i-2]))<1e-12);
+    assert.deepEqual(points,[1,4,9,16,25,36,49,64].slice(0,max));
     for(const value of [null,undefined,"", " ",false,NaN,Infinity,0,max+1,1.5]) assert.equal(ordinal(value,max),null);
-    assert.equal(ordinal(String(max),max),max-1);
+    assert.equal(ordinal(String(max),max),max*max);
   }
 });
 test("every invasive category excludes all benefits and missing/imputed counts",()=>{
   for(const flags of [{risk:"LO"},{risk:"PH"},{risk:"HI"},{risk:"SE"},{national:true},{eu:true},{futureEU:true}]) {
     for(const benefits of [{associated:8,nectar:7,imputed:true},{associated:null,nectar:null}]) {
-      const score=calculate([{key:"x",...flags,...benefits}]);
+      const score=calculate([{key:"x",redlistCategory:"CR",...flags,...benefits}]);
       assert.equal(score.associated,0);assert.equal(score.nectar,0);
+      assert.equal(score.redlist,0);
       assert.equal(score.total,-score.penalty || 0);assert.equal(score.missing,0);assert.equal(score.imputed,0);
       assert.equal(score.excluded,1);
     }
   }
-  assert.equal(calculate([{key:"x",risk:"NK",associated:8,nectar:7}]).total,13);
+  assert.equal(calculate([{key:"x",risk:"NK",associated:8,nectar:7,redlistCategory:"CR"}]).total,121);
 });
-test("fractional points aggregate without rounding and exact cancellation stays neutral",()=>{
+test("square points aggregate and exact cancellation stays neutral",()=>{
   const score=calculate([{key:"a",associated:4,nectar:3},{key:"b",associated:5,nectar:4}]);
-  assert.ok(Math.abs(score.total-((7*7/127)+(6*3/63)+(7*15/127)+(6*7/63)))<1e-12);
-  const zero=calculate([{key:"a",associated:8,nectar:7},{key:"b",associated:8,nectar:7},{key:"c",associated:1,nectar:7},{key:"d",eu:true},{key:"e",risk:"LO"}]);
+  assert.equal(score.total,66);
+  const zero=calculate([{key:"a",associated:1,nectar:1},{key:"e",risk:"LO"}]);
   assert.equal(zero.total,0);
+});
+test("redlist categories score separately and unknown is distinct from a known zero",()=>{
+  const weights={NA:0,DD:0,NE:0,EX:0,LC:1,NT:2,VU:4,EN:6,CR:8,EW:8,RE:8};
+  for(const [redlistCategory,points] of Object.entries(weights)) {
+    const score=calculate([{key:'a',associated:1,nectar:1,redlistCategory}]);
+    assert.equal(score.redlist,points);
+    assert.equal(score.total,2+points);
+    assert.equal(score.missing,0);
+  }
+  for(const redlistCategory of [null,undefined,'','XX','constructor']) {
+    const score=calculate([{key:'a',associated:1,nectar:1,redlistCategory}]);
+    assert.equal(score.redlist,0);assert.equal(score.items[0].redlist,null);assert.equal(score.missing,1);
+  }
 });
 test("circle is red below zero, neutral at zero and progressively greener",()=>{
   const {appearance}=require("../list-score.js");
