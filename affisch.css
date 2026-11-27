@@ -54,7 +54,11 @@ a { color: var(--jade); }
 .selection-scale i.filled { background: var(--jade); }
 .selection-months { gap: 1px; }
 .selection-months span { font-size: .64rem; background: #ede3cb; color: #433c31; }
-.selection-months span.active { background: var(--jade); color: white; }
+#planner .months .bloom {
+  background: #86b0a6;
+  border-bottom: 3px solid #86b0a6;
+  color: #352416;
+}
 #planner .selection-open { background: none; color: var(--brick); width: auto; padding: .25rem 0; font-weight: 700; border-bottom: 2px solid currentColor; border-radius: 0; }
 #planner .selection-card .risk-notice, #planner .selection-card .invasive-notice { border-radius: 0; }
 .empty-list { grid-column: 1/-1; }
@@ -263,17 +267,43 @@ body .risk-code {
   display: block; font: 700 .86rem/1.35 var(--sans); min-height: 2.35em;
   overflow-wrap: normal; hyphens: auto;
 }
-#planner .selection-metrics strong { font: 750 1.55rem/1.15 var(--display); margin: .25rem 0 .7rem; }
-.selection-scale { gap: 3px; color: var(--jade); }
-.selection-metrics>div:first-child .selection-scale { color: #88551d; }
-.selection-scale i {
-  display: grid; place-items: center; height: 1.3rem; min-width: 0;
-  border: 1px solid #b9a680; border-radius: 0; box-sizing: border-box;
-  background: transparent; color: #756149; font: 600 .65rem/1 var(--sans);
+#planner .selection-metrics strong {
+  font: 750 1.55rem/1.15 var(--display);
+  margin: .25rem 0 .7rem;
 }
-.selection-scale i.filled, .selection-metrics>div:first-child .selection-scale i.filled {
-  background-color: var(--jade); color: var(--card); border-color: var(--jade);
-  background-image: radial-gradient(#fcf0d655 .5px, transparent .7px);
+
+/* Biodiversitetsrelevans */
+.selection-scale {
+  gap: 3px;
+  color: #60acc6;
+}
+
+/* Nektarproduktion */
+.selection-metrics > div:first-child .selection-scale {
+  color: #bd4b30;
+}
+
+.selection-scale i {
+  display: grid;
+  place-items: center;
+  height: 1.3rem;
+  min-width: 0;
+  border: 1px solid #b9a680;
+  border-radius: 0;
+  box-sizing: border-box;
+  background: transparent;
+  color: #756149;
+  font: 600 .65rem/1 var(--sans);
+}
+
+.selection-scale i.filled {
+  background-color: currentColor;
+  color: var(--card);
+  border-color: currentColor;
+  background-image: radial-gradient(
+    #fcf0d655 .5px,
+    transparent .7px
+  );
   background-size: 3px 3px;
 }
 .selection-metrics>div:first-child .selection-scale i.filled { background-color: #88551d; border-color: #88551d; }
@@ -296,7 +326,11 @@ body .risk-code {
 }
 #planner .months { gap: 0; border: 1px solid var(--line); }
 #planner .months div { background: transparent; border-radius: 0; border: 1px solid var(--line); font-family: Georgia, serif; }
-#planner .months .bloom { background: #275b4810; border-bottom: 3px solid var(--jade); }
+#planner .months .bloom {
+  background: #86b0a6;
+  border-bottom: 3px solid #86b0a6;
+  color: #352416;
+}
 #planner .months strong { font: 750 1.35rem/1.5 var(--display); }
 #searchPage .metric-card { border-top: 3px double var(--line); }
 #searchPage .metric-value { font: 750 1.6rem/1.2 var(--display); color: var(--ink); }
@@ -356,7 +390,9 @@ body .risk-code {
 .score-components { display: block; margin: 0 0 .6rem; }
 .score-components>div { display: flex; align-items: baseline; justify-content: space-between; gap: .5rem;
   padding: .45rem 0; border-bottom: 1px dotted var(--line); border-radius: 0; background: none; }
-.score-components span { font: .86rem/1.35 Georgia,serif; }
+.score-components span {
+  font: 750 .86rem/1.35 var(--display);
+}
 .score-components strong { flex-shrink: 0; color: var(--jade); font: 700 1.18rem/1.2 var(--display); font-variant-numeric: lining-nums tabular-nums; }
 .score-components>div:last-child strong { color: var(--brick); }
 #planner .list-summary details { margin: .7rem 0 0; font: .84rem/1.5 Georgia,serif; }
