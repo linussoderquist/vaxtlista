@@ -179,7 +179,16 @@ function renderListSummary() {
   const signed = value => value === 0 ? "0" : value > 0 ? "+" + number(value) : number(value);
   const visual = PlantListScore.appearance(score.total);
   container.innerHTML = '<section class="list-summary" aria-labelledby="score-title"><div class="score-kicker"><span>Sammanställning</span></div><h2 id="score-title">Listans<br>poäng</h2><div class="score-heading"><strong class="score-total score-'+visual.state+'" style="--score-digits:'+signed(score.total).length+';--score-border:'+visual.border+';--score-background:'+visual.background+';--score-color:'+visual.color+'">'+signed(score.total)+'<span>poäng'+(score.missing || sourcesMissing ? ' · delunderlag' : '')+'</span></strong><div class="score-caption"><p><b>'+score.items.length+(score.items.length === 1 ? ' växtart' : ' växtarter')+'</b></p></div></div>'+
-    '<div class="score-analysis"><h3>Poängfördelning</h3><div class="score-components"><div><span>Biodiversitetsrelevans</span><strong>+'+number(score.associated)+'</strong></div><div><span>Nektarproduktion</span><strong>+'+number(score.nectar)+'</strong></div><div><span>Invasivitetsavdrag</span><strong>'+signed(-score.penalty)+'</strong></div></div></div>'+
+    '<div class="score-analysis"><h3>Poängfördelning</h3><div class="score-components"><div><span class="info-tooltip" tabindex="0"
+      data-tooltip="Poängen baseras på hur många andra arter som är associerade med de valda växterna. Växter med många associerade arter viktas högre.">
+  Biodiversitetsrelevans
+</span><strong>+'+number(score.associated)+'</strong></div><div><span class="info-tooltip" tabindex="0"
+      data-tooltip="Poängen baseras på växternas nektarproduktion. Växter med hög nektarproduktion viktas högre eftersom de bidrar med föda till pollinerande insekter.">
+  Nektarproduktion
+</span><strong>+'+number(score.nectar)+'</strong></div><div><span class="info-tooltip" tabindex="0"
+      data-tooltip="Växter med invasiv riskklassning ger poängavdrag. Avdragets storlek beror på riskklassning och eventuell upptagning på Sveriges eller EU:s förteckning över invasiva arter.">
+  Invasivitetsavdrag
+</span><strong>'+signed(-score.penalty)+'</strong></div></div></div>'+
     (score.listed ? '<p class="selection-warning"><strong>'+score.listed+' växtval är invasivlistade.</strong> Kontrollera regler och undantag i respektive kort även när summan är positiv.</p>' : '')+
     (sourcesMissing ? '<p class="selection-warning">Risk- eller invasivunderlag kunde inte laddas. Avdragen är ofullständiga.</p>' : '')+
     '<details><summary>Så räknas poängen</summary><p class="score-coverage">'+score.excluded+' växtval ger inga pluspoäng på grund av invasivrisk eller listning. '+score.missing+' övriga växtval saknar minst en plusuppgift. '+score.imputed+' nektarvärden är modellskattade.</p>'+
