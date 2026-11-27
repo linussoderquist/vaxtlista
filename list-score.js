@@ -2,7 +2,7 @@
 (function(root) {
   "use strict";
   const riskWeights = {NK:0, LO:2, PH:5, HI:10, SE:15};
-  const redlistWeights = {NA:0, DD:0, NE:0, EX:0, LC:1, NT:2, VU:4, EN:6, CR:8, EW:8, RE:8};
+  const redlistWeights = {NA:0, DD:0, NE:0, EX:0, LC:0, NT:2, VU:4, EN:6, CR:8, EW:8, RE:8};
   function redlistPoints(category) {
     const code = String(category ?? '').trim().toUpperCase();
     return Object.hasOwn(redlistWeights, code) ? redlistWeights[code] : null;
